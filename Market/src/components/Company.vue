@@ -1,8 +1,6 @@
 <template>
 <div class="comapanyinfo">
 <div class="content-title">
-      <!-- 页面的标题 -->
-      
       <div class="titlename">
         <span>修改信息</span>
       </div>
