@@ -25,6 +25,7 @@ const store = new Vuex.Store({
   mutations: {
     updateToken (state) {
       state.token ++
+      console.log(state)
     }
   }
 })
