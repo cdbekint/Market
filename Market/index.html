@@ -6,9 +6,44 @@
     <link rel="stylesheet" type="text/css" href="./static/css/reset.css">
     <link rel="stylesheet" type="text/css" href="./static/css/common.css">
     <link rel="stylesheet" type="text/css" href="./static/css/font-awesome.min.css">
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
   </head>
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div id="app">
+      <input type="text" v-model = "fckText" @keyup.enter = "addText" placeholder="input your text">
+      <ul>
+        <item v-for = "(i,index) in todos" :title = "i" @remove = "todos.splice(index,1)"></item>
+      </ul>
+    </div>
+    <script>
+        Vue.component("item",{
+          props:["title"],
+          template: '<li>{{ title1 }} <button v-on:click="remove">X</button> </li>',
+          data:function () {
+            return {title1:this.title+"fff"}
+          },
+          methods:{
+            remove:function () {
+              this.$emit("remove");
+            }
+          }
+        });
+        new Vue({
+          el:"#app",
+          data:{
+            fckText:"",
+            todos:[
+              "hehe0","hefan","ssb"
+            ]
+          },
+          methods:{
+            addText:function () {
+              this.todos.push(this.fckText);
+              this.fckText = "";
+            }
+          }
+        })
+    </script>
   </body>
 </html>
