@@ -13,7 +13,7 @@
     <div id="app">
       <input type="text" v-model = "fckText" @keyup.enter = "addText" placeholder="input your text">
       <ul>
-        <item v-for = "(i,index) in todos" :title = "i" @remove = "todos.splice(index,1)"></item>
+        <item v-for = "(i,index) in todos" :title = "i" @remove = "removeText(index)"></item>
       </ul>
     </div>
     <script>
@@ -41,6 +41,9 @@
             addText:function () {
               this.todos.push(this.fckText);
               this.fckText = "";
+            },
+            removeText:function (index) {
+              this.todos.splice(index,1);
             }
           }
         })
