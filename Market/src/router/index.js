@@ -12,10 +12,13 @@ import EmployeeAdd from '@/components/EmployeeAdd'
 
 import Goods from '@/components/Goods'
 import GoodsAdd from '@/components/GoodsAdd'
+import GoodsEdit from '@/components/GoodsEdit'
 
 import Orders from '@/components/Orders'
 import Gift from '@/components/Gift'
 import GiftAdd from '@/components/GiftAdd'
+import GiftEdit from '@/components/GiftEdit'
+
 import Music from '@/components/Music'
 import MusicAdd from '@/components/MusicAdd'
 
@@ -91,6 +94,14 @@ export default new Router({
       }
     },
     {
+      path: '/goods/edit',
+      name: 'GoodsEdit',
+      component: GoodsEdit,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
       path: '/orders',
       name: 'Orders',
       component: Orders,
@@ -102,6 +113,14 @@ export default new Router({
       path: '/gift',
       name: 'Gift',
       component: Gift,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/gift/edit',
+      name: 'GiftEdit',
+      component: GiftEdit,
       meta: {
         requireAuth: true
       }

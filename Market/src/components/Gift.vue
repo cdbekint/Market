@@ -2,7 +2,7 @@
 <div class="giftlist">
 	<div class="content-title">
       <!-- 页面的标题 -->
-      
+
       <div class="titlename">
       	<span>礼品列表</span>
       </div>
@@ -52,8 +52,9 @@ export default {
         {
           title: '操作',
           key: 'action',
-          render () {
-            return '<i-button type="text" size="small">修改</i-button><i-button type="text" size="small">删除</i-button>'
+          render (row) {
+            return '<i-button type="text" size="small" @click = "update(row.id)">修改</i-button>' +
+              '<i-button type="text" size="small" @click="del(row.id)">删除</i-button>'
           }
         }
       ],
@@ -79,6 +80,16 @@ export default {
     },
     changePage () {
       this.getGiftList(this.giftpager.current)
+    },
+    update (id) {
+      this.router.push({path: '/gift/edit', query: {id: id}});
+    },
+    del (id) {
+      this.http.delete('/api/gift', {id: id}).then(res => {
+        if (res.error === false) {
+          this.$Message.success('删除成功')
+        }
+      })
     }
   }
 }

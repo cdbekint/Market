@@ -11,6 +11,7 @@ import util from '../static/js/utils.js'
 Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.prototype.http = axios
+Vue.prototype.router = router
 Vue.prototype.util = util
 Vue.prototype.murl = 'https://m.market.cdbeki.com/'
 

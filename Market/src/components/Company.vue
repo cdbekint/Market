@@ -2,7 +2,7 @@
 <div class="comapanyinfo">
 <div class="content-title">
       <!-- 页面的标题 -->
-      
+
       <div class="titlename">
         <span>修改信息</span>
       </div>
@@ -11,7 +11,7 @@
       </div>
  </div>
  <div class="content">
-  
+
 
 <ul>
   <li class="companyitem">
@@ -64,7 +64,7 @@
       <input type="text" v-model="company.companyTel">
     </div>
     <div class="itemhepler">
-      
+
     </div>
   </li>
   <li class="companyitem">
@@ -75,7 +75,7 @@
       <input type="text" v-model="company.smsTel">
     </div>
     <div class="itemhepler">
-      
+
     </div>
   </li>
   <li class="companyitem">
@@ -119,7 +119,7 @@
       <input type="text" v-model="company.sharePoints">
     </div>
     <div class="itemhepler">
-      
+
     </div>
   </li>
   <li class="companyitem">
@@ -130,19 +130,19 @@
       <input type="text" v-model="company.shareMax">
     </div>
     <div class="itemhepler">
-      
+
     </div>
   </li>
 
   <li class="companyitem">
     <div class="itemname">
-      
+
     </div>
     <div class="itemcontent">
       <input type="button" value='保存' class="savebtns" @click="editCompany()">
     </div>
     <div class="itemhepler">
-      
+
     </div>
   </li>
 
@@ -187,10 +187,11 @@ export default {
   components: { uploader },
   methods: {
     editCompany () {
-      delete this.company.companyName
-      this.http.post('api/company', this.company).then(res => {
+//      delete this.company.companyName
+      this.http.put('api/company', this.company).then(res => {
         if (res.error === false) {
           this.$Message.success('修改成功')
+          this.router.push('/company')
         }
       })
     }
@@ -198,7 +199,6 @@ export default {
   created () {
     if (this.$store.state.companyId) {
       this.http.get('api/company/' + this.$store.state.companyId).then(res => {
-        console.log(res.result)
         if (res.error === false) {
           this.company.id = this.$store.state.companyId
           if (res.result !== null) {
@@ -224,7 +224,7 @@ $content_height=70px
     li.companyitem
       list-style:none
       width:100%
-      border-bottom:1px dashed #eee 
+      border-bottom:1px dashed #eee
       height:$content_height
       .itemname,
       .itemcontent
