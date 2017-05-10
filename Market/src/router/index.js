@@ -21,9 +21,11 @@ import GiftEdit from '@/components/GiftEdit'
 
 import Music from '@/components/Music'
 import MusicAdd from '@/components/MusicAdd'
+import MusicEdit from '@/components/MusicEdit'
 
 import Activity from '@/components/Activity'
 import ActivityAdd from '@/components/ActivityAdd'
+import ActivityEdit from '@/components/ActivityEdit'
 
 import Trading from '@/components/Trading'
 import Withdraw from '@/components/Withdraw'
@@ -142,6 +144,14 @@ export default new Router({
       }
     },
     {
+      path: '/music/edit',
+      name: 'MusicEdit',
+      component: MusicEdit,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
       path: '/music/add',
       name: 'MusicAdd',
       component: MusicAdd,
@@ -153,6 +163,14 @@ export default new Router({
       path: '/activity',
       name: 'Activity',
       component: Activity,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/activity/edit',
+      name: 'ActivityEdit',
+      component: ActivityEdit,
       meta: {
         requireAuth: true
       }
