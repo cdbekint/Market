@@ -65,5 +65,12 @@ export default {
         res[temp[0]] = temp[1];
       });
       return res;
+    },
+    isNull:function (val) {
+      return val === null || val === undefined || val === '';
+    },
+    escapeToHtml:function (str) {
+      var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+      return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
     }
 }

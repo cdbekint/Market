@@ -31,7 +31,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import uploader from './Util/Uploader'
+import uploader from '../Util/Uploader'
 export default {
   name: 'MusicAdd',
   data () {
@@ -77,7 +77,7 @@ export default {
           if (this.music.id === '') {
             delete this.music.id
           }
-          this.http.post('/api/music', this.music).then(res => {
+          this.http.put('/api/music', this.music).then(res => {
             if (res.error === false) {
               this.$Message.success('保存成功')
               this.router.push('/music')

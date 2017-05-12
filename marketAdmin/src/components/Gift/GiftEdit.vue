@@ -36,7 +36,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import uploader from './Util/Uploader'
+import uploader from '../Util/Uploader'
 export default {
   name: 'GiftAdd',
   data () {
@@ -83,7 +83,7 @@ export default {
           if (this.Gift.id === '') {
             delete this.Gift.id
           }
-          this.http.post('/api/gift', this.Gift).then(res => {
+          this.http.put('/api/gift', this.Gift).then(res => {
             if (res.error === false) {
               this.$Message.success('保存成功')
               this.router.push('/gift')

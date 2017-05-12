@@ -17,7 +17,7 @@
            <uploader :config="uploaderconfig"> </uploader>
            <input type="hidden" v-model="Gift.giftImg">
        </Form-item>
-       <Form-item label="图片预览"> 
+       <Form-item label="图片预览">
          <a :href="murl + Gift.giftImg" target="_blank" v-if="Gift.giftImg">
            <img :src="murl+Gift.giftImg" alt="" class="giftimgthumb">
          </a>
@@ -35,7 +35,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import uploader from './Util/Uploader'
+import uploader from '../Util/Uploader'
 export default {
   name: 'GiftAdd',
   data () {

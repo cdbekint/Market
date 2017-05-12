@@ -154,7 +154,7 @@
 </template>
 
 <script  type="text/ecmascript-6">
-import uploader from './Util/Uploader'
+import uploader from '../Util/Uploader'
 export default {
   name: 'company',
   data () {
@@ -187,7 +187,6 @@ export default {
   components: { uploader },
   methods: {
     editCompany () {
-//      delete this.company.companyName
       this.http.put('api/company', this.company).then(res => {
         if (res.error === false) {
           this.$Message.success('修改成功')

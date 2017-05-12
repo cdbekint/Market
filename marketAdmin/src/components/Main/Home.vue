@@ -58,11 +58,11 @@
         </div>
     </Modal>
   </div>
-  
+
 </template>
 
 <script type="text/ecmascript-6">
-import weixinPay from './Util/WeixinPay'
+import weixinPay from '../Util/WeixinPay'
 export default {
   name: 'Home',
   components: {weixinPay},

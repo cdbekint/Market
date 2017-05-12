@@ -2,7 +2,7 @@
 <div class="activityadd">
   <div class="content-title">
       <!-- 页面的标题 -->
-      
+
       <div class="titlename">
         <span>新增活动</span>
       </div>
@@ -54,7 +54,7 @@
           <img :src="murl+activity.shareImg"  class="thumbpreview" alt="">
         </div>
         <div class="addnote">
-        
+
         </div>
       </li>
       <li>
@@ -77,7 +77,7 @@
           <img :src="murl+activity.activityImg"  class="thumbpreview" alt="">
         </div>
         <div class="addnote">
-        
+
         </div>
       </li>
       <li>
@@ -97,7 +97,9 @@
           背景音乐
         </div>
         <div class="addcontent">
-          <input type="text" v-model="activity.backMusic" readonly="readonly"><input class="contentbtns" type="button" value="选择" @click="musicModel = true">
+          <Select v-model="activity.musicId">
+            <Option v-for="item in musicList" :value="item.id" :key="item">{{item.name}}</Option>
+          </Select>
         </div>
         <div class="addnote">
           音乐库选取，不选则无背景音乐
@@ -150,14 +152,14 @@
         <div class="thin">
           自由模式可直接参加，组团模式只能加团或者自己建团;不同模式设置团购优惠对象不一样
         </div>
-          
+
         </div>
       </li>
       <li>
         <div class="addname">
           团购优惠*
         </div>
-        <div class="addcontent"> 
+        <div class="addcontent">
         <Row v-for="(group,index) in Group" :key="group" :label="'项目' + (index + 1)">
           <Col span="8">
              <Input type="text" v-model="group.nums" placeholder="团购人数"></Input>
@@ -172,13 +174,13 @@
               <Button type="dashed" @click="addGroup(index)" icon="plus-round"></Button>
           </Col>
         </Row>
-          
+
         </div>
         <div class="addnote">
         <div class="thin">
           人数从低到高设置,折扣根据具体情况设置;如（人数：100，折扣：7  代表人数达到100后按7折优惠）
         </div>
-          
+
         </div>
       </li>
       <li>
@@ -189,7 +191,7 @@
           <input type="number" min="0" step="0.01" v-model="activity.activityMoney">
         </div>
         <div class="addnote">
-          
+
         </div>
       </li>
       <li>
@@ -203,7 +205,7 @@
         <div class="thin">
           如不返现请设置为0,每邀请一位人参与活动，邀请人获得对应返现
         </div>
-          
+
         </div>
       </li>
       <li>
@@ -217,7 +219,7 @@
         <div class="thin">
           如不返现请设置为0,所邀请的人每邀请一位人参与活动，二级邀请人获得对应返现
         </div>
-          
+
         </div>
       </li>
       <li>
@@ -225,13 +227,12 @@
           活动详情
         </div>
         <div class="addcontent ueditor-wrapper">
-            <ueditor :value="defaultMSg" :config="Ueditorconfig" v-on:input="Ueditorinput" v-on:ready="Ueditorready"></ueditor>
+            <ueditor :value="defaultMSg" :config="Ueditorconfig" @input="Ueditorinput" v-on:ready="Ueditorready"></ueditor>
         </div>
-        
       </li>
       <li>
         <div class="addname lastaddname">
-          
+
         </div>
         <div class="addcontent">
           <a href="javascript:;" class="commonbtn" @click="saveActivity()">保存</a>
@@ -239,27 +240,23 @@
       </li>
     </ul>
   </div>
-   <Modal
-        v-model="musicModel"
-        title="音乐库"
-        @on-ok="musicOk"
-        @on-cancel="musicCancel">
-        <music :callback='activity.backMusic'></music>
-    </Modal>
 </div>
 
 </template>
 
 <script type="text/ecmascript-6">
-import ueditor from './Ueditor'
-import uploader from './Util/Uploader'
-import music from './Util/Music'
+import ueditor from '../Ueditor'
+import uploader from '../Util/Uploader'
 export default {
-  components: { ueditor, uploader, music },
+  components: { ueditor, uploader },
   name: 'ActivityAdd',
+  mounted () {
+    this.over = true;
+  },
   data () {
     return {
-      defaultMSg: '添加活动内容',
+      musicList: [],
+      defaultMSg: '',
       Ueditorconfig: {
         initialFrameWidth: null,
         initialFrameHeight: 320,
@@ -276,7 +273,6 @@ export default {
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
       },
       activity: {
-        id: '',
         content: '',
         activityName: '',
         shareDes: '',
@@ -286,7 +282,7 @@ export default {
         viewNum: '',
         startDate: '',
         endDate: '',
-        backMusic: '',
+        musicId: '',
         giftIds: '',
         shareGift: '',
         shareTimes: '',
@@ -330,6 +326,7 @@ export default {
   },
   created () {
     this.getGiftList()
+    this.getMusicList(1)
   },
   methods: {
     Ueditorready (editor) {},
@@ -337,29 +334,54 @@ export default {
       this.activity.content = obj.content
       this.Ueditorconfig.info = obj
     },
-    saveActivity () {
-      var activityLevel = ''
-      for (var i in this.Group) {
-        if (this.Group[i].discount > 10 || this.Group[i].discount < 0) {
-          this.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(i) + 1) + '项折扣信息需在0-10之间'})
+    getMusicList (pageNo) {
+      this.http.get('/api/music/page/' + (pageNo || 1)).then(res => {
+        if (res.error === false) {
+          this.musicList = res.result.records
         }
-        if (i > 0) {
-          if (parseInt(this.Group[i].nums) <= parseInt(this.Group[i - 1].nums)) {
-            this.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(i) + 1) + '项人数需大于上一项'})
+      })
+    },
+    saveActivity () {
+      this._setGiftsId();
+      if (!this._setActivityLevel()) return;
+      if (!this._checkParamAndExecute()) return;
+    },
+    _setActivityLevel () {
+      var activityLevel = '';
+      var me = this;
+      this.Group.forEach(function (item, index) {
+        if (index === 0) {
+          if (me.util.isNull(item.nums) || me.util.isNull(item.discount)) {
+            me.$Notice.info({title: '请完善信息', desc: '请填写团购优惠'})
+            return false
+          }
+        }
+        if (item.discount > 10 || item.discount < 0) {
+          me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项折扣信息需在0-10之间'})
+          return false
+        }
+        if (index > 0) {
+          if (~~(item.nums) <= ~~(me.Group[index - 1].nums)) {
+            me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项人数需大于上一项'})
             return false
           }
           activityLevel += ';'
         }
-        activityLevel += this.Group[i].nums + ',' + this.Group[i].discount
-      }
+        activityLevel += item.nums + ',' + item.discount
+      });
       this.activity.activityLevel = activityLevel
-      var giftList = []
+      return true;
+    },
+    _setGiftsId () {
+      var giftList = [];
       for (var j in this.GiftList) {
         if (this.GiftList[j].selected === true) {
           giftList.push(this.GiftList[j].id)
         }
       }
       this.activity.giftIds = giftList.join(',')
+    },
+    _checkParamAndExecute () {
       var ai = JSON.parse(JSON.stringify(this.activity))
       console.log(ai)
       if (!ai.activityName) {
@@ -386,16 +408,17 @@ export default {
         this.$Notice.info({title: '请完善信息', desc: '请选择活动结束时间'})
         return false
       }
-      if (!ai.shareGift) {
+      if (this.util.isNull(ai.shareGift)) {
         this.$Notice.info({title: '请完善信息', desc: '请选择是否打开分享得礼'})
         return false
       }
-      if (ai.shareGift === 1) {
+      if ((ai.shareGift | 0) === 1) {
         if (!ai.giftIds) {
           this.$Notice.info({title: '请完善信息', desc: '请选择分享礼品'})
+          return false
         }
       }
-      if (!ai.activityLevel) {
+      if (this.util.isNull(ai.activityLevel)) {
         this.$Notice.info({title: '请完善信息', desc: '请设置团购优惠'})
         return false
       }
@@ -413,13 +436,11 @@ export default {
       }
       this.http.post('/api/activity', ai).then(res => {
         if (res.error === false) {
-          this.$Notice.info({title: '添加成功', desc: '活动添加成功'})
+          this.$Notice.info({title: '修改成功', desc: '活动添加成功'})
+          this.router.push('/activity');
         }
       })
-    },
-    musicOk () {},
-    musicCancel () {
-      this.musicModel = false
+      return true;
     },
     minusGroup (index) {
       this.Group.splice(index, 1)
@@ -437,7 +458,6 @@ export default {
           for (var i in res.result.records) {
             res.result.records[i].selected = false
           }
-          console.log(res.result.records)
           this.GiftList = res.result.records
         }
       })

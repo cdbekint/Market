@@ -1,6 +1,6 @@
 <template>
 <div class="uploader" ref="uploader" id="qiniu-container">
-  
+
    <Upload action="http://up.qiniu.com/" encyte="multipart/form-data" ref="upload"
         :show-upload-list="config.showUploadList"
         :format="config.format"
@@ -49,7 +49,6 @@ export default {
       if (this.config.parent !== undefined && this.config.child !== undefined) {
         var _this = this
         for (var i = 0; i < 100; i++) {
-          console.log(_this)
           if (_this[this.config.parent] === undefined) {
             _this = _this.$parent
           } else {

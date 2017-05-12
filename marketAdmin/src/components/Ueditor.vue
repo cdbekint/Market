@@ -1,10 +1,10 @@
 <template>
-<div ref="editor"></div>
+  <div ref="editor"></div>
 </template>
 
 <script  type="text/ecmascript-6">
 /* eslint-disable */
-import UEditorConfig from'../../static/js/ueditor/ueditor.config'
+import UEditorConfig from '../../static/js/ueditor/ueditor.config'
 import UEditor from '../../static/js/ueditor/ueditor.all'
 import '../../static/js/ueditor/lang/zh-cn/zh-cn'
 import '../../static/js/ueditor/third-party/jquery-1.10.2.min'
@@ -39,9 +39,9 @@ export default {
       this.editor.ready(function f2() {
         this.editor.setContent(this.value)
         this.editor.addListener("contentChange", function () {
-          const wordCount = this.editor.getContentLength(true)
-          const content = this.editor.getContent()
-          const plainTxt = this.editor.getPlainTxt()
+          const wordCount = this.editor.getContentLength(true);
+          const content = this.editor.getContent();
+          const plainTxt = this.editor.getPlainTxt();
           this.$emit('input', { wordCount: wordCount, content: content, plainTxt: plainTxt });
         }.bind(this))
         this.$emit('ready', this.editor)
@@ -49,12 +49,12 @@ export default {
     })
   },
   beforeDestroy () {
-    const vm = this
+    const vm = this;
     try {
-      vm.UEditor && vm.UEditor.destroy()
-      vm.UEditor = null
+      vm.editor.destroy();
+      vm.editor = null
     } catch (e) {
-      vm.UEditor = null
+      vm.editor = null
     }
   }
 }

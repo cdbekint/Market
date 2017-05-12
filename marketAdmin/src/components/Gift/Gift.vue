@@ -74,7 +74,6 @@ export default {
         if (res.error === false) {
           this.giftpager = res.result
           this.giftlistData = res.result.records
-          console.log(res.result.records)
         }
       })
     },
@@ -87,7 +86,8 @@ export default {
     del (id) {
       this.http.delete('/api/gift', {id: id}).then(res => {
         if (res.error === false) {
-          this.$Message.success('删除成功')
+          this.$Message.success('删除成功');
+          this.getGiftList(1);
         }
       })
     }

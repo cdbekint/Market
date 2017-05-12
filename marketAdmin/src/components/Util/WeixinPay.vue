@@ -18,7 +18,7 @@
         <img src="http://qr.liantu.com/api.php?w=200&m=5&text=http://we.cdbeki.com" alt="">
       </div>
       <div class="payStatus" v-if="currentStep==2">
-          <Icon type="ios-checkmark-outline" size="100" color="#44b549"></Icon> 
+          <Icon type="ios-checkmark-outline" size="100" color="#44b549"></Icon>
           <br>
           充值成功
       </div>
@@ -103,7 +103,6 @@ export default {
             return
           }
           this.realMoney = realMoney
-          // TODO下单
         }
         this.currentStep += 1
         if (this.currentStep === 2) {

@@ -85,8 +85,6 @@
     methods: {
       getGoodsList (pageNo) {
         this.http.get('/api/goods/page/' + (pageNo || 1)).then(res => {
-          console.log(res.result.records[0].id)
-
           if (res.error === false) {
             this.goodspager = res.result
             this.goodslistData = res.result.records
@@ -103,6 +101,7 @@
         this.http.delete('/api/goods', {id: id}).then(res => {
           if (res.error === false) {
             this.$Message.success('删除成功')
+            this.getGoodsList(1);
           }
         })
       }

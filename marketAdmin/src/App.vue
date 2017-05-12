@@ -17,7 +17,7 @@
           </dt>
           <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
           <router-link :to="{path:'/employee'}" tag="dd" active-class="active">员工管理</router-link>
-          
+
         </dl>
          <dl class="menulist">
           <dt>
@@ -25,7 +25,7 @@
           </dt>
           <router-link :to="{path:'/goods'}"  tag="dd" active-class="active">商品管理</router-link>
           <router-link :to="{path:'/orders'}" tag="dd" active-class="active">订单管理</router-link>
-          
+
         </dl>
         <dl class="menulist">
           <dt><i class="fa fa-area-chart"></i>活动管理</dt>
@@ -54,7 +54,7 @@
     </div>
     <div v-else>
     <login>
-      
+
     </login>
     </div>
     <vfooter></vfooter>
@@ -62,9 +62,9 @@
 </template>
 
 <script  type="text/ecmascript-6">
-import vheader from '@/components/Header'
+import vheader from '@/components/Main/Header'
 import login from '@/Login.vue'
-import vfooter from '@/components/Footer'
+import vfooter from '@/components/Main/Footer'
 export default {
   name: 'admin',
   data () {
@@ -189,7 +189,7 @@ body
           font-size:0.8em
           &:hover
             background:#2F9833
-            
+
 .operabtns
   color:#6BBEF2
   text-decoration:none

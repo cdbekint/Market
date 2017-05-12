@@ -41,7 +41,7 @@
 </template>
 
 <script  type="text/ecmascript-6">
-import uploader from './Util/Uploader'
+import uploader from '../Util/Uploader'
 export default {
   name: 'EmployeeAdd',
   data () {

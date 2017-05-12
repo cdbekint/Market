@@ -37,13 +37,14 @@ export default {
           title: '活动名称',
           key: 'activityName'
         },
-        {
+/*        {
           title: '活动大图',
           key: 'activityImg',
           render (row) {
             return '<img class="activitylistavater" :src="murl + row.activityImg"/>'
           }
         },
+        */
         {
           title: '参加人数',
           key: 'activityNum'
@@ -98,6 +99,7 @@ export default {
       this.http.delete('/api/activity', {id: id}).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功')
+          this.getActivityList(1);
         }
       })
     }
