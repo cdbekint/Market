@@ -20,7 +20,9 @@ const store = new Vuex.Store({
   state: {
     token: util.getCookie('token') || '',
     companyId: util.getCookie('companyId') || '',
-    openid: util.getCookie('openid') || ''
+    openid: util.getCookie('openid') || '',
+    prefix: '/api'
+    // prefix: ''
   },
   mutations: {
     updateToken (state) {

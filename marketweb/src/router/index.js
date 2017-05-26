@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
-import ActivityInfo from '@/components/ActivityInfo'
+import ActivityInfo from '@/components/main/ActivityInfo'
 import UserInfo from '@/components/UserInfo'
 import Shop from '@/components/Shop'
 import Login from '@/components/Login'

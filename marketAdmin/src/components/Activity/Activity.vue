@@ -72,7 +72,7 @@ export default {
       ],
       activitylistData: [],
       activitypager: {
-        total: 1,
+        pages: 1,
         current: 1
       }
     }
@@ -84,8 +84,8 @@ export default {
     getActivityList (pageNo) {
       this.http.get('/api/activity/' + this.$store.state.companyId + '/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
-          this.activitypager = res.result
-          this.activitylistData = res.result.records
+          this.activitypager = res.result;
+          this.activitylistData = res.result.records;
         }
       })
     },

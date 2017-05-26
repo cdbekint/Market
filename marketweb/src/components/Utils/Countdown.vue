@@ -1,23 +1,22 @@
 <template>
-<div class="coutpage">
-<div class="countheader">
-  
-</div>
-  <ul class="countdowmlist" v-if="!countdowndata.over">
-    <li v-text="countdowndata.days"></li>
-    <li>天</li>
-    <li v-text="countdowndata.hours"></li>
-    <li>时</li>
-    <li v-text="countdowndata.minus"></li>
-    <li>分</li>
-    <li v-text="countdowndata.second"></li>
-    <li>秒</li>
-    <div class="clearfix"></div>
-  </ul>
-  <div class="isover" v-if="countdowndata.over">
-    时间到
+  <div class="coutpage">
+    <div class="countheader">
+
+    </div>
+    <ul class="countdowmlist" v-if="!countDownData.over">
+      <li v-text="countDownData.days"></li>
+      <li>天</li>
+      <li v-text="countDownData.hours"></li>
+      <li>：</li>
+      <li v-text="countDownData.minus"></li>
+      <li>：</li>
+      <li v-text="countDownData.second"></li>
+      <div class="clearfix"></div>
+    </ul>
+    <div class="isover" v-if="countDownData.over">
+      时间到
+    </div>
   </div>
-</div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -27,24 +26,25 @@ export default {
   props: [ 'endDate' ],
   data () {
     return {
-      countdowndata: {
+      countDownData: {
         days: '0',
         hours: '0',
         minus: '0',
         second: '0',
-        realcount: '0',
+        realCount: '0',
         over: false
       },
       interval: {}
     }
   },
   created () {
-    const counttime = moment(this.endDate).format('X') - moment().format('X')
-    if (counttime < 0) {
+    const countTime = moment(this.endDate).format('X') - moment().format('X')
+    if (countTime < 0) {
+      this.countDownData.over = true
       clearInterval(this.interval)
       return
     }
-    this.countdowndata.realcount = Math.floor(counttime)
+    this.countDownData.realCount = ~~(countTime)
     const _this = this
     this.interval = setInterval(function () {
       _this.getCount()
@@ -52,49 +52,47 @@ export default {
   },
   methods: {
     getCount () {
-      var time = this.countdowndata.realcount
+      var time = this.countDownData.realCount
       if (time <= 0) {
         clearInterval(this.interval)
-        this.countdowndata.over = true
+        this.countDownData.over = true
         return
       }
-      var days = Math.floor(time / 60 / 60 / 24)
-      var hours = Math.floor((time - days * 60 * 60 * 24) / 60 / 60)
-      var minus = Math.floor((time - days * 60 * 60 * 24 - hours * 60 * 60) / 60)
-      var second = Math.floor((time - days * 60 * 60 * 24 - hours * 60 * 60 - minus * 60))
+      var days = ~~(time / 60 / 60 / 24)
+      var hours = ~~((time - days * 60 * 60 * 24) / 60 / 60)
+      var minus = ~~((time - days * 60 * 60 * 24 - hours * 60 * 60) / 60)
+      var second = ~~((time - days * 60 * 60 * 24 - hours * 60 * 60 - minus * 60))
       hours = hours < 10 ? ('0' + hours) : hours
       minus = minus < 10 ? ('0' + minus) : minus
       second = second < 10 ? ('0' + second) : second
-      this.countdowndata.days = days
-      this.countdowndata.hours = hours
-      this.countdowndata.minus = minus
-      this.countdowndata.second = second
-      this.countdowndata.realcount--
+      this.countDownData.days = days
+      this.countDownData.hours = hours
+      this.countDownData.minus = minus
+      this.countDownData.second = second
+      this.countDownData.realCount--
     }
   }
 
 }
 </script>
 <style scoped lang='stylus' rel="stylesheet/stylus">
+rrem(val){
+  return (val/144px)rem
+}
 .coutpage
   width: calc(100% - 10px)
   padding:0px 5px
   display:block
 
 .countdowmlist
-  width:80%
+  width:100%
   margin:0 auto
   padding:0px
   li
     list-style:none
     float:left
-    width:30px
+    width:14.25%
     text-align:center
-    &:nth-child(even)
-      font-size:0.9em
-      color:#000
-    &:nth-child(odd)
-      font-weight:bold
-      color:red
-      font-size:1.3em
+    color #ffffff
+    font-size rrem(57px)
 </style>

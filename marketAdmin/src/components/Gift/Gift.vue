@@ -60,7 +60,7 @@ export default {
       ],
       giftlistData: [],
       giftpager: {
-        total: 1,
+        pages: 1,
         current: 1
       }
     }

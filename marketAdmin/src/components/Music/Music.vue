@@ -73,7 +73,6 @@ export default {
         if (res.error === false) {
           this.musicpager = res.result
           this.musiclistData = res.result.records
-          console.log(this.musiclistData)
         }
       })
     },
@@ -84,7 +83,12 @@ export default {
       this.router.push({path: '/music/edit', query: {id: id}});
     },
     del (id) {
-      console.log(id)
+      this.http.delete('/api/music', {id: id}).then(res => {
+        if (res.error === false) {
+          this.$Message.success('删除成功')
+          this.getMusicList(1);
+        }
+      })
     }
   }
 }

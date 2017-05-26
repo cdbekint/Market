@@ -11,4 +11,9 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    let html = document.documentElement;
+    html.style.fontSize = html.getBoundingClientRect().width / 10 + 'px';
+    console.log(html.style.fontSize)
+  </script>
 </html>

@@ -2,7 +2,7 @@
 <div class="login">
 <Row class="loginrow">
 
-<Col span="6" offset="16"> 
+<Col span="6" offset="16">
 <Form ref="formInline" class="loginmainpanel" :model="formInline" :rules="ruleInline">
         <Form-item>
         <h4>系统用户登录</h4>
@@ -33,7 +33,7 @@
 </Col>
 
 </Row>
- 
+
 </div>
 </template>
 
@@ -75,7 +75,6 @@ export default {
                 this.$store.state.token = res.result.access_token
                 this.$store.state.companyId = res.result.user.company.id
               }
-              debugger
               this.util.setCookie('token', res.result.access_token)
               this.util.setCookie('companyId', res.result.user.company.id)
               console.log(this.$router.query.redirect)
@@ -113,7 +112,7 @@ export default {
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .loginrow
-  background:url(http://xdl.7192.com/static/img/banner_02.png) no-repeat top 
+  background:url(http://xdl.7192.com/static/img/banner_02.png) no-repeat top
   min-height:450px
 .loginmainpanel
   background:#fff
