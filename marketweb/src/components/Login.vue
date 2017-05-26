@@ -28,12 +28,18 @@ export default {
   mounted () {
     var code = this.util.getURLParam('code')
     var state = this.util.getURLParam('state')
-    console.log(state)
-    var activityId = this.util.getURLParam('activityId') || '1'
-    var inviterId = this.util.getURLParam('inviterId') || ''
-    console.log(code)
+    state = state.split('.')
+//    var activityId = this.util.getURLParam('activityId') || '1'
+//    var inviterId = this.util.getURLParam('inviterId') || ''
+    var activityId = state[0]
+    var inviterId = state[1] === void 0 ? '' : state[1]
+    console.log('activityId--' + activityId)
+    console.log('inviterId--' + inviterId)
+    console.log('code --' + code)
+    console.log('token --' + this.$store.state.token)
     if (this.$store.state.token !== '') {
       // 判断是否已登录--已登录:进入主页
+      this.router.push('/')
     } else {
       // 判断是否已登录--未登录：进而判断是否有code
       if (code) {
@@ -46,16 +52,14 @@ export default {
         if (param.inviterId === '') {
           delete param.inviterId
         }
-        this.http.get('/api/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
+        this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
           if (res.error === false) {
             this.$store.state.token = res.access_token
+            this.router.push('/')
           }
         })
       } else {
-        // wxb11aa422d36a4cf9
-        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb11aa422d36a4cf9&redirect_uri=http%3A%2F%2Fmarket.cdbeki.com&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect'
-        console.log(url)
-        alert(url)
+        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb11aa422d36a4cf9&redirect_uri=http%3A%2F%2Fmarket.cdbeki.com&response_type=code&scope=snsapi_userinfo&state=1.2#wechat_redirect'
         location.replace(url)
         // 判断是否有code  --无code：清空cookie，跳转到登录
       }

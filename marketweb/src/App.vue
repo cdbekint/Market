@@ -17,9 +17,9 @@ export default {
   components: { vheader },
   created () {
     if (!this.$store.state.token) {
-//      this.$router.push({
-//        path: '/login'
-//      })
+      this.$router.push({
+        path: '/login'
+      })
     }
   }
 }

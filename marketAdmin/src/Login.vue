@@ -68,7 +68,7 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           const param = JSON.parse(JSON.stringify(this.formInline))
-          this.http.get('/api/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
+          this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
             console.log(res)
             if (res.error === false) {
               if (res.result.access_token) {
