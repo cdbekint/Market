@@ -39,7 +39,7 @@ export default {
     console.log('token --' + this.$store.state.token)
     if (this.$store.state.token !== '') {
       // 判断是否已登录--已登录:进入主页
-      this.router.push('/')
+      this.$router.push('/')
     } else {
       // 判断是否已登录--未登录：进而判断是否有code
       if (code) {
@@ -54,12 +54,12 @@ export default {
         }
         this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
           if (res.error === false) {
-            this.$store.state.token = res.access_token
-            this.router.push('/')
+            this.$store.state.token = res.result.access_token
+            this.$router.push('/')
           }
         })
       } else {
-        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb11aa422d36a4cf9&redirect_uri=http%3A%2F%2Fmarket.cdbeki.com&response_type=code&scope=snsapi_userinfo&state=1.2#wechat_redirect'
+        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb11aa422d36a4cf9&redirect_uri=http%3A%2F%2Fmarket.cdbeki.com&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect'
         location.replace(url)
         // 判断是否有code  --无code：清空cookie，跳转到登录
       }

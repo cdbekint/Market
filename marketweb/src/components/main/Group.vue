@@ -2,6 +2,7 @@
   <div class="groupUsers">
     <mainHead :val="value"></mainHead>
     <div class="group-title">
+      <img src="/static/images/up.png" class = "upImg">
       <div class="group-title-left">
         团员姓名
       </div>
@@ -57,13 +58,19 @@ export default {
   .groupUsers
     background:#fff
     .group-title
-      width:96%
+      width:94%
       margin auto
       background:#eee
       height:rrem(100px)
+      position relative
+      .upImg
+        position absolute
+        top rrem(-75px)
+        left rrem(30px)
+        width 100%
       .group-title-left,
       .group-title-right
-        font-size:rrem(60px)
+        font-size:rrem(50px)
         font-weight bold
         width:50%
         float:left
@@ -76,7 +83,7 @@ export default {
       border 1px solid #eee
       border-bottom 0px
       padding-bottom -5px
-      width:96%
+      width:94%
       margin auto
       .foot
         width 100%

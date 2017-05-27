@@ -3,6 +3,7 @@
     <div class="groupList">
       <ul>
         <div v-for="index in 8">
+          <img src="/static/images/up.png" class = "upImg">
           <li>
             <div class="head">
               <img src="https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto" alt="">
@@ -41,6 +42,7 @@ export default {
   }
   .teamList
     background:#fff
+    margin-top rrem(40px)
     .groupList
       width:96%
       margin auto
@@ -52,6 +54,12 @@ export default {
       ul
         div
           margin-bottom rrem(20px)
+          position relative
+          .upImg
+            position absolute
+            top rrem(-75px)
+            left rrem(20px)
+            width 100%
           li
             width:100%
             height:rrem(255px)
@@ -83,7 +91,7 @@ export default {
               line-height rrem(75px)
             .btn
               position absolute
-              left rrem(900px)
+              left rrem(874px)
               top rrem(165px)
               width rrem(500px)
               height rrem(100px)

@@ -1,5 +1,6 @@
 <template>
   <div class='activityMain'>
+    <music :url = activity></music>
     <mainImg :activity = "activity" ></mainImg>
     <timeAndPro :activity = "activity" ></timeAndPro>
     <joinPeople :activity = "activity" ></joinPeople>
@@ -16,6 +17,7 @@
 import mainImg from './mainImg.vue'
 import timeAndPro from './timeAndPro.vue'
 import Gift from './Gift.vue'
+import music from '../Utils/music.vue'
 import Group from './Group.vue'
 import Money from './Moeny.vue'
 import Team from './Team.vue'
@@ -51,7 +53,7 @@ export default {
         createDate: '2017-04-26T03:08:01.928Z',
         customerAmount: 9.9,
         discount: 5.9,
-        endDate: '2017-06-26T03:08:01.928Z',
+        endDate: '2017-03-26T03:08:01.928Z',
         giftIds: 'string',
         id: 0,
         shareDes: '这是分享描述',
@@ -65,10 +67,10 @@ export default {
       weixinConfig: {}
     }
   },
-  components: {mainImg, teamList, timeAndPro, Team, Discount, Gift, Group, Money, joinPeople},
+  components: {mainImg, teamList, timeAndPro, Team, Discount, Gift, Group, Money, joinPeople, music},
   created () {
-    var id = this.util.getURLParam('id')
-    var inviter = this.util.getURLParam('inviter')
+    var id = this.util.getURLParam('state')
+//    var inviter = this.util.getURLParam('inviter')
     var url = location.href.split('#')[0]
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
@@ -82,12 +84,6 @@ export default {
         this.activity = res.result
         document.title = res.result.activityName
         // 如果有背景音乐，进行背景音乐加载
-        if (res.result.backMusic) {
-          this.pageConfig.Music = new Audio(this.murl + res.result.backMusic)
-          this.pageConfig.Music.autoplay = true
-          this.pageConfig.Music.loop = true
-          this.pageConfig.musicPlaying = true
-        }
       }
     })
     // 获取微信分享配置
@@ -134,8 +130,6 @@ export default {
         }
       })
     })
-    console.log(id)
-    console.log(inviter)
   },
   methods: {
     MusicControl () {

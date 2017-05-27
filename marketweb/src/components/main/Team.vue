@@ -108,7 +108,7 @@ export default {
             top rrem(66px)
       .line1
         .main_time
-          background #c0bebf
+          background #ff6b5d
           .time_count
             width 95%
           p

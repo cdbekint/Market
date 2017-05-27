@@ -2,6 +2,7 @@
   <div class = "joinPeople">
     <mainHead :val="value"></mainHead>
     <div class='attend-users'>
+      <img src="/static/images/up.png" class = "upImg">
       <Row>
         <Col v-for = "index in 17" span='4' class='attend-users-list'>
         <div class='attend-avater'>
@@ -51,7 +52,13 @@ export default {
     background #fff
     .attend-users
       width:94%
-      margin-left 3%
+      margin auto
+      position relative
+      .upImg
+        position absolute
+        top rrem(-75px)
+        left rrem(20px)
+        width 100%
       .attend-users-list
         padding:3px
         text-align:center

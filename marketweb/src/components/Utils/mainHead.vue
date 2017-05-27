@@ -32,7 +32,7 @@
     top 0px
     width 100%
     height rrem(212px)
-    z-index 1000
+    z-index 900
     .head_img
       width rrem(288px)
       height 100%
@@ -74,7 +74,7 @@
         top rrem(40px)
       .english
         color #e75e54
-        font-size rrem(26px)
+        font-size rrem(23px)
         top rrem(90px)
       img
         width 100%

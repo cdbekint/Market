@@ -2,6 +2,7 @@
   <div class = "Money">
     <mainHead :val="value"></mainHead>
     <div class='list'>
+      <img src="/static/images/up.png" class = "upImg">
       <Table stripe :columns='col' :data='data'></Table>
       <img src="/static/images/down.png" class="foot">
     </div>
@@ -76,6 +77,12 @@ export default {
     .list
       width 92%
       margin auto
+      position relative
+      .upImg
+        position absolute
+        top rrem(-75px)
+        left rrem(40px)
+        width 100%
       .ivu-table-cell
         width rrem(300px)
         height rrem(130px)
