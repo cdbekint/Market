@@ -84,7 +84,7 @@ export default {
       this.router.push({path: '/gift/edit', query: {id: id}});
     },
     del (id) {
-      this.http.delete('/api/gift', {id: id}).then(res => {
+      this.http.post('/api/gift', {id: id, method: 'DELETE'}).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功');
           this.getGiftList(1);

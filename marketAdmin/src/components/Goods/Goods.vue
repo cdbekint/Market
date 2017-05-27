@@ -98,7 +98,7 @@
         this.router.push({path: '/goods/edit', query: {id: id}});
       },
       del (id) {
-        this.http.delete('/api/goods', {id: id}).then(res => {
+        this.http.post('/api/goods', {id: id, method: 'DELETE'}).then(res => {
           if (res.error === false) {
             this.$Message.success('删除成功')
             this.getGoodsList(1);

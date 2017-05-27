@@ -33,17 +33,18 @@ export default {
         endDate: '2017-04-26T23:08:01.928Z',
         tableclass: 'withdrawitems'
       },
-      userInfo: {},
-      pageConfig: {
-        Music: {},
-        musicPlaying: false
+      userInfo: {
+        account: {},
+        company: '',
+        customer: '',
+        employee: {}
       },
       activity: {
         activityImg: 'FsQbJ3uQMu7OWOSPacBTeZYAcNVI',
         activityLevel: '100,9;200,8;500,3',
         activityMoney: 9.9,
         activityName: '活动名称',
-        companyName: '巴黎春天',
+        companyName: '',
         activityNum: 10,
         activityType: 1,
         auditRemarks: '',
@@ -53,7 +54,7 @@ export default {
         createDate: '2017-04-26T03:08:01.928Z',
         customerAmount: 9.9,
         discount: 5.9,
-        endDate: '2017-03-26T03:08:01.928Z',
+        endDate: '',
         giftIds: 'string',
         id: 0,
         shareDes: '这是分享描述',
@@ -76,6 +77,7 @@ export default {
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
       if (res.error === false) {
         this.userInfo = res.result
+        this.activity.companyName = this.userInfo.company
       }
     })
     // 获取活动详细信息
@@ -132,14 +134,6 @@ export default {
     })
   },
   methods: {
-    MusicControl () {
-      if (this.pageConfig.musicPlaying === true) {
-        this.pageConfig.Music.pause()
-      } else {
-        this.pageConfig.Music.play()
-      }
-      this.pageConfig.musicPlaying = !this.pageConfig.musicPlaying
-    }
   }
 }
 </script>

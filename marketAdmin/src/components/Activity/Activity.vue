@@ -55,7 +55,7 @@ export default {
         },
         {
           title: '截止时间',
-          key: 'startDate'
+          key: 'endDate'
         },
         {
           title: '二维码',
@@ -96,7 +96,10 @@ export default {
       this.router.push({path: '/activity/edit', query: {id: id}});
     },
     del (id) {
-      this.http.delete('/api/activity', {id: id}).then(res => {
+      this.http.post('/api/activity', {
+        id: id,
+        _method: 'DELETE'
+      }).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功')
           this.getActivityList(1);

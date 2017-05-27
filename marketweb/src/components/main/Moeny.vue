@@ -64,6 +64,13 @@ export default {
         }
       ]
     }
+  },
+  created () {
+    this.http.get(this.$store.state.prefix + '/withdraw/pageNum/1').then((val) => {
+      if (val.error === false) {
+        console.log(val.result)
+      }
+    })
   }
 }
 </script>

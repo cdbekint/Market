@@ -85,8 +85,8 @@
           起止时间*
         </div>
         <div class="addcontent">
-          <Date-picker  v-model="activity.startDate" type="datetime" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false"></Date-picker>
-          <Date-picker v-model="activity.endDate" type="datetime" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false"></Date-picker>
+          <Date-picker  v-model="activity.startDate" type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeDate($event,1)"></Date-picker>
+          <Date-picker v-model="activity.endDate" type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeDate($event,2)"></Date-picker>
         </div>
         <div class="addnote">
         </div>
@@ -329,6 +329,13 @@ export default {
     this.getMusicList(1)
   },
   methods: {
+    changeDate (val, state) {
+      if (state === 1) {
+        this.activity.startDate = val
+      } else {
+        this.activity.endDate = val
+      }
+    },
     Ueditorready (editor) {},
     Ueditorinput (obj) {
       this.activity.content = obj.content

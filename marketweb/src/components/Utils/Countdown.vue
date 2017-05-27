@@ -37,17 +37,19 @@ export default {
       interval: {}
     }
   },
-  created () {
-    const countTime = moment(this.endDate).format('X') - moment().format('X')
-    if (countTime < 0) {
-      this.countDownData.over = true
-      clearInterval(this.interval)
-      return
-    }
-    this.countDownData.realCount = ~~(countTime)
-    const _this = this
-    this.interval = setInterval(function () {
-      _this.getCount()
+  mounted () {
+    setTimeout(() => {
+      const countTime = moment(this.endDate).format('X') - moment().format('X')
+      if (countTime < 0) {
+        this.countDownData.over = true
+        clearInterval(this.interval)
+        return
+      }
+      this.countDownData.realCount = ~~(countTime)
+      const _this = this
+      this.interval = setInterval(function () {
+        _this.getCount()
+      }, 1000)
     }, 1000)
   },
   methods: {
