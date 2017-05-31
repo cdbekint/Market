@@ -28,7 +28,7 @@ export default {
   mounted () {
     var code = this.util.getURLParam('code')
     var state = this.util.getURLParam('state')
-    state = state.split('.')
+    state = state.split(',')
 //    var activityId = this.util.getURLParam('activityId') || '1'
 //    var inviterId = this.util.getURLParam('inviterId') || ''
     var activityId = state[0]

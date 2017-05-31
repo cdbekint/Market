@@ -39,11 +39,16 @@ export default {
   name: 'Group',
   props: ['activity'],
   components: {mainHead},
+  created () {
+    setTimeout(() => {
+      this.value.name = this.activity.companyName
+    }, 500)
+  },
   data () {
     return {
       value: {
         head: '已入团伙伴',
-        name: this.activity.companyName,
+        name: null,
         no: 5
       }
     }

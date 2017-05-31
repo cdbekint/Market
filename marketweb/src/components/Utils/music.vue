@@ -14,9 +14,11 @@
       }
     },
     mounted () {
-      document.addEventListener('WeixinJSBridgeReady', function () {
-        document.getElementById('bgMusic').play()
-      }, false)
+      setTimeout(() => {
+        document.addEventListener('WeixinJSBridgeReady', function () {
+          document.getElementById('bgMusic').play()
+        }, false)
+      }, 500)
     },
     methods: {
       changeState () {

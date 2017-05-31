@@ -16,11 +16,16 @@
   export default {
     props: ['activity'],
     components: {mainHead},
+    created () {
+      setTimeout(() => {
+        this.value.name = this.activity.companyName
+      }, 500)
+    },
     data () {
       return {
         value: {
           head: '优惠方案',
-          name: this.activity.companyName,
+          name: null,
           no: 6
         }
       }

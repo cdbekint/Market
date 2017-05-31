@@ -4,17 +4,17 @@
     <div class='attend-users'>
       <img src="/static/images/up.png" class = "upImg">
       <Row>
-        <Col v-for = "index in 17" span='4' class='attend-users-list'>
+        <Col v-for = "index in peoples" span='4' class='attend-users-list'>
         <div class='attend-avater'>
-          <img src='https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto'>
+          <img :src='index.headImg'>
         </div>
         <div class='attend-name'>
-          杨浩
+          {{index.nickName}}
         </div>
         </Col>
-        <Col span='4' class='attend-users-list'>
+        <Col span='4' class='attend-users-list' v-if="isExceed">
         <div class='attend-avater'>
-          <img src='https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto'>
+          <img src='/static/images/expless.png'>
         </div>
         </Col>
       </Row>
@@ -31,13 +31,26 @@ export default {
   name: 'joinPeople',
   props: ['activity'],
   components: {mainHead},
+  created () {
+    setTimeout(() => {
+      this.value.name = this.activity.companyName
+      if (this.activity.joinCustomers.length >= 17) {
+        this.peoples = this.activity.joinCustomers.slice(0, 17)
+        this.isExceed = true
+      } else {
+        this.peoples = this.activity.joinCustomers
+      }
+    }, 500)
+  },
   data () {
     return {
       value: {
         head: '正在参加的伙伴',
-        name: this.activity.companyName,
+        name: null,
         no: 3
-      }
+      },
+      peoples: {},
+      isExceed: false
     }
   }
 }

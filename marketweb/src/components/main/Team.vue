@@ -5,9 +5,9 @@
     </div>
     <div class = "main_pro">
       <div class = "pro_line line1">
-        <div class = "main_time">
-          <div class = "time_count">
-            <p>支付 <span>{{activity.discount}}</span> 元参加</p>
+        <div class = "main_time" @click="payMoney" style="z-index:2000">
+          <div class = "time_count" >
+            <p>支付 <span>{{activity.activityMoney}}</span> 元参加</p>
           </div>
         </div>
         <div class = "main_title">
@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class = "pro_line line2">
-        <div class = "main_time">
-          <div class = "time_count">
+        <div class = "main_time" style="z-index:2000">
+          <div class = "time_count" >
             <p>新开团</p>
           </div>
         </div>
@@ -38,8 +38,37 @@ export default {
   name: 'time_progress',
   components: { progressMe },
   props: ['activity'],
+  created () {
+    setTimeout(() => {
+      this.params = {
+        bussinessId: this.activity.id,
+        payType: this.activity.activityType,
+        payPoints: 0
+      }
+    }, 1000)
+  },
   data () {
     return {
+      isPaying: false,
+      params: {
+        bussinessId: this.activity.id,
+        payType: this.activity.activityType,
+        payPoints: 0
+      }
+    }
+  },
+  methods: {
+    payMoney () {
+      if (this.isPaying === true) {
+        return
+      }
+      this.isPaying = true
+      var params = JSON.parse(JSON.stringify(this.params))
+      console.log(params)
+      this.http.post(this.$store.state.prefix + '/pay', params).then((res) => {
+//        this.isPaying = false
+        console.log(res)
+      })
     }
   }
 }

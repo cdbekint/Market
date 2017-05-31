@@ -32,7 +32,7 @@
     top 0px
     width 100%
     height rrem(212px)
-    z-index 900
+    z-index 100
     .head_img
       width rrem(288px)
       height 100%

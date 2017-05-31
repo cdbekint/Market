@@ -1,5 +1,5 @@
 <template>
-  <div class="progress" :style="{width:value + '%'}">
+  <div class="progress" :style="{width:count + '%'}">
     {{value}}%
   </div>
 </template>
@@ -8,6 +8,13 @@
 export default {
   name: 'ProgressMe',
   props: [ 'value' ],
+  created () {
+    if (this.value <= 30) {
+      this.count = 30
+    } else {
+      this.count = this.value
+    }
+  },
   data () {
     return {
       over: false,

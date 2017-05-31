@@ -66,11 +66,14 @@ export default {
     }
   },
   created () {
-    this.http.get(this.$store.state.prefix + '/withdraw/pageNum/1').then((val) => {
+    this.http.get(this.$store.state.prefix + '/withdraw/page/1').then((val) => {
       if (val.error === false) {
         console.log(val.result)
       }
     })
+    setTimeout(() => {
+      this.value.name = this.activity.companyName
+    }, 500)
   }
 }
 </script>

@@ -19,7 +19,7 @@
       <div class = "pro_line line2">
         <div class = "main_time">
           <div class = "time_count">
-            <progressMe :value="46"></progressMe>
+            <progressMe :value="progress"></progressMe>
           </div>
         </div>
         <div class = "main_title">
@@ -51,8 +51,16 @@ export default {
   name: 'time_progress',
   components: { countdown, progressMe },
   props: ['activity'],
+  created () {
+    if (this.activity.totalMan === 0) {
+      this.progress = 0
+    } else {
+      this.progress = this.activity.totalMan / this.activity.activityNum
+    }
+  },
   data () {
     return {
+      progress: 0
     }
   }
 }

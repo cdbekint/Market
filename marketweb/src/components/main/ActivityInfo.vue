@@ -1,6 +1,6 @@
 <template>
   <div class='activityMain'>
-    <music :url = activity></music>
+    <music :url = 'music'></music>
     <mainImg :activity = "activity" ></mainImg>
     <timeAndPro :activity = "activity" ></timeAndPro>
     <joinPeople :activity = "activity" ></joinPeople>
@@ -40,31 +40,35 @@ export default {
         employee: {}
       },
       activity: {
-        activityImg: 'FsQbJ3uQMu7OWOSPacBTeZYAcNVI',
-        activityLevel: '100,9;200,8;500,3',
-        activityMoney: 9.9,
+        activityImg: '',
+        activityLevel: '',
+        activityMoney: 0,
         activityName: '活动名称',
-        companyName: '',
-        activityNum: 10,
-        activityType: 1,
+        companyName: null,
+        activityNum: 0,
+        activityType: 0,
         auditRemarks: '',
         auditStatus: 0,
-        backMusic: 'FtMT4UwpmOTXO72pQcKWdVFceu9R',
-        content: 'string',
-        createDate: '2017-04-26T03:08:01.928Z',
-        customerAmount: 9.9,
-        discount: 5.9,
+        backMusic: '',
+        musicId: '',
+        content: '',
+        createDate: '',
+        customerAmount: 0,
+        discount: 0,
         endDate: '',
-        giftIds: 'string',
+        giftIds: 0,
         id: 0,
         shareDes: '这是分享描述',
         shareGift: 1,
-        shareImg: ' FppqRP5R6C5YFGQgg49QKMxZ6JH-',
+        shareImg: '',
         shareTimes: 5,
-        startDate: '2017-04-26T03:08:01.928Z',
-        totalMan: 100,
-        viewNum: 4350
+        startDate: '',
+        totalMan: 0,
+        joinCustomers: [],
+        payedCustomers: [],
+        viewNum: 0
       },
+      music: '',
       weixinConfig: {}
     }
   },
@@ -77,17 +81,22 @@ export default {
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
       if (res.error === false) {
         this.userInfo = res.result
-        this.activity.companyName = this.userInfo.company
       }
     })
+
     // 获取活动详细信息
     this.http.get(this.$store.state.prefix + '/activity/' + id).then(res => {
       if (res.error === false) {
         this.activity = res.result
         document.title = res.result.activityName
-        // 如果有背景音乐，进行背景音乐加载
+        this.http.get(this.$store.state.prefix + '/music/' + this.activity.musicId).then(res2 => {
+          if (res2.error === false) {
+            this.music = res2.result.url
+          }
+        })
       }
     })
+
     // 获取微信分享配置
     this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + id + '/' + this.util.parseParam({url: url}).replace('&', '?')).then(res => {
       if (res.error === false) {
