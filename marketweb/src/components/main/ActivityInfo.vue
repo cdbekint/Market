@@ -113,6 +113,8 @@ export default {
     })
 
     this.wx.ready(function () {
+      console.log(this.wx.config)
+      console.log(this.weixinConfig)
       var content = {
         wxshareTitle: this.activity.activityName,
         wxdescContent: this.weixinConfig.shareDes,
@@ -127,8 +129,10 @@ export default {
         type: 'link',
         dataUrl: '',
         success: function () {
+          console.log('you share app message ok')
         },
         cancel: function () {
+          console.log('cancel app')
         }
       })
       this.wx.onMenuShareTimeline({
@@ -136,8 +140,10 @@ export default {
         link: content.wxlineLink,
         imgUrl: content.wximgUrl,
         success: function () {
+          console.log('you share time message ok')
         },
         cancel: function () {
+          console.log('cancel time')
         }
       })
     })

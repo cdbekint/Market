@@ -16,10 +16,10 @@
   export default {
     props: ['activity'],
     components: {mainHead},
-    created () {
-      setTimeout(() => {
-        this.value.name = this.activity.companyName
-      }, 500)
+    watch: {
+      activity: function (val, oldVal) {
+        this.value.name = val.companyName
+      }
     },
     data () {
       return {

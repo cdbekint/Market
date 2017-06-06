@@ -2,7 +2,7 @@
   <div class="teamList">
     <div class="groupList">
       <ul>
-        <div v-for="index in 8">
+        <div v-for="index in 1">
           <img src="/static/images/up.png" class = "upImg">
           <li>
             <div class="head">
@@ -29,6 +29,15 @@
 export default {
   name: 'Group',
   props: ['activity'],
+  watch: {
+    activity: function (val, oldVal) {
+      this.params = {
+        bussinessId: val.id,
+        payType: val.activityType,
+        payPoints: 0
+      }
+    }
+  },
   data () {
     return {
     }
@@ -43,6 +52,7 @@ export default {
   .teamList
     background:#fff
     margin-top rrem(40px)
+    padding-bottom rrem(120px)
     .groupList
       width:96%
       margin auto

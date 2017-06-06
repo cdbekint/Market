@@ -13,16 +13,16 @@
     </div>
     <div class="groupList">
       <ul>
-        <div v-for="index in 8">
+        <div v-for="index in datas">
           <li>
             <div class="groupAvater">
-              <img src="https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto" alt="">
+              <img :src='index.headImg'>
             </div>
             <div class="groupName flex1">
-              某某某的名字
+              {{index.nickName}}
             </div>
             <div class="attendDate flex1">
-              2017-04-26 14:23:24
+              {{index.phone}}
             </div>
           </li>
           <hr style="border:1px dashed #eee;">
@@ -42,7 +42,13 @@ export default {
   created () {
     setTimeout(() => {
       this.value.name = this.activity.companyName
+      if (this.activity.payedCustomers.length >= 10) {
+        this.datas = this.activity.payedCustomers.slice(0, 10)
+      } else {
+        this.datas = this.activity.payedCustomers
+      }
     }, 500)
+    this.http.get('')
   },
   data () {
     return {
@@ -50,8 +56,11 @@ export default {
         head: '已入团伙伴',
         name: null,
         no: 5
-      }
+      },
+      datas: []
     }
+  },
+  methods: {
   }
 }
 </script>

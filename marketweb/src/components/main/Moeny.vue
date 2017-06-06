@@ -42,38 +42,20 @@ export default {
         }
       ],
       data: [
-        {
-          name: '小王',
-          phone: '183**8322',
-          withdraw: 18
-        },
-        {
-          name: '小王',
-          phone: '183**8322',
-          withdraw: 18
-        },
-        {
-          name: '小王',
-          phone: '183**8322',
-          withdraw: 18
-        },
-        {
-          name: '小吧',
-          phone: '183**9434',
-          withdraw: 99
-        }
       ]
+    }
+  },
+  watch: {
+    activity: function (val, oldVal) {
+      this.value.name = val.companyName
     }
   },
   created () {
     this.http.get(this.$store.state.prefix + '/withdraw/page/1').then((val) => {
       if (val.error === false) {
-        console.log(val.result)
+        this.data = val.result.records
       }
     })
-    setTimeout(() => {
-      this.value.name = this.activity.companyName
-    }, 500)
   }
 }
 </script>

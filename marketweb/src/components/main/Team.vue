@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class = "pro_line line2">
-        <div class = "main_time" style="z-index:2000">
+        <div class = "main_time" style="z-index:2000" @click="newTeam">
           <div class = "time_count" >
             <p>新开团</p>
           </div>
@@ -38,15 +38,6 @@ export default {
   name: 'time_progress',
   components: { progressMe },
   props: ['activity'],
-  created () {
-    setTimeout(() => {
-      this.params = {
-        bussinessId: this.activity.id,
-        payType: this.activity.activityType,
-        payPoints: 0
-      }
-    }, 1000)
-  },
   data () {
     return {
       isPaying: false,
@@ -57,18 +48,30 @@ export default {
       }
     }
   },
+  watch: {
+    activity: function (val, oldVal) {
+      this.params = {
+        bussinessId: val.id,
+        payType: val.activityType,
+        payPoints: 0
+      }
+    }
+  },
   methods: {
     payMoney () {
       if (this.isPaying === true) {
         return
       }
-      this.isPaying = true
+      this.isPaying = true;
       var params = JSON.parse(JSON.stringify(this.params))
       console.log(params)
       this.http.post(this.$store.state.prefix + '/pay', params).then((res) => {
-//        this.isPaying = false
+        this.isPaying = false
         console.log(res)
       })
+    },
+    newTeam () {
+      console.log(123)
     }
   }
 }

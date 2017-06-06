@@ -51,11 +51,13 @@ export default {
   name: 'time_progress',
   components: { countdown, progressMe },
   props: ['activity'],
-  created () {
-    if (this.activity.totalMan === 0) {
-      this.progress = 0
-    } else {
-      this.progress = this.activity.totalMan / this.activity.activityNum
+  watch: {
+    activity: function (val, oldVal) {
+      if (val.totalMan === 0) {
+        this.progress = 0
+      } else {
+        this.progress = val.totalMan / val.activityNum
+      }
     }
   },
   data () {

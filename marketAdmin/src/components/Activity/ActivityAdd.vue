@@ -308,7 +308,7 @@ export default {
         child: 'activityImg'
       },
       uploaderconfig: {
-        maxSize: 1024,
+        maxSize: 10240,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',

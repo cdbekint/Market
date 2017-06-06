@@ -31,16 +31,16 @@ export default {
   name: 'joinPeople',
   props: ['activity'],
   components: {mainHead},
-  created () {
-    setTimeout(() => {
-      this.value.name = this.activity.companyName
-      if (this.activity.joinCustomers.length >= 17) {
-        this.peoples = this.activity.joinCustomers.slice(0, 17)
+  watch: {
+    activity: function (val, oldVal) {
+      this.value.name = val.companyName
+      if (val.joinCustomers.length >= 17) {
+        this.peoples = val.joinCustomers.slice(0, 17)
         this.isExceed = true
       } else {
-        this.peoples = this.activity.joinCustomers
+        this.peoples = val.joinCustomers
       }
-    }, 500)
+    }
   },
   data () {
     return {
@@ -49,7 +49,7 @@ export default {
         name: null,
         no: 3
       },
-      peoples: {},
+      peoples: [],
       isExceed: false
     }
   }
