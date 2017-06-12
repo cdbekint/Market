@@ -7,6 +7,7 @@ import Vuex from 'vuex'
 import util from '../static/js/utils.js'
 import axios from 'axios'
 import wx from 'weixin-js-sdk'
+import qs from 'qs'
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
@@ -21,8 +22,8 @@ const store = new Vuex.Store({
     token: util.getCookie('token') || '',
     companyId: util.getCookie('companyId') || '',
     openid: util.getCookie('openid') || '',
-    prefix: '/api'
-    // prefix: ''
+    // prefix: '/api'
+    prefix: ''
   },
   mutations: {
     updateToken (state) {
@@ -48,6 +49,9 @@ axios.interceptors.request.use(function (config) {
         config.url += '?access_token=' + store.state.token
       }
     }
+  }
+  if (config.method !== 'get') {
+    config.data = qs.stringify(config.data)
   }
   return config
 }, function (error) {

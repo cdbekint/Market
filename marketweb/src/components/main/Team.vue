@@ -1,31 +1,31 @@
 <template>
-  <div class = "team">
-    <div class = "main_head">
-      <img src="/static/images/a8.png" alt="">
+  <div class = 'team'>
+    <div class = 'main_head'>
+      <img src='/static/images/a8.png' alt=''>
     </div>
-    <div class = "main_pro">
-      <div class = "pro_line line1">
-        <div class = "main_time" @click="payMoney" style="z-index:2000">
-          <div class = "time_count" >
+    <div class = 'main_pro'>
+      <div class = 'pro_line line1'>
+        <div class = 'main_time' @click='payMoney' style='z-index:2000'>
+          <div class = 'time_count' >
             <p>支付 <span>{{activity.activityMoney}}</span> 元参加</p>
           </div>
         </div>
-        <div class = "main_title">
-          <span class = "text">参团赢折扣</span>
-          <img src="/static/images/line.png" alt="">
-          <span class = "english">THE COUNTDOWN</span>
+        <div class = 'main_title'>
+          <span class = 'text'>参团赢折扣</span>
+          <img src='/static/images/line.png' alt=''>
+          <span class = 'english'>THE COUNTDOWN</span>
         </div>
       </div>
-      <div class = "pro_line line2">
-        <div class = "main_time" style="z-index:2000" @click="newTeam">
-          <div class = "time_count" >
+      <div class = 'pro_line line2'>
+        <div class = 'main_time' style='z-index:2000' @click='newTeam'>
+          <div class = 'time_count' >
             <p>新开团</p>
           </div>
         </div>
-        <div class = "main_title">
-          <span class = "text">组团赢积分</span>
-          <img src="/static/images/line.png" alt="">
-          <span class = "english">GROUP GET POINTS</span>
+        <div class = 'main_title'>
+          <span class = 'text'>组团赢积分</span>
+          <img src='/static/images/line.png' alt=''>
+          <span class = 'english'>GROUP GET POINTS</span>
         </div>
       </div>
     </div>
@@ -42,18 +42,22 @@ export default {
     return {
       isPaying: false,
       params: {
-        bussinessId: this.activity.id,
-        payType: this.activity.activityType,
-        payPoints: 0
+        businessId: 12,
+        payType: 2,
+        payPoints: 0,
+        companyId: 0
       }
     }
   },
   watch: {
     activity: function (val, oldVal) {
       this.params = {
-        bussinessId: val.id,
-        payType: val.activityType,
-        payPoints: 0
+//        businessId: val.id,
+//        payType: val.activityType,
+        businessId: 12,
+        payType: 2,
+        payPoints: 0,
+        companyId: val.companyId
       }
     }
   },
@@ -62,12 +66,44 @@ export default {
       if (this.isPaying === true) {
         return
       }
-      this.isPaying = true;
-      var params = JSON.parse(JSON.stringify(this.params))
-      console.log(params)
-      this.http.post(this.$store.state.prefix + '/pay', params).then((res) => {
+
+      this.isPaying = true
+      this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
         this.isPaying = false
-        console.log(res)
+        if (res.error === false) {
+          var row = res.result
+          var now = ~~(Date.now()/1000);
+          var onBridgeReady = () => {
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                'appId': row.appid,
+                'timeStamp': now,
+                'nonceStr': row.nonce_str,
+                'package': "prepay_id="+row.prepay_id,
+                'signType': row.sign_type,
+                'paySign': row.sign
+              },
+              function (res) {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+
+                  console.log(11);
+
+                }
+              }
+            )
+          }
+          if (typeof WeixinJSBridge === 'undefined') {
+            if (document.addEventListener) {
+              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+            } else if (document.attachEvent) {
+              document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+            }
+          } else {
+            console.log(1111)
+            onBridgeReady()
+          }
+        }
       })
     },
     newTeam () {
@@ -77,7 +113,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang='stylus' rel='stylesheet/stylus'>
   rrem(val){
     return (val/144px)rem
   }

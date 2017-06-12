@@ -76,7 +76,6 @@ export default {
   created () {
     var id = this.util.getURLParam('state')
 //    var inviter = this.util.getURLParam('inviter')
-    var url = location.href.split('#')[0]
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
       if (res.error === false) {
@@ -97,33 +96,44 @@ export default {
       }
     })
 
+    var locationUrl = location.href.split("#")[0];
+//    var index = locationUrl.indexOf("?");
+//    var locate = locationUrl.slice(0,index+1)
+//    var params = locationUrl.slice(index+1).split("&")[1]
+//
+//    var url = locate + params;
+
+    var url = locationUrl;
     // 获取微信分享配置
-    this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + id + '/' + this.util.parseParam({url: url}).replace('&', '?')).then(res => {
+    this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + id + '?url=' +url).then(res => {
+
       if (res.error === false) {
         this.wx.config({
           debug: true,
           appId: res.result.appId,
           timestamp: res.result.timestamp,
-          nonceStr: res.result.nonceStr,
-          signature: res.result.signature,
+          nonceStr: res.result.noncestr,
+          signature: res.result.signStr,
           jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'getNetworkType', 'chooseWXPay']
         })
+
         this.weixinConfig = res.result
       }
-    })
+    });
 
-    this.wx.ready(function () {
-      console.log(this.wx.config)
-      console.log(this.weixinConfig)
+    this.wx.ready(() => {
       var content = {
         wxshareTitle: this.activity.activityName,
         wxdescContent: this.weixinConfig.shareDes,
-        wxlineLink: location.href.split('#')[0],
+        wxlineLink: url,
         wximgUrl: this.murl + this.weixinConfig.shareImg
-      }
+      };
+
       this.wx.onMenuShareAppMessage({
-        title: content.wxshareTitle,
-        desc: content.wxdescContent,
+//        title: content.wxshareTitle,
+        title: "wasvjwrlkvlk",
+//        desc: content.wxdescContent,
+        desc: "fewjfoerhgiergir",
         link: content.wxlineLink,
         imgUrl: content.wximgUrl,
         type: 'link',
@@ -134,7 +144,8 @@ export default {
         cancel: function () {
           console.log('cancel app')
         }
-      })
+      });
+
       this.wx.onMenuShareTimeline({
         title: content.wxdescContent,
         link: content.wxlineLink,

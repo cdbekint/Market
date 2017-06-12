@@ -39,16 +39,16 @@ export default {
   name: 'Group',
   props: ['activity'],
   components: {mainHead},
-  created () {
-    setTimeout(() => {
-      this.value.name = this.activity.companyName
-      if (this.activity.payedCustomers.length >= 10) {
-        this.datas = this.activity.payedCustomers.slice(0, 10)
+  watch: {
+    activity: function (val, oldVal) {
+      this.value.name = val.companyName
+      if (val.payedCustomers === null) return
+      if (val.payedCustomers.length >= 10) {
+        this.datas = val.payedCustomers.slice(0, 10)
       } else {
-        this.datas = this.activity.payedCustomers
+        this.datas = val.payedCustomers
       }
-    }, 500)
-    this.http.get('')
+    }
   },
   data () {
     return {

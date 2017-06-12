@@ -34,6 +34,8 @@ export default {
   watch: {
     activity: function (val, oldVal) {
       this.value.name = val.companyName
+
+      if (val.joinCustomers === null) return
       if (val.joinCustomers.length >= 17) {
         this.peoples = val.joinCustomers.slice(0, 17)
         this.isExceed = true
