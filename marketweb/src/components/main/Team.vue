@@ -72,22 +72,21 @@ export default {
         this.isPaying = false
         if (res.error === false) {
           var row = res.result
-          var now = ~~(Date.now()/1000);
           var onBridgeReady = () => {
             WeixinJSBridge.invoke(
-              'getBrandWCPayRequest', {
+              'getBrandWCPayRequest',{
                 'appId': row.appid,
-                'timeStamp': now,
+                'timeStamp': row.timeStamp,
                 'nonceStr': row.nonce_str,
-                'package': "prepay_id="+row.prepay_id,
+                'package': row.prepay_id,
                 'signType': row.sign_type,
                 'paySign': row.sign
               },
               function (res) {
                 if (res.err_msg === 'get_brand_wcpay_request:ok') {
-
-                  console.log(11);
-
+                  alert("支付成功")
+                } else {
+                  alert("支付失败")
                 }
               }
             )
@@ -100,7 +99,6 @@ export default {
               document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
             }
           } else {
-            console.log(1111)
             onBridgeReady()
           }
         }
