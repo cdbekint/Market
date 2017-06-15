@@ -74,7 +74,9 @@ export default {
   },
   components: {mainImg, teamList, timeAndPro, Team, Discount, Gift, Group, Money, joinPeople, music},
   created () {
-    var id = this.util.getURLParam('state')
+    var state = this.util.getURLParam('state').split(",")
+    var activityId = state[0];
+    var inviterId = state[1] === void 0 ? '' : state[1];
 //    var inviter = this.util.getURLParam('inviter')
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
@@ -84,7 +86,7 @@ export default {
     })
 
     // 获取活动详细信息
-    this.http.get(this.$store.state.prefix + '/activity/' + id).then(res => {
+    this.http.get(this.$store.state.prefix + '/activity/' + activityId).then(res => {
       if (res.error === false) {
         this.activity = res.result
         document.title = res.result.activityName
@@ -96,16 +98,9 @@ export default {
       }
     })
 
-    var locationUrl = location.href.split("#")[0];
-//    var index = locationUrl.indexOf("?");
-//    var locate = locationUrl.slice(0,index+1)
-//    var params = locationUrl.slice(index+1).split("&")[1]
-//
-//    var url = locate + params;
-
-    var url = locationUrl;
+    var url = location.href.split("#")[0];
     // 获取微信分享配置
-    this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + id + '?url=' +url).then(res => {
+    this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' +url).then(res => {
 
       if (res.error === false) {
         this.wx.config({
@@ -130,10 +125,8 @@ export default {
       };
 
       this.wx.onMenuShareAppMessage({
-//        title: content.wxshareTitle,
-        title: "wasvjwrlkvlk",
-//        desc: content.wxdescContent,
-        desc: "fewjfoerhgiergir",
+        title: content.wxshareTitle,
+        desc: content.wxdescContent,
         link: content.wxlineLink,
         imgUrl: content.wximgUrl,
         type: 'link',

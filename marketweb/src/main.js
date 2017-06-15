@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import router from './router'
@@ -22,15 +20,15 @@ const store = new Vuex.Store({
     token: util.getCookie('token') || '',
     companyId: util.getCookie('companyId') || '',
     openid: util.getCookie('openid') || '',
-    // prefix: '/api'
-    prefix: ''
+    prefix: '/api'
+    // prefix: ''
   },
   mutations: {
     updateToken (state) {
       state.token ++
     }
   }
-})
+});
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'

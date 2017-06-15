@@ -78,7 +78,7 @@ export default {
                 'appId': row.appid,
                 'timeStamp': row.timeStamp,
                 'nonceStr': row.nonce_str,
-                'package': row.prepay_id,
+                'package':  + row.prepay_id,
                 'signType': row.sign_type,
                 'paySign': row.sign
               },

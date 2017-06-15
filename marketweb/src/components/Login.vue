@@ -27,16 +27,11 @@ export default {
   },
   mounted () {
     var code = this.util.getURLParam('code')
-    var state = this.util.getURLParam('state')
-    state = state.split(',')
-//    var activityId = this.util.getURLParam('activityId') || '1'
-//    var inviterId = this.util.getURLParam('inviterId') || ''
-    var activityId = state[0]
-    var inviterId = state[1] === void 0 ? '' : state[1]
-    console.log('activityId--' + activityId)
-    console.log('inviterId--' + inviterId)
-    console.log('code --' + code)
-    if (this.$store.state.token !== '') {
+    var state = this.util.getURLParam('state').split(",")
+    var activityId = state[0];
+    var inviterId = state[1] === void 0 ? '' : state[1];
+
+    if (window.localStorage["token"] != void 0) {
       // 判断是否已登录--已登录:进入主页
       this.$router.push('/')
     } else {
@@ -53,8 +48,17 @@ export default {
         }
         this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
           if (res.error === false) {
-            this.$store.state.token = res.result.access_token
-            this.$router.push('/')
+            this.$store.state.token = res.result.access_token;
+            window.localStorage["token"] = res.result.access_token;
+
+            var oldUrl = location.href;
+            var index = oldUrl.indexOf("?");
+
+            var preUrl = oldUrl.slice(0,index+1);
+            var state = "state=" + activityId + ","+res.result.user.account.id;
+
+            var url = preUrl + state;
+            location.href = url
           }
         })
       } else {

@@ -8,6 +8,8 @@ import UserInfo from '@/components/UserInfo'
 import Shop from '@/components/Shop'
 import Login from '@/components/Login'
 
+import homePage from '@/components/home/homePage'
+
 Vue.use(Router)
 Vue.use(iView)
 
@@ -17,6 +19,11 @@ export default new Router({
       path: '/',
       name: 'ActivityInfo',
       component: ActivityInfo
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: homePage
     },
     {
       path: '/login',
