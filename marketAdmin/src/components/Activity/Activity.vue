@@ -86,8 +86,15 @@ export default {
         if (res.error === false) {
           this.activitypager = res.result;
           this.activitylistData = res.result.records;
+          this.activitylistData.forEach(item=>{
+            item.startDate = this.changeDateToTime(item.startDate);
+            item.endDate = this.changeDateToTime(item.endDate);
+          })
         }
       })
+    },
+    changeDateToTime(date){
+      return (new Date(date)).toLocaleString().split(",")[0]
     },
     changePage () {
       this.getActivityList(this.activitypager.current)

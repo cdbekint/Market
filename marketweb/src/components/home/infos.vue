@@ -9,72 +9,74 @@
       </div>
     </div>
     <div class="main_info">
-      <div class="info_jifen info_active" v-for="x in 12" v-if="index==0">
-        <img src="https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto" class="jifen_img  active_img">
+      <div class="info_jifen info_active" v-for="x in activityInfo" v-if="index==0">
+        <img :src="x.img" class="jifen_img  active_img">
         <div class="jifen_name active_name">
-          <span class="name_head active_head">小浩学长11</span>
-          <div class="active_info">20天15:15:45</div>
+          <span class="name_head active_head">{{x.name}}</span>
+          <div class="active_info">
+            <countdown :endDate="x.date"></countdown>
+          </div>
         </div>
         <div class="jifen_operator active_operator">
           <div class="oper_one">
             <img src="/static/images/black/ji.png">
-            <span>1583</span>
+            <span>{{x.jifen}}</span>
           </div>
           <div class="oper_one">
             <img src="/static/images/black/pe.png">
-            <span>1563</span>
+            <span>{{x.peopleNum}}</span>
           </div>
           <div class="oper_one">
             <img src="/static/images/black/jiao.png">
-            <span>15643</span>
+            <span>{{x.totalPeople}}</span>
           </div>
         </div>
       </div>
 
-      <div class="info_jifen" v-for="x in 12" v-if="index==1">
-        <img src="https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto" class="jifen_img">
+      <div class="info_jifen" v-for="x in jifenInfo" v-if="index==1">
+        <img :src="x.img" class="jifen_img">
         <div class="jifen_name">
-          <span class="name_head">小浩学长</span>
-          <span class="name_info">潍坊回味和wefwefwefwefefwefwefwef范围服务靠</span>
+          <span class="name_head jifen_head">{{x.name}}</span>
+          <!--<span class="name_info">潍坊回味和wefwefwefwefefwefwefwef范围服务靠</span>-->
         </div>
         <div class="jifen_operator">
           <div class="oper_one">
             <img src="/static/images/red/ji.png">
-            <span>1583</span>
+            <span>{{x.jifen}}</span>
           </div>
           <div class="oper_one">
             <img src="/static/images/red/mo.png">
-            <span>1563</span>
+            <span>{{x.money}}</span>
           </div>
           <div class="oper_one">
             <img src="/static/images/red/pe.png">
-            <span>15643</span>
+            <span>{{x.peopleNum}}</span>
           </div>
           <div class="oper_one">
             <img src="/static/images/red/re.png">
-            <span>183</span>
+            <span>{{x.forward}}</span>
           </div>
         </div>
       </div>
 
-      <div class="info_jifen info_people" v-for="x in 12" v-if="index==2">
-        <img src="https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto" class="jifen_img  people_img">
+      <div class="info_jifen info_people" v-for="x in memberInfo" v-if="index==2">
+        <img :src="x.img" class="jifen_img  people_img">
         <div class="jifen_name people_name">
-          <span class="name_head people_head">小浩学长11</span>
-          <span class="name_info people_info">潍坊回味和wefwefwefwefefwefwefwef范围服务靠</span>
+          <span class="name_head people_head">{{x.name}}</span>
+          <!--<span class="name_info people_info">潍坊回味和wefwefwefwefefwefwefwef范围服务靠</span>-->
         </div>
         <div class="jifen_operator people_operator">
           <div class="oper_one">
             <img src="/static/images/blue/ji.png">
-            <span>1583</span>
+            <span>{{x.jifen}}</span>
           </div>
           <div class="oper_one">
             <img src="/static/images/blue/pe.png">
-            <span>1563</span>
+            <span>{{x.peopleNum}}</span>
           </div>
           <div class="oper_one">
-            <img src="/static/images/blue/re.png">
-            <span>15643</span>
+            <img src="/static/images/blue/mo.png">
+            <span>{{x.consume}}</span>
           </div>
         </div>
       </div>
@@ -90,12 +92,12 @@
             <img src="/static/images/red/mo.png">
           </div>
         </div>
-        <div class="count_main count_list" v-for="x in 12">
-          <div class="div_text main_time">17/03/21</div>
-          <div class="main_content div_text">爱在巴黎春天，婚纱照2156元</div>
+        <div class="count_main count_list" v-for="x in consumeInfo">
+          <div class="div_text main_time">{{x.time}}</div>
+          <div class="main_content div_text">{{x.content}}</div>
           <div class="main_jifen div_text">
-            <span>50123</span>
-            <img src="https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto">
+            <span>{{x.jifen}}</span>
+            <span class="jifen_money">{{x.money}}</span>
           </div>
         </div>
       </div>
@@ -104,14 +106,11 @@
 </template>
 
 <script>
+  import countdown from '../Utils/activeCount.vue'
   export default {
     name: 'infos',
-    props: ['data'],
-//  watch: {
-//    data (val) {
-//      console.log(val)
-//    }
-//  },
+    props: ['datas'],
+    components: { countdown },
     methods:{
       changeCompany (val) {
         if(this.index !== val){
@@ -127,10 +126,10 @@
           }
         })
         this.$emit("head_company",val);
-      }
+      },
     },
-    mounted () {
-      this.data.menu.forEach((item,index)=>{
+    created(){
+      this.menu.forEach((item,index)=>{
         var obj;
         if(index == 0){
           obj = {
@@ -149,6 +148,18 @@
         this.menuList.push(obj)
       });
     },
+    watch: {
+      datas:{
+        handler(val){
+          this.activityInfo = val.activityInfo;
+          this.memberInfo = val.memberInfo;
+          this.jifenInfo = val.jifenInfo;
+          this.consumeInfo = val.consumeInfo;
+
+        },
+        deep:true
+      }
+    },
     data () {
       return {
         index:0,
@@ -156,7 +167,12 @@
         off:"bon.png",
         active:"active",
         noactive:"",
-        menuList:[]
+        menuList:[],
+        menu:['参加活动','积分排名','我的邀请','消费记录'],
+        activityInfo:[],
+        memberInfo:[],
+        jifenInfo:[],
+        consumeInfo:[]
       }
     }
   }
@@ -220,19 +236,20 @@
           height 100%
           position absolute
           top 0px
-          left rrem(80px)
+          left rrem(60px)
           span
             width 100%
             height 50%
             text-align center
             position absolute
             display block
-
           .name_head
             font-size rrem(15px)
             font-weight bold
             top rrem(20px)
-
+          .jifen_head
+            top rrem(35px)
+            font-size rrem(18px)
           .name_info
             color rgba(0, 0, 0, 0.5)
             text-overflow ellipsis
@@ -244,8 +261,8 @@
         .jifen_operator
           position absolute
           top 0px
-          left rrem(230px)
-          width rrem(200px)
+          left rrem(180px)
+          width rrem(250px)
           height 100%
           display flex
           .oper_one
@@ -260,7 +277,7 @@
             span
               display block
               text-align center
-              margin-top rrem(15px)
+              margin-top rrem(18px)
       .info_active
         background #f2f0f1
         .active_img
@@ -295,10 +312,14 @@
         .people_img
           margin-left rrem(365px)
         .people_name
-          left rrem(200px)
+          left rrem(220px)
+          .people_head
+            top rrem(35px)
+            font-size rrem(20px)
+
         .people_operator
           left rrem(10px)
-          width rrem(180px)
+          width rrem(240px)
 
       .info_count
         .count_main
@@ -342,10 +363,9 @@
               font-size rrem(13px)
               position absolute
               left rrem(25px)
-            img
+            .jifen_money
               position absolute
-              height rrem(30px)
-              width rrem(30px)
-              right rrem(27px)
-              border-radius rrem(3px)
+              left rrem(77px)
+
+
 </style>

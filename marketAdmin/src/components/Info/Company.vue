@@ -80,21 +80,10 @@
   </li>
   <li class="companyitem">
     <div class="itemname">
-    消费金额折积分
-    </div>
-    <div class="itemcontent">
-      <input type="text" v-model="company.topointRate">
-    </div>
-    <div class="itemhepler">
-      直接设置小数，比如0.01即为1%
-    </div>
-  </li>
-  <li class="companyitem">
-    <div class="itemname">
       积分折现金比
     </div>
     <div class="itemcontent">
-      <input type="text" v-model="company.tocashRate">
+      <input type="text" v-model="company.toCashRate">
     </div>
     <div class="itemhepler">
       直接设置小数，比如0.1即为10%
@@ -105,7 +94,21 @@
       员工提成比
     </div>
     <div class="itemcontent">
-      <input type="text" v-model="company.employeeRate">
+      <!--<input type="text" v-model="company.employeeRate">-->
+      <Row v-for="(group,index) in Group" :key="group" :label="'项目' + (index + 1)">
+        <Col span="8">
+          <Input type="text" v-model="group.nums" placeholder="总金额"></Input>
+        </Col>
+        <Col span="8" offset="2">
+          <Input type="text" v-model="group.discount" placeholder="提成比率%"></Input>
+        </Col>
+        <Col span="3" class="groupitemaction" v-if="Group.length!==1">
+        <Button type="dashed" @click="minusGroup(index)" icon="minus-round"></Button>
+        </Col>
+        <Col span="3" class="groupitemaction" v-if="index==Group.length-1">
+          <Button type="dashed" @click="addGroup(index)" icon="plus-round"></Button>
+        </Col>
+      </Row>
     </div>
     <div class="itemhepler">
       直接设置小数，比如0.05即为5%
@@ -128,6 +131,55 @@
     </div>
     <div class="itemcontent">
       <input type="text" v-model="company.shareMax">
+    </div>
+    <div class="itemhepler">
+
+    </div>
+  </li>
+  <li class="companyitem">
+    <div class="itemname">
+      注册金额
+    </div>
+    <div class="itemcontent">
+      <input type="text" v-model="company.registerMoney">
+    </div>
+    <div class="itemhepler">
+
+    </div>
+  </li>
+  <li class="companyitem">
+    <div class="itemname">
+      注册返还积分
+    </div>
+    <div class="itemcontent">
+      <input type="text" v-model="company.registerPoints">
+    </div>
+    <div class="itemhepler">
+
+    </div>
+  </li>
+  <li class="companyitem">
+    <div class="itemname">自己消费返还积分比率</div>
+    <div class="itemcontent">
+      <input type="text" v-model="company.selfReturn">
+    </div>
+    <div class="itemhepler">
+
+    </div>
+  </li>
+  <li class="companyitem">
+    <div class="itemname">一级邀请人返还积分比率</div>
+    <div class="itemcontent">
+      <input type="text" v-model="company.oneReturn">
+    </div>
+    <div class="itemhepler">
+
+    </div>
+  </li>
+  <li class="companyitem">
+    <div class="itemname">二级邀请人返还积分比率</div>
+    <div class="itemcontent">
+      <input type="text" v-model="company.secondReturn">
     </div>
     <div class="itemhepler">
 
@@ -166,15 +218,23 @@ export default {
         companyDesc: '',
         companyTel: '',
         companyLogo: '',
-        companyBalance: 0,
-        topointRate: 0,
-        tocashRate: 0,
-        employeeRate: 0,
-        smsNum: 0,
-        sharePoints: 0,
+        smsTel:'',
+        toCashRate: 0,
+        employeeRate: '',
+        sharePoints:0,
         shareMax: 1,
-        overDate: ''
+        registerMoney:0,
+        registerPoints:0,
+        selfReturn:0,
+        oneReturn:0,
+        secondReturn:0
       },
+      Group: [
+        {
+          nums: '',
+          discount: ''
+        }
+      ],
       uploaderconfig: {
         maxSize: 5120,
         format: ['jpg', 'png', 'jpeg'],

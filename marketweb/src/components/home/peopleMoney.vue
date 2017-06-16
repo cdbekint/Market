@@ -8,7 +8,7 @@
           <span class="english">ALL INTEGRAL</span>
         </div>
         <div class="one_jinum">
-          <span class="chiness">995000</span>
+          <span class="chiness">{{totalPoint}}</span>
         </div>
         <div class="one_jifen one_jiuse">
           <span class="chiness">可用积分</span>
@@ -16,7 +16,7 @@
           <span class="english">USE INTEGRAL</span>
         </div>
         <div class="one_jinum jifen_num">
-          <span class="chiness">9900</span>
+          <span class="chiness">{{points}}</span>
         </div>
         <div class="one_btn">
           <span>积分换购</span>
@@ -29,7 +29,7 @@
           <span class="english">USED MONEY</span>
         </div>
         <div class="one_jinum">
-          <span class="chiness">995000</span>
+          <span class="chiness">{{usedCash}}</span>
         </div>
         <div class="one_jifen one_jiuse">
           <span class="chiness">可换现金</span>
@@ -37,7 +37,7 @@
           <span class="english">USE MONEY</span>
         </div>
         <div class="one_jinum jifen_num">
-          <span class="chiness">9900</span>
+          <span class="chiness">{{cashs}}</span>
         </div>
         <div class="one_btn two_btn">
           <span>提&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp现</span>
@@ -51,52 +51,24 @@
 export default {
   name: 'peopleMoney',
   props: ['data'],
-//  watch: {
-//    data (val) {
-//      console.log(val)
-//    }
-//  },
-  methods:{
-    changeCompany (val) {
-      this.menuList.forEach((item,index)=>{
-        if(index == val){
-          item.img = this.on;
-          item.active = this.active;
-        }else{
-          item.img = this.off;
-          item.active = this.noactive;
-        }
-      })
-      this.$emit("getCompanyId",11);
+  methods:{},
+  watch:{
+    data:{
+      handler(val){
+        this.totalPoint = val.totalPoint;
+        this.points = val.points;
+        this.usedCash = val.usedCash;
+        this.cashs = val.cashs;
+      },
+      deep:true
     }
-  },
-  mounted () {
-    this.data.menu.forEach((item,index)=>{
-      var obj;
-      if(index == 0){
-        obj = {
-          name:item,
-          img:this.on,
-          active:this.active
-        }
-      }
-      else{
-        obj = {
-          name:item,
-          img:this.off,
-          active:this.noactive
-        }
-      }
-      this.menuList.push(obj)
-    });
   },
   data () {
     return {
-      on:"boff.png",
-      off:"bon.png",
-      active:"active",
-      noactive:"",
-      menuList:[]
+      totalPoint:0,
+      points:0,
+      usedCash:0,
+      cashs:0
     }
   }
 }

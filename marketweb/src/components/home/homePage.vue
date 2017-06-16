@@ -1,8 +1,8 @@
 <template>
   <div class="homePage">
-    <headImg :data="datas" @head_company="getCompanyId"></headImg>
-    <peopleMoney :data="datas"></peopleMoney>
-    <infos :data="datas"></infos>
+    <headImg :data="personInfo" @head_company="getCompanyId"></headImg>
+    <peopleMoney :data="pointAndMoney"></peopleMoney>
+    <infos :datas="datas"></infos>
   </div>
 </template>
 
@@ -15,17 +15,148 @@ export default {
   components:{headImg,peopleMoney,infos},
   methods:{
     getCompanyId (id) {
-      console.log(id)
+      this.currentCompanyId = id;
+      this.getInfosByCompanyId(id);
+      this.setPointByCurrentCompany(id);
+    },
+    getInfosByCompanyId(companyId){
+
+      this.http.get(this.$store.state.prefix + "/home/getActivityInfo/" + companyId).then(res=> {
+        if(res.error == false){
+          var arr = [];
+          res.result.forEach(item=>{
+            arr.push({
+              img:item.activityImg,
+              name:item.activityName,
+              date:item.endDate,
+              jifen:item.gainPoints,
+              peopleNum:item.joinNum,
+              totalPeople:item.viewNum
+            })
+          });
+          this.datas.activityInfo = arr;
+        }
+      })
+
+      this.http.get(this.$store.state.prefix + "/home/getInvitedMems/" + companyId).then(res=> {
+        if(res.error == false){
+          var arr = [];
+          res.result.forEach(item=>{
+            arr.push({
+              img:item.headImg,
+              name:item.nickName,
+              jifen:item.allPoints,
+              peopleNum:item.invitedMems,
+              consume:item.selfExpense
+            })
+          });
+          this.datas.memberInfo = arr;
+        }
+      });
+
+
+      this.http.get(this.$store.state.prefix + "/home/getUserExpense/" + companyId).then(res=> {
+        if(res.error == false){
+          var arr = [];
+          res.result.forEach(item=>{
+            var time = new Date(item.payDate);
+            time = time.toLocaleString().split(",")[0];
+            arr.push({
+              time:time,
+              content:item.remarks,
+              jifen:item.payPoints,
+              money:item.payAmount,
+            })
+          });
+          this.datas.consumeInfo = arr;
+        }
+      });
+
+      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" + companyId).then(res=> {
+        if(res.error == false){
+          var arr = [];
+          res.result.forEach(item=>{
+            arr.push({
+              img:item.headImg,
+              name:item.nickName,
+              jifen:item.allPoints,
+              peopleNum:item.invitedMems,
+              consume:item.selfExpense
+            })
+          });
+          this.datas.jifenInfo = arr;
+        }
+      });
+
+      console.log("over111245")
+      console.log(this.datas)
+    },
+    setPointByCurrentCompany(companyId){
+      this.pointAndMoneyArr.forEach(item=>{
+        if(item.id == companyId){
+          this.pointAndMoney = item;
+        }
+      })
     }
+  },
+  created(){
+    this.http.get(this.$store.state.prefix + "/home").then(res=>{
+      if(res.error == false){
+        var row = res.result.account;
+        var companys = res.result.customers;
+
+        this.currentCompanyId = companys[0].id;
+        this.personInfo = {
+          nickName:row.nickName,
+          headImg:row.headImg,
+          phone:row.phone
+        };
+
+        var companyArr = [];
+        var pointArr = [];
+        companys.forEach((item)=>{
+          var obj = {
+            name:item.companyName,
+            id:item.id
+          };
+
+          companyArr.push(obj)
+
+          var pointObj = {
+            id:item.id,
+            totalPoint:item.allPoints,
+            points:item.points,
+            usedCash:item.withDrawAmount,
+            cashs:(item.points * item.toCashRate)
+          };
+          pointArr.push(pointObj)
+
+        });
+        this.personInfo.company = companyArr;
+        this.pointAndMoneyArr = pointArr;
+
+      }
+    }).then(()=>{
+      this.getInfosByCompanyId(this.currentCompanyId);
+      this.setPointByCurrentCompany(this.currentCompanyId);
+    })
   },
   data () {
     return {
+      currentCompanyId:0,
+      personInfo:{
+        nickName: '',
+        headImg:'',
+        phone:'',
+        company:[]
+      },
+      pointAndMoneyArr:[],
+      pointAndMoney:{},
       datas:{
-        name:"小浩学长巴德尔",
-        img:"/static/images/expless.png",
-        phone:'2212131234',
-        company:['巴黎春天',"杨记珠宝","asd","asdw11"],
-        menu:['参加活动','积分排名','邀请人数','消费记录']
+        activityInfo:[],
+        memberInfo:[],
+        jifenInfo:[],
+        consumeInfo:[]
       }
     }
   }

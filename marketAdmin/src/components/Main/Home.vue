@@ -22,21 +22,11 @@
         <Form-item label="联系电话" class="text-left">
           <span v-text="companyinfo.companyTel"></span>
         </Form-item>
-        <Form-item label="服务有效期" class="text-left">
-          <span v-text="companyinfo.overDate"></span>
-        </Form-item>
-        <Form-item label="账户余额" class="text-left">
-          <span v-text="companyinfo.companyBalance"></span>
-          <a href="javascript:;" @click="weixinpayModal=true">充值</a>
-        </Form-item>
-        <Form-item label="短信消费数" class="text-left">
-          <span v-text="companyinfo.smsNum"></span>
-        </Form-item>
-        <Form-item label="消费金额转积分" class="text-left">
-          <span v-text="companyinfo.topointRate"></span>
-        </Form-item>
+      <Form-item label="短信接收号码" class="text-left">
+        <span v-text="companyinfo.smsTel"></span>
+      </Form-item>
         <Form-item label="积分抵扣现金" class="text-left">
-          <span v-text="companyinfo.tocashRate"></span>
+          <span v-text="companyinfo.toCashRate"></span>
         </Form-item>
         <Form-item label="员工提成比" class="text-left">
           <span v-text="companyinfo.employeeRate"></span>
@@ -47,16 +37,31 @@
          <Form-item label="转发次数" class="text-left">
           <span v-text="companyinfo.shareMax"></span>
         </Form-item>
+      <Form-item label="注册金额" class="text-left">
+        <span v-text="companyinfo.registerMoney"></span>
+      </Form-item>
+      <Form-item label="注册返还积分" class="text-left">
+        <span v-text="companyinfo.registerPoints"></span>
+      </Form-item>
+      <Form-item label="自己消费返还积分比率" class="text-left">
+        <span v-text="companyinfo.selfReturn"></span>
+      </Form-item>
+      <Form-item label="一级邀请人返还积分比率" class="text-left">
+        <span v-text="companyinfo.oneReturn"></span>
+      </Form-item>
+      <Form-item label="二级邀请人返还积分比率" class="text-left">
+        <span v-text="companyinfo.secondReturn"></span>
+      </Form-item>
     </Form>
   </div>
-  <Modal
+<!--  <Modal
         v-model="weixinpayModal"
         title="账户充值">
         <weixinPay :wrapper="weixinpayModal"></weixinPay>
          <div slot="footer" class="text-left">
           <Icon type="ios-information-outline"></Icon>本平台通过微信充值
         </div>
-    </Modal>
+    </Modal>-->
   </div>
 
 </template>
@@ -73,13 +78,16 @@ export default {
         companyDesc: '',
         companyTel: '',
         companyLogo: '',
-        companyBalance: 0,
-        topointRate: 0,
-        tocashRate: 0,
-        employeeRate: 0,
-        smsNum: 0,
-        sharePoints: 0,
+        smsTel:'',
+        toCashRate: 0,
+        employeeRate: '',
+        sharePoints:0,
         shareMax: 1,
+        registerMoney:0,
+        registerPoints:0,
+        selfReturn:0,
+        oneReturn:0,
+        secondReturn:0,
         overDate: '2017-12-30'
       },
       weixinpayModal: false
@@ -101,12 +109,16 @@ export default {
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .companyinfo
+  font-size 40px
   padding-top:20px
+  .ivu-form-item-label
+    color red
+    width 200px
+    text-align center
+    padding:5px 12px 5px 0
   .ivu-form-item
     margin-bottom:10px
     .companyavater
       width:60px
       height:auto
-  .ivu-form-item-label
-    padding:5px 12px 5px 0
 </style>

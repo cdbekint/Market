@@ -1,20 +1,19 @@
 <template>
   <div class='headImg'>
     <div class = "main_head">
-      <span class="head_name">{{data.name}}</span>
+      <span class="head_name">{{data.nickName}}</span>
       <img src="/static/images/shuxian.png" alt="">
       <span class="head_phone">{{'TEL : '+data.phone}}</span>
     </div>
     <div class="main_companyInfo">
       <div class="main_company">
-        <div class="company_info" v-for="x,index in companyList" :class="x.active" @click="changeCompany(index)">
+        <div class="company_info" v-for="x in companyList" :class="x.active" @click="changeCompany(x.id)">
             <img :src="'/static/images/'+x.img" >
             <span>{{x.name}}</span>
         </div>
       </div>
     </div>
-    <!--<img :src='data.img' class = "main_img">-->
-    <img src="https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto" class="main_img">
+    <img :src="data.headImg" class="main_img">
   </div>
 </template>
 
@@ -22,15 +21,34 @@
 export default {
   name: 'headImg',
   props: ['data'],
-//  watch: {
-//    data (val) {
-//      console.log(val)
-//    }
-//  },
+  watch: {
+    data (val) {
+      val.company.forEach((item,index)=>{
+        var obj;
+        if(index == 0){
+          obj = {
+            id:item.id,
+            name:item.name,
+            img:this.on,
+            active:this.active
+          }
+        }
+        else{
+          obj = {
+            id:item.id,
+            name:item.name,
+            img:this.off,
+            active:this.noactive
+          }
+        }
+        this.companyList.push(obj)
+      });
+    }
+  },
   methods:{
     changeCompany (val) {
-      this.companyList.forEach((item,index)=>{
-        if(index == val){
+      this.companyList.forEach((item)=>{
+        if(item.id == val){
           item.img = this.on;
           item.active = this.active;
         }else{
@@ -41,32 +59,12 @@ export default {
       this.$emit("head_company",val);
     }
   },
-  mounted () {
-    this.data.company.forEach((item,index)=>{
-      var obj;
-      if(index == 0){
-        obj = {
-          name:item,
-          img:this.on,
-          active:this.active
-        }
-      }
-      else{
-        obj = {
-          name:item,
-          img:this.off,
-          active:this.noactive
-        }
-      }
-      this.companyList.push(obj)
-    });
-  },
   data () {
     return {
       on:"boff.png",
       off:"bon.png",
-      active:"active",
-      noactive:"",
+      active:"headActive",
+      noactive:"headNoActive",
       companyList:[]
     }
   }
@@ -77,10 +75,10 @@ export default {
   rrem(val){
     return (val/45px)rem
   }
-  .active
+  .headActive
     z-index 1000
 
-  .noactive
+  .headNoActive
     z-index 0
   .headImg
     width 100%
