@@ -60,6 +60,12 @@ export default {
             var url = preUrl + state;
             location.href = url
           }
+          else{
+            this.$Notice.error({
+              title:"登陆失败",
+              desc:res.msg
+            })
+          }
         })
       } else {
         var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?' +

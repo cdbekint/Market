@@ -100,6 +100,12 @@ export default {
       if (res.error === false) {
       this.userInfo = res.result
     }
+  else{
+      this.$Notice.error({
+        title:"登陆失败",
+        desc:res.msg
+      })
+    }
   })
 
     // 获取活动详细信息
@@ -118,6 +124,12 @@ export default {
           if (res2.error === false){
             this.music = res2.result.url
           }
+    else{
+        this.$Notice.error({
+          title:"登陆失败",
+          desc:res.msg
+        })
+      }
         })
       }
 
