@@ -88,7 +88,6 @@ export default {
         }
       });
 
-      console.log("over111245")
       console.log(this.datas)
     },
     setPointByCurrentCompany(companyId){
