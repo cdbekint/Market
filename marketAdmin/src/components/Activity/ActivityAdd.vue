@@ -85,8 +85,8 @@
           活动起止时间*
         </div>
         <div class="addcontent">
-          <Date-picker type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeDate($event,1)"></Date-picker>
-          <Date-picker type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeDate($event,2)"></Date-picker>
+          <Date-picker type="datetime" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeDate($event,1)"></Date-picker>
+          <Date-picker type="datetime" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeDate($event,2)"></Date-picker>
         </div>
         <div class="addnote">
           活动的开始和结束时间
@@ -97,8 +97,8 @@
           支付起止时间*
         </div>
         <div class="addcontent">
-          <Date-picker :disabled="!activeDate" type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changePayDate($event,1)"></Date-picker>
-          <Date-picker :disabled="!activeDate" type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changePayDate($event,2)"></Date-picker>
+          <Date-picker :disabled="!activeDate" type="datetime" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changePayDate($event,1)"></Date-picker>
+          <Date-picker :disabled="!activeDate" type="datetime" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changePayDate($event,2)"></Date-picker>
         </div>
         <div class="addnote">
           用户可支付时间，该时间必须在活动时间内
@@ -109,8 +109,8 @@
           积分翻倍起止时间*
         </div>
         <div class="addcontent">
-          <Date-picker :disabled="!payDate" type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeReturnDate($event,1)"></Date-picker>
-          <Date-picker :disabled="!payDate" type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeReturnDate($event,2)"></Date-picker>
+          <Date-picker :disabled="!payDate" type="datetime" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeReturnDate($event,1)"></Date-picker>
+          <Date-picker :disabled="!payDate" type="datetime" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeReturnDate($event,2)"></Date-picker>
         </div>
         <div class="addnote">
           用户支付获取积分翻倍时间，该时间必须在支付时间内
@@ -175,7 +175,7 @@
       <li>
         <div class="addname">组团形式*</div>
         <div class="addcontent">
-        <Radio-group v-model="activity.activityType">
+        <Radio-group v-model="activity.activityType" @on-change="selectModel">
           <Radio label="1">
               <span>自由模式</span>
           </Radio>
@@ -189,6 +189,17 @@
           自由模式可直接参加，组团模式只能加团或者自己建团;不同模式设置团购优惠对象不一样
         </div>
 
+        </div>
+      </li>
+      <li v-if="isTeam">
+        <div class="addname">团长福利积分*</div>
+        <div class="addcontent">
+          <input type="number" min="0" v-model="activity.groupRate">
+        </div>
+        <div class="addnote">
+          <div class="thin">
+
+          </div>
         </div>
       </li>
       <li>
@@ -215,17 +226,6 @@
           人数从低到高设置,折扣根据具体情况设置;如（人数：100，折扣：7  代表人数达到100后按7折优惠）
         </div>
 
-        </div>
-      </li>
-      <li>
-        <div class="addname">
-          审核备注
-        </div>
-        <div class="addcontent">
-          <input type="text" v-model="activity.auditRemarks">
-        </div>
-        <div class="addnote">
-          这是备注信息
         </div>
       </li>
       <li>
@@ -318,6 +318,7 @@ export default {
   data () {
     return {
       musicList: [],
+      isTeam:true,
       defaultMSg: '',
       Ueditorconfig: {
         initialFrameWidth: null,
@@ -347,10 +348,11 @@ export default {
         goodsIds:'',
         shareGift: '',
         shareTimes: '',
-        activityType: '',
+        activityType: 2,
         auditRemarks: '',
         payStartDate:'',
         payEndDate:'',
+        groupRate:'',
         pointsReturnMultiple:'',
         returnStartDate:'',
         returnEndDate:'',
@@ -406,6 +408,12 @@ export default {
     })
   },
   methods: {
+    selectModel(e){
+      if(e == 2)
+        this.isTeam = true;
+      else
+        this.isTeam = false;
+    },
     changeDate (val, state) {
       if (state === 1) {
         this.activity.startDate = val
@@ -457,11 +465,11 @@ export default {
     saveActivity () {
       this._setGiftsId();
       this._setGoodsId();
-      if (!this._setActivityLevel()) return;
+      if (!this._setdiscountLevel()) return;
       if (!this._checkParamAndExecute()) return;
     },
-    _setActivityLevel () {
-      var activityLevel = '[';
+    _setdiscountLevel () {
+      var discountLevel = '[';
       var me = this;
       var isSuccess = true;
       this.Group.forEach(function (item, index) {
@@ -480,11 +488,11 @@ export default {
             me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项人数需大于上一项',duration:0})
             isSuccess = false
           }
-          activityLevel += ','
+          discountLevel += ','
         }
-        activityLevel += "{mans:"+item.nums + ',discount:' + item.discount +"}"
+        discountLevel += '{"mans":'+item.nums + ',"discount":' + item.discount +'}'
       });
-      this.activity.discountLevel = activityLevel+"]";
+      this.activity.discountLevel = discountLevel+"]";
       if(isSuccess)
         return true;
       else

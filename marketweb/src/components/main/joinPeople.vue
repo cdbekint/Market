@@ -9,7 +9,7 @@
           <img :src='index.headImg'>
         </div>
         <div class='attend-name'>
-          {{index.nickName}}
+          {{index.userName}}
         </div>
         </Col>
         <Col span='4' class='attend-users-list' v-if="isExceed">
@@ -32,15 +32,15 @@ export default {
   props: ['activity'],
   components: {mainHead},
   watch: {
-    activity: function (val, oldVal) {
+    activity: function (val) {
       this.value.name = val.companyName
 
-      if (val.joinCustomers === null) return
-      if (val.joinCustomers.length >= 17) {
-        this.peoples = val.joinCustomers.slice(0, 17)
+      if (val.joinActivityInfo === null) return
+      if (val.joinActivityInfo.length >= 17) {
+        this.peoples = val.joinActivityInfo.slice(0, 17)
         this.isExceed = true
       } else {
-        this.peoples = val.joinCustomers
+        this.peoples = val.joinActivityInfo
       }
     }
   },

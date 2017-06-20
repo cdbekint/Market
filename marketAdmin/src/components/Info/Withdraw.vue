@@ -5,59 +5,16 @@
       	<span>用户提现</span>
       </div>
       <div class="titellink">
-      
+
       </div>
  	</div>
  	<div class="content">
-   <Table border :columns="withdrawlistColumns" :data="withdrawlistData" class="withdrawlistable"></Table>
+    <Table border :columns="listColumns" :data="listData" class="giftlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
-        <div style="float: right;">
-            <Page :total="withdrawpager.total" :current="withdrawpager.current" @on-change="changePage"></Page>
-        </div>
+      <div style="float: right;">
+        <Page :total="pager.total" :current="pager.pages" @on-change="changePage"></Page>
+      </div>
     </div>
- 		<table class="table table-bordered table-hover withdrawlisttable">
- 			<thead>
- 				<tr>
- 					<th>序号</th>
- 					<th>活动</th>
- 					<th>头像</th>
- 					<th>昵称</th>
- 					<th>联系方式</th>
- 					<th>提现金额</th>
- 					<th>提现时间</th>
- 					<th>提现状态</th>
- 					<th>操作</th>
- 				</tr>
- 			</thead>
- 			<tbody>
- 				<tr>
- 					<td>1</td>
- 					<td class="withdraworigin">冰点脱毛秒杀开始啦！仅需399元秒杀任意部位，快来抢购</td>
- 					<td><img class="withdrawavater" src="http://wx.qlogo.cn/mmopen/qGusKyb0IEeL0LcuiaCuISav37vicPlXiaibQqM4jwvnt6FLxSiaPN9WUlevzuMW2abajiaH8rlEndlATibuwCQnR0EgJBS9bgXdr0I/0" alt=""></td>
- 					<td>白起网络</td>
- 					<td>19392942932</td>
- 					<td>482.5</td>
- 					<td>2017-04-13 17:11:14</td>
- 					<td><img src="/static/images/fail.png" class="withdrawstatus" alt=""></td>
- 					<td>
- 						
- 					</td>
- 				</tr>
- 				<tr>
- 					<td>1</td>
- 					<td>冰点脱毛秒杀开始啦！仅需399元秒杀任意部位，快来抢购</td>
- 					<td><img class="withdrawavater" src="http://wx.qlogo.cn/mmopen/qGusKyb0IEeL0LcuiaCuISav37vicPlXiaibQqM4jwvnt6FLxSiaPN9WUlevzuMW2abajiaH8rlEndlATibuwCQnR0EgJBS9bgXdr0I/0" alt=""></td>
- 					<td>白起网络</td>
- 					<td>19392942932</td>
- 					<td>482.5</td>
- 					<td>2017-04-13 17:11:14</td>
- 					<td><img src="/static/images/success.png" class="withdrawstatus" alt=""></td>
- 					<td>
- 						
- 					</td>
- 				</tr>
- 			</tbody>
- 		</table>
  	</div>
 </div>
 </template>
@@ -67,7 +24,7 @@ export default {
   name: 'Withdraw',
   data () {
     return {
-      withdrawlistColumns: [
+      listColumns: [
         {
           title: '序号',
           type: 'index',
@@ -75,55 +32,55 @@ export default {
           align: 'center'
         },
         {
-          title: '活动名称',
-          key: 'wactivityName'
-        },
-        {
-          title: '头像',
-          key: 'userCphoto',
-          render (row) {
-            return '<img class="withdrawlistavater" :src="row.userCphoto"/>'
+          title: '用户名',
+          key: 'realName',
+          render(row){
+            if(row.realName == '')
+              return "<span>{{row.nickName}}</span>"
+            else
+              return "<span>{{row.realName}}</span>"
           }
         },
         {
-          title: '昵称',
-          key: 'nickName'
+          title: '头像',
+          key: 'headImg',
+          render (row) {
+            return '<img class="goodslistavater" :src="murl + row.headImg" style="width:40px;height:40px;"/>'
+          }
         },
         {
-          title: '联系方式',
-          key: 'phone'
+          title: '提现内容',
+          key: 'remarks'
+        },
+        {
+          title: '提现比率',
+          key: 'toCashRate'
         },
         {
           title: '提现金额',
           key: 'withdrawAmount'
         },
         {
+          title: '提现描述',
+          key: 'withdrawDesc'
+        },
+        {
+          title: '提现手续费',
+          key: 'withdrawFactorage'
+        },
+        {
+          title: '提现积分',
+          key: 'withdrawPoints'
+        },
+        {
           title: '提现时间',
-          key: 'withdrawDate'
-        },
-        {
-          title: '提现状态',
-          key: 'storageNum',
-          render (row) {
-            return '<img src="/static/images/success.png" class="withdrawstatus" alt="">'
-          }
-        },
-        {
-          title: '备注',
-          key: 'remark'
-        },
-        {
-          title: '操作',
-          key: 'action',
-          render () {
-            return '<i-button type="text" size="small">修改</i-button><i-button type="text" size="small">删除</i-button>'
-          }
+          key: 'successDate'
         }
       ],
-      withdrawlistData: [],
-      withdrawpager: {
+      listData: [],
+      pager: {
         total: 1,
-        current: 1
+        pages: 1
       }
     }
   },
@@ -132,16 +89,18 @@ export default {
   },
   methods: {
     getwithdrawList (pageNo) {
-      this.http.get('/api/withdraw/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/withdraw/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
-          this.withdrawpager = res.result
-          delete this.withdrawpager.records
-          this.withdrawlistData = res.result.records
+          this.pager = res.result
+          this.listData = res.result.records
+          this.listData.forEach(item=>{
+            item.successDate = this.util.changeDateToTime(item.successDate);
+          })
         }
       })
     },
-    changePage () {
-      this.getwithdrawList(this.withdrawpager.current)
+    changePage (e) {
+      this.getwithdrawList(e)
     }
   }
 }

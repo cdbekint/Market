@@ -8,10 +8,10 @@
       </div>
   </div>
   <div class="content">
-  	<Table border :columns="pointlistColumns" :data="pointlistData" class="pointlistable"></Table>
+  	<Table border :columns="listColumns" :data="listData" class="pointlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="pointpager.total" :current="pointpager.current" @on-change="changePage"></Page>
+            <Page :total="pointpager.total" :current="pointpager.pages" @on-change="changePage($event)"></Page>
         </div>
     </div>
   </div>
@@ -23,7 +23,7 @@ export default {
   name: 'Point',
   data () {
     return {
-      pointlistColumns: [
+      listColumns: [
         {
           title: '序号',
           type: 'index',
@@ -31,48 +31,33 @@ export default {
           align: 'center'
         },
         {
+          title: '用户名',
+          key: 'name'
+        },
+        {
           title: '头像',
-          key: 'pointName',
+          key: 'headName',
           render (row) {
-            return '<img class="pointlistavater" :src="row.pointImg"/>'
+            return '<img class="pointlistavater" :src="row.headImg" width="40px" height="40px"/>'
           }
         },
         {
-          title: '客户昵称',
-          key: 'pointImg'
-        },
-        {
-          title: '客户姓名',
-          key: 'pointDesc'
-        },
-        {
           title: '联系电话',
-          key: 'pointPrice'
+          key: 'phone'
         },
         {
           title: '积分',
           key: 'points'
         },
         {
-          title: '余额',
-          key: 'balance'
-        },
-        {
-          title: '加入时间',
+          title: '时间',
           key: 'createDate'
-        },
-        {
-          title: '操作',
-          key: 'action',
-          render () {
-            return '<i-button type="text" size="small">修改</i-button><i-button type="text" size="small">删除</i-button>'
-          }
         }
       ],
-      pointlistData: [],
+      listData: [],
       pointpager: {
         total: 1,
-        current: 1
+        pages: 1
       }
     }
   },
@@ -84,13 +69,18 @@ export default {
       this.http.get('/api/pointsDetails/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
           this.pointpager = res.result
-          delete this.pointpager.records
-          this.pointlistData = res.result.records
+          this.listData = res.result.records
+          this.listData.forEach(item=>{
+            item.createDate = this.util.changeDateToTime(item.createDate);
+            item.name = item.account.realName == ''?item.account.nickName:item.account.realName;
+            item.headImg = item.account.headImg;
+            item.phone = item.account.phone;
+          })
         }
       })
     },
-    changePage () {
-      this.getPointList(this.pointpager.current)
+    changePage (e) {
+      this.getPointList(e)
     }
   }
 }

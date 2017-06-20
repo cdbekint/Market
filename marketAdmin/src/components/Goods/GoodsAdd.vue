@@ -8,7 +8,7 @@
       <router-link to="/goods" class="innerbtnlink">商品列表</router-link>
       </div>
   </div>
-  <div class="content">
+  <div class="">
     <Form ref="formValidate" :model="Goods" class="goodseditform" :rules="GoodsRule" :label-width="100">
        <Form-item label="商品名称" prop="goodsName">
             <Input v-model="Goods.goodsName" placeholder="请输入"></Input>
@@ -19,17 +19,24 @@
        </Form-item>
        <Form-item label="图片预览">
          <a :href="murl + Goods.goodsImg" target="_blank" v-if="Goods.goodsImg">
-           <img :src="murl+Goods.goodsImg" alt="" class="goodsimgthumb">
+           <img :src="murl+Goods.goodsImg" alt="" class="goodsimgthumb" style="width:250px;height:250px;">
          </a>
+      </Form-item>
+      <Form-item label="商品类型" prop="goodsType">
+        <Select v-model="Goods.goodsType" style="width:100%" @on-change="setGoodsType">
+          <Option value="1">现金</Option>
+          <Option value="2">积分</Option>
+          <Option value="3">现金加积分</Option>
+        </Select>
+      </Form-item>
+      <Form-item label="商品价格" prop="goodsPrice" v-if="showPrice">
+        <Input type="text" v-model="Goods.goodsPrice" number ></Input>
+      </Form-item>
+      <Form-item label="最大兑换积分" prop="maxPoints" v-if="showPoint">
+        <Input type="text" v-model="Goods.maxPoints" number ></Input>
       </Form-item>
        <Form-item label="商品介绍">
             <Input type="textarea" v-model="Goods.goodsDesc" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
-       </Form-item>
-       <Form-item label="商品价格" prop="goodsPrice">
-            <Input type="text" v-model="Goods.goodsPrice" number></Input>
-       </Form-item>
-       <Form-item label="最大兑换积分" prop="maxPoints">
-            <Input type="text" v-model="Goods.maxPoints" number></Input>
        </Form-item>
        <Form-item label="库存"  prop="storageNum">
             <Input type="text" v-model="Goods.storageNum" number></Input>
@@ -58,6 +65,8 @@ export default {
   name: 'GoodsAdd',
   data () {
     return {
+      showPrice:false,
+      showPoint:false,
       Goods: {
         goodsName: '',
         goodsImg: '',
@@ -66,6 +75,7 @@ export default {
         sort: 0,
         storageNum: '',
         goodsStatus: 1,
+        goodsType: 1,
         goodsDesc: '',
         goodsDate: (new Date().getTime())
       },
@@ -84,7 +94,7 @@ export default {
         ]
       },
       uploaderconfig: {
-        maxSize: 5120,
+        maxSize: 51200,
         format: ['jpg', 'png', 'jpeg'],
         showUploadList: false,
         parent: 'Goods',
@@ -94,6 +104,15 @@ export default {
   },
   components: { uploader },
   methods: {
+    setGoodsType(val){
+      this.showPrice = false;
+      this.showPoint = false;
+      switch(~~val){
+        case 1:this.showPrice = true;break;
+        case 2:this.showPoint = true;break;
+        case 3:this.showPoint = true;this.showPrice=true;break;
+      }
+    },
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {

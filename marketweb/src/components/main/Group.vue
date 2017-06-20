@@ -16,13 +16,13 @@
         <div v-for="index in datas">
           <li>
             <div class="groupAvater">
-              <img :src='index.headImg'>
+              <img :src='index.headImg' :class="index.status">
             </div>
             <div class="groupName flex1">
-              {{index.nickName}}
+              {{index.userName}}
             </div>
             <div class="attendDate flex1">
-              {{index.phone}}
+              {{index.joinDate}}
             </div>
           </li>
           <hr style="border:1px dashed #eee;">
@@ -40,13 +40,19 @@ export default {
   props: ['activity'],
   components: {mainHead},
   watch: {
-    activity: function (val, oldVal) {
+    activity: function (val) {
       this.value.name = val.companyName
-      if (val.payedCustomers === null) return
-      if (val.payedCustomers.length >= 10) {
-        this.datas = val.payedCustomers.slice(0, 10)
-      } else {
-        this.datas = val.payedCustomers
+      if (val.groupInfo === null) return
+      val.groupInfo.forEach(item=>{
+        item.joinDate = this.changeDateToTime(item.joinDate);
+        item.payStatus == 0 ? item.status = "gray":item.status = '';
+      });
+
+      if (val.groupInfo.length >= 10) {
+        this.datas = val.groupInfo.slice(0, 10)
+      }
+      else {
+        this.datas = val.groupInfo
       }
     }
   },
@@ -61,6 +67,11 @@ export default {
     }
   },
   methods: {
+    changeDateToTime(date){
+      var newDate = new Date(date).toJSON();
+      var index = newDate.indexOf("T");
+      return newDate.slice(0,index)
+    },
   }
 }
 </script>
@@ -68,6 +79,10 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus">
   rrem(val){
     return (val/144px)rem
+  }
+  .gray {
+    filter: grayscale(80%);
+    filter: gray;
   }
   .groupUsers
     background:#fff

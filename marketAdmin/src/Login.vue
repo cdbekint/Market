@@ -43,8 +43,8 @@ export default {
   data () {
     return {
       formInline: {
-        username: 'admin',
-        password: 'admin',
+        username: '',
+        password: '',
         type: 2
       },
       register: {

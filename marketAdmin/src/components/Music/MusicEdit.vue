@@ -10,8 +10,8 @@
       </div>
  	</div>
   <div class="content">
-    <Form ref="formValidate" :model="music" class="musiceditform" :rules="musicRule" :label-width="100">
-       <Form-item label="音乐名称" prop="goodsName">
+    <Form ref="musicRule" :model="music" class="musiceditform" :rules="musicRule" :label-width="100">
+       <Form-item label="音乐名称" prop="name">
             <Input v-model="music.name" placeholder="请输入"></Input>
        </Form-item>
        <Form-item label="上传音乐" class="text-left">

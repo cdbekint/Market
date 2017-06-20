@@ -1,13 +1,13 @@
 <template>
   <div class = 'team'>
     <div class = 'main_head'>
-      <img src='/static/images/a8.png' alt=''>
+      <img :src="'/static/images/a'+no+'.png'" alt=''>
     </div>
     <div class = 'main_pro'>
       <div class = 'pro_line line1'>
-        <div class = 'main_time' @click='payMoney' style='z-index:2000'>
+        <div class = 'main_time' @click='payMoneyEvent' style='z-index:2000'>
           <div class = 'time_count' >
-            <p>支付 <span>{{activity.activityMoney}}</span> 元参加</p>
+            <p>支付 <span>{{payMoney}}</span> 元参加</p>
           </div>
         </div>
         <div class = 'main_title'>
@@ -35,12 +35,15 @@
 <script>
 import progressMe from '../Utils/ProgressMe.vue'
 export default {
-  name: 'time_progress',
+  name: 'team',
   components: { progressMe },
   props: ['activity'],
   data () {
     return {
       isPaying: false,
+      no:8,
+      payMoney:0,
+      payPoint:0,
       params: {
         businessId: 12,
         payType: 2,
@@ -50,19 +53,31 @@ export default {
     }
   },
   watch: {
-    activity: function (val, oldVal) {
-      this.params = {
+    activity: {
+      handler (val, oldVal) {
+        this.params = {
 //        businessId: val.id,
 //        payType: val.activityType,
-        businessId: 12,
-        payType: 2,
-        payPoints: 0,
-        companyId: val.companyId
+          businessId: 3,
+          payType: 5,
+          payAmount: 1,
+          companyId: val.companyId
+        }
+        this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
+          if(res.error == false){
+            this.payPoint = res.result.registerPoints;
+            this.payMoney = res.result.registerMoney;
+          }
+        })
+
+        if (val.activityType != 2)
+          this.value.no = 7;
       }
-    }
+    },
+    deep:true
   },
   methods: {
-    payMoney () {
+    payMoneyEvent () {
       if (this.isPaying === true) {
         return
       }
@@ -78,7 +93,7 @@ export default {
                 'appId': row.appid,
                 'timeStamp': row.timeStamp,
                 'nonceStr': row.nonce_str,
-                'package':  + row.prepay_id,
+                'package':  row.prepay_id,
                 'signType': row.sign_type,
                 'paySign': row.sign
               },

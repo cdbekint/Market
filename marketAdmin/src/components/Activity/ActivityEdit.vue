@@ -8,7 +8,7 @@
       </div>
       <div class="titellink">
         <router-link to="/activity" class="innerbtnlink">活动列表</router-link>
-        <router-link to="/activity/add" class="innerbtnlink">新增活动</router-link>
+        <router-link to="/activityAdd" class="innerbtnlink">新增活动</router-link>
       </div>
     </div>
     <div class="content">
@@ -83,13 +83,38 @@
         </li>
         <li>
           <div class="addname">
-            起止时间*
+            活动起止时间*
           </div>
           <div class="addcontent">
-            <Date-picker  v-model="activity.startDate" type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeDate($event,1)"></Date-picker>
-            <Date-picker v-model="activity.endDate" type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeDate($event,2)"></Date-picker>
+            <Date-picker type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeDate($event,1)"></Date-picker>
+            <Date-picker type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeDate($event,2)"></Date-picker>
           </div>
           <div class="addnote">
+            活动的开始和结束时间
+          </div>
+        </li>
+        <li>
+          <div class="addname">
+            支付起止时间*
+          </div>
+          <div class="addcontent">
+            <Date-picker :disabled="!activeDate" type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changePayDate($event,1)"></Date-picker>
+            <Date-picker :disabled="!activeDate" type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changePayDate($event,2)"></Date-picker>
+          </div>
+          <div class="addnote">
+            用户可支付时间，该时间必须在活动时间内
+          </div>
+        </li>
+        <li>
+          <div class="addname">
+            积分翻倍起止时间*
+          </div>
+          <div class="addcontent">
+            <Date-picker :disabled="!payDate" type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeReturnDate($event,1)"></Date-picker>
+            <Date-picker :disabled="!payDate" type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeReturnDate($event,2)"></Date-picker>
+          </div>
+          <div class="addnote">
+            用户支付获取积分翻倍时间，该时间必须在支付时间内
           </div>
         </li>
 
@@ -126,7 +151,7 @@
           <div class="addname">
             指定礼品
           </div>
-          <div class="addcontent">
+          <div class="addcontent" style="margin-top:15px;">
             <ul class="giftlist">
               <li v-for="(gl,index) in GiftList" @click="setGift(gl)"> <img :src="'/static/images/'+ (gl.selected?'':'un')+ 'selected.png'" alt=""><span v-text="gl.giftName"></span></li>
             </ul>
@@ -137,8 +162,19 @@
         </li>
         <li>
           <div class="addname">
-            组团形式*
+            选择商品
           </div>
+          <div class="addcontent" style="margin-top:15px;">
+            <ul class="giftlist" >
+              <li v-for="(gl,index) in goodList" @click="setGift(gl)"> <img :src="'/static/images/'+ (gl.selected?'':'un')+ 'selected.png'" alt="">&nbsp&nbsp<span v-text="gl.goodsName"></span></li>
+            </ul>
+          </div>
+          <div class="addnote">
+
+          </div>
+        </li>
+        <li>
+          <div class="addname">组团形式*</div>
           <div class="addcontent">
             <Radio-group v-model="activity.activityType">
               <Radio label="1">
@@ -156,14 +192,23 @@
 
           </div>
         </li>
-        <li>
-          <div class="addname">
-            团购优惠*
+        <li v-if="isTeam">
+          <div class="addname">团长福利积分*</div>
+          <div class="addcontent">
+            <input type="number" min="0" v-model="activity.groupRate">
           </div>
+          <div class="addnote">
+            <div class="thin">
+
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="addname">团购优惠*</div>
           <div class="addcontent">
             <Row v-for="(group,index) in Group" :key="group" :label="'项目' + (index + 1)">
               <Col span="8">
-              <Input type="text" v-model="group.nums" placeholder="团购人数"></Input>
+              <Input type="text" v-model="group.mans" placeholder="团购人数"></Input>
               </Col>
               <Col span="8" offset="2">
               <Input type="text" v-model="group.discount" placeholder="折扣等级"></Input>
@@ -185,48 +230,65 @@
           </div>
         </li>
         <li>
-          <div class="addname">
-            订金金额*
-          </div>
+          <div class="addname">积分返回倍数*</div>
           <div class="addcontent">
-            <input type="number" min="0" step="0.01" v-model="activity.activityMoney">
+            <input type="number" min="0" v-model="activity.pointsReturnMultiple">
           </div>
           <div class="addnote">
 
           </div>
         </li>
         <li>
-          <div class="addname">
-            直接邀请人返现*
-          </div>
+          <div class="addname">分享次数*</div>
           <div class="addcontent">
-            <input type="number" min="0" step="0.01" v-model="activity.customerAmount">
+            <input type="number" min="0" v-model="activity.shareTimes">
           </div>
           <div class="addnote">
             <div class="thin">
               如不返现请设置为0,每邀请一位人参与活动，邀请人获得对应返现
             </div>
-
           </div>
         </li>
-        <li>
-          <div class="addname">
-            二级邀请人返现*
-          </div>
-          <div class="addcontent">
-            <input type="number" min="0" step="0.01" v-model="activity.customerAmount">
-          </div>
-          <div class="addnote">
-            <div class="thin">
-              如不返现请设置为0,所邀请的人每邀请一位人参与活动，二级邀请人获得对应返现
-            </div>
+        <!--<li>-->
+        <!--<div class="addname">-->
+        <!--参加人数*-->
+        <!--</div>-->
+        <!--<div class="addcontent">-->
+        <!--<input type="number" min="0" v-model="activity.joinNum">-->
+        <!--</div>-->
+        <!--<div class="addnote">-->
+        <!--<div class="thin">-->
+        <!--如不返现请设置为0,每邀请一位人参与活动，邀请人获得对应返现-->
+        <!--</div>-->
 
-          </div>
-        </li>
+        <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<div class="addname">分享人数*</div>-->
+        <!--<div class="addcontent">-->
+        <!--<input type="number" min="0" v-model="activity.shareNum">-->
+        <!--</div>-->
+        <!--<div class="addnote">-->
+        <!--<div class="thin">-->
+        <!--如不返现请设置为0,所邀请的人每邀请一位人参与活动，二级邀请人获得对应返现-->
+        <!--</div>-->
+
+        <!--</div>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<div class="addname">浏览人数*</div>-->
+        <!--<div class="addcontent">-->
+        <!--<input type="number" min="0" step="0.01" v-model="activity.viewNum">-->
+        <!--</div>-->
+        <!--<div class="addnote">-->
+        <!--<div class="thin">-->
+        <!--如不返现请设置为0,所邀请的人每邀请一位人参与活动，二级邀请人获得对应返现-->
+        <!--</div>-->
+
+        <!--</div>-->
+        <!--</li>-->
         <li>
-          <div class="addname">
-            活动详情
-          </div>
+          <div class="addname">活动详情</div>
           <div class="addcontent ueditor-wrapper">
             <ueditor :value="defaultMSg" :config="Ueditorconfig" @input="Ueditorinput" v-on:ready="Ueditorready"></ueditor>
           </div>
@@ -250,12 +312,13 @@
   import uploader from '../Util/Uploader'
   export default {
     components: { ueditor, uploader },
-    name: 'ActivityEdit',
+    name: 'ActivityAdd',
     mounted () {
       this.over = true;
     },
     data () {
       return {
+        isTeam:true,
         musicList: [],
         defaultMSg: '',
         Ueditorconfig: {
@@ -279,37 +342,41 @@
           shareDes: '',
           shareImg: '',
           activityImg: '',
-          activityNum: '',
-          viewNum: '',
           startDate: '',
           endDate: '',
           musicId: '',
           giftIds: '',
+          goodsIds:'',
           shareGift: '',
           shareTimes: '',
-          activityMoney: '',
-          activityType: '',
-          customerAmount: '',
-          auditStatus: '',
+          activityType: 2,
+          groupRate:0,
           auditRemarks: '',
-          totalMan: '',
-          discount: '',
-          activityLevel: [
+          payStartDate:'',
+          payEndDate:'',
+          pointsReturnMultiple:'',
+          returnStartDate:'',
+          returnEndDate:'',
+          auditRemarks:'',
+//        viewNum:0,
+//        shareNum:0,
+//        joinNum:0,
+          discountLevel: [
             {
-              nums: 0,
+              mans: 0,
               level: 10
             }
           ]
         },
         Mainuploaderconfig: {
-          maxSize: 5120,
+          maxSize: 10240,
           format: ['png', 'jpg', 'jpeg'],
           showUploadList: false,
           parent: 'activity',
           child: 'activityImg'
         },
         uploaderconfig: {
-          maxSize: 1024,
+          maxSize: 10240,
           format: ['png', 'jpg', 'jpeg'],
           showUploadList: false,
           parent: 'activity',
@@ -317,47 +384,91 @@
         },
         musicModel: false,
         GiftList: [],
+        goodList:[],
         Group: [
           {
-            nums: '',
+            mans: '',
             discount: ''
           }
-        ]
+        ],
+        activeDate:false,
+        payDate:false,
+        selectGoods:[]
       }
     },
     created () {
-      this.getGiftList()
-      this.getMusicList(1)
-      this.getActivityById()
+      this.getGiftList();
+      this.getMusicList(1);
+
+      var query = this.util.getQuery(location.hash);
+      this.http.get(this.$store.state.prefix +  "/activity/"+query.id).then(res=>{
+        if (res.error === false) {
+          this.activity = res.result;
+          this.Group = JSON.parse(this.activity.discountLevel.replace(/&quot;/g,'"'));
+          this.defaultMSg = this.util.escapeToHtml(this.activity.content);
+          this.activity.content = this.defaultMSg
+
+          this.selectGoods = this.activity.goodsIds.split(",");
+        }
+      }).then(()=>{
+        this.http.get("/api/goods/page/1").then(res=>{
+          if (res.error === false) {
+            for (var i of res.result.records) {
+              for(var goods of this.selectGoods){
+                if(i.id == ~~goods)
+                  i.selected = true
+                else
+                  i.selected = false
+              }
+            }
+            this.goodList = res.result.records
+          }
+        })
+      })
+
     },
     methods: {
+      selectModel(e){
+        if(e == 2)
+          this.isTeam = true;
+        else
+          this.isTeam = false;
+      },
       changeDate (val, state) {
         if (state === 1) {
           this.activity.startDate = val
         } else {
           this.activity.endDate = val
         }
+        if(this.activity.startDate != '' && this.activity.endDate != ''){
+          this.activeDate = true;
+        }
       },
-      getActivityById () {
-        var query = this.util.getQuery(location.hash);
-        this.http.get('/api/activity/' + query.id).then(res => {
-          if (res.error === false) {
-            this.activity = res.result;
-            this.defaultMSg = this.util.escapeToHtml(res.result.content);
-            var group = [];
-            if (this.util.isNull(res.result.activityLevel) === false) {
-              var aiArr = res.result.activityLevel.split(';');
-              aiArr.forEach(function (item) {
-                var single = item.split(',');
-                group.push({
-                  nums: single[0],
-                  discount: single[1]
-                });
-              })
-              this.Group = group;
-            }
-          }
-        })
+      changePayDate (val, state) {
+        if(val < this.activity.startDate || val > this.activity.endDate) {
+          this.$Notice.error({title: '支付时间错误', desc: '支付时间必须在活动时间内',duration:0})
+          return false;
+        }
+        if (state === 1) {
+          this.activity.payStartDate = val
+        } else {
+          this.activity.payEndDate = val
+        }
+        if(this.activity.payStartDate != '' && this.activity.payEndDate != ''){
+          this.payDate = true;
+        }
+      },
+      changeReturnDate (val, state) {
+        if(val < this.activity.payStartDate || val > this.activity.payEndDate) {
+          this.$Notice.error({title: '积分翻倍时间错误', desc: '积分翻倍时间必须在支付时间内',duration:0})
+          return false;
+        }
+        if (state === 1) {
+          this.activity.returnStartDate = val
+        }
+        else {
+          this.activity.returnEndDate = val
+        }
       },
       Ueditorready (editor) {},
       Ueditorinput (obj) {
@@ -373,34 +484,48 @@
       },
       saveActivity () {
         this._setGiftsId();
-        if (!this._setActivityLevel()) return;
+        this._setGoodsId();
+        if (!this._setdiscountLevel()) return;
         if (!this._checkParamAndExecute()) return;
       },
-      _setActivityLevel () {
-        var activityLevel = '';
+      _setdiscountLevel () {
+        var discountLevel = '[';
         var me = this;
+        var isSuccess = true;
         this.Group.forEach(function (item, index) {
           if (index === 0) {
-            if (me.util.isNull(item.nums) || me.util.isNull(item.discount)) {
-              me.$Notice.info({title: '请完善信息', desc: '请填写团购优惠'})
-              return false
+            if (me.util.isNull(item.mans) || me.util.isNull(item.discount)) {
+              me.$Notice.info({title: '请完善信息', desc: '请填写团购优惠',duration:0})
+              isSuccess = false
             }
           }
           if (item.discount > 10 || item.discount < 0) {
-            me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项折扣信息需在0-10之间'})
-            return false
+            me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项折扣信息需在0-10之间',duration:0})
+            isSuccess = false
           }
           if (index > 0) {
-            if (~~(item.nums) <= ~~(me.Group[index - 1].nums)) {
-              me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项人数需大于上一项'})
-              return false
+            if (~~(item.mans) <= ~~(me.Group[index - 1].mans)) {
+              me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项人数需大于上一项',duration:0})
+              isSuccess = false
             }
-            activityLevel += ';'
+            discountLevel += ','
           }
-          activityLevel += item.nums + ',' + item.discount
+          discountLevel += '{"mans":'+item.mans + ',"discount":' + item.discount +'}'
         });
-        this.activity.activityLevel = activityLevel
-        return true;
+        this.activity.discountLevel = discountLevel+"]";
+        if(isSuccess)
+          return true;
+        else
+          return false;
+      },
+      _setGoodsId () {
+        var list = [];
+        for (var j in this.goodList) {
+          if (this.goodList[j].selected === true) {
+            list.push(this.goodList[j].id)
+          }
+        }
+        this.activity.goodsIds = list.join(',')
       },
       _setGiftsId () {
         var giftList = [];
@@ -438,6 +563,22 @@
           this.$Notice.info({title: '请完善信息', desc: '请选择活动结束时间'})
           return false
         }
+        if (!ai.payStartDate) {
+          this.$Notice.info({title: '请完善信息', desc: '请选择支付开始时间'})
+          return false
+        }
+        if (!ai.payEndDate) {
+          this.$Notice.info({title: '请完善信息', desc: '请选择支付结束时间'})
+          return false
+        }
+        if (!ai.returnStartDate) {
+          this.$Notice.info({title: '请完善信息', desc: '请选择积分翻倍开始时间'})
+          return false
+        }
+        if (!ai.returnEndDate) {
+          this.$Notice.info({title: '请完善信息', desc: '请选择积分翻倍结束时间'})
+          return false
+        }
         if (this.util.isNull(ai.shareGift)) {
           this.$Notice.info({title: '请完善信息', desc: '请选择是否打开分享得礼'})
           return false
@@ -448,16 +589,12 @@
             return false
           }
         }
-        if (this.util.isNull(ai.activityLevel)) {
+        if (this.util.isNull(ai.discountLevel)) {
           this.$Notice.info({title: '请完善信息', desc: '请设置团购优惠'})
           return false
         }
-        if (!ai.activityMoney) {
-          this.$Notice.info({title: '请完善信息', desc: '请输入活动定金'})
-          return false
-        }
-        if (!ai.customerAmount) {
-          this.$Notice.info({title: '请完善信息', desc: '请输入直接返现金额'})
+        if (!ai.pointsReturnMultiple) {
+          this.$Notice.info({title: '请完善信息', desc: '请输入积分返还倍数'})
           return false
         }
         if (!ai.content) {
@@ -476,8 +613,8 @@
         this.Group.splice(index, 1)
       },
       addGroup (index) {
-        if (this.Group[index].nums && this.Group[index].discount) {
-          this.Group.push({nums: '', discount: ''})
+        if (this.Group[index].mans && this.Group[index].discount) {
+          this.Group.push({mans: '', discount: ''})
         } else {
           this.$Notice.warning({title: '请先完善当前项内容'})
         }
@@ -561,7 +698,7 @@
         padding:10px 0px
       .addnote
         color:#b2b2b2
-        font-size:0.8em
+        font-size:16px
         flex:1
         text-align:right
         vertical-align:middle

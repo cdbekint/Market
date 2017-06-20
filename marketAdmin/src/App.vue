@@ -16,7 +16,6 @@
           <i class="fa fa-th"></i>基本信息
           </dt>
           <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
-          <router-link :to="{path:'/employee'}" tag="dd" active-class="active">员工管理</router-link>
 
         </dl>
          <dl class="menulist">
@@ -35,7 +34,6 @@
         </dl>
         <dl class="menulist">
           <dt><i class="fa fa-money"></i>交易提现</dt>
-          <router-link :to="{path:'/trading'}" tag="dd" active-class="active">交易记录</router-link>
           <router-link :to="{path:'/withdraw'}" tag="dd" active-class="active">用户提现</router-link>
         </dl>
         <dl class="menulist">

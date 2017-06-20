@@ -2,19 +2,19 @@
 <div class="orderlist">
 	<div class="content-title">
       <!-- 页面的标题 -->
-      
+
       <div class="titlename">
       	<span>订单列表</span>
       </div>
       <div class="titellink">
-      
+
       </div>
  	</div>
  	<div class="content">
   <Table border :columns="orderlistColumns" :data="orderlistData" class="orderlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="orderpager.total" :current="orderpager.current" @on-change="changePage"></Page>
+            <Page :total="pager.total" :current="pager.pages" @on-change="changePage($event)"></Page>
         </div>
     </div>
  	</div>
@@ -35,40 +35,44 @@ export default {
         },
         {
           title: '订单号',
-          key: 'orderNo'
+          key: 'payNo'
         },
         {
-          title: '商品',
-          key: 'goodsId'
+          title: '用户名',
+          key: 'name'
         },
         {
-          title: '购买者',
-          key: ''
+          title:"头像",
+          key:'headImg',
+          render (row) {
+            return '<img :src="row.headImg" style="width:40px;height:40px;"/>'
+          }
+        },
+        {
+          title: '折扣',
+          key: 'discount'
         },
         {
           title: '支付金额',
-          key: 'orderAmount'
+          key: 'payAmount'
         },
         {
           title: '支付积分',
           key: 'payPoints'
         },
         {
-          title: '订单状态',
-          key: 'payStatus'
+          title: '日期',
+          key: 'payDate'
         },
         {
-          title: '操作',
-          key: 'action',
-          render () {
-            return '<i-button type="text" size="small">修改</i-button><i-button type="text" size="small">删除</i-button>'
-          }
+          title: '信息',
+          key: 'remarks'
         }
       ],
       orderlistData: [],
-      orderpager: {
+      pager: {
         total: 1,
-        current: 1
+        pages: 1
       }
     }
   },
@@ -77,16 +81,21 @@ export default {
   },
   methods: {
     getOrderList (pageNo) {
-      this.http.get('/api/orders/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/pay/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
-          this.orderpager = res.result
-          delete this.orderpager.records
+          this.pager.total = res.result.total
+          this.pager.pages = res.result.pages
           this.orderlistData = res.result.records
+          this.orderlistData.forEach(item=>{
+            item.payDate = this.util.changeDateToTime(item.payDate);
+            item.name = item.account.realName == ''?item.account.nickName:item.account.realName;
+            item.headImg = item.account.headImg;
+          })
         }
       })
     },
-    changePage () {
-      this.getOrderList(this.orderpager.current)
+    changePage (e) {
+      this.getOrderList(e)
     }
   }
 }

@@ -19,6 +19,9 @@
         <Form-item label="公司简介" class="text-left">
           <span v-text="companyinfo.companyDesc"></span>
         </Form-item>
+      <Form-item label="公司地址" class="text-left">
+        <span v-text="companyinfo.companyAddr"></span>
+      </Form-item>
         <Form-item label="联系电话" class="text-left">
           <span v-text="companyinfo.companyTel"></span>
         </Form-item>
@@ -29,7 +32,18 @@
           <span v-text="companyinfo.toCashRate"></span>
         </Form-item>
         <Form-item label="员工提成比" class="text-left">
-          <span v-text="companyinfo.employeeRate"></span>
+          <Row v-for='(group,index) in Group' :key='group' :label='"项目" + (index + 1)' style='margin:7px;'>
+            <Col span='8'>
+            <Input type='text' v-model='group.mans' disabled>
+            <span slot="append" style="display: block;width:50px;">元</span>
+            </Input>
+            </Col>
+            <Col span='8' offset='2'>
+            <Input type='text' v-model='group.discount' disabled>
+              <span slot="append" style="display: block;width:50px;">%</span>
+            </Input>
+            </Col>
+          </Row>
         </Form-item>
         <Form-item label="转发积分" class="text-left">
           <span v-text="companyinfo.sharePoints"></span>
@@ -90,6 +104,12 @@ export default {
         secondReturn:0,
         overDate: '2017-12-30'
       },
+      Group: [
+        {
+          mans: '',
+          discount: ''
+        }
+      ],
       weixinpayModal: false
     }
   },
@@ -99,6 +119,7 @@ export default {
         if (res.error === false) {
           if (res.result !== null) {
             this.companyinfo = res.result
+            this.Group = JSON.parse(this.companyinfo.employeeRate.replace(/&quot;/g,'"'));
           }
         }
       })

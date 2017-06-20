@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="marketApp" basedir="." default="all">
+
+	<tstamp>
+		<format property="m_version" pattern="yyyy-MM-dd_hh:mm:ss" />
+	</tstamp>
+
+	<property name="version" value="1.0.${m_version}" />
+
+	<property name="WebSource" value="" />
+    <property name="build.home" value="/root/.jenkins/workspace/marketApp/marketweb/dist/*" />
+	<property name="target" value="/u01/tomcatmarketing/webapps/ROOT" />
+
+	<target name="all">
+		<antcall target="clean" />
+		<antcall target="copy2target" />
+	</target>
+
+	<target name="clean">
+		<echo message="clean target files：${build} and ${target}" />
+		<sshexec host="10.163.243.179" port="22" username="root" password="Baiqi@Linux" command="cd ${target};rm -rf static *.html" trust="true" />
+	</target>
+
+	<target name="copy2target">
+		<echo message="copy files to target：${target}" />
+		<sshexec host="10.163.243.179" port="22" username="root" password="Baiqi@Linux" command="cp -Rf ${build.home} ${target}" trust="true" />
+	</target>
+</project>

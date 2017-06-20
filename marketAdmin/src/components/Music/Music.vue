@@ -73,6 +73,9 @@ export default {
         if (res.error === false) {
           this.musicpager = res.result
           this.musiclistData = res.result.records
+          this.musiclistData.forEach(item=>{
+            item.createDate = this.util.changeDateToTime(item.createDate);
+          })
         }
       })
     },
@@ -83,7 +86,7 @@ export default {
       this.router.push({path: '/music/edit', query: {id: id}});
     },
     del (id) {
-      this.http.post('/api/music', {id: id, method: 'DELETE'}).then(res => {
+      this.http.post('/api/music/delete', {id: id}).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功')
           this.getMusicList(1);

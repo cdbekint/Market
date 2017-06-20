@@ -84,7 +84,7 @@
     },
     methods: {
       getGoodsList (pageNo) {
-        this.http.get('/api/goods/page/' + (pageNo || 1)).then(res => {
+        this.http.get(this.$store.state.prefix +'/goods/page/' + (pageNo || 1)).then(res => {
           if (res.error === false) {
             this.goodspager = res.result
             this.goodslistData = res.result.records
@@ -98,7 +98,7 @@
         this.router.push({path: '/goods/edit', query: {id: id}});
       },
       del (id) {
-        this.http.post('/api/goods', {id: id, method: 'DELETE'}).then(res => {
+        this.http.post(this.$store.state.prefix + '/goods/delete', {id: id}).then(res => {
           if (res.error === false) {
             this.$Message.success('删除成功')
             this.getGoodsList(1);

@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       value: {
-        head: '提现排行榜',
+        head: '积分返还榜',
         name: this.activity.companyName,
         no: 7
       },
@@ -28,34 +28,52 @@ export default {
           title: '排名',
           align: 'center'
         },
+//        {
+//          title: '姓名',
+//          key: 'realName',
+//          render(row){
+//            if(row.realName != '')
+//              return '<span>{{row.realName}}</span>'
+//            else
+//              return '<span>{{row.nickName}}</span>'
+//          }
+//        },
         {
-          title: '姓名',
-          key: 'name'
+          title: '头像',
+          key: 'headImg',
+          render(row){
+            return "<img :src='row.headImg' class='headImgStyle'/>"
+          }
         },
         {
-          title: '手机号',
-          key: 'phone'
+          title: '积分',
+          key: 'returnPoints'
         },
         {
-          title: '返现金额',
-          key: 'withdraw'
+          title: '时间',
+          key: 'createDate'
         }
       ],
-      data: [
-      ]
+      data: []
     }
+  },
+  methods: {
+    changeDateToTime(date){
+      var newDate = new Date(date).toJSON();
+      var index = newDate.indexOf("T");
+      return newDate.slice(0,index)
+    },
   },
   watch: {
     activity: function (val, oldVal) {
       this.value.name = val.companyName
+      this.data = val.returnPointsRankInfo;
+      this.data.forEach(item => {
+        item.createDate = this.changeDateToTime(item.createDate);
+      })
+      if(val.activityType != 2)
+        this.value.no = 6;
     }
-  },
-  created () {
-    this.http.get(this.$store.state.prefix + '/withdraw/page/1').then((val) => {
-      if (val.error === false) {
-        this.data = val.result.records
-      }
-    })
   }
 }
 </script>
@@ -64,6 +82,10 @@ export default {
   rrem(val){
     return (val/144px)rem
   }
+  .headImgStyle
+    width rrem(125px);
+    height rrem(125px);
+    border-radius 100%
   .Money
     background #fff
     .list

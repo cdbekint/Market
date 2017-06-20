@@ -37,9 +37,9 @@ export default {
       interval: {}
     }
   },
-  mounted () {
-    setTimeout(() => {
-      const countTime = moment(this.endDate).format('X') - moment().format('X')
+  watch:{
+    endDate(val){
+      const countTime = moment(val).format('X') - moment().format('X')
       if (countTime < 0) {
         this.countDownData.over = true
         clearInterval(this.interval)
@@ -50,7 +50,7 @@ export default {
       this.interval = setInterval(function () {
         _this.getCount()
       }, 1000)
-    }, 1000)
+    }
   },
   methods: {
     getCount () {

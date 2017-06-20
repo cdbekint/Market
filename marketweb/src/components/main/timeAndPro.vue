@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class = "main_title">
-          <span class = "text">已参团{{activity.viewNum}}人</span>
+          <span class = "text">已参与{{activity.joinNum}}人</span>
           <img src="/static/images/line.png" alt="">
           <span class = "english">THE PARTICIPANTS NUMBER</span>
         </div>
@@ -48,16 +48,12 @@
 import countdown from '../Utils/Countdown'
 import progressMe from '../Utils/ProgressMe.vue'
 export default {
-  name: 'time_progress',
+  name: 'timeAndProgress',
   components: { countdown, progressMe },
   props: ['activity'],
   watch: {
-    activity: function (val, oldVal) {
-      if (val.totalMan === 0) {
-        this.progress = 0
-      } else {
-        this.progress = val.totalMan / val.activityNum
-      }
+    activity: function (val) {
+        this.progress = val.progress.toFixed(2);
     }
   },
   data () {

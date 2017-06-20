@@ -18,6 +18,9 @@
         </div>
     </div>
  	</div>
+  <div class="hoverShowImg" v-if="isHover" :style="{left:Left+'px',top:Top+'px'}">
+    <img :src="currentImg" width="100%" height="100%">
+  </div>
 </div>
 </template>
 
@@ -59,7 +62,10 @@ export default {
         },
         {
           title: '二维码',
-          key: 'id'
+          key: 'id',
+          render (row) {
+             return "<img @mouseover='showImg' @mouseout='isHover=false' src='http://pan.baidu.com/share/qrcode?w=250&h=250&url=http://192.168.0.122:8082?state=" + row.id + ",0' width='80px' height='80px'>"
+          }
         },
         {
           title: '操作',
@@ -71,6 +77,10 @@ export default {
         }
       ],
       activitylistData: [],
+      isHover:false,
+      Left:0,
+      Top:0,
+      currentImg:'',
       activitypager: {
         pages: 1,
         current: 1
@@ -81,20 +91,23 @@ export default {
     this.getActivityList(1)
   },
   methods: {
+    showImg (e) {
+      this.isHover = true
+      this.Left = e.x;
+      this.Top = e.y;
+      this.currentImg = e.target.currentSrc
+    },
     getActivityList (pageNo) {
       this.http.get('/api/activity/' + this.$store.state.companyId + '/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
           this.activitypager = res.result;
           this.activitylistData = res.result.records;
           this.activitylistData.forEach(item=>{
-            item.startDate = this.changeDateToTime(item.startDate);
-            item.endDate = this.changeDateToTime(item.endDate);
+            item.startDate = this.util.changeDateToTime(item.startDate);
+            item.endDate = this.util.changeDateToTime(item.endDate);
           })
         }
       })
-    },
-    changeDateToTime(date){
-      return (new Date(date)).toLocaleString().split(",")[0]
     },
     changePage () {
       this.getActivityList(this.activitypager.current)
@@ -103,9 +116,8 @@ export default {
       this.router.push({path: '/activity/edit', query: {id: id}});
     },
     del (id) {
-      this.http.post('/api/activity', {
+      this.http.post('/api/activity/delete', {
         id: id,
-        _method: 'DELETE'
       }).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功')
@@ -118,6 +130,13 @@ export default {
 </script>
 
 <style  lang='stylus' rel="stylesheet/stylus">
+  .hoverShowImg
+    width 200px
+    height 200px
+    background red
+    position absolute
+    top 0px
+    left 0px
 .activitylisttable
   .activitydesc
   	max-width:250px

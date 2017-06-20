@@ -10,8 +10,8 @@
       </div>
  	</div>
   <div class="content">
-    <Form ref="formValidate" :model="Gift" class="gifteditform" :rules="GiftRule" :label-width="100">
-       <Form-item label="礼品名称" prop="goodsName">
+    <Form ref="GiftRule" :model="Gift" class="gifteditform" :rules="GiftRule" :label-width="100">
+       <Form-item label="礼品名称" prop="giftName">
             <Input v-model="Gift.giftName" placeholder="请输入"></Input>
        </Form-item>
        <Form-item label="礼品图片" class="text-left">
@@ -56,7 +56,7 @@ export default {
         ]
       },
       uploaderconfig: {
-        maxSize: 5120,
+        maxSize: 51200,
         format: ['jpg', 'png', 'jpeg'],
         showUploadList: false,
         parent: 'Gift',

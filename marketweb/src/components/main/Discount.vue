@@ -14,11 +14,14 @@
 <script>
   import mainHead from '../Utils/mainHead.vue'
   export default {
+    name:"discount",
     props: ['activity'],
     components: {mainHead},
     watch: {
       activity: function (val, oldVal) {
         this.value.name = val.companyName
+        if(val.activityType != 2)
+          this.value.no = 5;
       }
     },
     data () {

@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: 'Group',
+  name: 'teamList',
   props: ['activity'],
   watch: {
     activity: function (val, oldVal) {

@@ -9,8 +9,8 @@
       </div>
  	</div>
   <div class="content">
-    <Form ref="formValidate" :model="Gift" class="gifteditform" :rules="GiftRule" :label-width="100">
-       <Form-item label="礼品名称" prop="goodsName">
+    <Form ref="GiftRule" :model="Gift" class="gifteditform" :rules="GiftRule" :label-width="100">
+       <Form-item label="礼品名称" prop="giftName">
             <Input v-model="Gift.giftName" placeholder="请输入"></Input>
        </Form-item>
        <Form-item label="礼品图片" class="text-left">
@@ -19,14 +19,14 @@
        </Form-item>
        <Form-item label="图片预览">
          <a :href="murl + Gift.giftImg" target="_blank" v-if="Gift.giftImg">
-           <img :src="murl+Gift.giftImg" alt="" class="giftimgthumb">
+           <img :src="murl+Gift.giftImg" alt="" class="giftimgthumb" style="width:200px;height:200px;">
          </a>
       </Form-item>
        <Form-item label="礼品介绍">
             <Input type="textarea" v-model="Gift.giftDesc" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
        </Form-item>
        <Form-item>
-            <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+            <Button type="primary" @click="handleSubmit('GiftRule')">提交</Button>
             <Button type="ghost" style="margin-left: 8px" @click="handleReset('formValidate')">取消</Button>
         </Form-item>
     </Form>
@@ -48,7 +48,7 @@ export default {
       },
       GiftRule: {
         giftName: [
-          {required: true, message: '商品名称不能为空', trigger: 'blur'}
+          {required: true, message: '礼物名称不能为空', trigger: 'blur'}
         ],
         giftImg: [
           {required: 'true', message: '图片必须上传'}

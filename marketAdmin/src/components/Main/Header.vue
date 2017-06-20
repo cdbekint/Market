@@ -12,16 +12,27 @@
                 {{userInfo.company.companyName}}
             </template>
             <Menu-group title="账号管理">
-                <Menu-item name="1-1">修改密码</Menu-item>
-                <Menu-item name="1-2">充值提现</Menu-item>
-                <Menu-item name="1-3">个人信息</Menu-item>
+              <div style="margin:10px 0px;">
+                <a href="javascript:;" @click="changePassword=true">修改密码</a>
+              </div>
+              <div>
                 <a href="javascript:;" @click="loginOut()">注销</a>
+              </div>
             </Menu-group>
         </Submenu>
         </Menu>
         </Col>
       </Row>
     </div>
+    <Modal
+      v-model="changePassword"
+      title="修改密码"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <Input type="password" v-model="oldPass" placeholder="请输入旧密码" style="margin:10px 0;"></Input>
+      <Input type="password" v-model="newPass" placeholder="请输入新密码"></Input>
+    </Modal>
+
   </div>
 </template>
 
@@ -30,9 +41,33 @@ export default {
   name: 'Header',
   props: ['userInfo'],
   data () {
-    return {}
+    return {
+      changePassword:false,
+      oldPass:'',
+      newPass:''
+    }
   },
   methods: {
+    ok () {
+      this.http.put(this.$store.state.prefix + '/company/updateAccountPassword',{
+        oldPassword:this.oldPass,
+        newPassword:this.newPass
+      }).then((res)=>{
+        if(res.error == false){
+          this.$Notice.success({title: '提醒', desc: '修改成功'})
+        }else{
+          this.$Notice.error({title: '错误', desc: res.msg})
+        }
+      });
+      this.changePassword = false;
+      this.oldPass = '';
+      this.newPass = '';
+    },
+    cancel () {
+      this.changePassword = false;
+      this.oldPass = '';
+      this.newPass = '';
+    },
     loginOut () {
       this.$Notice.info({title: '提醒', desc: '即将退出登录'})
     }

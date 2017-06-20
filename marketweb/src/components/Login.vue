@@ -62,7 +62,8 @@ export default {
           }
         })
       } else {
-        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb11aa422d36a4cf9&redirect_uri=http%3A%2F%2Fmarket.cdbeki.com&response_type=code&scope=snsapi_userinfo&state=25#wechat_redirect'
+        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?' +
+          'appid=wxb11aa422d36a4cf9&redirect_uri=http%3A%2F%2Fmarket.cdbeki.com&response_type=code&scope=snsapi_userinfo&state='+activityId+'#wechat_redirect'
         location.replace(url)
         // 判断是否有code  --无code：清空cookie，跳转到登录
       }

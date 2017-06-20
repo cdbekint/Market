@@ -14,7 +14,7 @@
     <Table border :columns="giftlistColumns" :data="giftlistData" class="giftlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="giftpager.total" :current="giftpager.current" @on-change="changePage"></Page>
+            <Page :total="giftpager.total" :current="giftpager.current" @on-change="changePage($event)"></Page>
         </div>
     </div>
  	</div>
@@ -77,14 +77,14 @@ export default {
         }
       })
     },
-    changePage () {
-      this.getGiftList(this.giftpager.current)
+    changePage (e) {
+      this.getGiftList(e)
     },
     update (id) {
       this.router.push({path: '/gift/edit', query: {id: id}});
     },
     del (id) {
-      this.http.post('/api/gift', {id: id, method: 'DELETE'}).then(res => {
+      this.http.post('/api/gift/delete', {id: id}).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功');
           this.getGiftList(1);

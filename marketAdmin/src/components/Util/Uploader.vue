@@ -42,6 +42,23 @@ export default {
   },
   methods: {
     uploadBefore (file) {
+      var fileNameArr = file.name.split('.');
+      var fileFix = fileNameArr[fileNameArr.length-1];
+      if(this.config.format){
+        var success = false;
+        for(var item of this.config.format){
+          if(item == fileFix)
+            success = true
+        }
+
+        if(!success){
+          this.$Notice.error({
+            title:'文件格式错误',
+            desc:"请上传正确的文件格式."
+          })
+        }
+      }
+
       this.item.showProgress = true
     },
     uploadSuccess (res, file) {
@@ -62,14 +79,19 @@ export default {
     },
     uploadError (error, res, file) {
       this.item.showProgress = false
-      console.log(error)
-      this.$Notice.error('文件上传失败')
+      this.$Notice.error({
+        title:'文件上传失败',
+        desc:error
+      })
     },
     uploadProgress (event, file, fileList) {
       this.item.percentage = parseInt(event.percent)
     },
     uploaderSize (file, fileList) {
-      this.$Notice.error('文件超出规定大小')
+      this.$Notice.error({
+        title:'文件大小错误',
+        desc:"文件超出规定大小."
+      })
     }
   }
 }

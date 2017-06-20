@@ -5,7 +5,7 @@
     <timeAndPro :activity = "activity" ></timeAndPro>
     <joinPeople :activity = "activity" ></joinPeople>
     <Gift :activity = "activity"></Gift>
-    <Group :activity = "activity"></Group>
+    <Group :activity = "activity" v-if="isGroup"></Group>
     <Discount :activity="activity"></Discount>
     <Money :activity="activity"></Money>
     <Team :activity="activity"></Team>
@@ -29,10 +29,12 @@ export default {
   name: 'ActivityInfo',
   data () {
     return {
+      isGroup:true,
       props: {
         endDate: '2017-04-26T23:08:01.928Z',
         tableclass: 'withdrawitems'
       },
+
       userInfo: {
         account: {},
         company: '',
@@ -41,32 +43,47 @@ export default {
       },
       activity: {
         activityImg: '',
-        activityLevel: '',
-        activityMoney: 0,
         activityName: '活动名称',
-        companyName: null,
-        activityNum: 0,
         activityType: 0,
         auditRemarks: '',
         auditStatus: 0,
-        backMusic: '',
-        musicId: '',
+        companyName: null,
         content: '',
         createDate: '',
-        customerAmount: 0,
+
+        discountLevel: '',
         discount: 0,
         endDate: '',
+
         giftIds: 0,
+        goodsIds:'',
+        groupInfo:[],
+        groupRate:0,
+
         id: 0,
+        joinNum: 0,
+        musicId: '',
+
+        payEndDate:'',
+        payNum:0,
+        payStartDate:'',
+        pointsReturnMultiple:[],
+        progress:0,
+
+        returnEndDate:'',
+        returnPointsRankInfo:[],
+        returnStartDate:'',
+
         shareDes: '这是分享描述',
         shareGift: 1,
         shareImg: '',
+        shareNum:0,
         shareTimes: 5,
         startDate: '',
-        totalMan: 0,
-        joinCustomers: [],
-        payedCustomers: [],
-        viewNum: 0
+        viewNum: 0,
+        infos:[
+
+        ]
       },
       music: '',
       weixinConfig: {}
@@ -81,40 +98,47 @@ export default {
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
       if (res.error === false) {
-        this.userInfo = res.result
-      }
-    })
+      this.userInfo = res.result
+    }
+  })
 
     // 获取活动详细信息
-    this.http.get(this.$store.state.prefix + '/activity/' + activityId).then(res => {
+    this.http.get(this.$store.state.prefix + '/activity/' + activityId+'?inviterId='+inviterId).then(res => {
       if (res.error === false) {
         this.activity = res.result
+        if(this.activity.activityType == 2)
+          this.isGroup = true
+        else
+          this.isGroup = false
         document.title = res.result.activityName
+      }
+  }).then(()=> {
+      if(this.activity.musicId != void 0 && this.activity.musicId != ''){
         this.http.get(this.$store.state.prefix + '/music/' + this.activity.musicId).then(res2 => {
-          if (res2.error === false) {
+          if (res2.error === false){
             this.music = res2.result.url
           }
         })
       }
-    })
 
+  })
     var url = location.href.split("#")[0];
     // 获取微信分享配置
     this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' +url).then(res => {
 
       if (res.error === false) {
-        this.wx.config({
-          debug: true,
-          appId: res.result.appId,
-          timestamp: res.result.timestamp,
-          nonceStr: res.result.noncestr,
-          signature: res.result.signStr,
-          jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'getNetworkType', 'chooseWXPay']
-        })
+      this.wx.config({
+        debug: true,
+        appId: res.result.appId,
+        timestamp: res.result.timestamp,
+        nonceStr: res.result.noncestr,
+        signature: res.result.signStr,
+        jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'getNetworkType', 'chooseWXPay']
+      })
 
-        this.weixinConfig = res.result
-      }
-    });
+      this.weixinConfig = res.result
+    }
+  });
 
     this.wx.ready(() => {
       var content = {
@@ -124,32 +148,32 @@ export default {
         wximgUrl: this.murl + this.weixinConfig.shareImg
       };
 
-      this.wx.onMenuShareAppMessage({
-        title: content.wxshareTitle,
-        desc: content.wxdescContent,
-        link: content.wxlineLink,
-        imgUrl: content.wximgUrl,
-        type: 'link',
-        dataUrl: '',
-        success: function () {
-          console.log('you share app message ok')
-        },
-        cancel: function () {
-          console.log('cancel app')
-        }
-      });
+    this.wx.onMenuShareAppMessage({
+      title: content.wxshareTitle,
+      desc: content.wxdescContent,
+      link: content.wxlineLink,
+      imgUrl: content.wximgUrl,
+      type: 'link',
+      dataUrl: '',
+      success: function () {
+        console.log('you share app message ok')
+      },
+      cancel: function () {
+        console.log('cancel app')
+      }
+    });
 
-      this.wx.onMenuShareTimeline({
-        title: content.wxdescContent,
-        link: content.wxlineLink,
-        imgUrl: content.wximgUrl,
-        success: function () {
-          console.log('you share time message ok')
-        },
-        cancel: function () {
-          console.log('cancel time')
-        }
-      })
+    this.wx.onMenuShareTimeline({
+      title: content.wxdescContent,
+      link: content.wxlineLink,
+      imgUrl: content.wximgUrl,
+      success: function () {
+        console.log('you share time message ok')
+      },
+      cancel: function () {
+        console.log('cancel time')
+      }
+    })
     })
   },
   methods: {
@@ -161,7 +185,7 @@ export default {
     margin 0px
     padding 0px
     line-height 0
-.activityMain
-  background #fff
-  padding-bottom 20px;
+  .activityMain
+    background #fff
+    padding-bottom 20px;
 </style>
