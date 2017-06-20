@@ -8,7 +8,7 @@
 	<property name="version" value="1.0.${m_version}" />
 
 	<property name="WebSource" value="" />
-    <property name="build.home" value="/root/.jenkins/workspace/marketApp/marketweb/dist/*" />
+    <property name="build.home" value="/root/.jenkins/workspace/marketingApp/marketweb/dist/*" />
 	<property name="target" value="/u01/tomcatmarketing/webapps/ROOT" />
 
 	<target name="all">

@@ -2,49 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marketAdmin/static/images/huang.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marketAdmin/static/images/member.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marketAdmin/static/images/nohuang.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marketAdmin/static/images/nomember.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/buildapp.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/buildapp.xml" afterPath="$PROJECT_DIR$/buildweb.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/config/index.js" afterPath="$PROJECT_DIR$/marketAdmin/config/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/App.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/App.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/Login.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/Login.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Activity/Activity.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Activity/Activity.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Activity/ActivityAdd.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Activity/ActivityAdd.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Activity/ActivityEdit.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Activity/ActivityEdit.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Gift/Gift.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Gift/Gift.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Gift/GiftAdd.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Gift/GiftAdd.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Gift/GiftEdit.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Gift/GiftEdit.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Goods/Goods.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Goods/Goods.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Goods/GoodsAdd.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Goods/GoodsAdd.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Goods/GoodsEdit.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Goods/GoodsEdit.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Info/Company.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Info/Company.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Info/Customer.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Info/Customer.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Info/Orders.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Info/Orders.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Info/Point.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Info/Point.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Info/Withdraw.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Info/Withdraw.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Main/Header.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Main/Header.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Main/Home.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Main/Home.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Music/Music.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Music/Music.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Music/MusicAdd.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Music/MusicAdd.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Music/MusicEdit.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Music/MusicEdit.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/src/components/Util/Uploader.vue" afterPath="$PROJECT_DIR$/marketAdmin/src/components/Util/Uploader.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketAdmin/static/js/utils.js" afterPath="$PROJECT_DIR$/marketAdmin/static/js/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.1cef8e7c392f6a29d5aa.js" afterPath="$PROJECT_DIR$/marketweb/dist/static/js/app.1cef8e7c392f6a29d5aa.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.1cef8e7c392f6a29d5aa.js.map" afterPath="$PROJECT_DIR$/marketweb/dist/static/js/app.1cef8e7c392f6a29d5aa.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/Login.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/Login.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/Utils/Countdown.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/Utils/Countdown.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/Discount.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/Discount.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/Group.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/Group.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/Moeny.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/Moeny.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/joinPeople.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/joinPeople.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/mainImg.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/mainImg.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/timeAndPro.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/timeAndPro.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gitPush.bash" afterPath="$PROJECT_DIR$/gitPush.bash" />
     </list>
     <ignored path="Market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -99,8 +59,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="buildapp.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/buildapp.xml">
+      <file leaf-file-name="buildweb.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/buildweb.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -123,16 +83,6 @@
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/UserInfo.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-2970">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="music.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/marketweb/src/components/Utils/music.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -186,8 +136,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/marketweb/src/components/main/Gift.vue" />
-        <option value="$PROJECT_DIR$/marketweb/index.html" />
         <option value="$PROJECT_DIR$/marketweb/build/webpack.base.conf.js" />
         <option value="$PROJECT_DIR$/marketweb/src/components/href.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/main.js" />
@@ -237,6 +185,8 @@
         <option value="$PROJECT_DIR$/marketweb/src/components/main/mainImg.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" />
+        <option value="$PROJECT_DIR$/gitPush.bash" />
+        <option value="$PROJECT_DIR$/buildapp.xml" />
       </list>
     </option>
   </component>
@@ -449,12 +399,12 @@
       <workItem from="1497514044390" duration="26029000" />
       <workItem from="1497661545324" duration="32000" />
       <workItem from="1497835374834" duration="36966000" />
-      <workItem from="1497931074347" duration="14097000" />
+      <workItem from="1497931074347" duration="14389000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="415340000" />
+    <option name="totallyTimeSpent" value="415632000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -520,20 +470,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/marketAdmin/dist/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketAdmin/dist/static/js/ueditor/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Music/MusicEdit.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -948,7 +884,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gitPush.bash">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="35" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/buildapp.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buildweb.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
