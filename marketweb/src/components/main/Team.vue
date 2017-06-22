@@ -56,17 +56,17 @@ export default {
     activity: {
       handler (val, oldVal) {
         this.params = {
-//        businessId: val.id,
-//        payType: val.activityType,
-          businessId: 3,
+          businessId: val.inviterId,
           payType: 5,
-          payAmount: 1,
+          payAmount: this.payMoney,
+          goodsId:val.id,
           companyId: val.companyId
         }
         this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
           if(res.error == false){
             this.payPoint = res.result.registerPoints;
             this.payMoney = res.result.registerMoney;
+            this.params.payAmount = this.payMoney;
           }
         })
 

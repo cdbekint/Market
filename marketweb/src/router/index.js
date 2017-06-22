@@ -9,6 +9,7 @@ import Shop from '@/components/Shop'
 import Login from '@/components/Login'
 
 import homePage from '@/components/home/homePage'
+import companyPage from '@/components/company/companyPage'
 
 Vue.use(Router)
 Vue.use(iView)
@@ -24,6 +25,11 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: homePage
+    },
+    {
+      path: '/company',
+      name: 'company',
+      component: companyPage
     },
     {
       path: '/login',

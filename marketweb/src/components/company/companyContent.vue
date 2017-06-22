@@ -1,0 +1,535 @@
+<template>
+  <div class="companyContent">
+
+    <div class="main_title">
+      <div v-for="x,index in titleImgs" @click="changeTitle(index)">
+        <img :src="x.static==1?x.on:x.off">
+      </div>
+    </div>
+
+    <div class="main_class" v-if="currentPage==0">
+      <div class="class_txt">
+        <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
+      </div>
+      <div class="class_goods">
+        <div class="goods_info" v-for="x in goods">
+          <img :src="murl + x.img" class="info_img">
+          <div class="info_text">
+            <span class="text_title">{{x.title}}</span>
+            <span class="text_price">{{x.price}}</span>
+          </div>
+        </div>
+      </div>
+      <!--<div class="class_pull">-->
+        <!--<img src="/static/images/company/pull.png" alt="">-->
+      <!--</div>-->
+    </div>
+
+    <div class="main_discount" v-if="currentPage==1" @click="goToActive">
+      <div class="discount_goods">
+        <div class="goods_info" v-for="x in active">
+          <img :src="stateImgArr[x.state]" class="info_state">
+          <img :src="murl + x.img" class="info_bg">
+          <div class="info_view">
+            <div class="view_share">
+              <img src="/static/images/company/return.png">
+              <span>{{x.share}}</span>
+            </div>
+            <div class="view_num">
+              <img src="/static/images/company/view.png">
+              <span>{{x.view}}</span>
+            </div>
+          </div>
+          <div class="info_txt">
+            <div class="txt_title">
+              <p>{{x.title}}</p>
+            </div>
+            <div class="txt_people">
+              <img src="/static/images/company/pe.png">
+              <span>{{x.people}}人</span>
+            </div>
+            <div class="txt_team">
+              <img src="/static/images/company/team.png">
+              <span>{{x.team}}团</span>
+            </div>
+          </div>
+        </div>
+        <!--<div class="discount_pull">-->
+          <!--<img src="/static/images/company/pull.png" alt="">-->
+        <!--</div>-->
+      </div>
+    </div>
+
+    <div class="main_member" v-if="currentPage==2">
+      <div class="member_hr">
+        <div class="hr_1"></div>
+
+        <div v-for="x,index in jifenCategory" :class="'hr_'+x.num"
+             @click="changeJifen(index)" :style="x.state==1?{color:x.on}:{color:x.off}">{{x.txt}}</div>
+      </div>
+      <div class="member_list">
+        <div class="member_content" v-for="x,index in member">
+          <div class="list_sort" style="color:#ff017e;font-weight:bold;">{{index+1}}</div>
+          <div class="list_img">
+            <img :src="x.img" alt="">
+          </div>
+          <div class="list_jifen">
+            <img src="/static/images/company/jifen.png">
+            <p>余{{x.surplus}}分</p>
+          </div>
+          <div class="list_total">
+            <img src="/static/images/company/total.png">
+            <p>共{{x.total}}分</p>
+          </div>
+          <div class="list_people">
+            <img src="/static/images/company/people.png">
+            <p>邀{{x.people}}人</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main_company" v-if="currentPage==3" v-html="showInfo">
+    </div>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+export default {
+  name: 'companyContent',
+  props:[""],
+  methods:{
+    goToActive(){
+      console.log(1123)
+      this.$router.push('/')
+    },
+    changeTitle(index){
+      this.currentPage = index;
+      this.titleImgs.forEach((item,i) => {
+        item.static = 0;
+        if(index == i){
+          item.static = 1;
+        }
+      })
+    },
+    changeJifen(index){
+      console.log(index)
+//      this.titleImgs.forEach((item,i) => {
+//        item.static = 0;
+//        if(index == i){
+//          item.static = 1;
+//        }
+//      })
+    },
+    changeTxt(index){
+      this.category.forEach((item,i) => {
+        item.state = 0;
+        if((index-1) == i){
+          item.state = 1;
+        }
+      })
+      this.goods = [];
+      this.getGoodsByType(index);
+    },
+    getGoodsByType(id){
+      this.http.get( this.$store.state.prefix + "/shop/getGoodsInfo/"+id).then(res=>{
+        if(res.error == false){
+          res.result.forEach(item=>{
+            var obj = null;
+            if(id == 1) {
+              obj = {
+                img: item.goodsImg,
+                title: item.goodsName,
+                price: item.goodsPrice + "元"
+              }
+            }
+            else if(id == 2){
+              obj = {
+                img: item.goodsImg,
+                title: item.goodsName,
+                price: item.maxPoints + "积分"
+              }
+            }
+            else if(id == 3){
+              obj = {
+                img: item.goodsImg,
+                title: item.goodsName,
+                price: item.goodsPrice + "元 + "+item.maxPoints+"积分"
+              }
+            }
+
+            this.goods.push(obj)
+          })
+        }
+      })
+    }
+
+  },
+  created(){
+    this.getGoodsByType(1);
+    this.http.get( this.$store.state.prefix + "/shop/getActivities").then(res=>{
+      if(res.error == false){
+        var row = res.result;
+        row.forEach(item=>{
+          var obj = {
+            img:item.activityImg,
+            title:item.activityName,
+            view:item.viewNum,
+            share:item.shareNum,
+            people:item.joinNum,
+            team:item.groupNum,
+            state:0,
+          }
+          var date = Date.now();
+          if(date >= item.startDate && date <= item.endDate)
+            obj.state = 1;
+          else if(date <= item.startDate)
+            obj.state = 0;
+          else if(date >= item.endDate)
+            obj.state = 2;
+
+          this.active.push(obj)
+        })
+      }
+    })
+
+
+    this.http.get( this.$store.state.prefix + "/shop/getMemsInfo").then(res=>{
+      if(res.error == false){
+        var row = res.result;
+        row.forEach(item=>{
+          var obj = {
+            img:item.headImg,
+            surplus:item.points,
+            total:item.allPoints,
+            people:item.invitedMems
+          }
+          this.member.push(obj)
+        })
+      }
+    })
+
+    this.http.get( this.$store.state.prefix + "/shop/getCompanyShow").then(res=>{
+      if(res.error == false){
+        this.showInfo = res.result.show;
+      }
+    })
+  },
+  data () {
+    return {
+      currentPage:0,
+      showInfo:'',
+      stateImgArr:[
+        "/static/images/company/start.png",
+        "/static/images/company/ing.png",
+        "/static/images/company/end.png"
+      ],
+      active:[],
+      member:[],
+      goods:[],
+      titleImgs:[
+        {
+          on:"/static/images/company/titleOn/1.png",
+          off:"/static/images/company/titleOff/1.png",
+          static:1
+        },
+        {
+          on:"/static/images/company/titleOn/2.png",
+          off:"/static/images/company/titleOff/2.png",
+          static:0
+        },
+        {
+          on:"/static/images/company/titleOn/3.png",
+          off:"/static/images/company/titleOff/3.png",
+          static:0
+        },
+        {
+          on:"/static/images/company/titleOn/4.png",
+          off:"/static/images/company/titleOff/4.png",
+          static:0
+        }
+      ],
+      jifenCategory:[
+        {
+          txt:"剩余积分",
+          state:1,
+          num:2,
+          on:'#ff017e',
+          off:'#434343'
+        },
+        {
+          txt:"累计积分",
+          state:0,
+          num:3,
+          on:'#ff017e',
+          off:'#434343'
+        },
+        {
+          txt:"邀请人数",
+          state:0,
+          num:4,
+          on:'#ff017e',
+          off:'#434343'
+        }
+      ],
+      category:[
+        {
+          txt:"现金商品",
+          state:1,
+          on:'#ff017e',
+          off:'#434343'
+        },
+        {
+          txt:"积分商品",
+          state:0,
+          on:'#ff017e',
+          off:'#434343'
+        },
+        {
+          txt:"现金+积分",
+          state:0,
+          on:'#ff017e',
+          off:'#434343'
+        }
+      ]
+    }
+  }
+}
+</script>
+<style scoped lang='stylus' rel="stylesheet/stylus">
+  rrem(val){
+    return (val/108px)rem
+  }
+  .companyContent
+    position relative
+    top rrem(50px)
+    width 92.6%
+    margin auto
+    margin-bottom rrem(100px)
+    height rrem(1640px)
+    .main_title
+      height rrem(80px)
+      display flex
+      width 100%
+      div
+        flex 1
+        height rrem(80px)
+        img
+          width 100%
+          height 100%
+    .main_class
+      width 100%
+      background #fff
+      margin-top rrem(8px)
+      height rrem(80px)
+      .class_txt
+        width 56%
+        margin auto
+        display flex
+        span
+          display block
+          height rrem(80px)
+          text-align center
+          line-height rrem(80px)
+          color #000
+          flex 1
+      .class_goods
+        width 100%
+        height auto
+        display flex
+        flex-wrap wrap
+        justify-content space-between
+        .goods_info
+          width rrem(490px)
+          height rrem(645px)
+          margin-top rrem(32px)
+          img
+            width 100%
+            height rrem(525px)
+          .info_text
+            background #fff
+            height rrem(128px)
+            width 100%
+            position relative
+            span
+              width 100%
+              display block
+              position absolute
+            .text_title
+              font-size rrem(35px)
+              color #000
+              left rrem(20px)
+              top rrem(50px)
+            .text_price
+              left rrem(20px)
+              top rrem(95px)
+              color #ff017e
+              font-size rrem(32px)
+      .class_pull
+        width 100%
+        height rrem(120px)
+        text-align center
+        img
+          margin-top rrem(30px)
+          height rrem(66px)
+          width rrem(222px)
+
+
+    .main_discount
+      width 100%
+      height rrem(1500px)
+      .goods_info
+        width 100%
+        height rrem(440px)
+        margin-top rrem(30px)
+        position relative
+        .info_state
+          position absolute
+          width rrem(170px)
+          height rrem(170px)
+        .info_bg
+          height rrem(340px)
+          width 100%
+        .info_txt
+          width 100%
+          background #fff
+          height rrem(100px)
+          display flex
+          position relative
+          img
+            margin-top rrem(25px)
+            margin-right rrem(15px)
+            width rrem(55px)
+            height rrem(50px)
+          span
+            position absolute
+            top rrem(57px)
+          .txt_title
+            flex 3
+            p
+              margin-left rrem(30px)
+              height 100%
+              line-height 300%
+              font-size rrem(36px)
+              font-weight bold
+              color #ff017e
+          .txt_people
+            flex 1
+          .txt_team
+            flex 1
+        .info_view
+          position absolute
+          width rrem(310px)
+          height rrem(55px)
+          background #000
+          opacity 0.35
+          border-bottom-left-radius 15px
+          border-top-left-radius 15px
+          right 0px;
+          top rrem(30px)
+          display flex
+          color #fff
+          img
+            margin-top rrem(10px)
+            margin-left rrem(20px)
+            width rrem(35px)
+            height rrem(35px)
+          span
+            position absolute
+            left rrem(64px)
+            top rrem(30px)
+          .view_share
+            flex 1
+            position relative
+          .view_num
+            flex 1
+            position relative
+
+      .discount_pull
+        text-align center
+        width 100%
+        height rrem(120px)
+        img
+          margin-top rrem(30px)
+          width rrem(222px)
+          height rrem(66px)
+
+    .main_member
+      width 100%
+      margin-bottom rrem(60px)
+      .member_hr
+        height rrem(100px)
+        display flex
+        background #fff
+        div
+          height rrem(100px)
+          font-weight bold
+          font-size rrem(26px)
+          line-height rrem(100px)
+          text-align center
+        .hr_1
+          flex 4
+        .hr_2
+          flex 3
+        .hr_3
+          flex 3
+        .hr_4
+          flex 3
+      .member_list
+        width 100%;
+        .member_content
+          display flex
+          height rrem(140px)
+          &:nth-child(odd)
+            background #ffe9eb
+          &:nth-child(even)
+            background #fff2f2
+          div
+            text-align center
+            height rrem(140px)
+            line-height rrem(140px)
+            img
+              width rrem(50px)
+              height rrem(50px)
+              position absolute
+              top rrem(25px)
+              left rrem(90px)
+            p
+              height 100%
+              line-height 700%
+          .list_sort
+            flex 2
+            font-size:rrem(42px);
+          .list_img
+            flex 2
+            position relative
+            img
+              position absolute
+              border-radius 100%
+              top rrem(24px)
+              left rrem(20px)
+              width rrem(95px)
+              height rrem(95px)
+
+          .list_jifen
+            flex 3
+            position relative
+            font-size rrem(30px)
+          .list_total
+            flex 3
+            position relative
+            font-size rrem(30px)
+          .list_people
+            flex 3
+            position relative
+            font-size rrem(30px)
+
+    .main_company
+      width 100%
+      margin-top rrem(40px)
+      padding-top rrem(40px)
+      height rrem(1600px)
+      margin-bottom rrem(60px)
+      background #fff
+      text-align center
+</style>

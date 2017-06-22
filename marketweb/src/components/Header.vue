@@ -1,12 +1,21 @@
 <template>
   <div class="companyName">
-    射洪巴黎春天
+   {{Title}}
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
   name: 'Header',
+  props:['Title'],
+  watch:{
+    Title(val){
+      console.log(val)
+      if(val == '' || val == void 0){
+        this.Title = '射洪巴黎春天'
+      }
+    }
+  },
   data () {
     return {
     }

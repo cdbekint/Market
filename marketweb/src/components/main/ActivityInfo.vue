@@ -81,9 +81,8 @@ export default {
         shareTimes: 5,
         startDate: '',
         viewNum: 0,
-        infos:[
-
-        ]
+        infos:[],
+        inviterId:''
       },
       music: '',
       weixinConfig: {}
@@ -94,6 +93,7 @@ export default {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
     var inviterId = state[1] === void 0 ? '' : state[1];
+    this.activity.inviterId = inviterId
 //    var inviter = this.util.getURLParam('inviter')
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
@@ -136,11 +136,11 @@ export default {
   })
     var url = location.href.split("#")[0];
     // 获取微信分享配置
-    this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' +url).then(res => {
+  this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' +url).then(res => {
 
-      if (res.error === false) {
+    if (res.error === false) {
       this.wx.config({
-        debug: true,
+        debug: false,
         appId: res.result.appId,
         timestamp: res.result.timestamp,
         nonceStr: res.result.noncestr,
