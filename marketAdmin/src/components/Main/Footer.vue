@@ -3,8 +3,9 @@
 <div class="footer-wrapper">
       <!-- 脚部信息 -->
       <ul>
-        <li>接单宝</li>
-        <li>联盟-生态管理系统</li>
+        <li>
+          <a href="https://jd.cdbeki.com">接单宝</a></li>
+        <li><a href="http://ems.cdbeki.com">联盟-生态管理系统</a></li>
         <li>成都白起网络 版权所有</li>
       </ul>
     </div>
