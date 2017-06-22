@@ -22,7 +22,7 @@
         </Form-item>
         <Form-item>
           <Button type="primary" @click="handleSubmit('musicRule')">提交</Button>
-          <Button type="ghost" style="margin-left: 8px" @click="handleReset('formValidate')">取消</Button>
+          <Button type="ghost" style="margin-left: 8px" @click="handleReset('musicRule')">取消</Button>
         </Form-item>
       </Form>
     </div>
@@ -71,6 +71,9 @@
             this.$Message.error('验证失败')
           }
         })
+      },
+      handleReset (name) {
+        this.$refs[name].resetFields();
       }
     }
   }

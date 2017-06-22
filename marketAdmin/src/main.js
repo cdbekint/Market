@@ -14,6 +14,7 @@ Vue.prototype.http = axios
 Vue.prototype.router = router
 Vue.prototype.util = util
 Vue.prototype.murl = 'https://m.market.cdbeki.com/'
+Vue.prototype.apiurl = 'http://market.cdbeki.com/'
 
 /* eslint-disable no-new */
 const store = new Vuex.Store({
@@ -129,4 +130,8 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+})
+
+this.$Notice.config({
+  duration: 3
 })

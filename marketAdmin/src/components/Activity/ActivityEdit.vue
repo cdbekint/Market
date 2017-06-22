@@ -421,6 +421,16 @@
                   i.selected = false
               }
             }
+           var giftlist=res.result.records.giftIds.split(",")
+           for(var j in giftlist){
+             for(var i of this.GiftList){
+               if(i.id == ~~giftlist[j])
+                 i.selected = true
+               else
+                 i.selected = false
+             }
+           }
+            
             this.goodList = res.result.records
           }
         })

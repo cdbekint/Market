@@ -44,10 +44,6 @@
             }
           },
           {
-            title: '商品简介',
-            key: 'goodsDesc'
-          },
-          {
             title: '商品价格',
             key: 'goodsPrice'
           },
@@ -87,6 +83,9 @@
         this.http.get(this.$store.state.prefix +'/goods/page/' + (pageNo || 1)).then(res => {
           if (res.error === false) {
             this.goodspager = res.result
+            for (var i in res.result.records) {
+              res.result.records[i].goodsImg = res.result.records[i].goodsImg.split(',')[0]
+            }
             this.goodslistData = res.result.records
           }
         })
