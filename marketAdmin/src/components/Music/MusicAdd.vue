@@ -21,7 +21,7 @@
           <audio :src="murl+music.url" v-if="music.url" class="musicpanel" autoplay="true" controls="true" />
         </Form-item>
         <Form-item>
-          <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+          <Button type="primary" @click="handleSubmit('musicRule')">提交</Button>
           <Button type="ghost" style="margin-left: 8px" @click="handleReset('formValidate')">取消</Button>
         </Form-item>
       </Form>

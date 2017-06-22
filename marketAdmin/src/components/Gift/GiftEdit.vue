@@ -27,8 +27,8 @@
             <Input type="textarea" v-model="Gift.giftDesc" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
        </Form-item>
        <Form-item>
-            <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
-            <Button type="ghost" style="margin-left: 8px" @click="handleReset('formValidate')">取消</Button>
+            <Button type="primary" @click="handleSubmit('GiftRule')">提交</Button>
+            <Button type="ghost" style="margin-left: 8px" @click="handleReset('GiftRule')">取消</Button>
         </Form-item>
     </Form>
   </div>
