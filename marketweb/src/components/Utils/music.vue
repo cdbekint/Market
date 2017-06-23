@@ -1,6 +1,6 @@
 <template>
   <div class = "music">
-    <audio :src="murl + url" preload="auto" autoplay="autoplay" id="bgMusic" loop></audio>
+    <audio :src="murl + music" preload="auto" autoplay="autoplay" id="bgMusic" loop></audio>
     <img :src="'/static/images/'+ state + '.png'" @click="changeState">
   </div>
 </template>
@@ -10,7 +10,13 @@
     props: ['url'],
     data () {
       return {
-        state: 'on'
+        state: 'on',
+        music:''
+      }
+    },
+    watch:{
+      url(val){
+        this.music = val
       }
     },
     methods: {
