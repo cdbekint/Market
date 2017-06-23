@@ -13,12 +13,7 @@
         state: 'on'
       }
     },
-    mounted () {
-      setTimeout(() => {
-        document.addEventListener('WeixinJSBridgeReady', function () {
-          document.getElementById('bgMusic').play()
-        }, false)
-      }, 1500)
+    created () {
     },
     methods: {
       changeState () {
