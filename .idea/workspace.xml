@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/Utils/ProgressMe.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/Utils/ProgressMe.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/App.vue" afterPath="$PROJECT_DIR$/marketweb/src/App.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/Login.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/Login.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
     </list>
     <ignored path="Market.iws" />
@@ -52,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="145" column="7" selection-start-line="145" selection-start-column="7" selection-end-line="145" selection-end-column="7" />
               <folding>
                 <element signature="e#560#595#0" expanded="true" />
               </folding>
@@ -74,11 +75,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Login.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marketweb/src/App.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/Login.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,14 +165,14 @@
         <option value="$PROJECT_DIR$/buildWeb.xml" />
         <option value="$PROJECT_DIR$/marketweb/dist/static/css/app.ffdc8c4a5e88b5d8c221cb7d51fe1026.css" />
         <option value="$PROJECT_DIR$/marketweb/index.html" />
-        <option value="$PROJECT_DIR$/marketweb/src/App.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/main.js" />
         <option value="$PROJECT_DIR$/marketweb/src/components/Utils/music.vue" />
         <option value="$PROJECT_DIR$/marketAdmin/src/components/Activity/Activity.vue" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/Login.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/Utils/ProgressMe.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/App.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/Login.vue" />
       </list>
     </option>
   </component>
@@ -230,7 +241,7 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="SearchEverywhereHistoryKey" value="pro&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/ProgressMe.vue&#10;team&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/Team.vue&#10;music&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/music.vue&#10;acti&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Activity/ActivityAdd.vue&#10;ac&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/ActivityInfo.vue&#10;compa&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Info/Company.vue&#10;home&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Main/Home.vue&#10;goods&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Goods/GoodsAdd.vue&#10;gift&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Gift/GiftEdit.vue" />
+    <property name="SearchEverywhereHistoryKey" value="lo&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Login.vue&#10;app&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/App.vue&#10;pro&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/ProgressMe.vue&#10;team&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/Team.vue&#10;music&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/music.vue&#10;acti&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Activity/ActivityAdd.vue&#10;ac&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/ActivityInfo.vue&#10;compa&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Info/Company.vue&#10;home&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Main/Home.vue&#10;goods&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Goods/GoodsAdd.vue&#10;gift&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Gift/GiftEdit.vue" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -359,12 +370,12 @@
       <workItem from="1497835374834" duration="36966000" />
       <workItem from="1497931074347" duration="48583000" />
       <workItem from="1498182632256" duration="125000" />
-      <workItem from="1498182763592" duration="9987000" />
+      <workItem from="1498182763592" duration="10630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="459938000" />
+    <option name="totallyTimeSpent" value="460581000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -707,14 +718,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/App.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Info/Company.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2173">
@@ -751,14 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/Login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Team.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="666">
@@ -777,11 +772,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="145" column="7" selection-start-line="145" selection-start-column="7" selection-end-line="145" selection-end-column="7" />
           <folding>
             <element signature="e#560#595#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/App.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/Login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

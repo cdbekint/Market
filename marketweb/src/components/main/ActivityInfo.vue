@@ -150,7 +150,7 @@ export default {
   })
     var url = location.href.split("#")[0];
     // 获取微信分享配置
-  this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' +url).then(res => {
+  this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' + url).then(res => {
 
     if (res.error === false) {
       this.wx.config({
