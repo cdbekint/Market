@@ -32,7 +32,7 @@ rrem(val){
   height rrem(100px)
   border-radius 40px
   background #fcfc8e
-  padding-left rrem(40px)
+  padding-left rrem(30px)
   line-height rrem(100px)
   font-size rrem(56px)
   font-weight bold

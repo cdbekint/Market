@@ -92,7 +92,7 @@ export default {
   created () {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
-    var inviterId = state[1] === void 0 ? '' : state[1];
+    var inviterId = state[1] === void 0 ? 0 : state[1];
     this.activity.inviterId = inviterId
 
     if(window.localStorage["inviterId"] != inviterId){
@@ -101,7 +101,7 @@ export default {
       var index = oldUrl.indexOf("?");
 
       var preUrl = oldUrl.slice(0,index+1);
-      var state = "state=" + activityId + "," + window.localStorage["inviterId"];
+      var state = "state=" + activityId + ",0";
 
       var url = preUrl + state;
       window.localStorage.clear();
