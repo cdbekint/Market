@@ -167,9 +167,9 @@ export default {
     this.wx.ready(() => {
       var content = {
         wxshareTitle: this.activity.activityName,
-        wxdescContent: this.weixinConfig.shareDes,
+        wxdescContent: this.activity.shareDes,
         wxlineLink: url,
-        wximgUrl: this.murl + this.weixinConfig.shareImg
+        wximgUrl: this.murl + this.activity.shareImg
       };
 
     this.wx.onMenuShareAppMessage({
