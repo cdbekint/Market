@@ -10,18 +10,18 @@ import qs from 'qs'
 Vue.config.productionTip = false
 Vue.use(Vuex)
 
-Vue.prototype.http = axios
-Vue.prototype.util = util
-Vue.prototype.wx = wx
-Vue.prototype.murl = 'https://m.market.cdbeki.com/'
+Vue.prototype.http = axios;
+Vue.prototype.util = util;
+Vue.prototype.wx = wx;
+Vue.prototype.murl = 'https://m.market.cdbeki.com/';
 
 const store = new Vuex.Store({
   state: {
     token: util.getCookie('token') || '',
     companyId: util.getCookie('companyId') || '',
     openid: util.getCookie('openid') || '',
-    prefix: '/api'
-    // prefix: ''
+    // prefix: '/api'
+    prefix: ''
   },
   mutations: {
     updateToken (state) {
