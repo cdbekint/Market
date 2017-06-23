@@ -1,6 +1,6 @@
 <template>
   <div class = "music">
-    <audio :src="murl + url" preload="auto" autoplay="autoplay" id="bgMusic" loop></audio>
+    <audio src="/static/11.mp3" preload="auto" autoplay="autoplay" id="bgMusic" loop></audio>
     <img :src="'/static/images/'+ state + '.png'" @click="changeState">
   </div>
 </template>
@@ -18,7 +18,7 @@
         document.addEventListener('WeixinJSBridgeReady', function () {
           document.getElementById('bgMusic').play()
         }, false)
-      }, 500)
+      }, 1500)
     },
     methods: {
       changeState () {
