@@ -96,6 +96,8 @@ export default {
     this.activity.inviterId = inviterId
 
     if(window.localStorage["inviterId"] != inviterId){
+      window.localStorage.clear();
+      
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
 
