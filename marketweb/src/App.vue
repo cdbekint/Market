@@ -16,6 +16,7 @@ export default {
   },
   components: { vheader },
   created () {
+
     this.$store.state.token = window.localStorage["token"];
     alert("App "+this.$store.state.token )
     if (this.$store.state.token == '' || this.$store.state.token == void 0) {

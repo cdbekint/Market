@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.fe3fd2a2f3b5c53cca2b.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.fe3fd2a2f3b5c53cca2b.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.c07ad9e8a3b5a265de3a.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.c07ad9e8a3b5a265de3a.js.map" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/dist/index.html" afterPath="$PROJECT_DIR$/marketweb/dist/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/dist/static/css/app.ffdc8c4a5e88b5d8c221cb7d51fe1026.css" afterPath="$PROJECT_DIR$/marketweb/dist/static/css/app.ffdc8c4a5e88b5d8c221cb7d51fe1026.css" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/buildAdminWeb.xml" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/buildAdminWeb.xml" afterPath="$PROJECT_DIR$/buildWeb.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/buildweb.xml" afterPath="$PROJECT_DIR$/buildApp.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/App.vue" afterPath="$PROJECT_DIR$/marketweb/src/App.vue" />
     </list>
     <ignored path="Market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,7 +44,7 @@
       <file leaf-file-name="Company.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Info/Company.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1634">
+            <state relative-caret-position="2466">
               <caret line="137" column="13" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
               <folding>
                 <element signature="n#style#0;n#Row#0;n#div#1;n#li#9;n#ul#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -59,7 +58,7 @@
       <file leaf-file-name="Activity.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Activity/Activity.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
+            <state relative-caret-position="1188">
               <caret line="66" column="135" selection-start-line="66" selection-start-column="135" selection-end-line="66" selection-end-column="135" />
               <folding />
             </state>
@@ -69,8 +68,28 @@
       <file leaf-file-name="Login.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/Login.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1021">
-              <caret line="72" column="153" selection-start-line="72" selection-start-column="153" selection-end-line="72" selection-end-column="153" />
+            <state relative-caret-position="553">
+              <caret line="62" column="11" selection-start-line="62" selection-start-column="11" selection-end-line="62" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildWeb.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/buildWeb.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="10" column="87" selection-start-line="10" selection-start-column="87" selection-end-line="10" selection-end-column="87" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildApp.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/buildApp.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -86,20 +105,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.ffdc8c4a5e88b5d8c221cb7d51fe1026.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/marketweb/dist/static/css/app.ffdc8c4a5e88b5d8c221cb7d51fe1026.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MusicAdd.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Music/MusicAdd.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="414">
               <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
               <folding />
             </state>
@@ -133,7 +142,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/marketweb/src/components/home/peopleMoney.vue" />
         <option value="$PROJECT_DIR$/marketAdmin/build/webpack.base.conf.js" />
         <option value="$PROJECT_DIR$/marketAdmin/src/Login.vue" />
         <option value="$PROJECT_DIR$/marketAdmin/src/components/Info/Customer.vue" />
@@ -184,6 +192,7 @@
         <option value="$PROJECT_DIR$/marketweb/src/App.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/Login.vue" />
         <option value="$PROJECT_DIR$/marketweb/dist/static/css/app.ffdc8c4a5e88b5d8c221cb7d51fe1026.css" />
+        <option value="$PROJECT_DIR$/buildWeb.xml" />
       </list>
     </option>
   </component>
@@ -199,9 +208,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
-    <option name="y" value="24" />
+    <option name="y" value="-4" />
     <option name="width" value="1301" />
-    <option name="height" value="744" />
+    <option name="height" value="772" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -352,19 +361,19 @@
     <property name="SearchEverywhereHistoryKey" value="music&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/music.vue&#10;team&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/Team.vue&#10;acti&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Activity/ActivityAdd.vue&#10;ac&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/ActivityInfo.vue&#10;compa&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Info/Company.vue&#10;home&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Main/Home.vue&#10;goods&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Goods/GoodsAdd.vue&#10;gift&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Gift/GiftEdit.vue" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/marketweb/src/components/home" />
-      <recent name="$PROJECT_DIR$/marketweb/src/components/main" />
-      <recent name="$PROJECT_DIR$/marketAdmin/src/components" />
-      <recent name="$PROJECT_DIR$/marketAdmin/src/components/Info" />
-      <recent name="$PROJECT_DIR$/marketAdmin/src/components/Main" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/marketweb/src/components/company" />
       <recent name="$PROJECT_DIR$/marketweb/static/images/company" />
       <recent name="$PROJECT_DIR$/marketAdmin/static/images" />
       <recent name="$PROJECT_DIR$/marketweb/static/images/blue" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/marketweb/src/components/home" />
+      <recent name="$PROJECT_DIR$/marketweb/src/components/main" />
+      <recent name="$PROJECT_DIR$/marketAdmin/src/components" />
+      <recent name="$PROJECT_DIR$/marketAdmin/src/components/Info" />
+      <recent name="$PROJECT_DIR$/marketAdmin/src/components/Main" />
     </key>
   </component>
   <component name="RunManager">
@@ -476,33 +485,35 @@
       <workItem from="1497514044390" duration="26029000" />
       <workItem from="1497661545324" duration="32000" />
       <workItem from="1497835374834" duration="36966000" />
-      <workItem from="1497931074347" duration="48419000" />
+      <workItem from="1497931074347" duration="48583000" />
+      <workItem from="1498182632256" duration="125000" />
+      <workItem from="1498182763592" duration="61000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="449662000" />
+    <option name="totallyTimeSpent" value="450012000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="false" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19640063" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20500782" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972136" sideWeight="0.5031299" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3482972" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972136" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28328174" sideWeight="0.4968701" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3482972" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -547,27 +558,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/Utils/mainHead.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/Utils/ProgressMe.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/Footer.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -575,23 +569,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-162">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/buildapp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/buildapp.xml" />
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Discount.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18">
           <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -599,7 +584,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-324">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -607,9 +591,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="472">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#hr#0;n#div#0;n#ul#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -617,7 +598,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-450">
           <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -625,7 +605,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5">
           <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -633,9 +612,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#template#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -643,7 +619,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-882">
           <caret line="522" column="0" selection-start-line="522" selection-start-column="0" selection-end-line="522" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -651,7 +626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-743">
           <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -659,9 +633,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-          <folding>
-            <element signature="e#1502#1544#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -669,7 +640,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-756">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -677,31 +647,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/dist/static/css/app.2bcf586b88004b638cb1436d0ae16339.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-594">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/buildweb.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/dist/static/css/app.2bcf586b88004b638cb1436d0ae16339.css" />
+    <entry file="file://$PROJECT_DIR$/buildweb.xml" />
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/teamList.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -709,7 +663,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -722,7 +675,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -730,7 +682,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="26" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -753,7 +704,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -761,7 +711,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="68" column="50" selection-start-line="68" selection-start-column="50" selection-end-line="68" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -769,9 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding>
-            <element signature="e#261#304#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -779,7 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2268">
           <caret line="135" column="3" selection-start-line="135" selection-start-column="3" selection-end-line="135" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -787,7 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-257">
           <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -795,20 +739,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-378">
           <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#3;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#4134#5015#0" expanded="false" />
-            <element signature="e#5142#5801#0" expanded="false" />
-            <element signature="e#5882#6195#0" expanded="false" />
-            <element signature="e#6658#7258#0" expanded="false" />
-            <element signature="e#8311#8470#0" expanded="false" />
-            <element signature="e#8493#9849#0" expanded="false" />
-            <element signature="e#9875#11783#0" expanded="false" />
-            <element signature="e#11807#13467#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -816,7 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -834,7 +763,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -842,7 +770,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,7 +777,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-41">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -858,7 +784,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +791,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -874,7 +798,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -882,23 +805,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="17" column="57" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/Utils/music.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="40" column="3" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Music/MusicAdd.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -906,7 +812,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -914,13 +819,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Info/Company.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1634">
+        <state relative-caret-position="2466">
           <caret line="137" column="13" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
           <folding>
             <element signature="n#style#0;n#Row#0;n#div#1;n#li#9;n#ul#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -930,9 +834,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/buildAdminWeb.xml" />
+    <entry file="file://$PROJECT_DIR$/marketweb/dist/static/css/app.ffdc8c4a5e88b5d8c221cb7d51fe1026.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Activity/Activity.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
+        <state relative-caret-position="1188">
           <caret line="66" column="135" selection-start-line="66" selection-start-column="135" selection-end-line="66" selection-end-column="135" />
           <folding />
         </state>
@@ -940,16 +852,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/Login.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1021">
-          <caret line="72" column="153" selection-start-line="72" selection-start-column="153" selection-end-line="72" selection-end-column="153" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/buildAdminWeb.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="553">
+          <caret line="62" column="11" selection-start-line="62" selection-start-column="11" selection-end-line="62" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -962,7 +866,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/dist/static/css/app.ffdc8c4a5e88b5d8c221cb7d51fe1026.css">
+    <entry file="file://$PROJECT_DIR$/marketAdmin/src/components/Music/MusicAdd.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="64" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/Utils/music.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="40" column="3" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buildWeb.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="10" column="87" selection-start-line="10" selection-start-column="87" selection-end-line="10" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/buildApp.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
