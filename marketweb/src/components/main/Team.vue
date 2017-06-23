@@ -45,10 +45,11 @@ export default {
       payMoney:0,
       payPoint:0,
       params: {
-        businessId: 12,
-        payType: 2,
-        payPoints: 0,
-        companyId: 0
+        businessId: 0,
+        payType: 5,
+        payAmount: 0,
+        companyId: 0,
+        goodsId:0
       }
     }
   },
@@ -56,7 +57,7 @@ export default {
     activity: {
       handler (val, oldVal) {
         this.params = {
-          businessId: val.inviterId,
+          businessId: window.localStorage["inviterId"] || 0,
           payType: 5,
           payAmount: this.payMoney,
           goodsId:val.id,
@@ -86,6 +87,7 @@ export default {
       }
 
       this.isPaying = true
+      console.log(this.params)
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
         this.isPaying = false
         if (res.error === false) {
