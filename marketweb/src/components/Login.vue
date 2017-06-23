@@ -51,6 +51,7 @@ export default {
           if (res.error === false) {
             this.$store.state.token = res.result.access_token;
             window.localStorage["token"] = res.result.access_token;
+            window.localStorage["inviterId"] = res.result.user.account.id;
 
             var oldUrl = location.href;
             var index = oldUrl.indexOf("?");
@@ -62,10 +63,7 @@ export default {
             location.href = url
           }
           else{
-            this.$Notice.error({
-              title:"登陆失败",
-              desc:res.msg
-            })
+            this.$Message.error(res.msg)
           }
         })
       } else {

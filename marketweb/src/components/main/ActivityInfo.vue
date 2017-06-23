@@ -94,6 +94,18 @@ export default {
     var activityId = state[0];
     var inviterId = state[1] === void 0 ? '' : state[1];
     this.activity.inviterId = inviterId
+
+    if(window.localStorage["inviterId"] != inviterId){
+      var oldUrl = location.href;
+      var index = oldUrl.indexOf("?");
+
+      var preUrl = oldUrl.slice(0,index+1);
+      var state = "state=" + activityId + "," + window.localStorage["inviterId"];
+
+      var url = preUrl + state;
+      location.href = url
+    }
+
 //    var inviter = this.util.getURLParam('inviter')
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {

@@ -68,6 +68,9 @@ export default {
             this.payMoney = res.result.registerMoney;
             this.params.payAmount = this.payMoney;
           }
+          else{
+            this.$Message.error(res.msg)
+          }
         })
 
         if (val.activityType != 2)

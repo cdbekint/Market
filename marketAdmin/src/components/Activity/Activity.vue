@@ -117,6 +117,9 @@ export default {
             item.endDate = this.util.changeDateToTime(item.endDate);
           })
         }
+        else{
+          this.$Message.error(res.msg)
+        }
       })
     },
     changePage () {
