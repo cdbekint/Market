@@ -16,6 +16,19 @@
         </div>
     </div>
  	</div>
+  <Modal v-model="delmodal" width="360">
+        <p slot="header" style="color:#f60;text-align:center">
+            <Icon type="information-circled"></Icon>
+            <span>删除确认</span>
+        </p>
+        <div style="text-align:center">
+            <p>此商品删除后，其关联活动将无法继续支付此商品。</p>
+            <p>是否继续删除？</p>
+        </div>
+        <div slot="footer">
+            <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
+        </div>
+    </Modal>
 </div>
 
 </template>
@@ -25,6 +38,9 @@
     name: 'Goods',
     data () {
       return {
+        delmodal: false,
+        modal_loading: false,
+        willdelid: '',
         goodslistColumns: [
           {
             title: '序号',
@@ -64,7 +80,7 @@
             key: 'action',
             render (row) {
               return '<i-button type="text" size="small" @click = "update(row.id)">修改</i-button>' +
-                '<i-button type="text" size="small" @click="del(row.id)">删除</i-button>'
+                '<i-button type="text" size="small" @click="setdelid(row.id)">删除</i-button>'
             }
           }
         ],
@@ -96,9 +112,20 @@
       update (id) {
         this.router.push({path: '/goods/edit', query: {id: id}});
       },
-      del (id) {
-        this.http.post(this.$store.state.prefix + '/goods/delete', {id: id}).then(res => {
+      setdelid (id) {
+        this.willdelid = id
+        this.delmodal = true
+      },
+      del () {
+        if (!this.willdelid) {
+          return
+        }
+        this.modal_loading = true
+        this.http.post(this.$store.state.prefix + '/goods/delete', {id: this.willdelid}).then(res => {
           if (res.error === false) {
+            this.delmodal = false
+            this.modal_loading = false
+            this.willdelid = ""
             this.$Message.success('删除成功')
             this.getGoodsList(1);
           }

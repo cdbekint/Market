@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     getMusicList (pageNo) {
-      this.http.get('/api/music/page/' + (pageNo || 1)).then(res => {
+      this.http.get(this.$store.state.prefix + '/music/page/' + (pageNo || 1)).then(res => {
         if (res.error === false) {
           this.musicpager = res.result
           this.musiclistData = res.result.records
@@ -86,7 +86,7 @@ export default {
       this.router.push({path: '/music/edit', query: {id: id}});
     },
     del (id) {
-      this.http.post('/api/music/delete', {id: id}).then(res => {
+      this.http.post(this.$store.state.prefix + '/music/delete', {id: id}).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功')
           this.getMusicList(1);

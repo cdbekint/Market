@@ -65,7 +65,7 @@ export default {
   methods: {
     getMusicById () {
       var query = this.util.getQuery(location.hash);
-      this.http.get('/api/music/' + query.id).then(res => {
+      this.http.get(this.$store.state.prefix + '/music/' + query.id).then(res => {
         if (res.error === false) {
           this.music = res.result;
         }
@@ -77,7 +77,7 @@ export default {
           if (this.music.id === '') {
             delete this.music.id
           }
-          this.http.put('/api/music', this.music).then(res => {
+          this.http.put(this.$store.state.prefix + '/music', this.music).then(res => {
             if (res.error === false) {
               this.$Message.success('保存成功')
               this.router.push('/music')

@@ -61,7 +61,7 @@
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.http.post('/api/music', this.music).then(res => {
+            this.http.post(this.$store.state.prefix + '/music', this.music).then(res => {
               if (res.error === false) {
                 this.$Message.success('保存成功')
                 this.router.push('/music')

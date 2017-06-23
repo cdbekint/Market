@@ -152,7 +152,7 @@
             if (this.Goods.id === '') {
               delete this.Goods.id
             }
-            this.http.post('/api/goods', this.Goods).then(res => {
+            this.http.post(this.$store.state.prefix + '/goods', this.Goods).then(res => {
               if (res.error === false) {
                 this.$Message.success('保存成功')
                 this.router.push('/goods')

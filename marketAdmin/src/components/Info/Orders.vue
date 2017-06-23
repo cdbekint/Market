@@ -7,14 +7,22 @@
       	<span>订单列表</span>
       </div>
       <div class="titellink">
-
+        <Select v-model="orderquery.payType" slot="prepend" style="width:30%;" placeholder="请选择订单类型">
+          <Option value="">所有订单</Option>
+          <Option value="1">活动订单</Option>
+          <Option value="2">商品订单</Option>
+          <Option value="3">会员续费</Option>
+          <Option value="4">账户充值</Option>
+        </Select>
+        <Input v-model="orderquery.remarks" placeholder="请输入关键字"  style="width:30%"></Input>
+        <Button type="primary" icon="ios-search" @click = "getOrderList(1)" >查询</Button>
       </div>
  	</div>
  	<div class="content">
   <Table border :columns="orderlistColumns" :data="orderlistData" class="orderlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="pager.total" :current="pager.pages" @on-change="changePage($event)"></Page>
+            <Page :total="pager.total" :current="pager.current" @on-change="changePage($event)"></Page>
         </div>
     </div>
  	</div>
@@ -26,6 +34,10 @@ export default {
   name: 'Orders',
   data () {
     return {
+      orderquery:{
+        payType: '',
+        remarks: ''
+      },
       orderlistColumns: [
         {
           title: '序号',
@@ -45,12 +57,15 @@ export default {
           title:"头像",
           key:'headImg',
           render (row) {
-            return '<img :src="row.headImg" style="width:40px;height:40px;"/>'
+            return '<img :src="row.account.headImg" style="width:40px;height:40px;" v-if="row.account&&row.account.headImg"/>'
           }
         },
         {
           title: '折扣',
-          key: 'discount'
+          key: 'discount',
+          render (row) {
+            return '<span>{{row.discount}}%</span>'
+          }
         },
         {
           title: '支付金额',
@@ -61,7 +76,14 @@ export default {
           key: 'payPoints'
         },
         {
-          title: '日期',
+          title: '支付状态',
+          key: 'payStatus',
+          render (row) {
+            return row.payStatus==1?'<Icon type="checkmark-round"></Icon>':'<Icon type="alert" color="red" title="未成功"></Icon>'
+          }
+        },
+        {
+          title: '支付时间',
           key: 'payDate'
         },
         {
@@ -72,7 +94,8 @@ export default {
       orderlistData: [],
       pager: {
         total: 1,
-        pages: 1
+        pages: 1,
+        current: 1
       }
     }
   },
@@ -81,14 +104,13 @@ export default {
   },
   methods: {
     getOrderList (pageNo) {
-      this.http.get(this.$store.state.prefix + '/pay/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/pay/page/' + (pageNo || 1) + '?payType=' +this.orderquery.payType+'&remarks='+this.orderquery.remarks).then(res => {
         if (res.error === false) {
-          this.pager.total = res.result.total
-          this.pager.pages = res.result.pages
+          this.pager = res.result
           this.orderlistData = res.result.records
           this.orderlistData.forEach(item=>{
-            item.payDate = this.util.changeDateToTime(item.payDate);
-            item.name = item.account.realName == ''?item.account.nickName:item.account.realName;
+            item.payDate = this.util.getFormatDate(item.payDate);
+            item.name = item.account?(item.account.realName == ''?item.account.nickName:item.account.realName):'';
             item.headImg = item.account.headImg;
           })
         }

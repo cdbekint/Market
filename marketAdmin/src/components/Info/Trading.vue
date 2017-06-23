@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     getPayList (pageNo) {
-      this.http.get('/api/pay/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/pay/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
           this.paypager = res.result
           delete this.paypager.records

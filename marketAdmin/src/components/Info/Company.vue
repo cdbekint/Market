@@ -387,7 +387,7 @@ export default {
         this.$Notice.info({title: '请完善信息', desc: '请填写二级邀请人返还积分比率'})
         return false
       }
-      this.http.put('api/company', this.company).then(res => {
+      this.http.put(this.$store.state.prefix + '/company', this.company).then(res => {
         if (res.error === false) {
           this.$Message.success('修改成功')
           this.router.push('/company')
@@ -428,7 +428,7 @@ export default {
   },
   created () {
     if (this.$store.state.companyId) {
-      this.http.get('api/company/' + this.$store.state.companyId).then(res => {
+      this.http.get(this.$store.state.prefix + '/company/' + this.$store.state.companyId).then(res => {
         if (res.error === false) {
           this.company.id = this.$store.state.companyId
           if (res.result !== null) {

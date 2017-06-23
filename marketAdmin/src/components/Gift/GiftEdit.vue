@@ -71,7 +71,7 @@ export default {
   methods: {
     getGiftById () {
       var query = this.util.getQuery(location.hash);
-      this.http.get('/api/gift/' + query.id).then(res => {
+      this.http.get(this.$store.state.prefix + '/gift/' + query.id).then(res => {
         if (res.error === false) {
           this.Gift = res.result;
         }
@@ -83,7 +83,7 @@ export default {
           if (this.Gift.id === '') {
             delete this.Gift.id
           }
-          this.http.put('/api/gift', this.Gift).then(res => {
+          this.http.put(this.$store.state.prefix + '/gift', this.Gift).then(res => {
             if (res.error === false) {
               this.$Message.success('保存成功')
               this.router.push('/gift')

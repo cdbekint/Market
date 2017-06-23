@@ -68,6 +68,13 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           const param = JSON.parse(JSON.stringify(this.formInline))
+          // this.jsonp(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?'),null,function(err,res){
+          //   if (err) {
+          //     console.error(err.message);
+          //   } else {
+          //     console.log(res);
+          //   }
+          // })
           this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
             console.log(res)
             if (res.error === false) {
@@ -98,7 +105,7 @@ export default {
       })
     },
     Register () {
-      this.http.post('/api/account/register', this.register).then(res => {
+      this.http.post(this.$store.state.prefix + '/account/register', this.register).then(res => {
         console.log(res)
       })
     }

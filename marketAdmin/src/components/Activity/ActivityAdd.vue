@@ -398,7 +398,7 @@ export default {
     this.getGiftList()
     this.getMusicList(1)
 
-    this.http.get("/api/goods/page/1").then(res=>{
+    this.http.get(this.$store.state.prefix + "/goods/page/1").then(res=>{
       if (res.error === false) {
         for (var i in res.result.records) {
           res.result.records[i].selected = false
@@ -456,7 +456,7 @@ export default {
       this.Ueditorconfig.info = obj
     },
     getMusicList (pageNo) {
-      this.http.get('/api/music/page/' + (pageNo || 1)).then(res => {
+      this.http.get(this.$store.state.prefix + '/music/page/' + (pageNo || 1)).then(res => {
         if (res.error === false) {
           this.musicList = res.result.records
         }
@@ -581,7 +581,7 @@ export default {
         this.$Notice.info({title: '请完善信息', desc: '请编辑活动内容详情'})
         return false
       }
-      this.http.post('/api/activity', ai).then(res => {
+      this.http.post(this.$store.state.prefix + '/activity', ai).then(res => {
         if (res.error === false) {
           this.$Notice.info({title: '修改成功', desc: '活动添加成功'})
           this.router.push('/activity');
@@ -600,7 +600,7 @@ export default {
       }
     },
     getGiftList () {
-      this.http.get('/api/gift/page/1').then(res => {
+      this.http.get(this.$store.state.prefix + '/gift/page/1').then(res => {
         if (res.error === false) {
           for (var i in res.result.records) {
             res.result.records[i].selected = false

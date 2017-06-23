@@ -28,6 +28,12 @@
       <Form-item label="短信接收号码" class="text-left">
         <span v-text="companyinfo.smsTel"></span>
       </Form-item>
+       <Form-item label="账户过期时间" class="text-left">
+        <span v-text="companyinfo.expireDate"></span>
+      </Form-item>
+      <Form-item label="账户余额" class="text-left">
+        <span v-text="companyinfo.balance+'元'"></span>
+      </Form-item>
         <Form-item label="积分抵扣现金" class="text-left">
           <span v-text="companyinfo.toCashRate"></span>
         </Form-item>
@@ -52,19 +58,19 @@
           <span v-text="companyinfo.shareMax"></span>
         </Form-item>
       <Form-item label="注册金额" class="text-left">
-        <span v-text="companyinfo.registerMoney"></span>
+        <span v-text="companyinfo.registerMoney+'元'"></span>
       </Form-item>
       <Form-item label="注册返还积分" class="text-left">
         <span v-text="companyinfo.registerPoints"></span>
       </Form-item>
       <Form-item label="自己消费返还积分比率" class="text-left">
-        <span v-text="companyinfo.selfReturn"></span>
+        <span v-text="companyinfo.selfReturn+'%'"></span>
       </Form-item>
       <Form-item label="一级邀请人返还积分比率" class="text-left">
-        <span v-text="companyinfo.oneReturn"></span>
+        <span v-text="companyinfo.oneReturn+'%'"></span>
       </Form-item>
       <Form-item label="二级邀请人返还积分比率" class="text-left">
-        <span v-text="companyinfo.secondReturn"></span>
+        <span v-text="companyinfo.secondReturn+'%'"></span>
       </Form-item>
     </Form>
   </div>
@@ -115,10 +121,11 @@ export default {
   },
   created () {
     if (this.$store.state.companyId) {
-      this.http.get('api/company/' + this.$store.state.companyId).then(res => {
+      this.http.get(this.$store.state.prefix + '/company/' + this.$store.state.companyId).then(res => {
         if (res.error === false) {
           if (res.result !== null) {
             this.companyinfo = res.result
+            this.companyinfo.expireDate = this.util.getFormatDate(this.companyinfo.expireDate)
             this.Group = JSON.parse(this.companyinfo.employeeRate.replace(/&quot;/g,'"'));
           }
         }

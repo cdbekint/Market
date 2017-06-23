@@ -74,7 +74,7 @@ export default {
           if (this.employs.id === '') {
             delete this.employs.id
           }
-          this.http.post('/api/goods', this.employs).then(res => {
+          this.http.post(this.$store.state.prefix + '/goods', this.employs).then(res => {
             if (res.error === false) {
               this.$Message.success('保存成功')
               this.router.push('/goods')
