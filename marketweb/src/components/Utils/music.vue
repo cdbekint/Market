@@ -1,6 +1,6 @@
 <template>
   <div class = "music">
-    <audio src="/static/11.mp3" preload="auto" autoplay="autoplay" id="bgMusic" loop></audio>
+    <audio :src="murl + url" preload="auto" autoplay="autoplay" id="bgMusic" loop></audio>
     <img :src="'/static/images/'+ state + '.png'" @click="changeState">
   </div>
 </template>
@@ -12,8 +12,6 @@
       return {
         state: 'on'
       }
-    },
-    created () {
     },
     methods: {
       changeState () {
