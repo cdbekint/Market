@@ -8,8 +8,8 @@
 	<property name="version" value="1.0.${m_version}" />
 
 	<property name="WebSource" value="" />
-    <property name="build.home" value="/root/.jenkins/workspace/marketingWeb/marketAdmin/dist/*" />
-	<property name="target" value="/u01/tomcatmarketingAdminWeb/webapps/ROOT/" />
+    <property name="build.home" value="/root/.jenkins/workspace/marketingWeb/marketweb/dist/*" />
+	<property name="target" value="/u01/tomcatMKTweb/webapps/ROOT/" />
 
 	<target name="all">
 		<antcall target="clean" />
