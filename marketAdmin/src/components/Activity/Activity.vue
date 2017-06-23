@@ -49,8 +49,18 @@ export default {
         },
         */
         {
-          title: '参加人数',
-          key: 'activityNum'
+          title: '参加,支付',
+          key: 'joinNum',
+          render (row) {
+            return row.joinNum + ',' +row.payNum
+          }
+        },
+        {
+          title: '浏览,分享',
+          key: 'viewNum',
+          render (row) {
+            return row.viewNum + ',' +row.shareNum
+          }
         },
         {
           title: '开始时间',
@@ -64,7 +74,7 @@ export default {
           title: '二维码',
           key: 'id',
           render (row) {
-             return "<img @mouseover='showImg' @mouseout='isHover=false' src='http://pan.baidu.com/share/qrcode?w=250&h=250&url=http://192.168.0.122:8082?state=" + row.id + ",0' width='80px' height='80px'>"
+             return '<img @mouseover="showImg" @mouseout="isHover=false" :src="generaUrl(row)" width="80px" height="80px">'
           }
         },
         {
@@ -124,6 +134,9 @@ export default {
           this.getActivityList(1);
         }
       })
+    },
+    generaUrl (row) {
+      return 'http://pan.baidu.com/share/qrcode?w=250&h=250&url=' + this.apiurl + '?state=' + row.id + ',0'
     }
   }
 }

@@ -86,8 +86,8 @@
             活动起止时间*
           </div>
           <div class="addcontent">
-            <Date-picker type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeDate($event,1)"></Date-picker>
-            <Date-picker type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeDate($event,2)"></Date-picker>
+            <Date-picker type="datetime" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :value="activity.startDate" :editable="false" @on-change="changeDate($event,1)"></Date-picker>
+            <Date-picker type="datetime" placeholder="选择结束日期和时间"  style="width: 45%;float:left;margin-top:15px;margin-left:3%" :value="activity.endDate" :editable="false" @on-change="changeDate($event,2)"></Date-picker>
           </div>
           <div class="addnote">
             活动的开始和结束时间
@@ -98,8 +98,8 @@
             支付起止时间*
           </div>
           <div class="addcontent">
-            <Date-picker :disabled="!activeDate" type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changePayDate($event,1)"></Date-picker>
-            <Date-picker :disabled="!activeDate" type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changePayDate($event,2)"></Date-picker>
+            <Date-picker :disabled="!activeDate" type="datetime" :value="activity.payStartDate" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changePayDate($event,1)"></Date-picker>
+            <Date-picker :disabled="!activeDate" type="datetime" :value="activity.payEndDate" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changePayDate($event,2)"></Date-picker>
           </div>
           <div class="addnote">
             用户可支付时间，该时间必须在活动时间内
@@ -110,8 +110,8 @@
             积分翻倍起止时间*
           </div>
           <div class="addcontent">
-            <Date-picker :disabled="!payDate" type="date" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeReturnDate($event,1)"></Date-picker>
-            <Date-picker :disabled="!payDate" type="date" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeReturnDate($event,2)"></Date-picker>
+            <Date-picker :disabled="!payDate" type="datetime" :value="activity.returnStartDate" placeholder="选择开始日期和时间" style="width: 45%;float:left;margin-top:15px" :editable="false" @on-change="changeReturnDate($event,1)"></Date-picker>
+            <Date-picker :disabled="!payDate" type="datetime" :value="activity.returnEndDate" placeholder="选择结束日期和时间" style="width: 45%;float:left;margin-top:15px;margin-left:3%" :editable="false" @on-change="changeReturnDate($event,2)"></Date-picker>
           </div>
           <div class="addnote">
             用户支付获取积分翻倍时间，该时间必须在支付时间内
@@ -397,7 +397,7 @@
       }
     },
     created () {
-      this.getGiftList();
+      /*this.getGiftList();*/
       this.getMusicList(1);
 
       var query = this.util.getQuery(location.hash);
@@ -407,12 +407,22 @@
           this.Group = JSON.parse(this.activity.discountLevel.replace(/&quot;/g,'"'));
           this.defaultMSg = this.util.escapeToHtml(this.activity.content);
           this.activity.content = this.defaultMSg
+          this.activity.startDate = this.util.getFormatDate(this.activity.starDate)
+          this.activity.endDate = this.util.getFormatDate(this.activity.endDate)
+          this.activity.endDate = this.util.getFormatDate(this.activity.endDate)
+          this.activity.payStartDate = this.util.getFormatDate(this.activity.payStartDate)
+          this.activity.payEndDate = this.util.getFormatDate(this.activity.payEndDate)
+          this.activity.returnStartDate = this.util.getFormatDate(this.activity.returnStartDate)
+          this.activity.returnEndDate = this.util.getFormatDate(this.activity.returnEndDate)
 
-          this.selectGoods = this.activity.goodsIds.split(",");
+          console.log(this.activity)
+          this.selectGoods = this.activity.goodsIds.split(",")
+          this.selectGift = this.activity.giftIds.split(",")
         }
       }).then(()=>{
         this.http.get("/api/goods/page/1").then(res=>{
           if (res.error === false) {
+            console.log(this.selectGoods)
             for (var i of res.result.records) {
               for(var goods of this.selectGoods){
                 if(i.id == ~~goods)
@@ -421,19 +431,24 @@
                   i.selected = false
               }
             }
-           var giftlist=res.result.records.giftIds.split(",")
-           for(var j in giftlist){
-             for(var i of this.GiftList){
-               if(i.id == ~~giftlist[j])
-                 i.selected = true
-               else
-                 i.selected = false
-             }
-           }
-            
             this.goodList = res.result.records
           }
         })
+        
+
+        this.http.get('/api/gift/page/1').then(res => {
+            if (res.error === false) {
+              for (var i of res.result.records) {
+                i.selected = false
+                for(var gift of this.selectGift) {
+                  if(i.id === ~~gift) {
+                    i.selected = true
+                  }
+                }
+              }
+              this.GiftList = res.result.records
+            }
+          })
       })
 
     },
@@ -456,7 +471,7 @@
       },
       changePayDate (val, state) {
         if(val < this.activity.startDate || val > this.activity.endDate) {
-          this.$Notice.error({title: '支付时间错误', desc: '支付时间必须在活动时间内',duration:0})
+          this.$Notice.error({title: '支付时间错误', desc: '支付时间必须在活动时间内',duration:3})
           return false;
         }
         if (state === 1) {
@@ -470,7 +485,7 @@
       },
       changeReturnDate (val, state) {
         if(val < this.activity.payStartDate || val > this.activity.payEndDate) {
-          this.$Notice.error({title: '积分翻倍时间错误', desc: '积分翻倍时间必须在支付时间内',duration:0})
+          this.$Notice.error({title: '积分翻倍时间错误', desc: '积分翻倍时间必须在支付时间内',duration:3})
           return false;
         }
         if (state === 1) {
@@ -505,17 +520,17 @@
         this.Group.forEach(function (item, index) {
           if (index === 0) {
             if (me.util.isNull(item.mans) || me.util.isNull(item.discount)) {
-              me.$Notice.info({title: '请完善信息', desc: '请填写团购优惠',duration:0})
+              me.$Notice.info({title: '请完善信息', desc: '请填写团购优惠',duration:3})
               isSuccess = false
             }
           }
           if (item.discount > 10 || item.discount < 0) {
-            me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项折扣信息需在0-10之间',duration:0})
+            me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项折扣信息需在0-10之间',duration:3})
             isSuccess = false
           }
           if (index > 0) {
             if (~~(item.mans) <= ~~(me.Group[index - 1].mans)) {
-              me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项人数需大于上一项',duration:0})
+              me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项人数需大于上一项',duration:3})
               isSuccess = false
             }
             discountLevel += ','
@@ -708,7 +723,7 @@
         padding:10px 0px
       .addnote
         color:#b2b2b2
-        font-size:16px
+        font-size:0.8em
         flex:1
         text-align:right
         vertical-align:middle

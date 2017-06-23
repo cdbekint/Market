@@ -22,7 +22,8 @@ const store = new Vuex.Store({
     token: util.getCookie('token') || '',
     companyId: util.getCookie('companyId') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
-    prefix: '/api'
+    // prefix: '/api'
+    prefix: this.apiurl
   },
   mutations: {
     updateToken (state) {
@@ -130,8 +131,4 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-})
-
-this.$Notice.config({
-  duration: 3
 })

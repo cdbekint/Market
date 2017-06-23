@@ -426,7 +426,7 @@ export default {
     },
     changePayDate (val, state) {
       if(val < this.activity.startDate || val > this.activity.endDate) {
-        this.$Notice.error({title: '支付时间错误', desc: '支付时间必须在活动时间内',duration:0})
+        this.$Notice.error({title: '支付时间错误', desc: '支付时间必须在活动时间内',duration:3})
         return false;
       }
       if (state === 1) {
@@ -440,7 +440,7 @@ export default {
     },
     changeReturnDate (val, state) {
       if(val < this.activity.payStartDate || val > this.activity.payEndDate) {
-        this.$Notice.error({title: '积分翻倍时间错误', desc: '积分翻倍时间必须在支付时间内',duration:0})
+        this.$Notice.error({title: '积分翻倍时间错误', desc: '积分翻倍时间必须在支付时间内',duration:3})
         return false;
       }
       if (state === 1) {
@@ -475,17 +475,17 @@ export default {
       this.Group.forEach(function (item, index) {
         if (index === 0) {
           if (me.util.isNull(item.nums) || me.util.isNull(item.discount)) {
-            me.$Notice.info({title: '请完善信息', desc: '请填写团购优惠',duration:0})
+            me.$Notice.info({title: '请完善信息', desc: '请填写团购优惠',duration:3})
             isSuccess = false
           }
         }
         if (item.discount > 10 || item.discount < 0) {
-          me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项折扣信息需在0-10之间',duration:0})
+          me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项折扣信息需在0-10之间',duration:3})
           isSuccess = false
         }
         if (index > 0) {
           if (~~(item.nums) <= ~~(me.Group[index - 1].nums)) {
-            me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项人数需大于上一项',duration:0})
+            me.$Notice.error({title: '团购优惠错误', desc: '第' + (parseInt(index) + 1) + '项人数需大于上一项',duration:3})
             isSuccess = false
           }
           discountLevel += ','
