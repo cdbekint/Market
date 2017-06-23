@@ -30,6 +30,7 @@ export default {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
     var inviterId = state[1] === void 0 ? '' : state[1];
+
     window.localStorage["inviterId"] = inviterId;
 
     if (window.localStorage["token"] != void 0) {

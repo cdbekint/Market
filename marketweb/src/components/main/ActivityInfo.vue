@@ -95,7 +95,7 @@ export default {
     var inviterId = state[1] == void 0 ? 0 : state[1];
 
     if(window.localStorage["ownId"] != inviterId){
-
+      window.localStorage["inviterId"] = inviterId;
       window.localStorage.removeItem("token");
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
