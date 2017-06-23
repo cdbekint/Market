@@ -27,7 +27,7 @@
        </Form-item>
        <Form-item>
             <Button type="primary" @click="handleSubmit('GiftRule')">提交</Button>
-            <Button type="ghost" style="margin-left: 8px" @click="handleReset('formValidate')">取消</Button>
+            <Button type="ghost" style="margin-left: 8px" @click="handleReset('GiftRule')">重置</Button>
         </Form-item>
     </Form>
   </div>
@@ -81,6 +81,9 @@ export default {
           this.$Message.error('验证失败')
         }
       })
+    },
+    handleReset (name) {
+      this.$refs[name].resetFields();
     }
   }
 }

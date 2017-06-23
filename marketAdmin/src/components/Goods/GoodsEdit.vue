@@ -19,9 +19,9 @@
           <input type="hidden" v-model="Goods.goodsImg">
         </Form-item>
         <Form-item label="图片预览">
-          <a :href="murl + Goods.goodsImg" target="_blank" v-if="Goods.goodsImg">
-            <img :src="murl+Goods.goodsImg" alt="" class="goodsimgthumb" style="width:250px;height:250px;">
-          </a>
+          <a :href="murl + gg" target="_blank" v-if="Goods.goodsImg" v-for="gg in Goods.goodsImg.split(',')">
+           <img :src="murl+gg" alt="" class="goodsimgthumb" style="width:250px;height:250px;">
+         </a>
         </Form-item>
         <Form-item label="商品类型" prop="goodsType">
           <Select v-model="Goods.goodsType" style="width:100%" @on-change="setGoodsType">
@@ -36,9 +36,7 @@
         <Form-item label="最大兑换积分" prop="maxPoints" v-if="showPoint">
           <Input type="text" v-model="Goods.maxPoints" number ></Input>
         </Form-item>
-        <Form-item label="商品介绍">
-          <Input type="textarea" v-model="Goods.goodsDesc" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
-        </Form-item>
+      
         <Form-item label="库存"  prop="storageNum">
           <Input type="text" v-model="Goods.storageNum" number></Input>
         </Form-item>
@@ -51,6 +49,12 @@
         <Form-item label="排序">
           <Input type="text" v-model="Goods.sort" number></Input>
         </Form-item>
+        <Form-item label="商品介绍">
+         <!--  <Input type="textarea" v-model="Goods.goodsDesc" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input> -->
+           <div class="addcontent ueditor-wrapper">
+            <ueditor :value="defaultMSg" :config="Ueditorconfig" @input="Ueditorinput" v-on:ready="Ueditorready"></ueditor>
+        </div>
+        </Form-item>
         <Form-item>
           <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
           <Button type="ghost" style="margin-left: 8px" @click="handleReset('formValidate')">取消</Button>
@@ -62,6 +66,7 @@
 
 <script type="text/ecmascript-6">
   import uploader from '../Util/Uploader'
+  import ueditor from '../Ueditor'
   export default {
     name: 'GoodsAdd',
     data () {
@@ -99,17 +104,35 @@
           format: ['jpg', 'png', 'jpeg'],
           showUploadList: false,
           parent: 'Goods',
-          child: 'goodsImg'
+          child: 'goodsImg',
+          multiple:true
+        },
+        defaultMSg: '',
+        Ueditorconfig: {
+          initialFrameWidth: null,
+          initialFrameHeight: 320,
+          info: {},
+          imageUrl: 'http://up.qiniu.com/',
+          imageActionName: 'uploadimage',
+          imageFieldName: 'file',
+          imageMaxSize: 2048000,
+          imageAllowFiles: ['.jpg', '.png', '.jpeg'],
+          imageCompressEnable: true,
+          imageCompressBorder: 1600,
+          imageInsertAlign: 'none',
+          imageUrlPrefix: 'http://oolds3geo.bkt.clouddn.com/',
+          imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
         }
       }
     },
-    components: { uploader },
+    components: { uploader ,ueditor },
     created(){
 
       var query = this.util.getQuery(location.hash);
       this.http.get(this.$store.state.prefix +  "/goods/"+query.id).then(res=>{
         if (res.error === false) {
           this.Goods = res.result;
+          this.defaultMSg=res.result.goodsDesc
         }
       });
     },
@@ -139,6 +162,15 @@
             this.$Message.error('验证失败')
           }
         })
+      },
+      handleReset (name) {
+        this.$refs[name].resetFields();
+      },
+      Ueditorready (editor) {},
+      Ueditorinput (obj) {
+        console.log(obj)
+        this.Goods.goodsDesc = obj.content
+        this.Ueditorconfig.info = obj
       }
     }
   }
@@ -151,4 +183,6 @@
   .goodsimgthumb
     width:100%
     height:auto
+  .ueditor-wrapper
+    width:166%
 </style>

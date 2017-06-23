@@ -5,6 +5,7 @@
         :show-upload-list="config.showUploadList"
         :format="config.format"
         :max-size="config.maxSize"
+        :multiple="config.multiple"
         :data="{token: $store.state.qiniutoken}"
         :on-success="uploadSuccess"
         :on-progress="uploadProgress"
@@ -13,6 +14,7 @@
         :on-exceeded-size="uploaderSize"
         >
         <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
+        <p>文件格式:{{config.format.join(",")}};文件大小限制:{{parseInt(config.maxSize/1024)}}M</p>
     </Upload>
      <Progress v-if="item.showProgress" :percent="item.percentage"></Progress>
 </div>
@@ -69,12 +71,28 @@ export default {
           if (_this[this.config.parent] === undefined) {
             _this = _this.$parent
           } else {
-            _this[this.config.parent][this.config.child] = res.key
+            if (this.config.multiple === true) {
+              if (_this[this.config.parent][this.config.child]) {
+                _this[this.config.parent][this.config.child] +=","
+              }
+              _this[this.config.parent][this.config.child] += res.key
+            } else {
+              _this[this.config.parent][this.config.child] = res.key
+            }
+            
             break
           }
         }
       } else if (this.config.parent) {
-        this.$parent[this.config.parent] = res.key
+        if (this.config.multiple === true) {
+          if (this.$parent[this.config.parent]) {
+            this.$parent[this.config.parent] +=","
+          }
+          this.$parent[this.config.parent] += res.key
+        } else {
+          this.$parent[this.config.parent] = res.key
+        }
+        
       }
     },
     uploadError (error, res, file) {
