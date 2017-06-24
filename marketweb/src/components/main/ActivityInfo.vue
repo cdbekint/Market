@@ -113,7 +113,7 @@ export default {
       var index = oldUrl.indexOf("?");
 
       var preUrl = oldUrl.slice(0,index+1);
-      var state = "state=" + activityId + "," + window.localStorage["inviterId"];
+      var state = "state=" + activityId + "," + window.localStorage["ownId"];
 
       var url = preUrl + state;
       location.href = url
@@ -138,7 +138,7 @@ export default {
     })
 
     // 获取活动详细信息
-    this.http.get(this.$store.state.prefix + '/activity/' + activityId+'?inviterId='+inviterId).then(res => {
+    this.http.get(this.$store.state.prefix + '/activity/' + activityId+'?inviterId='+window.localStorage["inviterId"]).then(res => {
       if (res.error === false) {
         this.activity = res.result;
         if(this.activity.activityType == 2)
@@ -224,7 +224,6 @@ export default {
         this.currentState = true;
         return;
       }
-
       this.$store.state.currentActive = this.activity.id;
       this.$router.push({
         path:"/company",

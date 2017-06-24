@@ -126,10 +126,6 @@ export default {
       this.notDetail = true;
     },
     payGoods(){
-
-      alert("activeId" + this.params.businessId)
-      alert("goodsId" + this.params.goodsId)
-      alert("companyId" + this.params.companyId)
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
         if (res.error === false) {
           var row = res.result;
@@ -759,8 +755,5 @@ export default {
           background #000
         .txt
           width 100%
-          p
-            line-height rrem(20px)
-            height rrem(20px)
-            width 100%
+
 </style>

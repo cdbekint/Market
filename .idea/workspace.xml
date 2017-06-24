@@ -85,14 +85,15 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/shuxian.png" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/up.png" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/img/ionicons.621bd38.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.428708e83aa4c4adf43e.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.428708e83aa4c4adf43e.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.80e3dcfc67e4f2a50ac7.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.80e3dcfc67e4f2a50ac7.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.d977a215e1d531e994c1.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.d977a215e1d531e994c1.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.052ea7caf186ade44130.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.052ea7caf186ade44130.js.map" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/utils.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/vendor.0ba2e471754fc9fb2164.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/vendor.0ba2e471754fc9fb2164.js.map" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
     </list>
     <ignored path="Market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -115,15 +116,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="227" column="56" selection-start-line="227" selection-start-column="56" selection-end-line="227" selection-end-column="56" />
+            <state relative-caret-position="180">
+              <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
               <folding>
                 <element signature="e#1529#2706#0" expanded="false" />
                 <element signature="n#style#0;n#!!top" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marketweb/src/components/Login.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,7 +152,7 @@
       <file leaf-file-name="goodsList.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/goodsList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
+            <state relative-caret-position="756">
               <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -162,30 +173,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="companyContent.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="companyContent.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1013">
-              <caret line="683" column="6" selection-start-line="683" selection-start-column="6" selection-end-line="683" selection-end-column="6" />
+            <state relative-caret-position="306">
+              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#div#3;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#div#4;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="e#7383#7736#0" expanded="false" />
-                <element signature="e#7760#7937#0" expanded="false" />
-                <element signature="e#7961#8143#0" expanded="false" />
-                <element signature="e#8165#8369#0" expanded="false" />
-                <element signature="e#8393#9358#0" expanded="false" />
-                <element signature="e#11192#11328#0" expanded="false" />
-                <element signature="e#11396#11996#0" expanded="false" />
-                <element signature="e#12018#12407#0" expanded="false" />
-                <element signature="e#12424#12763#0" expanded="false" />
-                <element signature="e#13049#13208#0" expanded="false" />
-                <element signature="e#13231#14587#0" expanded="false" />
-                <element signature="e#14613#16521#0" expanded="false" />
-                <element signature="e#16545#18205#0" expanded="false" />
-                <element signature="e#18230#18400#0" expanded="false" />
+                <element signature="e#7239#7592#0" expanded="false" />
+                <element signature="e#7616#7793#0" expanded="false" />
+                <element signature="e#7817#7999#0" expanded="false" />
+                <element signature="e#8021#8225#0" expanded="false" />
+                <element signature="e#8249#9214#0" expanded="false" />
+                <element signature="e#11048#11184#0" expanded="false" />
+                <element signature="e#11252#11852#0" expanded="false" />
+                <element signature="e#11874#12263#0" expanded="false" />
+                <element signature="e#12280#12619#0" expanded="false" />
+                <element signature="e#12905#13064#0" expanded="false" />
+                <element signature="e#13087#14443#0" expanded="false" />
+                <element signature="e#14469#16377#0" expanded="false" />
+                <element signature="e#16401#18061#0" expanded="false" />
+                <element signature="e#18086#18256#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -257,8 +268,8 @@
         <option value="$PROJECT_DIR$/marketweb/dist/static/css/app.440ea74b1a321ec98798876cf84bd6dd.css" />
         <option value="$PROJECT_DIR$/marketweb/src/main.js" />
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
       </list>
     </option>
   </component>
@@ -273,7 +284,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-3221" />
+    <option name="x" value="65" />
     <option name="y" value="-4" />
     <option name="width" value="1301" />
     <option name="height" value="772" />
@@ -304,104 +315,7 @@
     </navigator>
     <panes>
       <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="marketweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="marketweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="marketweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Market" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="marketweb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="company" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
       <pane id="Scratches">
         <subPane />
@@ -424,7 +338,7 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="SearchEverywhereHistoryKey" value="music&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/music.vue&#10;login&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Login.vue&#10;te&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/Team.vue&#10;lo&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Login.vue&#10;app&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/App.vue&#10;pro&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/ProgressMe.vue&#10;team&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/Team.vue&#10;acti&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Activity/ActivityAdd.vue&#10;ac&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/ActivityInfo.vue&#10;compa&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Info/Company.vue&#10;home&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Main/Home.vue&#10;goods&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Goods/GoodsAdd.vue&#10;gift&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Gift/GiftEdit.vue" />
+    <property name="SearchEverywhereHistoryKey" value="login&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Login.vue&#10;music&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/music.vue&#10;te&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/Team.vue&#10;lo&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Login.vue&#10;app&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/App.vue&#10;pro&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/Utils/ProgressMe.vue&#10;team&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/Team.vue&#10;acti&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Activity/ActivityAdd.vue&#10;ac&#9;FILE&#9;file:///home/miller/yangHao/Market/marketweb/src/components/main/ActivityInfo.vue&#10;compa&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Info/Company.vue&#10;home&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Main/Home.vue&#10;goods&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Goods/GoodsAdd.vue&#10;gift&#9;FILE&#9;file:///home/miller/yangHao/Market/marketAdmin/src/components/Gift/GiftEdit.vue" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -555,18 +469,18 @@
       <workItem from="1498182632256" duration="125000" />
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
-      <workItem from="1498284093356" duration="15476000" />
+      <workItem from="1498284093356" duration="16180000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="508524000" />
+    <option name="totallyTimeSpent" value="509228000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3221" y="-4" width="1301" height="772" extended-state="6" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2230047" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2230047" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972136" sideWeight="0.5031299" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32972136" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -805,14 +719,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/Login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/static/images/music.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -940,34 +846,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="227" column="56" selection-start-line="227" selection-start-column="56" selection-end-line="227" selection-end-column="56" />
-          <folding>
-            <element signature="e#1529#2706#0" expanded="false" />
-            <element signature="n#style#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/goodsList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#2;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -979,29 +862,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/Login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1013">
-          <caret line="683" column="6" selection-start-line="683" selection-start-column="6" selection-end-line="683" selection-end-column="6" />
+        <state relative-caret-position="306">
+          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding>
             <element signature="n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#div#4;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#7383#7736#0" expanded="false" />
-            <element signature="e#7760#7937#0" expanded="false" />
-            <element signature="e#7961#8143#0" expanded="false" />
-            <element signature="e#8165#8369#0" expanded="false" />
-            <element signature="e#8393#9358#0" expanded="false" />
-            <element signature="e#11192#11328#0" expanded="false" />
-            <element signature="e#11396#11996#0" expanded="false" />
-            <element signature="e#12018#12407#0" expanded="false" />
-            <element signature="e#12424#12763#0" expanded="false" />
-            <element signature="e#13049#13208#0" expanded="false" />
-            <element signature="e#13231#14587#0" expanded="false" />
-            <element signature="e#14613#16521#0" expanded="false" />
-            <element signature="e#16545#18205#0" expanded="false" />
-            <element signature="e#18230#18400#0" expanded="false" />
+            <element signature="e#7239#7592#0" expanded="false" />
+            <element signature="e#7616#7793#0" expanded="false" />
+            <element signature="e#7817#7999#0" expanded="false" />
+            <element signature="e#8021#8225#0" expanded="false" />
+            <element signature="e#8249#9214#0" expanded="false" />
+            <element signature="e#11048#11184#0" expanded="false" />
+            <element signature="e#11252#11852#0" expanded="false" />
+            <element signature="e#11874#12263#0" expanded="false" />
+            <element signature="e#12280#12619#0" expanded="false" />
+            <element signature="e#12905#13064#0" expanded="false" />
+            <element signature="e#13087#14443#0" expanded="false" />
+            <element signature="e#14469#16377#0" expanded="false" />
+            <element signature="e#16401#18061#0" expanded="false" />
+            <element signature="e#18086#18256#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/goodsList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#2;n#div#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+          <folding>
+            <element signature="e#1529#2706#0" expanded="false" />
+            <element signature="n#style#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
