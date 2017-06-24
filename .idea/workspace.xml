@@ -2,96 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/11.mp3" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/css/app.ad95e05e5db1f712b4d37f6e11eee1f5.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/css/app.ad95e05e5db1f712b4d37f6e11eee1f5.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/css/common.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/css/reset.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/fonts/ionicons.05acfdb.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/fonts/ionicons.24712f6.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/fonts/ionicons.2c2ae06.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a10.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a7.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a8.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/a9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/active/com.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/active/coming.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/active/err.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/active/home.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/active/homeing.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/active/member.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/active/right.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/black/ji.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/black/jiao.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/black/pe.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/black/re.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/blue/ji.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/blue/mo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/blue/pe.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/blue/re.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/boff.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/bon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/7.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/a1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/end.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/fanhui.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/fanhuitop.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/ing.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/jifen.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/jifen2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/pe.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/people.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/pull.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/return.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/start.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/team.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/titleOff/1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/titleOff/2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/titleOff/3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/titleOff/4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/titleOn/1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/titleOn/2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/titleOn/3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/titleOn/4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/total.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/company/view.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/down.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/expless.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/jifen2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/line.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/max.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/min.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/music.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/off.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/on.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/red/ji.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/red/mo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/red/pe.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/red/re.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/shuxian.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/up.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/img/ionicons.621bd38.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.b85a6421130640433cc9.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.b85a6421130640433cc9.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.0d1e8d9df584530498fd.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.0d1e8d9df584530498fd.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/utils.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/vendor.da339d7f2d6527a2046a.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/vendor.da339d7f2d6527a2046a.js.map" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/Register.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/Register.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/static/js/utils.js" afterPath="$PROJECT_DIR$/marketweb/static/js/utils.js" />
     </list>
     <ignored path="Market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -158,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Register.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Register.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Register.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="111" column="52" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
+            <state relative-caret-position="1062">
+              <caret line="59" column="93" selection-start-line="59" selection-start-column="93" selection-end-line="59" selection-end-column="93" />
               <folding>
                 <element signature="e#4412#5505#0" expanded="false" />
                 <element signature="e#6112#6257#0" expanded="false" />
@@ -173,11 +87,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="music.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/marketweb/src/components/Utils/music.vue">
+      <file leaf-file-name="Team.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Team.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
-              <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+            <state relative-caret-position="468">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="teamList.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/teamList.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-86">
+              <caret line="38" column="44" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
+              <folding>
+                <element signature="n#style#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/marketweb/static/js/utils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="436">
+              <caret line="96" column="26" selection-start-line="96" selection-start-column="26" selection-end-line="96" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="homePage.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/homePage.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1350">
+              <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="headImg.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/headImg.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -243,14 +201,14 @@
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/joinPeople.vue" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/Utils/music.vue" />
-        <option value="$PROJECT_DIR$/marketweb/static/js/utils.js" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/goodsList.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/main.js" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/Register.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
+        <option value="$PROJECT_DIR$/marketweb/static/js/utils.js" />
       </list>
     </option>
   </component>
@@ -265,7 +223,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-3221" />
+    <option name="x" value="65" />
     <option name="y" value="-4" />
     <option name="width" value="1301" />
     <option name="height" value="772" />
@@ -447,6 +405,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Market" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Market" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="marketweb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="dist" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -605,15 +589,15 @@
       <workItem from="1498182632256" duration="125000" />
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
-      <workItem from="1498284093356" duration="2114000" />
+      <workItem from="1498284093356" duration="2700000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="495162000" />
+    <option name="totallyTimeSpent" value="495748000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3221" y="-4" width="1301" height="772" extended-state="6" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2230047" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -828,14 +812,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/homePage.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/static/images/company/1.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -880,14 +856,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/headImg.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
           <folding />
         </state>
       </provider>
@@ -950,27 +918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Team.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="52" column="41" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/teamList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
-          <folding>
-            <element signature="n#style#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/static/images/music.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -980,14 +927,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
           <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/static/js/utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1306">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1030,14 +969,58 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Register.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="111" column="52" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
+        <state relative-caret-position="1062">
+          <caret line="59" column="93" selection-start-line="59" selection-start-column="93" selection-end-line="59" selection-end-column="93" />
           <folding>
             <element signature="e#4412#5505#0" expanded="false" />
             <element signature="e#6112#6257#0" expanded="false" />
             <element signature="e#6454#6628#0" expanded="false" />
             <element signature="e#7009#7253#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Team.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/teamList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-86">
+          <caret line="38" column="44" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
+          <folding>
+            <element signature="n#style#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/homePage.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1350">
+          <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/headImg.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="27" column="48" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/static/js/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="96" column="26" selection-start-line="96" selection-start-column="26" selection-end-line="96" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -36,7 +36,8 @@ export default {
         activityId:this.curGroup.activeId
       }).then(res => {
         if(res.error == false){
-          this.$Message.success("恭喜你加入该团。")
+          this.$Message.success("恭喜你加入该团。");
+          location.reload();
         }else{
           this.$Message.error(res.msg)
         }

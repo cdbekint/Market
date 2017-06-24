@@ -51,6 +51,7 @@ export default {
       }).then(res => {
         if(res.error == false){
           this.$Message.success("恭喜创建新团成功。")
+          location.reload();
         }else{
           this.$Message.error(res.msg)
         }

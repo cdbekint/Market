@@ -92,9 +92,9 @@ export default {
   },
   sliceStr:function(target,len,text){
     if(target == '' || target == void 0)return;
-    len = len == void 0?5:len;
+    len = len == void 0?4:len;
     text = text == void 0?"..":text;
     return target.length > len?
-    target.slice(0,len+1)+text : String(target)+text;
+    target.slice(0,len+1)+text : String(target);
   }
 }
