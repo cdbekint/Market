@@ -53,6 +53,8 @@
         </Form-item>
         <Form-item label="转发积分" class="text-left">
           <span v-text="companyinfo.sharePoints"></span>
+          (折算现金:<span v-text="companyinfo.sharePoints*companyinfo.toCashRate+'元'"></span>)
+          
         </Form-item>
          <Form-item label="转发次数" class="text-left">
           <span v-text="companyinfo.shareMax"></span>
@@ -62,6 +64,7 @@
       </Form-item>
       <Form-item label="注册返还积分" class="text-left">
         <span v-text="companyinfo.registerPoints"></span>
+         (折算现金:<span v-text="companyinfo.registerPoints*companyinfo.toCashRate+'元'"></span>)
       </Form-item>
       <Form-item label="自己消费返还积分比率" class="text-left">
         <span v-text="companyinfo.selfReturn+'%'"></span>

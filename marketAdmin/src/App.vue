@@ -16,7 +16,8 @@
           <i class="fa fa-th"></i>基本信息
           </dt>
           <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
-
+          <router-link :to="{path:'/accountinfo'}"  tag="dd" active-class="active" exact>账户信息</router-link>
+          
         </dl>
          <dl class="menulist">
           <dt>

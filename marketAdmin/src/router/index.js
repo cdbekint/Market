@@ -7,6 +7,7 @@ import Login from '@/Login.vue'
 import Header from '@/components/Main/Header'
 import Home from '@/components/Main/Home'
 import Company from '@/components/Info/Company'
+import AccountInfo from '@/components/Main/AccountInfo'
 
 import Employee from '@/components/Employee/Employee'
 import EmployeeAdd from '@/components/Employee/EmployeeAdd'
@@ -57,6 +58,14 @@ export default new Router({
       path: '/company/edit',
       name: 'Company',
       component: Company,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/accountinfo',
+      name: 'AccountInfo',
+      component: AccountInfo,
       meta: {
         requireAuth: true
       }
