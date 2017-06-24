@@ -21,7 +21,22 @@
   <div class="hoverShowImg" v-if="isHover" :style="{left:Left+'px',top:Top+'px'}">
     <img :src="currentImg" width="100%" height="100%">
   </div>
-</div>
+
+
+<Modal v-model="delactivitymodal" width="360">
+        <p slot="header" style="color:#f60;text-align:center">
+            <Icon type="information-circled"></Icon>
+            <span>删除确认</span>
+        </p>
+        <div style="text-align:center">
+            <p>此活动删除后，用户将无法继续访问此活动。</p>
+            <p>是否继续删除？</p>
+        </div>
+        <div slot="footer">
+            <Button type="error" size="large" long :loading="modal_loading" @click="del">删除</Button>
+        </div>
+    </Modal>
+    </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -29,6 +44,8 @@ export default {
   name: 'Activity',
   data () {
     return {
+      delactivitymodal:false,
+      modal_loading:false,
       activitylistColumns: [
         {
           title: '序号',
@@ -40,14 +57,13 @@ export default {
           title: '活动名称',
           key: 'activityName'
         },
-/*        {
+        {
           title: '活动大图',
           key: 'activityImg',
           render (row) {
             return '<img class="activitylistavater" :src="murl + row.activityImg"/>'
           }
         },
-        */
         {
           title: '参加,支付',
           key: 'joinNum',
@@ -82,7 +98,9 @@ export default {
           key: 'action',
           render (row) {
             return '<i-button type="text" size="small" @click = "update(row.id)">修改</i-button>' +
-              '<i-button type="text" size="small" @click="del(row.id)">删除</i-button>'
+              '<i-button type="text" size="small" @click="setdel(row.id)">删除</i-button>'+
+              '<i-button type="text" size="small" @click="showteam(row.id)">团队</i-button>'+
+              '<i-button type="text" size="small">交易</i-button>'
           }
         }
       ],
@@ -108,7 +126,7 @@ export default {
       this.currentImg = e.target.currentSrc
     },
     getActivityList (pageNo) {
-      this.http.get('/api/activity/' + this.$store.state.companyId + '/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/activity/' + this.$store.state.companyId + '/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
           this.activitypager = res.result;
           this.activitylistData = res.result.records;
@@ -128,13 +146,28 @@ export default {
     update (id) {
       this.router.push({path: '/activity/edit', query: {id: id}});
     },
-    del (id) {
-      this.http.post('/api/activity/delete', {
-        id: id,
+    setdel(id) {
+      this.willdelid = id
+      this.delactivitymodal = true
+      this.modal_loading = false
+    },
+    showteam(id) {
+      this.router.push({path: '/activity/team', query: {id: id}})
+    },
+    del () {
+      if (!this.willdelid) {
+        return
+      }
+      this.modal_loading = true
+      this.http.post(this.$store.state.prefix + '/activity/delete', {
+        id: this.willdelid,
       }).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功')
           this.getActivityList(1);
+          this.modal_loading = false
+          this.delactivitymodal = false
+          this.willdelid = ""
         }
       })
     },
@@ -168,4 +201,7 @@ export default {
       width:100px
       height:auto
       max-height:100px
+.activitylistavater
+  max-height:100px
+  width:100%
 </style>

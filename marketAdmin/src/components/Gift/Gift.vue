@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     getGiftList (pageNo) {
-      this.http.get('/api/gift/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/gift/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
           this.giftpager = res.result
           this.giftlistData = res.result.records
@@ -84,7 +84,7 @@ export default {
       this.router.push({path: '/gift/edit', query: {id: id}});
     },
     del (id) {
-      this.http.post('/api/gift/delete', {id: id}).then(res => {
+      this.http.post(this.$store.state.prefix + '/gift/delete', {id: id}).then(res => {
         if (res.error === false) {
           this.$Message.success('删除成功');
           this.getGiftList(1);

@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     getMusicList (pageNo) {
-      this.http.get('/api/music/page/' + (pageNo || 1)).then(res => {
+      this.http.get(this.$store.state.prefix + '/music/page/' + (pageNo || 1)).then(res => {
         if (res.error === false) {
           this.musicpager = res.result
           this.musiclistData = res.result.records

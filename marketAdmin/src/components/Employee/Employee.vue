@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     getEmployeeList (pageNo) {
-      this.http.get('/api/employee/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/employee/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
           this.employeepager = res.result
           this.employeelistData = res.result.records

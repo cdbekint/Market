@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     getPointList (pageNo) {
-      this.http.get('/api/pointsDetails/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/pointsDetails/page/' + pageNo || 1).then(res => {
         if (res.error === false) {
           this.pointpager = res.result
           this.listData = res.result.records

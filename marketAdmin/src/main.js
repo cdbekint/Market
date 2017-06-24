@@ -23,7 +23,7 @@ const store = new Vuex.Store({
     companyId: util.getCookie('companyId') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
     // prefix: '/api'
-    prefix: this.apiurl
+    prefix: 'http://market.cdbeki.com'
   },
   mutations: {
     updateToken (state) {

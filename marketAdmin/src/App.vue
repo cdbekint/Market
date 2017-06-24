@@ -86,7 +86,7 @@ export default {
     }
   },
   created () {
-    this.http.get('/api/pubInfo/user').then(res => {
+    this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
       this.userInfo = res.result
     })
   }

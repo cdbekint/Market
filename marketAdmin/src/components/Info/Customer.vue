@@ -42,8 +42,10 @@ export default {
           title: '名称',
           key: 'nickName',
           render (row) {
-            if(row.realName != void 0){
-              return '<span>{{row.realName}}</span>'
+            if(row.realName){
+              return '<span v-text="row.realName"></span>'
+            }else{
+              return '<span v-text="row.nickName"></span>'
             }
           }
         },
@@ -85,25 +87,15 @@ export default {
           }
         },
         {
-          title: '员工标示',
+          title: '员工标识',
           key: 'employee',
           render(row){
             if(row.employee == 1)
-              return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;"/>'
-            else
-              return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;"/>'
-          }
-        },
-        {
-          title: '操作',
-          key: 'action',
-          render (row) {
-            if(row.member == 1 && row.employee == 1)
-              return '<i-button type="text" size="small" @click = "removeEmployee(row.accountId)">取消员工</i-button>'
-            else if(row.member == 1 && row.employee == 0)
-              return '<i-button type="text" size="small" @click = "setEmployee(row.accountId)">设置为员工</i-button>'
-            else if(row.member == 0 && row.employee == 0)
-              return '<span></span>'
+              return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="removeEmployee(row.accountId)"/>'
+            else if(row.member == 1)
+              return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setEmployee(row.accountId)"/>'
+            else 
+              return ''
           }
         }
 

@@ -71,7 +71,7 @@ export default {
           if (this.Gift.id === '') {
             delete this.Gift.id
           }
-          this.http.post('/api/gift', this.Gift).then(res => {
+          this.http.post(this.$store.state.prefix + '/gift', this.Gift).then(res => {
             if (res.error === false) {
               this.$Message.success('保存成功')
               this.router.push('/gift')

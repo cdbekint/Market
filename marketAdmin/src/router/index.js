@@ -27,6 +27,8 @@ import MusicEdit from '@/components/Music/MusicEdit'
 import Activity from '@/components/Activity/Activity'
 import ActivityAdd from '@/components/Activity/ActivityAdd'
 import ActivityEdit from '@/components/Activity/ActivityEdit'
+import ActivityTeam from '@/components/Activity/ActivityTeam'
+import ActivityTeamUser from '@/components/Activity/ActivityTeamUser'
 
 import Trading from '@/components/Info/Trading'
 import Withdraw from '@/components/Info/Withdraw'
@@ -180,6 +182,22 @@ export default new Router({
       path: '/activity/add',
       name: 'ActivityAdd',
       component: ActivityAdd,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/activity/team',
+      name: 'ActivityTeam',
+      component: ActivityTeam,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/activity/teamuser',
+      name: 'ActivityTeamUser',
+      component: ActivityTeamUser,
       meta: {
         requireAuth: true
       }
