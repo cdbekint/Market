@@ -80,19 +80,6 @@
 
         if (this.isPaying === true)
           return;
-        var me = this;
-        me.http.post(me.$store.state.prefix + '/customer',{
-          realName:me.name,
-          phone:me.phone,
-          email:me.email
-        }).then(res => {
-          if (res.error === false) {
-            me.$Message.success('数据录入成功.')
-          }
-          else{
-            me.$Message.error("数据录入失败.")
-          }
-        });
         this.isPaying = true;
         this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
           this.isPaying = false;
@@ -114,18 +101,18 @@
                     me.$Message.success("支付成功，您已成为会员。")
                     me.payState = true;
                     me.$store.state.isMember = 1;
-//                    me.http.post(me.$store.state.prefix + '/customer',{
-//                      realName:me.name,
-//                      phone:me.phone,
-//                      email:me.email
-//                    }).then(res => {
-//                      if (res.error === false) {
-//                        me.$Message.success('数据录入成功.')
-//                      }
-//                      else{
-//                        me.$Message.error("数据录入失败.")
-//                      }
-//                    })
+                    me.http.put(me.$store.state.prefix + '/customer',{
+                      realName:me.name,
+                      phone:me.phone,
+                      email:me.email
+                    }).then(res => {
+                      if (res.error === false) {
+                        me.$Message.success('数据录入成功.')
+                      }
+                      else{
+                        me.$Message.error("数据录入失败.")
+                      }
+                    })
                   }else{
                     me.$Message.success("支付失败。")
                   }
