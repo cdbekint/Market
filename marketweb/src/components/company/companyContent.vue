@@ -12,8 +12,8 @@
         <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
       </div>
       <div class="class_goods">
-        <div class="goods_info" v-for="x in goods" @click="showDetail(x.id)">
-          <img :src="murl + x.img" class="info_img" @click="showDetail(x.id)">
+        <div class="goods_info" v-for="x in goods" @click="showDetail(x.id,2)">
+          <img :src="murl + x.img" class="info_img" @click="showDetail(x.id,2)">
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
@@ -170,7 +170,7 @@ export default {
         }
       })
     },
-    showDetail(id){
+    showDetail(id,state){
       this.http.get(this.$store.state.prefix + '/goods/'+id).then((res) => {
         if(res.error == false){
           var row = res.result;
@@ -183,6 +183,25 @@ export default {
             desc:row.goodsDesc,
             price:''
           };
+
+          if(state == 1){
+            this.params = {
+              businessId: this.ids.activeId,
+              payType: 2,
+              payAmount: 0,
+              companyId: this.ids.companyId,
+              goodsId:this.ids.id
+            }
+          }
+          else {
+            this.params = {
+              businessId: 0,
+              payType: 2,
+              payAmount: 0,
+              companyId: row.companyId,
+              goodsId:row.id
+            }
+          }
 
           if(row.goodsType == 1){
             this.currentGoods.price = row.goodsPrice + "元"
@@ -277,14 +296,7 @@ export default {
   },
   created(){
     if(this.ids != void 0){
-      this.showDetail(this.ids.id);
-      this.params = {
-        businessId: this.ids.activeId,
-        payType: 2,
-        payAmount: 0,
-        companyId: this.ids.companyId,
-        goodsId:this.ids.id
-      }
+      this.showDetail(this.ids.id,1);
     };
     this.getGoodsByType(1);
 
@@ -715,7 +727,7 @@ export default {
           span
             color #ff007e
             font-weight bold
-            font-size rrem(40px)
+            font-size rrem(30px)
             line-height rrem(55px)
             height rrem(55px)
       .detail_btn
@@ -736,6 +748,9 @@ export default {
         height rrem(640px)
         padding-top rrem(50px)
         position relative
+        p
+          height rrem(20px)
+          line-height rrem(20px)
         .bg
           z-index -1
           width 100%

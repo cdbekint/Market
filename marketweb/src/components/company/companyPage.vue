@@ -48,6 +48,7 @@ export default {
   },
   created(){
     var query = this.util.getQuery();
+    alert(query)
     if(query.id != void 0){
       this.params = query;
     }
