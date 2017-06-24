@@ -94,6 +94,7 @@
                 },
                 function (res) {
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                    this.$Message.success("支付成功，您已成为会员。")
                     this.payState = true;
                     this.$store.state.isMember = 1;
                     this.http.post(this.$store.state.prefix + '/customer',{
@@ -108,6 +109,8 @@
                         this.$Message.error(res.msg)
                       }
                     })
+                  }else{
+                    this.$Message.success("支付失败。")
                   }
                 }
               )
