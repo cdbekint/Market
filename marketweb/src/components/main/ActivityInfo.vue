@@ -105,7 +105,6 @@ export default {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
     var inviterId = state[1] == void 0 ? 0 : state[1];
-    console.log(inviterId)
 
     if(window.localStorage["ownId"] != inviterId){
       window.localStorage["inviterId"] = inviterId;

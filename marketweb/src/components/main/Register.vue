@@ -54,7 +54,7 @@
           }
           this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
             if(res.error == false){
-              this.money = res.result.registerPoints;
+              this.money = res.result.registerMoney;
               this.params.payAmount = this.money;
             }
             else{
