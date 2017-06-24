@@ -83,6 +83,7 @@
           if (res.error === false) {
             var row = res.result;
             var onBridgeReady = () => {
+              var me = this;
               WeixinJSBridge.invoke(
                 'getBrandWCPayRequest',{
                   'appId': row.appid,
@@ -94,23 +95,25 @@
                 },
                 function (res) {
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                    this.$Message.success("支付成功，您已成为会员。")
-                    this.payState = true;
-                    this.$store.state.isMember = 1;
-                    this.http.post(this.$store.state.prefix + '/customer',{
-                      realName:this.name,
-                      phone:this.phone,
-                      email:this.email
+                    alert('支付成功')
+                    me.$Message.success("支付成功，您已成为会员。")
+                    me.payState = true;
+                    me.$store.state.isMember = 1;
+                    me.http.post(me.$store.state.prefix + '/customer',{
+                      realName:me.name,
+                      phone:me.phone,
+                      email:me.email
                     }).then(res => {
                       if (res.error === false) {
-                        this.$Message.success(res.msg)
+                        me.$Message.success(res.msg)
                       }
                       else{
-                        this.$Message.error(res.msg)
+                        me.$Message.error(res.msg)
                       }
                     })
                   }else{
-                    this.$Message.success("支付失败。")
+                    alert('支付失败')
+                    me.$Message.success("支付失败。")
                   }
                 }
               )
