@@ -4,20 +4,8 @@
       <img :src="'/static/images/a'+no+'.png'" alt=''>
     </div>
     <div class = 'main_pro'>
-      <div class = 'pro_line line1'>
-        <div class = 'main_time' @click='payMoneyEvent' style='z-index:2000'>
-          <div class = 'time_count' >
-            <p>支付 <span>{{payMoney}}</span> 元参加</p>
-          </div>
-        </div>
-        <div class = 'main_title'>
-          <span class = 'text'>参团赢折扣</span>
-          <img src='/static/images/line.png' alt=''>
-          <span class = 'english'>THE COUNTDOWN</span>
-        </div>
-      </div>
       <div class = 'pro_line line2'>
-        <div class = 'main_time' style='z-index:2000' @click='newTeam'>
+        <div class = 'main_time' style='z-index:20' @click='newTeam'>
           <div class = 'time_count' >
             <p>新开团</p>
           </div>
@@ -33,99 +21,40 @@
 </template>
 
 <script>
-import progressMe from '../Utils/ProgressMe.vue'
 export default {
   name: 'team',
-  components: { progressMe },
   props: ['activity'],
   data () {
     return {
+      activeId:0,
       isPaying: false,
       no:8,
       payMoney:0,
       payPoint:0,
-      params: {
-        businessId: 0,
-        payType: 5,
-        payAmount: 0,
-        companyId: 0,
-        goodsId:0
-      }
     }
   },
   watch: {
     activity: {
-      handler (val, oldVal) {
-        this.params = {
-          businessId: window.localStorage["inviterId"] || 0,
-          payType: 5,
-          payAmount: this.payMoney,
-          goodsId:val.id,
-          companyId: val.companyId
-        }
-        this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
-          if(res.error == false){
-            this.payPoint = res.result.registerPoints;
-            this.payMoney = res.result.registerMoney;
-            this.params.payAmount = this.payMoney;
-          }
-          else{
-            this.$Message.error(res.msg)
-          }
-        })
-
+      handler (val) {
+        this.activeId = val.id;
         if (val.activityType != 2)
-          this.value.no = 7;
+          this.no = 7;
+
       }
     },
     deep:true
   },
   methods: {
-    payMoneyEvent () {
-      if (this.isPaying === true) {
-        return
-      }
-
-      this.isPaying = true
-      console.log(this.params)
-      this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
-        this.isPaying = false
-        if (res.error === false) {
-          var row = res.result
-          var onBridgeReady = () => {
-            WeixinJSBridge.invoke(
-              'getBrandWCPayRequest',{
-                'appId': row.appid,
-                'timeStamp': row.timeStamp,
-                'nonceStr': row.nonce_str,
-                'package':  row.prepay_id,
-                'signType': row.sign_type,
-                'paySign': row.sign
-              },
-              function (res) {
-                if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                  alert("支付成功")
-                } else {
-                  alert("支付失败")
-                }
-              }
-            )
-          }
-          if (typeof WeixinJSBridge === 'undefined') {
-            if (document.addEventListener) {
-              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
-            } else if (document.attachEvent) {
-              document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
-              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
-            }
-          } else {
-            onBridgeReady()
-          }
-        }
-      })
-    },
     newTeam () {
-      console.log(123)
+      this.http.post(this.$store.state.prefix + '/activity/addGroup',{
+        activityId:this.activeId
+      }).then(res => {
+        if(res.error == false){
+          this.$Message.success("恭喜创建新团成功。")
+        }else{
+          this.$Message.error(res.msg)
+        }
+      });
     }
   }
 }
@@ -137,7 +66,7 @@ export default {
   }
   .team
     width 100%
-    height rrem(460px)
+    height rrem(300px)
     position relative
     background #fff
     .main_head
@@ -145,7 +74,6 @@ export default {
       top 0px
       width 100%
       height rrem(212px)
-      z-index 1000
       img
         width rrem(288px)
         height 100%
@@ -204,7 +132,7 @@ export default {
             span
               font-size rrem(65px)
       .line2
-        top rrem(270px)
+        top rrem(110px)
         .main_time
           background #c0bebf
           .time_count

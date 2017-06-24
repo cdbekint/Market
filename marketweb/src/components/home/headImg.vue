@@ -25,6 +25,8 @@ export default {
     data (val) {
       val.company.forEach((item,index)=>{
         var obj;
+        item.name = this.util.sliceStr(item.name)
+        console.log(item.name)
         if(index == 0){
           obj = {
             id:item.id,
@@ -101,6 +103,7 @@ export default {
           height 100%
           span
             display block
+            text-overflow ellipsis
             position absolute
             width rrem(90px)
             height rrem(35px)

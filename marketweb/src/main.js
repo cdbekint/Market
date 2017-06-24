@@ -20,8 +20,9 @@ const store = new Vuex.Store({
     token: util.getCookie('token') || '',
     companyId: util.getCookie('companyId') || '',
     openid: util.getCookie('openid') || '',
-    // prefix: '/api'
-    prefix: ''
+    prefix: '/api',
+    isMember:0
+    // prefix: ''
   },
   mutations: {
     updateToken (state) {
@@ -73,7 +74,7 @@ axios.interceptors.response.use(
         // 登录过期
         store.state.token = ''
         util.delCookie('token')
-        window.localStorage
+        window.localStorage.removeItem("token")
       }
     }
     return res

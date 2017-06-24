@@ -3,6 +3,14 @@
     <headImg :data="personInfo" @head_company="getCompanyId"></headImg>
     <peopleMoney :data="pointAndMoney"></peopleMoney>
     <infos :datas="datas"></infos>
+    <div class="homeCompany_body">
+      <div class="body_company" @click="goCompany">
+        <img src="/static/images/active/com.png">
+      </div>
+      <div class="body_company" @click="goHome">
+        <img src="/static/images/active/home.png" alt="">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,6 +22,12 @@ export default {
   name: 'homepage',
   components:{headImg,peopleMoney,infos},
   methods:{
+    goCompany(){
+      this.$router.push("/company");
+    },
+    goHome(){
+      this.$router.push("/home")
+    },
     getCompanyId (id) {
       this.currentCompanyId = id;
       this.getInfosByCompanyId(id);

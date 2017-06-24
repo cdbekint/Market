@@ -3,6 +3,7 @@
     <music :url = 'music'></music>
     <mainImg :activity = "activity" ></mainImg>
     <timeAndPro :activity = "activity" ></timeAndPro>
+
     <joinPeople :activity = "activity" ></joinPeople>
     <Gift :activity = "activity"></Gift>
     <Group :activity = "activity" v-if="isGroup"></Group>
@@ -10,12 +11,22 @@
     <Money :activity="activity"></Money>
     <Team :activity="activity"></Team>
     <teamList :activity="activity"></teamList>
+    <register :datas="activity" :state="currentState" @childClick="changeState"></register>
+    <div class="homeCompany_body">
+      <div class="body_company" @click="goCompany">
+        <img :src="'/static/images/active/' + comState + '.png'">
+      </div>
+      <div class="body_company" @click="goHome">
+        <img :src="'/static/images/active/'+homeState+'.png'" alt="">
+      </div>
+    </div>
   </div>
 </template>
 
 <script type='text/ecmascript-6'>
 import mainImg from './mainImg.vue'
 import timeAndPro from './timeAndPro.vue'
+import register from './Register.vue'
 import Gift from './Gift.vue'
 import music from '../Utils/music.vue'
 import Group from './Group.vue'
@@ -24,22 +35,23 @@ import Team from './Team.vue'
 import teamList from './teamList.vue'
 import Discount from './Discount.vue'
 import joinPeople from './joinPeople.vue'
+import goodsList from './goodsList.vue'
 
 export default {
   name: 'ActivityInfo',
   data () {
     return {
+      comState:"com",
+      homeState:"home",
       isGroup:true,
+      currentState:false,
+      userInfo: {
+        account: {},
+        customer: {}
+      },
       props: {
         endDate: '2017-04-26T23:08:01.928Z',
         tableclass: 'withdrawitems'
-      },
-
-      userInfo: {
-        account: {},
-        company: '',
-        customer: '',
-        employee: {}
       },
       activity: {
         activityImg: '',
@@ -88,11 +100,12 @@ export default {
       weixinConfig: {}
     }
   },
-  components: {mainImg, teamList, timeAndPro, Team, Discount, Gift, Group, Money, joinPeople, music},
+  components: {mainImg, teamList, timeAndPro, Team, Discount, Gift, Group, Money, joinPeople,goodsList,register, music},
   created () {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
     var inviterId = state[1] == void 0 ? 0 : state[1];
+    console.log(inviterId)
 
     if(window.localStorage["ownId"] != inviterId){
       window.localStorage["inviterId"] = inviterId;
@@ -110,42 +123,44 @@ export default {
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
       if (res.error === false) {
-      this.userInfo = res.result
-    }
-  else{
-      this.$Notice.error({
-        title:"登陆失败",
-        desc:res.msg
-      })
-    }
-  })
+        this.userInfo = res.result;
+        if(this.userInfo.customer.member == 1){
+          this.$store.state.isMember = 1;
+          this.currentState = false;
+        }
+        else{
+          this.$store.state.isMember = 0;
+          this.currentState = true;
+        }
+      }
+      else{
+        this.$Message.error(res.msg)
+      }
+    })
 
     // 获取活动详细信息
     this.http.get(this.$store.state.prefix + '/activity/' + activityId+'?inviterId='+inviterId).then(res => {
       if (res.error === false) {
-        this.activity = res.result
+        this.activity = res.result;
         if(this.activity.activityType == 2)
           this.isGroup = true
         else
           this.isGroup = false
         document.title = res.result.activityName
       }
-  }).then(()=> {
+    }).then(()=> {
       if(this.activity.musicId != void 0 && this.activity.musicId != ''){
         this.http.get(this.$store.state.prefix + '/music/' + this.activity.musicId).then(res2 => {
           if (res2.error === false){
             this.music = res2.result.url
           }
-    else{
-        this.$Notice.error({
-          title:"登陆失败",
-          desc:res.msg
-        })
-      }
+          else{
+            this.$Message.error(res.msg)
+          }
         })
       }
 
-  })
+    })
     var url = location.href.split("#")[0];
     // 获取微信分享配置
   this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' + url).then(res => {
@@ -158,7 +173,7 @@ export default {
         nonceStr: res.result.noncestr,
         signature: res.result.signStr,
         jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'getNetworkType', 'chooseWXPay']
-      })
+      });
 
       this.weixinConfig = res.result
     }
@@ -201,10 +216,39 @@ export default {
     })
   },
   methods: {
+    changeState(state){
+      this.currentState = state;
+    },
+    goCompany(){
+      this.comState = "coming";
+      setTimeout(()=>{
+        this.comState = "com";
+      },300);
+
+      if(this.$store.state.isMember == 0){
+        this.currentState = true;
+        return;
+      }
+      this.$router.push("/company");
+    },
+    goHome(){
+      this.homeState = "homeing";
+      setTimeout(()=>{
+        this.homeState = "home";
+      },300);
+      if(this.$store.state.isMember == 0){
+        this.currentState = true;
+        return;
+      }
+      this.$router.push("/home")
+    }
   }
 }
 </script>
 <style lang='stylus' rel='stylesheet/stylus'>
+  rrem(val){
+    return (val/108px)rem
+  }
   html,body
     margin 0px
     padding 0px
@@ -212,4 +256,21 @@ export default {
   .activityMain
     background #fff
     padding-bottom 20px;
+  .homeCompany_body
+    position fixed
+    bottom rrem(50px)
+    right rrem(40px)
+    width rrem(330px)
+    height rrem(150px)
+    display flex
+    justify-content space-between
+    div
+      width rrem(150px)
+      height rrem(150px)
+      border-radius 100%
+      border 1px solid #ff017e
+      img
+        width 100%
+        height 100%
+
 </style>

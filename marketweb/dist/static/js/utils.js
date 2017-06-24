@@ -3,39 +3,39 @@ export default {
     parseParam: function(param, key, encode){
     if (param==null) return ''
 
-    var paramStr = ''  
+    var paramStr = ''
     var t = typeof (param)
-    if (t == 'string' || t == 'number' || t == 'boolean') {  
+    if (t == 'string' || t == 'number' || t == 'boolean') {
       paramStr += '&' + key + '=' + ((encode==null||encode) ? encodeURIComponent(param) : param)
-    } else {  
-      for (var i in param) {  
+    } else {
+      for (var i in param) {
         var k = key == null ? i : key + (param instanceof Array ? '[' + i + ']' : '.' + i)
         paramStr += this.parseParam(param[i], k, encode)
-      }  
-    }  
+      }
+    }
     return paramStr
     },
     setCookie: function(name,value) {
-      var Days = 30; 
-    var exp = new Date(); 
-    exp.setTime(exp.getTime() + Days*24*60*60*1000); 
-    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString(); 
+      var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
     },
     getCookie: function(name){
       var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
       if(arr=document.cookie.match(reg))
-          return unescape(arr[2]); 
-      else 
-          return null; 
+          return unescape(arr[2]);
+      else
+          return null;
     },
-    delCookie: function(name) 
-    { 
-      var exp = new Date(); 
-      exp.setTime(exp.getTime() - 1); 
-      var cval=this.getCookie(name); 
-      if(cval!=null) 
-          document.cookie= name + "="+cval+";expires="+exp.toGMTString(); 
-    }, 
+    delCookie: function(name)
+    {
+      var exp = new Date();
+      exp.setTime(exp.getTime() - 1);
+      var cval=this.getCookie(name);
+      if(cval!=null)
+          document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+    },
     randomString:function (len) {
   　　len = len || 32;
   　　var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
@@ -87,8 +87,14 @@ export default {
             }
 
         }
-
         if (bFound == false) return null;
         return strReturn;
-63     }
+     },
+    sliceStr:function(target,len,text){
+      if(target == '' || target == void 0)return;
+      len = len == void 0?5:len;
+      text = text == void 0?"..":text;
+      return target.length > len?
+        target.slice(0,len+1)+text : String(target)+text;
+    }
 }
