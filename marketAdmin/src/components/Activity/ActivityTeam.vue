@@ -36,57 +36,45 @@ export default {
           align: 'center'
         },
         {
-          title: '团号',
-          key: 'activityName'
-        },
-        {
           title: '团长姓名',
-          key: 'activityImg',
+          key: 'nickName',
           render (row) {
-            return '<img class="activitylistavater" :src="murl + row.activityImg"/>'
+            if(row.realName) {
+              return row.realName
+            } else {
+              return row.nickName
+            }
           }
         },
         {
           title: '团长电话',
-          key: 'joinNum',
-          render (row) {
-            return row.joinNum + ',' +row.payNum
-          }
+          key: 'phone'
         },
         {
           title: '团员数',
-          key: 'viewNum',
-          render (row) {
-            return row.viewNum + ',' +row.shareNum
-          }
+          key: 'groupNum'
         },
         {
           title: '交易人数',
-          key: 'startDate'
+          key: 'payNum'
         },
         {
           title: '团长福利',
-          key: 'endDate'
+          key: 'groupPoints'
         },
         {
           title: '所获积分',
-          key: 'id',
-          render (row) {
-             return '<img @mouseover="showImg" @mouseout="isHover=false" :src="generaUrl(row)" width="80px" height="80px">'
-          }
+          key: 'allPayPoints'
         },
         {
           title: '交易额',
-          key: 'id',
-          render (row) {
-             return '<img @mouseover="showImg" @mouseout="isHover=false" :src="generaUrl(row)" width="80px" height="80px">'
-          }
+          key: 'allPayAmount'
         },
         {
           title: '操作',
           key: 'action',
           render (row) {
-            return '<i-button type="text" size="small" @click = "viewmenber(row.id)">查看团员</i-button>'
+            return '<i-button type="text" size="small" @click = "viewmenber(row.groupId)">查看团员</i-button>'
           }
         }
       ],
@@ -110,7 +98,7 @@ export default {
       var query = this.util.getQuery(location.hash)
       this.http.get(this.$store.state.prefix + '/activity/getAllGroupInfo/' + query.id).then(res => {
         if(res.error === false) {
-          this.activitypager = res.result
+          if(res.result)this.activitypager = res.result
           this.activityteamData = res.result
         } else {
           this.$Notice.error("获取失败");
@@ -118,8 +106,8 @@ export default {
       })
     },
     viewmenber(id) {
-      var query = this.util.getQuery(location.hash)
-      this.router.push({path: '/activity/teamuser', query: {id: id,teamid: query.id}})
+      var querys = this.util.getQuery(location.hash)
+      this.router.push({path: '/activity/teamuser', query: {id: id,activityid: querys.id}})
     },
     changePage() {
       this.getActivityTeam(this.activitypager.current)

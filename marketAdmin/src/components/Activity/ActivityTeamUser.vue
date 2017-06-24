@@ -5,7 +5,7 @@
       	<span>团队成员</span>
       </div>
       <div class="titellink">
-      <router-link :to="'/activity/team?id=' + routerquery.teamid" class="innerbtnlink">参团用户</router-link>
+      <router-link :to="'/activity/team?id=' + routerquery.activityid" class="innerbtnlink">参团用户</router-link>
       </div>
  	</div>
  	<div class="content">
@@ -99,20 +99,29 @@ export default {
         pages: 1,
         current: 1,
         total:1
+      },
+      routerquery:{
+
       }
     }
   },
+  mounted () {
+    this.routerquery = this.util.getQuery(location.hash)
+  },
   created () {
     this.getActivityTeamUser(1)
-    this.routerquery = this.util.getQuery(location.hash)
+    
   },
   methods: {
     getActivityTeamUser(pageno){
       var query = this.util.getQuery(location.hash)
-      this.http.get(this.$store.state.prefix + '/activity/getGroupMemberInfo/' + query.id ).then(res => {
+      this.http.get(this.$store.state.prefix + '/activity/getGroupMemberInfo/' + query.id +'?activityId='+query.activityid ).then(res => {
         if(res.error === false) {
-          this.activitypager = res.result
-          this.activityteamuserData = res.result
+          if(res.result){
+            this.activitypager = res.result
+            this.activityteamuserData = res.result
+          }
+          
         } else {
           this.$Notice.error("获取失败");
         }
