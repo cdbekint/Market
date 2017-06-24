@@ -203,6 +203,8 @@ export default {
             }
           }
 
+          alert("param" + this.params.businessId)
+          alert("goodsId" + this.params.goodsId)
           if(row.goodsType == 1){
             this.currentGoods.price = row.goodsPrice + "元"
           }
@@ -295,7 +297,7 @@ export default {
 
   },
   created(){
-    alert(this.ids.id)
+    alert("active" + this.ids.activeId)
     if(this.ids != void 0){
       this.showDetail(this.ids.id,1);
     };

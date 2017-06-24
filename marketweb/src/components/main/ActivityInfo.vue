@@ -224,6 +224,7 @@ export default {
         this.currentState = true;
         return;
       }
+
       this.$router.push({
         path:"/company",
         query:{
