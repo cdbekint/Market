@@ -748,9 +748,6 @@ export default {
         height rrem(640px)
         padding-top rrem(50px)
         position relative
-        p
-          height rrem(20px)
-          line-height rrem(20px)
         .bg
           z-index -1
           width 100%
@@ -759,4 +756,10 @@ export default {
           height rrem(640px)
           opacity 0.5
           background #000
+        .txt
+          width 100%
+          p
+            line-height rrem(20px)
+            height rrem(20px)
+            width 100%
 </style>
