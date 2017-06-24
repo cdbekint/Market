@@ -84,10 +84,10 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/shuxian.png" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/images/up.png" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/img/ionicons.621bd38.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.85d48a7d3254a608540c.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.85d48a7d3254a608540c.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.ca67a86d72bc355441b2.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.ca67a86d72bc355441b2.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.b85a6421130640433cc9.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.b85a6421130640433cc9.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.0d1e8d9df584530498fd.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.0d1e8d9df584530498fd.js.map" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/utils.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/vendor.da339d7f2d6527a2046a.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/vendor.da339d7f2d6527a2046a.js.map" afterPath="" />
@@ -161,13 +161,13 @@
       <file leaf-file-name="Register.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Register.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="115" column="21" selection-start-line="115" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
+            <state relative-caret-position="810">
+              <caret line="111" column="52" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
               <folding>
-                <element signature="e#4389#5482#0" expanded="false" />
-                <element signature="e#6089#6234#0" expanded="false" />
-                <element signature="e#6431#6605#0" expanded="false" />
-                <element signature="e#6986#7230#0" expanded="false" />
+                <element signature="e#4412#5505#0" expanded="false" />
+                <element signature="e#6112#6257#0" expanded="false" />
+                <element signature="e#6454#6628#0" expanded="false" />
+                <element signature="e#7009#7253#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -605,12 +605,12 @@
       <workItem from="1498182632256" duration="125000" />
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
-      <workItem from="1498284093356" duration="1666000" />
+      <workItem from="1498284093356" duration="2114000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="494714000" />
+    <option name="totallyTimeSpent" value="495162000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3221" y="-4" width="1301" height="772" extended-state="6" />
@@ -1030,13 +1030,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Register.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="115" column="21" selection-start-line="115" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
+        <state relative-caret-position="810">
+          <caret line="111" column="52" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
           <folding>
-            <element signature="e#4389#5482#0" expanded="false" />
-            <element signature="e#6089#6234#0" expanded="false" />
-            <element signature="e#6431#6605#0" expanded="false" />
-            <element signature="e#6986#7230#0" expanded="false" />
+            <element signature="e#4412#5505#0" expanded="false" />
+            <element signature="e#6112#6257#0" expanded="false" />
+            <element signature="e#6454#6628#0" expanded="false" />
+            <element signature="e#7009#7253#0" expanded="false" />
           </folding>
         </state>
       </provider>

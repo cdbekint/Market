@@ -41,6 +41,11 @@
   export default {
     name: 'register',
     props:["datas","state"],
+    created(){
+      this.name = ''
+      this.phone = ''
+      this.email = ''
+    },
     watch: {
       datas: {
         handler (val) {
@@ -95,7 +100,6 @@
                 },
                 function (res) {
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                    alert('支付成功')
                     me.$Message.success("支付成功，您已成为会员。")
                     me.payState = true;
                     me.$store.state.isMember = 1;
@@ -105,14 +109,13 @@
                       email:me.email
                     }).then(res => {
                       if (res.error === false) {
-                        me.$Message.success(res.msg)
+                        me.$Message.success('数据录入成功.')
                       }
                       else{
-                        me.$Message.error(res.msg)
+                        me.$Message.error("数据录入失败.")
                       }
                     })
                   }else{
-                    alert('支付失败')
                     me.$Message.success("支付失败。")
                   }
                 }
