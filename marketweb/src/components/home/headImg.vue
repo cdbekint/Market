@@ -25,8 +25,7 @@ export default {
     data (val) {
       val.company.forEach((item,index)=>{
         var obj;
-        item.name = this.util.sliceStr(item.name)
-        console.log(item.name)
+        item.name = this.util.sliceStr(item.name,4)
         if(index == 0){
           obj = {
             id:item.id,
@@ -110,9 +109,8 @@ export default {
             top rrem(16px)
             left rrem(20px)
             color #fff
-            font-size rrem(16px)
+            font-size rrem(15px)
             text-align center
-
           img
             width rrem(130px)
             height 100%

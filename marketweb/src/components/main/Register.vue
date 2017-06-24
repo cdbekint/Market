@@ -82,7 +82,6 @@
           return;
 
         this.isPaying = true;
-        console.log(this.params);
         this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
           this.isPaying = false;
           if (res.error === false) {
