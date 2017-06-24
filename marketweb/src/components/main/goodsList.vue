@@ -9,7 +9,7 @@ export default {
   props: ['activity'],
   watch: {
     activity: function (val) {
-      
+
     }
   },
   data () {
