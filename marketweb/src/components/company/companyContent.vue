@@ -189,8 +189,8 @@ export default {
               businessId: this.ids.activeId,
               payType: 2,
               payAmount: 0,
-              companyId: this.ids.companyId,
-              goodsId:this.ids.id
+              companyId: row.companyId,
+              goodsId:row.id
             }
           }
           else {
@@ -295,6 +295,7 @@ export default {
 
   },
   created(){
+    alert(this.ids.id)
     if(this.ids != void 0){
       this.showDetail(this.ids.id,1);
     };
