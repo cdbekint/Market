@@ -127,7 +127,7 @@ export default {
     },
     payGoods(){
 
-      alert("param" + this.params.businessId)
+      alert("activeId" + this.params.businessId)
       alert("goodsId" + this.params.goodsId)
       alert("companyId" + this.params.companyId)
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
@@ -165,6 +165,8 @@ export default {
           } else {
             onBridgeReady()
           }
+        }else {
+          this.$Message.error(res.msg)
         }
       })
     },
