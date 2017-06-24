@@ -25,7 +25,7 @@
 
 <script type="text/ecmascript-6">
 export default {
-  name: 'Activity',
+  name: 'ActivityTeamUser',
   data () {
     return {
       activityteamuserColumns: [
@@ -109,10 +109,10 @@ export default {
   methods: {
     getActivityTeamUser(pageno){
       var query = this.util.getQuery(location.hash)
-      this.http.get(this.$store.state.prefix + '/activity/teamuser/' + query.id + '/page/' + pageno ||1 ).then(res => {
+      this.http.get(this.$store.state.prefix + '/activity/getGroupMemberInfo/' + query.id ).then(res => {
         if(res.error === false) {
           this.activitypager = res.result
-          this.activityteamuserData = res.result.records
+          this.activityteamuserData = res.result
         } else {
           this.$Notice.error("获取失败");
         }

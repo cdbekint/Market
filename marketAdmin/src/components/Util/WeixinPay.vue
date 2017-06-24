@@ -10,12 +10,15 @@
         <ul>
           <li v-for="pm in payMoney" :class="{active:pm.active,coustom:pm.coustom}" @click="selectMoney(pm)">
             <span v-text="pm.money" v-if="!pm.coustom"></span>
-            <input v-else type="number" min="100" step="50" placeholder="请输入">
+            <input v-else type="number" v-model="pm.money" min="100" step="50" placeholder="请输入">
           </li>
         </ul>
       </div>
       <div class="payQrCode text-center"  v-if="currentStep==1">
-        <img src="http://qr.liantu.com/api.php?w=200&m=5&text=http://we.cdbeki.com" alt="">
+        <img :src="'http://qr.liantu.com/api.php?w=200&m=5&text='+code_url" alt="" v-if="code_url">
+        <Row>
+        <span v-text="'充值金额:'+realMoney+'元'" style="font-size:1.5em"></span></br>
+         <Icon type="ios-information-outline"></Icon>请使用微信扫一扫进行充值付款</Row>
       </div>
       <div class="payStatus" v-if="currentStep==2">
           <Icon type="ios-checkmark-outline" size="100" color="#44b549"></Icon>
@@ -25,8 +28,12 @@
     </div>
     <div class="stepOperate text-right">
         <Button type="ghost"  size="small" v-if="currentStep>0&&currentStep<2" @click="switchStep(false)">上一步</Button>
-        <Button type="info"  size="small" v-if="currentStep<=2" @click="switchStep(true)">
-        <span v-if="!stepdone">下一步</span> <span v-else>完成</span></Button>
+        <Button type="info"  size="small" v-if="currentStep<=2&&(!stepdone)" @click="switchStep(true)">
+       下一步</Button>
+       <Button type="info"  size="small" v-if="currentStep<=2&&(stepdone)" @click="chargeOk()">
+       完成</Button>
+       
+
     </div>
 </div>
 </template>
@@ -34,7 +41,7 @@
 <script type="text/ecmascript-6">
 export default {
   name: 'WeixinPay',
-  props: ['wrapper'],
+  props: ['wrapper', 'company'],
   data () {
     return {
       payMoney: [
@@ -71,7 +78,9 @@ export default {
       ],
       currentStep: 0,
       stepdone: false,
-      realMoney: 100
+      realMoney: 100,
+      code_url:'',
+      repeateNum:0
     }
   },
   created () {
@@ -95,24 +104,77 @@ export default {
               break
             }
           }
-          if (realMoney < 100 || isNaN(realMoney)) {
+          if (realMoney < 10 || isNaN(realMoney)) {
             this.$Notice.error({
               title: '错误',
-              desc: '自定义金额错误'
+              desc: '充值金额必须大于10'
             })
             return
           }
           this.realMoney = realMoney
+          var param = {
+            payType: 4,
+            payAmount: Number(this.realMoney),
+            companyId :this.company.id,
+            businessId: 0,
+            goodsId: 0
+          }
+          this.http.post(this.$store.state.prefix + '/pay' , param).then (res => {
+            if (res.error === false) {
+              this.code_url = res.result.code_url
+              this.currentStep ++
+              var _this=this
+              setTimeout(function(){
+                  _this.checkStatus(res.result.out_trade_no)
+              },3000)
+              
+            } else {
+              this.$Message.error(res.msg)
+            }
+          })
+
         }
-        this.currentStep += 1
-        if (this.currentStep === 2) {
-          this.stepdone = true
-          this.$parent[this.wrapper] = false
+        if(this.currentStep === 2){
+         this.stepdone = true
         }
       } else {
         this.stepdone = false
         this.currentStep -= 1
       }
+    },
+    chargeOk() {
+       var _this=this
+          for(var i=0;i<100;i++){
+            if(_this.$parent[this.wrapper] === undefined){
+              _this = _this.$parent
+              
+            }else{
+              _this.$parent[this.wrapper] = false
+              this.stepdone = false
+              this.currentStep = 0
+              _this.$parent.getCompanyinfo()
+              break
+            }
+          }
+    },
+    checkStatus (out_trade_no) {
+        this.http.post(this.$store.state.prefix + '/pay/getByOutTradeNo', {outTradeNo: out_trade_no}).then(res => {
+        if (res.error === false) {
+            debugger
+            if(res.result.payStatus === 1){
+              this.currentStep ++
+              this.switchStep(true)
+            }else{
+              var _this=this
+              if(this.repeateNum<200){
+                setTimeout(function(){
+                  _this.checkStatus(out_trade_no)
+                },1000)
+              }
+              
+            }
+        }
+      })
     }
   }
 }
