@@ -1,14 +1,14 @@
 <template>
   <div class = "goodsListOne">
     <div class="list_parent">
-      <div class="list_item" v-for="x in 6">
-        <img src="/static/images/b1.png" class="item_img">
+      <div class="list_item" v-for="x in goodsList">
+        <img :src="murl + x.img" class="item_img">
         <div class="item_text">
-          <p style="font-weight: bold;color:#434343;">in潍坊新婚纱照</p>
-          <p style="color:#aeaeae;" class="text_line">原价12355元</p>
-          <p style="color:#ff017e;">折后8355元</p>
+          <p style="font-weight: bold;color:#434343;">{{x.name}}</p>
+          <p style="color:#aeaeae;" class="text_line">{{x.price}}</p>
+          <p style="color:#ff017e;">{{x.newPrice}}</p>
         </div>
-        <div class="item_btn">5折购买</div>
+        <div class="item_btn" :style="{background:stateColor[x.state]}" @click="showGoodsDetail(x.id)">{{x.btnTxt}}</div>
       </div>
     </div>
   </div>
@@ -18,12 +18,61 @@
 export default {
   name: 'goodsList',
   props: ['activity'],
+  methods:{
+    showGoodsDetail(id){
+      this.$emit("goodsClick",id);
+    }
+  },
   watch: {
     activity:{
       handler(val){
-        this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
+        var showDiscount = val.discount;
+        var discount = val.discount;
+        discount = discount == 0?1:discount/10;
+        showDiscount = showDiscount == 0?10:showDiscount;
+        this.http.get(this.$store.state.prefix + '/goods/getGoodsByIds?goodsIds='+val.goodsIds).then(res => {
+          this.goodsList = [];
           if(res.error == false){
+            res.result.forEach(item=>{
+              var obj = {
+                name:item.goodsName,
+                img:item.goodsImg,
+                price:0,
+                newPrice:0,
+                state:0,
+                btnTxt:'',
+                id:item.id
+              };
+              if(item.goodsType == 1){
+                obj.price = item.goodsPrice + "元"
+                obj.newPrice = (item.goodsPrice * discount) + "元"
+              }
+              else if(item.goodsType == 2){
+                obj.price = item.maxPoints + "积分"
+                obj.newPrice = (item.maxPoints * discount) + "元"
+              }
+              else if(item.goodsType == 3){
+                obj.price = item.goodsPrice + "元 + "+item.maxPoints+"积分"
+                obj.newPrice = (item.goodsPrice *discount)+ "元 + " + (item.maxPoints * discount)+ "积分"
+              }
 
+
+              var date = Date.now();
+              if(date >= val.startDate && date <= val.endDate) {
+
+                obj.state = 1;
+                obj.btnTxt = (showDiscount+"折购买")
+              }else if(date <= val.startDate) {
+
+                obj.state = 0;
+                obj.btnTxt = "活动即将开始"
+              }else if(date >= val.endDate) {
+
+                obj.state = 2;
+                obj.btnTxt = "活动已结束"
+              }
+              this.goodsList.push(obj)
+            })
           }else{
             this.$Message.error(res.msg);
           }
@@ -34,7 +83,12 @@ export default {
   },
   data () {
     return {
-      goodsList:[]
+      goodsList:[],
+      stateColor:[
+        "#1fe3a5",
+        "#ff017e",
+        "#aeaeae",
+      ]
     }
   }
 }
@@ -71,7 +125,7 @@ export default {
           width rrem(288px)
           height rrem(81px)
           p
-            font-size rrem(22px)
+            font-size rrem(20px)
             margin-bottom rrem(2px)
             line-height rrem(35px)
             height rrem(22px)

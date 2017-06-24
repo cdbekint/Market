@@ -3,7 +3,7 @@
     <music :url = 'music'></music>
     <mainImg :activity = "activity" ></mainImg>
     <timeAndPro :activity = "activity" ></timeAndPro>
-    <goodsList></goodsList>
+    <goodsList :activity="activity" @goodsClick="showGoodsDetail"></goodsList>
     <joinPeople :activity = "activity" ></joinPeople>
     <Gift :activity = "activity"></Gift>
     <Group :activity = "activity" v-if="isGroup"></Group>
@@ -106,18 +106,18 @@ export default {
     var activityId = state[0];
     var inviterId = state[1] == void 0 ? 0 : state[1];
 
-//    if(window.localStorage["ownId"] != inviterId){
-//      window.localStorage["inviterId"] = inviterId;
-//      window.localStorage.removeItem("token");
-//      var oldUrl = location.href;
-//      var index = oldUrl.indexOf("?");
-//
-//      var preUrl = oldUrl.slice(0,index+1);
-//      var state = "state=" + activityId + "," + window.localStorage["inviterId"];
-//
-//      var url = preUrl + state;
-//      location.href = url
-//    }
+    if(window.localStorage["ownId"] != inviterId){
+      window.localStorage["inviterId"] = inviterId;
+      window.localStorage.removeItem("token");
+      var oldUrl = location.href;
+      var index = oldUrl.indexOf("?");
+
+      var preUrl = oldUrl.slice(0,index+1);
+      var state = "state=" + activityId + "," + window.localStorage["inviterId"];
+
+      var url = preUrl + state;
+      location.href = url
+    }
 
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
@@ -145,6 +145,7 @@ export default {
           this.isGroup = true
         else
           this.isGroup = false
+        this.activity.discount = this.activity.discount == 0?10:this.activity.discount;
         document.title = res.result.activityName
       }
     }).then(()=> {
@@ -217,6 +218,20 @@ export default {
   methods: {
     changeState(state){
       this.currentState = state;
+    },
+    showGoodsDetail(goodsId){
+      if(this.$store.state.isMember == 0){
+        this.currentState = true;
+        return;
+      }
+      this.$router.push({
+        path:"/company",
+        query:{
+          id:goodsId,
+          activeId:this.activity.id,
+          companyId:this.activity.companyId
+        }
+      })
     },
     goCompany(){
       this.comState = "coming";

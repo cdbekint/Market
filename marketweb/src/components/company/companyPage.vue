@@ -3,7 +3,7 @@
     <img src="/static/images/company/bg.png" class="page_img">
     <div class="page_bg"></div>
     <companyHead ></companyHead>
-    <companyContent></companyContent>
+    <companyContent :ids="params"></companyContent>
     <div class="homeCompany_body">
       <div class="body_company" @click="goCompany">
         <img src="/static/images/active/com.png">
@@ -47,9 +47,14 @@ export default {
     }
   },
   created(){
+    var query = this.util.getQuery();
+    if(query.id != void 0){
+      this.params = query;
+    }
   },
   data () {
     return {
+      params:null
     }
   }
 }

@@ -12,8 +12,8 @@
         <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
       </div>
       <div class="class_goods">
-        <div class="goods_info" v-for="x,index in goods" @click="showDetail(x.id,index)">
-          <img :src="murl + x.img" class="info_img" @click="showDetail(x.id,index)">
+        <div class="goods_info" v-for="x in goods" @click="showDetail(x.id)">
+          <img :src="murl + x.img" class="info_img" @click="showDetail(x.id)">
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
@@ -120,6 +120,7 @@
 <script type="text/ecmascript-6">
 export default {
   name: 'companyContent',
+  props:["ids"],
   methods:{
     returnGoodsList(){
       this.notDetail = true;
@@ -147,6 +148,11 @@ export default {
               function (res) {
                 if (res.err_msg === 'get_brand_wcpay_request:ok') {
                   this.payState = true
+                  this.$Message.success("购买成功");
+                  this.$router.push('/');
+                }
+                else{
+                  this.$Message.error("购买失败");
                 }
               }
             )
@@ -164,19 +170,30 @@ export default {
         }
       })
     },
-    showDetail(id,index){
-      this.notDetail = true;
+    showDetail(id){
       this.http.get(this.$store.state.prefix + '/goods/'+id).then((res) => {
         if(res.error == false){
-          var goods = this.goods[index];
+          var row = res.result;
           this.currentGoods = {
-            saleNum : res.result.saleNum,
-            storageNum : res.result.storageNum,
-            name:goods.title,
-            price:goods.price,
-            img:goods.img,
-            desc:res.result.goodsDesc
+            saleNum : row.saleNum,
+            storageNum : row.storageNum,
+            name:row.goodsName,
+            price:row.goodsPrice,
+            img:row.goodsImg,
+            desc:row.goodsDesc,
+            price:''
+          };
+
+          if(row.goodsType == 1){
+            this.currentGoods.price = row.goodsPrice + "元"
           }
+          else if(row.goodsType == 2){
+            this.currentGoods.price = row.maxPoints + "积分"
+          }
+          else if(row.goodsType == 3){
+            this.currentGoods.price = row.goodsPrice + "元 + "+row.maxPoints+"积分"
+          }
+
           this.notDetail = false;
         }
       });
@@ -259,7 +276,18 @@ export default {
 
   },
   created(){
+    if(this.ids != void 0){
+      this.showDetail(this.ids.id);
+      this.params = {
+        businessId: this.ids.activeId,
+        payType: 2,
+        payAmount: 0,
+        companyId: this.ids.companyId,
+        goodsId:this.ids.id
+      }
+    };
     this.getGoodsByType(1);
+
     this.http.get( this.$store.state.prefix + "/shop/getActivities").then(res=>{
       if(res.error == false){
         var row = res.result;
@@ -275,11 +303,11 @@ export default {
             state:0,
           }
           var date = Date.now();
-          if(date >= item.startDate && date <= item.endDate)
+          if(date >= item.payStartDate && date <= item.payEndDate)
             obj.state = 1;
-          else if(date <= item.startDate)
+          else if(date <= item.payStartDate)
             obj.state = 0;
-          else if(date >= item.endDate)
+          else if(date >= item.payEndDate)
             obj.state = 2;
 
           this.active.push(obj)
@@ -318,7 +346,7 @@ export default {
       selectGoodsId:0,
       params: {
         businessId: 0,
-        payType: 5,
+        payType: 2,
         payAmount: 0,
         companyId: 0,
         goodsId:0

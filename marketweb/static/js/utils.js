@@ -96,5 +96,17 @@ export default {
     text = text == void 0?"..":text;
     return target.length > len?
     target.slice(0,len+1)+text : String(target);
-  }
+  },
+  getQuery:function (hash) {
+    if(hash == void 0)hash = location.hash;
+
+    var queryArr = hash.slice(hash.indexOf("?")+1).split("&");
+    var res = {};
+
+    queryArr.forEach(function (item) {
+      var temp = item.split("=");
+      res[temp[0]] = temp[1];
+    });
+    return res;
+  },
 }
