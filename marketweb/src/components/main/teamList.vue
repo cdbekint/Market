@@ -1,19 +1,19 @@
 <template>
-  <div class="teamList">
+  <div class="teamList" v-if="haveGroup">
     <div class="groupList">
       <ul>
-        <div v-for="index in 1">
+        <div>
           <img src="/static/images/up.png" class = "upImg">
           <li>
             <div class="head">
-              <img src="https://m.ems.cdbeki.com/13008187875/20170214173732C3AA0E.jpg_appCphoto" alt="">
-              <span>杨浩</span>
+              <img :src="curGroup.img" alt="">
+              <span>{{curGroup.name}}</span>
             </div>
             <div class = "content">
-              <p>杨浩正在邀请你参加本次活动，</p>
-              <p>现在已经有344人参加。</p>
+              <p>{{curGroup.name}}正在邀请你参加本次活动，</p>
+              <p>现在已经有{{curGroup.peopleNum}}人参加。</p>
             </div>
-            <div class = "btn">
+            <div class = "btn" @click="joinTeam">
               <img src="/static/images/min.png">
               <span>加入TA的团</span>
             </div>
@@ -29,17 +29,51 @@
 export default {
   name: 'teamList',
   props: ['activity'],
+  methods:{
+    joinTeam(){
+      this.http.post(this.$store.state.prefix + '/activity/addGroup',{
+        groupId:this.curGroup.id,
+        activityId:this.curGroup.activeId
+      }).then(res => {
+        if(res.error == false){
+          this.$Message.success("恭喜你加入该团。");
+          location.reload();
+        }else{
+          this.$Message.error(res.msg)
+        }
+      });
+    }
+  },
   watch: {
-    activity: function (val, oldVal) {
-      this.params = {
-        bussinessId: val.id,
-        payType: val.activityType,
-        payPoints: 0
-      }
+    activity:{
+      handler(val){
+        var len = val.groupInfo.length;
+        if(len == 0){
+          this.haveGroup = false;
+          return;
+        }
+        var info = val.groupInfo[0];
+        this.curGroup = {
+          activeId:val.id,
+          id:info.groupId,
+          img:info.headImg,
+          name:this.util.sliceStr(info.userName,4),
+          peopleNum:len
+        }
+      },
+      deep:true
     }
   },
   data () {
     return {
+      haveGroup:true,
+      curGroup:{
+        activeId:0,
+        id:'',
+        img:'',
+        name:'',
+        peopleNum:0
+      }
     }
   }
 }
@@ -52,7 +86,7 @@ export default {
   .teamList
     background:#fff
     margin-top rrem(40px)
-    padding-bottom rrem(120px)
+    padding-bottom rrem(200px)
     .groupList
       width:96%
       margin auto
@@ -79,8 +113,8 @@ export default {
               padding-left rrem(30px)
               span
                 display inline-block
-                font-size rrem(50px)
-                width rrem(160px)
+                font-size rrem(30px)
+                width rrem(200px)
                 height rrem(100px)
                 line-height rrem(100px)
                 text-align center
@@ -94,7 +128,7 @@ export default {
               position absolute
               top rrem(20px)
               left rrem(310px)
-              width rrem(800px)
+              width rrem(830px)
               height rrem(130px)
               font-size rrem(50px)
               text-align center

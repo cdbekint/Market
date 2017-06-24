@@ -4,6 +4,14 @@
     <div class="page_bg"></div>
     <companyHead ></companyHead>
     <companyContent></companyContent>
+    <div class="homeCompany_body">
+      <div class="body_company" @click="goCompany">
+        <img src="/static/images/active/com.png">
+      </div>
+      <div class="body_company" @click="goHome">
+        <img src="/static/images/active/home.png" alt="">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,6 +22,29 @@ export default {
   name: 'companyPage',
   components:{companyHead,companyContent},
   methods:{
+    goCompany(){
+      this.comState = "coming";
+      setTimeout(()=>{
+        this.comState = "com";
+      },300);
+
+      if(this.$store.state.isMember == 0){
+        this.currentState = true;
+        return;
+      }
+      this.$router.push("/company");
+    },
+    goHome(){
+      this.homeState = "homeing";
+      setTimeout(()=>{
+        this.homeState = "home";
+      },300);
+      if(this.$store.state.isMember == 0){
+        this.currentState = true;
+        return;
+      }
+      this.$router.push("/home")
+    }
   },
   created(){
   },
@@ -38,7 +69,7 @@ export default {
       top 0px;
     .page_bg
       background #ef0075
-      z-index -1
+      z-index -4
       top 0px
       width 100%
       height rrem(1920px)

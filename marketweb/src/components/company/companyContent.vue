@@ -7,13 +7,13 @@
       </div>
     </div>
 
-    <div class="main_class" v-if="currentPage==0">
+    <div class="main_class" v-if="currentPage==0 && notDetail">
       <div class="class_txt">
         <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
       </div>
       <div class="class_goods">
-        <div class="goods_info" v-for="x in goods">
-          <img :src="murl + x.img" class="info_img">
+        <div class="goods_info" v-for="x,index in goods" @click="showDetail(x.id,index)">
+          <img :src="murl + x.img" class="info_img" @click="showDetail(x.id,index)">
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
@@ -25,11 +25,34 @@
       <!--</div>-->
     </div>
 
-    <div class="main_discount" v-if="currentPage==1" @click="goToActive">
+    <div class="main_detail" v-if="currentPage==0 && !notDetail">
+      <img src="/static/images/company/fanhui.png" @click="returnGoodsList" class="detail_return">
+      <img :src="murl + currentGoods.img" class="detail_bg">
+      <div class="detail_text">
+        <div class="text_main">
+          <span class="main_title">{{currentGoods.name}}</span>
+          <div class="main_coll">
+            <span>已售{{currentGoods.saleNum}}件</span>
+            <span>库存{{currentGoods.storageNum}}件</span>
+          </div>
+        </div>
+        <div class="text_jifen">
+          <img src="/static/images/jifen2.png">
+          <span>{{currentGoods.price}}</span>
+        </div>
+      </div>
+      <div class="detail_btn" @click="payGoods">立即购买</div>
+      <div class="detail_html">
+        <div class="bg"></div>
+        <div class="txt">{{currentGoods.desc}}</div>
+      </div>
+    </div>
+
+    <div class="main_discount" v-if="currentPage==1" >
       <div class="discount_goods">
-        <div class="goods_info" v-for="x in active">
+        <div class="goods_info" v-for="x in active" @click="goToActive(x.id)">
           <img :src="stateImgArr[x.state]" class="info_state">
-          <img :src="murl + x.img" class="info_bg">
+          <img :src="murl + x.img" class="info_bg" @click="goToActive(x.id)">
           <div class="info_view">
             <div class="view_share">
               <img src="/static/images/company/return.png">
@@ -97,11 +120,78 @@
 <script type="text/ecmascript-6">
 export default {
   name: 'companyContent',
-  props:[""],
   methods:{
-    goToActive(){
-      console.log(1123)
-      this.$router.push('/')
+    returnGoodsList(){
+      this.notDetail = true;
+    },
+    payGoods(){
+
+      if(this.isPaying === true)
+        return;
+
+      this.isPaying = true;
+      this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
+        this.isPaying = false;
+        if (res.error === false) {
+          var row = res.result;
+          var onBridgeReady = () => {
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest',{
+                'appId': row.appid,
+                'timeStamp': row.timeStamp,
+                'nonceStr': row.nonce_str,
+                'package':  row.prepay_id,
+                'signType': row.sign_type,
+                'paySign': row.sign
+              },
+              function (res) {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  this.payState = true
+                }
+              }
+            )
+          }
+          if (typeof WeixinJSBridge === 'undefined') {
+            if (document.addEventListener) {
+              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+            } else if (document.attachEvent) {
+              document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+            }
+          } else {
+            onBridgeReady()
+          }
+        }
+      })
+    },
+    showDetail(id,index){
+      this.notDetail = true;
+      this.http.get(this.$store.state.prefix + '/goods/'+id).then((res) => {
+        if(res.error == false){
+          var goods = this.goods[index];
+          this.currentGoods = {
+            saleNum : res.result.saleNum,
+            storageNum : res.result.storageNum,
+            name:goods.title,
+            price:goods.price,
+            img:goods.img,
+            desc:res.result.goodsDesc
+          }
+          this.notDetail = false;
+        }
+      });
+    },
+    goToActive(id){
+      var oldUrl = location.href;
+      var index = oldUrl.indexOf("?");
+      var state = this.util.getURLParam('state').split(",")
+      var inviterId = state[1] == void 0 ? 0 : state[1];
+
+      var preUrl = oldUrl.slice(0,index+1);
+      var state = "state=" + id + "," + inviterId;
+
+      var url = preUrl + state;
+      location.href = url;
     },
     changeTitle(index){
       this.currentPage = index;
@@ -127,7 +217,7 @@ export default {
         if((index-1) == i){
           item.state = 1;
         }
-      })
+      });
       this.goods = [];
       this.getGoodsByType(index);
     },
@@ -138,6 +228,7 @@ export default {
             var obj = null;
             if(id == 1) {
               obj = {
+                id:item.id,
                 img: item.goodsImg,
                 title: item.goodsName,
                 price: item.goodsPrice + "元"
@@ -145,6 +236,7 @@ export default {
             }
             else if(id == 2){
               obj = {
+                id:item.id,
                 img: item.goodsImg,
                 title: item.goodsName,
                 price: item.maxPoints + "积分"
@@ -152,6 +244,7 @@ export default {
             }
             else if(id == 3){
               obj = {
+                id:item.id,
                 img: item.goodsImg,
                 title: item.goodsName,
                 price: item.goodsPrice + "元 + "+item.maxPoints+"积分"
@@ -172,6 +265,7 @@ export default {
         var row = res.result;
         row.forEach(item=>{
           var obj = {
+            id:item.id,
             img:item.activityImg,
             title:item.activityName,
             view:item.viewNum,
@@ -217,6 +311,19 @@ export default {
   },
   data () {
     return {
+      currentGoods:{
+        saleNum:0,
+        storageNum:0
+      },
+      selectGoodsId:0,
+      params: {
+        businessId: 0,
+        payType: 5,
+        payAmount: 0,
+        companyId: 0,
+        goodsId:0
+      },
+      notDetail:true,
       currentPage:0,
       showInfo:'',
       stateImgArr:[
@@ -532,4 +639,81 @@ export default {
       margin-bottom rrem(60px)
       background #fff
       text-align center
+    .main_detail
+      width 100%
+      height rrem(970px)
+      background #fff;
+      position relative
+      img
+        height rrem(600px)
+        width 100%
+      .detail_return
+        position absolute
+        top rrem(35px)
+        left rrem(35px)
+        width rrem(100px)
+        height rrem(100px)
+      .detail_text
+        width 93%
+        height rrem(100px)
+        margin rrem(40px) auto
+        display flex
+        .text_main
+          flex 4
+          span
+            font-size rrem(40px)
+            color #434343
+            height rrem(50px)
+            line-height rrem(50px)
+          .main_coll
+            width 100%
+            height rrem(50px)
+            span
+              font-size rrem(30px)
+              color #aeaeae
+        .text_jifen
+          border 2px solid #ff007e
+          height rrem(80px)
+          margin-top rrem(10px)
+          flex 2
+          border-radius 20px
+          display flex
+          justify-content center
+          align-items center
+          img
+            width rrem(55px)
+            height rrem(55px)
+            margin-right rrem(10px)
+          span
+            color #ff007e
+            font-weight bold
+            font-size rrem(40px)
+            line-height rrem(55px)
+            height rrem(55px)
+      .detail_btn
+        width 93%
+        height rrem(130px)
+        line-height rrem(130px)
+        text-align center
+        font-weight bold
+        color #fff
+        margin auto
+        font-size rrem(54px)
+        background #ff007e
+      .detail_html
+        margin-top rrem(60px)
+        color #fff
+        width 100%
+        text-align center
+        height rrem(640px)
+        padding-top rrem(50px)
+        position relative
+        .bg
+          z-index -1
+          width 100%
+          position absolute
+          top 0px
+          height rrem(640px)
+          opacity 0.5
+          background #000
 </style>

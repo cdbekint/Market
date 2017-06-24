@@ -37,7 +37,7 @@ export default {
 
       if (val.joinActivityInfo === null) return
       if (val.joinActivityInfo.length >= 17) {
-        this.peoples = val.joinActivityInfo.slice(0, 17)
+        this.peoples = val.joinActivityInfo.slice(0, 17);
         this.isExceed = true
       } else {
         this.peoples = val.joinActivityInfo
