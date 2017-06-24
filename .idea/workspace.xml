@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.682723dd6d3102120e63.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.682723dd6d3102120e63.js.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.3ab87133af73396aa186.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.3ab87133af73396aa186.js.map" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/dist/index.html" afterPath="$PROJECT_DIR$/marketweb/dist/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/main.js" afterPath="$PROJECT_DIR$/marketweb/src/main.js" />
     </list>
     <ignored path="Market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,8 +34,8 @@
       <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+            <state relative-caret-position="198">
+              <caret line="227" column="56" selection-start-line="227" selection-start-column="56" selection-end-line="227" selection-end-column="56" />
               <folding>
                 <element signature="e#1529#2706#0" expanded="false" />
                 <element signature="n#style#0;n#!!top" expanded="false" />
@@ -78,27 +81,28 @@
       <file leaf-file-name="companyContent.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="206" column="47" selection-start-line="206" selection-start-column="47" selection-end-line="206" selection-end-column="47" />
+            <state relative-caret-position="175">
+              <caret line="132" column="6" selection-start-line="132" selection-start-column="6" selection-end-line="132" selection-end-column="6" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#div#3;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#div#4;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="e#7393#7746#0" expanded="false" />
-                <element signature="e#7770#7947#0" expanded="false" />
-                <element signature="e#7971#8153#0" expanded="false" />
-                <element signature="e#8175#8379#0" expanded="false" />
-                <element signature="e#8403#9368#0" expanded="false" />
-                <element signature="e#11202#11338#0" expanded="false" />
-                <element signature="e#11406#12006#0" expanded="false" />
-                <element signature="e#12028#12417#0" expanded="false" />
-                <element signature="e#12434#12773#0" expanded="false" />
-                <element signature="e#13059#13218#0" expanded="false" />
-                <element signature="e#13241#14597#0" expanded="false" />
-                <element signature="e#14623#16531#0" expanded="false" />
-                <element signature="e#16555#18215#0" expanded="false" />
-                <element signature="e#18240#18410#0" expanded="false" />
+                <element signature="e#7325#7678#0" expanded="false" />
+                <element signature="e#7702#7879#0" expanded="false" />
+                <element signature="e#7903#8085#0" expanded="false" />
+                <element signature="e#8107#8311#0" expanded="false" />
+                <element signature="e#8335#9300#0" expanded="false" />
+                <element signature="e#11134#11270#0" expanded="false" />
+                <element signature="e#11338#11938#0" expanded="false" />
+                <element signature="e#11960#12349#0" expanded="false" />
+                <element signature="e#12366#12705#0" expanded="false" />
+                <element signature="e#12991#13150#0" expanded="false" />
+                <element signature="e#13173#14529#0" expanded="false" />
+                <element signature="e#14555#16463#0" expanded="false" />
+                <element signature="e#16487#18147#0" expanded="false" />
+                <element signature="e#18172#18342#0" expanded="false" />
+                <element signature="e#18366#20368#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -169,8 +173,8 @@
         <option value="$PROJECT_DIR$/marketweb/static/js/utils.js" />
         <option value="$PROJECT_DIR$/marketweb/dist/static/css/app.440ea74b1a321ec98798876cf84bd6dd.css" />
         <option value="$PROJECT_DIR$/marketweb/src/main.js" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" />
       </list>
     </option>
@@ -468,12 +472,12 @@
       <workItem from="1498182632256" duration="125000" />
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
-      <workItem from="1498284093356" duration="14698000" />
+      <workItem from="1498284093356" duration="15245000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="507746000" />
+    <option name="totallyTimeSpent" value="508293000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
@@ -853,22 +857,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="227" column="56" selection-start-line="227" selection-start-column="56" selection-end-line="227" selection-end-column="56" />
+          <folding>
+            <element signature="e#1529#2706#0" expanded="false" />
+            <element signature="n#style#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
-          <folding>
-            <element signature="e#1529#2706#0" expanded="false" />
-            <element signature="n#style#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -894,27 +898,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="206" column="47" selection-start-line="206" selection-start-column="47" selection-end-line="206" selection-end-column="47" />
+        <state relative-caret-position="175">
+          <caret line="132" column="6" selection-start-line="132" selection-start-column="6" selection-end-line="132" selection-end-column="6" />
           <folding>
             <element signature="n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="n#div#4;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#7393#7746#0" expanded="false" />
-            <element signature="e#7770#7947#0" expanded="false" />
-            <element signature="e#7971#8153#0" expanded="false" />
-            <element signature="e#8175#8379#0" expanded="false" />
-            <element signature="e#8403#9368#0" expanded="false" />
-            <element signature="e#11202#11338#0" expanded="false" />
-            <element signature="e#11406#12006#0" expanded="false" />
-            <element signature="e#12028#12417#0" expanded="false" />
-            <element signature="e#12434#12773#0" expanded="false" />
-            <element signature="e#13059#13218#0" expanded="false" />
-            <element signature="e#13241#14597#0" expanded="false" />
-            <element signature="e#14623#16531#0" expanded="false" />
-            <element signature="e#16555#18215#0" expanded="false" />
-            <element signature="e#18240#18410#0" expanded="false" />
+            <element signature="e#7325#7678#0" expanded="false" />
+            <element signature="e#7702#7879#0" expanded="false" />
+            <element signature="e#7903#8085#0" expanded="false" />
+            <element signature="e#8107#8311#0" expanded="false" />
+            <element signature="e#8335#9300#0" expanded="false" />
+            <element signature="e#11134#11270#0" expanded="false" />
+            <element signature="e#11338#11938#0" expanded="false" />
+            <element signature="e#11960#12349#0" expanded="false" />
+            <element signature="e#12366#12705#0" expanded="false" />
+            <element signature="e#12991#13150#0" expanded="false" />
+            <element signature="e#13173#14529#0" expanded="false" />
+            <element signature="e#14555#16463#0" expanded="false" />
+            <element signature="e#16487#18147#0" expanded="false" />
+            <element signature="e#18172#18342#0" expanded="false" />
+            <element signature="e#18366#20368#0" expanded="false" />
           </folding>
         </state>
       </provider>

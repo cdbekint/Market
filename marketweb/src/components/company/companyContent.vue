@@ -127,12 +127,10 @@ export default {
     },
     payGoods(){
 
-      if(this.isPaying === true)
-        return;
-
-      this.isPaying = true;
+      alert("param" + this.params.businessId)
+      alert("goodsId" + this.params.goodsId)
+      alert("companyId" + this.params.companyId)
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
-        this.isPaying = false;
         if (res.error === false) {
           var row = res.result;
           var onBridgeReady = () => {
@@ -203,8 +201,6 @@ export default {
             }
           }
 
-          alert("param" + this.params.businessId)
-          alert("goodsId" + this.params.goodsId)
           if(row.goodsType == 1){
             this.currentGoods.price = row.goodsPrice + "元"
           }

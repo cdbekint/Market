@@ -225,6 +225,7 @@ export default {
         return;
       }
 
+      this.$store.state.currentActive = this.activity.id;
       this.$router.push({
         path:"/company",
         query:{
