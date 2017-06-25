@@ -113,6 +113,9 @@ export default {
     var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
     return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
   },
+  noEscapeHtml:function(str) {
+    return str.replace(/(\&|\&)gt;/g, ">").replace(/(\&|\&)lt;/g, "<").replace(/(\&|\&)quot;/g, "\"")
+  },
   ArraySort:function(array, field, reverse) {
     if(array.length < 2 || !field || typeof array[0] !== "object") return array;
     if(typeof array[0][field] === "number") {

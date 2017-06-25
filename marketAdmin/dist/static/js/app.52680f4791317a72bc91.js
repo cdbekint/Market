@@ -31,12 +31,7 @@ module.exports = Component.exports
 /* 8 */,
 /* 9 */,
 /* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -58,6 +53,11 @@ module.exports = Component.exports
 
 
 /***/ }),
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
 /* 17 */,
 /* 18 */,
 /* 19 */,
@@ -655,7 +655,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__);
 
 
@@ -872,11 +872,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_defineProperty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Ueditor__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Ueditor__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Ueditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Ueditor__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Util_Uploader__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Util_Uploader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Util_Uploader__);
@@ -1193,13 +1193,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_get_iterator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_defineProperty__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_defineProperty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_defineProperty__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Ueditor__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Ueditor__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Ueditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Ueditor__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Util_Uploader__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Util_Uploader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Util_Uploader__);
@@ -2281,7 +2281,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Util_Uploader__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Util_Uploader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Util_Uploader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Ueditor__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Ueditor__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Ueditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Ueditor__);
 
 
@@ -2391,7 +2391,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Util_Uploader__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Util_Uploader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Util_Uploader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Ueditor__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Ueditor__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Ueditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Ueditor__);
 
 
@@ -2511,10 +2511,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Util_Uploader__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Util_Uploader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Util_Uploader__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Ueditor__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Ueditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Ueditor__);
+
 
 
 
@@ -2567,11 +2570,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showUploadList: false,
         parent: 'company',
         child: 'companyLogo'
+      },
+      defaultMSg: '',
+      Ueditorconfig: {
+        initialFrameWidth: null,
+        initialFrameHeight: 320,
+        info: {},
+        imageUrl: 'http://up.qiniu.com/',
+        imageActionName: 'uploadimage',
+        imageFieldName: 'file',
+        imageMaxSize: 5120,
+        imageAllowFiles: ['.jpg', '.png', '.jpeg'],
+        imageCompressEnable: true,
+        imageCompressBorder: 1600,
+        imageInsertAlign: 'none',
+        imageUrlPrefix: 'http://oolds3geo.bkt.clouddn.com/',
+        imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
       }
     };
   },
 
-  components: { uploader: __WEBPACK_IMPORTED_MODULE_1__Util_Uploader___default.a },
+  components: { uploader: __WEBPACK_IMPORTED_MODULE_1__Util_Uploader___default.a, ueditor: __WEBPACK_IMPORTED_MODULE_2__Ueditor___default.a },
   methods: {
     change: function change(e, val) {
       var _this = this;
@@ -2708,6 +2727,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
       this.company.employeeRate = discountLevel + ']';
       if (isSuccess) return true;else return false;
+    },
+    Ueditorready: function Ueditorready(editor) {},
+    Ueditorinput: function Ueditorinput(obj) {
+      this.company.show = obj.content;
+      this.Ueditorconfig.info = obj;
     }
   },
   created: function created() {
@@ -3189,13 +3213,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Util_WeixinPay__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Util_WeixinPay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Util_WeixinPay__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Util_WeixinPay__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Util_WeixinPay___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Util_WeixinPay__);
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { weixinPay: __WEBPACK_IMPORTED_MODULE_0__Util_WeixinPay___default.a },
+  components: { weixinPay: __WEBPACK_IMPORTED_MODULE_1__Util_WeixinPay___default.a },
   name: 'AccountInfo',
   data: function data() {
     return {
@@ -3231,7 +3258,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '操作',
         key: 'action',
         render: function render(row) {
-          return '<i-button type="text" size="small" @click="updateOpenId(row.accountid)">选定</i-button>';
+          return '<i-button type="text" size="small">选定</i-button>';
         }
       }],
       employeeData: [],
@@ -3266,11 +3293,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getEmployeeList: function getEmployeeList(pageNo) {
       var _this2 = this;
 
-      this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1, { pageNo: 10 }).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + (pageNo || 1) + "?pageSize=100&employee=1").then(function (res) {
         if (res.error === false) {
           if (res.result) {
             _this2.pager = res.result;
-            _this2.employeeData = res.result.records;
+            _this2.employeeData = [];
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+              for (var _iterator = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default()(res.result.records), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var obj = _step.value;
+
+                if (obj.employee === 1) {
+                  _this2.employeeData.push(obj);
+                }
+              }
+            } catch (err) {
+              _didIteratorError = true;
+              _iteratorError = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                  _iterator.return();
+                }
+              } finally {
+                if (_didIteratorError) {
+                  throw _iteratorError;
+                }
+              }
+            }
           }
         }
       });
@@ -3279,15 +3332,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.binduserModal = true;
       this.getEmployeeList(1);
     },
-    updateOpenId: function updateOpenId(accountid) {
+    updateOpenId: function updateOpenId(newdata, olddata) {
       var _this3 = this;
 
-      console.log(accountid);
-      this.http.put(this.$store.state.prefix + '/company/updateOpenId', { accountId: accountid }).then(function (res) {
+      if (!newdata) {
+        return;
+      }
+      var params = {
+        accountId: newdata.accountId
+      };
+      this.http.put(this.$store.state.prefix + '/company/updateOpenId', { accountId: newdata.accountId }).then(function (res) {
         if (res.error === false) {
           _this3.$Message.info("设置成功");
           _this3.binduserModal = false;
           _this3.getCompanyinfo();
+        } else {
+          _this3.$Message.error(res.msg);
         }
       });
     },
@@ -3422,6 +3482,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           if (res.result !== null) {
             _this.companyinfo = res.result;
             _this.companyinfo.expireDate = _this.util.getFormatDate(_this.companyinfo.expireDate);
+            _this.companyinfo.show = _this.util.escapeToHtml(_this.companyinfo.show);
             _this.Group = JSON.parse(_this.companyinfo.employeeRate.replace(/&quot;/g, '"'));
           }
         }
@@ -3715,7 +3776,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_get_iterator__);
 
 
@@ -4976,12 +5037,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "infocontent"
   }, [_c('Row', [(_vm.companyinfo.openId) ? _c('div', {
     staticClass: "ownavater"
-  }, [_c('img', {
-    attrs: {
-      "src": "",
-      "alt": ""
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.companyinfo.openId)
     }
-  })]) : _c('div', [_vm._v("暂未设置")])]), _vm._v(" "), _c('Row', [_c('Button', {
+  }), _vm._v(" "), _c('Icon', {
+    attrs: {
+      "type": "checkmark-circled",
+      "color": "#00c26",
+      "size": "18"
+    }
+  })], 1) : _c('div', [_vm._v("暂未设置")])]), _vm._v(" "), _c('Row', [_c('Button', {
     attrs: {
       "type": "error",
       "size": "small"
@@ -4995,7 +5061,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.companyinfo.openId ? "更改" : "设置")
     }
-  }), _vm._v("提现账户")])], 1)], 1)])])], 1)], 1), _vm._v(" "), _c('Modal', {
+  }), _vm._v("提现账户")])], 1), _vm._v(" "), (_vm.employeeData.length > 0) ? _c('Row', {
+    staticStyle: {
+      "height": "200px",
+      "overflow": "auto"
+    }
+  }, [_c('Table', {
+    staticClass: "employeetable",
+    attrs: {
+      "border": "",
+      "columns": _vm.employeeColumn,
+      "data": _vm.employeeData
+    },
+    on: {
+      "on-row-click": _vm.updateOpenId
+    }
+  })], 1) : _vm._e()], 1)])])], 1)], 1), _vm._v(" "), _c('Modal', {
     attrs: {
       "title": "账户充值"
     },
@@ -5095,53 +5176,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "ios-information-outline"
     }
-  }), _vm._v("手续费为经过微信商户平台收取的手续费\r\n      ")], 1)]), _vm._v(" "), _c('Modal', {
-    attrs: {
-      "title": "绑定提现账户",
-      "name": "binduser"
-    },
-    model: {
-      value: (_vm.binduserModal),
-      callback: function($$v) {
-        _vm.binduserModal = $$v
-      },
-      expression: "binduserModal"
-    }
-  }, [_c('div', [_c('Table', {
-    staticClass: "employeetable",
-    attrs: {
-      "border": "",
-      "columns": _vm.employeeColumn,
-      "data": _vm.employeeData
-    }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "margin": "10px",
-      "overflow": "hidden"
-    }
-  }, [_c('div', {
-    staticStyle: {
-      "float": "right"
-    }
-  }, [_c('Page', {
-    attrs: {
-      "total": _vm.pager.total,
-      "current": _vm.pager.current,
-      "size": "small"
-    },
-    on: {
-      "on-change": function($event) {
-        _vm.getEmployeeList(_vm.pager.current)
-      }
-    }
-  })], 1)])], 1), _vm._v(" "), _c('div', {
-    staticClass: "text-left",
-    slot: "footer"
-  }, [_c('Icon', {
-    attrs: {
-      "type": "ios-information-outline"
-    }
-  }), _vm._v("通过选取员工列表\r\n      ")], 1)])], 1)
+  }), _vm._v("手续费为经过微信商户平台收取的手续费\r\n      ")], 1)])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "content-title"
@@ -5665,6 +5700,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     domProps: {
       "textContent": _vm._s(_vm.companyinfo.secondReturn + '%')
+    }
+  })]), _vm._v(" "), _c('Form-item', {
+    staticClass: "text-left",
+    attrs: {
+      "label": "公司宣传页面"
+    }
+  }, [_c('div', {
+    staticClass: "richtext",
+    domProps: {
+      "innerHTML": _vm._s(_vm.companyinfo.show)
     }
   })])], 1)], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -7483,24 +7528,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._m(1), _vm._v(" "), _c('router-link', {
     attrs: {
       "to": {
-        path: '/goods'
-      },
-      "tag": "dd",
-      "active-class": "active"
-    }
-  }, [_vm._v("商品管理")]), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": {
-        path: '/orders'
-      },
-      "tag": "dd",
-      "active-class": "active"
-    }
-  }, [_vm._v("订单管理")])], 1), _vm._v(" "), _c('dl', {
-    staticClass: "menulist"
-  }, [_vm._m(2), _vm._v(" "), _c('router-link', {
-    attrs: {
-      "to": {
         path: '/music'
       },
       "tag": "dd",
@@ -7523,6 +7550,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "active-class": "active"
     }
   }, [_vm._v("活动管理")])], 1), _vm._v(" "), _c('dl', {
+    staticClass: "menulist"
+  }, [_vm._m(2), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": {
+        path: '/goods'
+      },
+      "tag": "dd",
+      "active-class": "active"
+    }
+  }, [_vm._v("商品管理")]), _vm._v(" "), _c('router-link', {
+    attrs: {
+      "to": {
+        path: '/orders'
+      },
+      "tag": "dd",
+      "active-class": "active"
+    }
+  }, [_vm._v("订单管理")])], 1), _vm._v(" "), _c('dl', {
     staticClass: "menulist"
   }, [_vm._m(3), _vm._v(" "), _c('router-link', {
     attrs: {
@@ -7566,12 +7611,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v("基本信息\n        ")])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('dt', [_c('i', {
-    staticClass: "fa fa-shopping-cart"
-  }), _vm._v("商品管理\n        ")])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('dt', [_c('i', {
     staticClass: "fa fa-area-chart"
   }), _vm._v("活动管理")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('dt', [_c('i', {
+    staticClass: "fa fa-shopping-cart"
+  }), _vm._v("商品管理\n        ")])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('dt', [_c('i', {
     staticClass: "fa fa-money"
@@ -8454,6 +8499,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })]), _vm._v(" "), _c('div', {
+    staticClass: "itemhepler"
+  })]), _vm._v(" "), _c('li', {
+    staticClass: "companyitem"
+  }, [_c('div', {
+    staticClass: "itemname"
+  }, [_vm._v("公司宣传页面")]), _vm._v(" "), _c('div', {
+    staticClass: "itemcontent ueditor-wrapper"
+  }, [_c('ueditor', {
+    attrs: {
+      "value": _vm.defaultMSg,
+      "config": _vm.Ueditorconfig
+    },
+    on: {
+      "input": _vm.Ueditorinput,
+      "ready": _vm.Ueditorready
+    }
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
   })]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
@@ -40541,4 +40603,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.b56f1f2003af363ce839.js.map
+//# sourceMappingURL=app.52680f4791317a72bc91.js.map

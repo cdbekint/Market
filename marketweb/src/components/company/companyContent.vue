@@ -44,10 +44,11 @@
       <div class="detail_btn" @click="payGoods">立即购买</div>
       <div class="detail_html">
         <div class="bg"></div>
-        <div class="txt" v-html="currentGoods.desc"></div>
+        <div class="txt good_details" v-html="currentGoods.desc"></div>
       </div>
     </div>
 
+    <!-- 优惠活动 -->
     <div class="main_discount" v-if="currentPage==1" >
       <div class="discount_goods">
         <div class="goods_info" v-for="x in active" @click="goToActive(x.id)">
@@ -83,6 +84,7 @@
       </div>
     </div>
 
+    <!-- 会员排行 -->
     <div class="main_member" v-if="currentPage==2">
       <div class="member_hr">
         <div class="hr_1"></div>
@@ -113,6 +115,7 @@
     </div>
 
     <div class="main_company" v-if="currentPage==3" v-html="showInfo">
+
     </div>
   </div>
 </template>
@@ -173,7 +176,6 @@ export default {
       this.http.get(this.$store.state.prefix + '/goods/'+id).then((res) => {
         if(res.error == false){
           var row = res.result;
-          console.log(row.goodsDesc)
           this.currentGoods = {
             saleNum : row.saleNum,
             storageNum : row.storageNum,
@@ -182,8 +184,7 @@ export default {
             img:row.goodsImg,
             desc:this.util.escapeToHtml(row.goodsDesc),
             price:''
-          };
-          console.log(this.currentGoods)
+          }
           if(state == 1){
           //判断是否是从活动中带过来支付
             this.params = {
@@ -241,12 +242,12 @@ export default {
     },
     changeJifen(index){
       console.log(index)
-//      this.titleImgs.forEach((item,i) => {
-//        item.static = 0;
-//        if(index == i){
-//          item.static = 1;
-//        }
-//      })
+     this.titleImgs.forEach((item,i) => {
+       item.static = 0;
+       if(index == i){
+         item.static = 1;
+       }
+     })
     },
     changeTxt(index){
       this.category.forEach((item,i) => {
@@ -315,11 +316,11 @@ export default {
             state:0,
           }
           var date = Date.now();
-          if(date >= item.payStartDate && date <= item.payEndDate)
+          if(date >= item.startDate && date <= item.endDate)
             obj.state = 1;
-          else if(date <= item.payStartDate)
+          else if(date <= item.startDate)
             obj.state = 0;
-          else if(date >= item.payEndDate)
+          else if(date >= item.endDate)
             obj.state = 2;
 
           this.active.push(obj)
@@ -345,7 +346,7 @@ export default {
 
     this.http.get( this.$store.state.prefix + "/shop/getCompanyShow").then(res=>{
       if(res.error == false){
-        this.showInfo = res.result.show;
+        this.showInfo = this.util.escapeToHtml(res.result.show);
       }
     })
   },
@@ -762,10 +763,14 @@ export default {
           background #000
         .txt
           width 100%
+          padding:5px
+          text-align:left
+          min-height rrem(200px)
+          padding-left rrem(20px)
+          padding-top rrem(20px)
           p
             line-height:1em
             img
               width:100%
-              height:auto
-
+              margin-top rrem(20px)
 </style>

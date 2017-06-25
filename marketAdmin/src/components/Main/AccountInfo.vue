@@ -48,18 +48,22 @@
           <div class="infocontent">
           <Row>
             <div class="ownavater" v-if="companyinfo.openId">
-              <img src="" alt="">
-            </div>
+              <span v-text="companyinfo.openId"></span>
+              <Icon type="checkmark-circled" color="#00c26" size="18"></Icon>
+            </div> 
             <div v-else>暂未设置</div>
           </Row>
             <Row>
               <Button type="error" size="small" @click="setBindUserModal()"><span v-text='companyinfo.openId?"更改":"设置"'></span>提现账户</Button>
             </Row>
-            <!-- <Row style="height:200px;overflow:auto">
-             <Table border :columns="employeeColumn" :data="employeeData" class="employeetable"></Table>
-             </Row> -->
+            <Row style="height:200px;overflow:auto" v-if="employeeData.length>0">
+             <Table border :columns="employeeColumn" :data="employeeData" class="employeetable" @on-row-click="updateOpenId"></Table>
+             </Row>
           </div>
         </div>
+       <!--  <div class="infoitems">
+           <Table border :columns="employeeColumn" :data="employeeData" class="employeetable"></Table>
+        </div> -->
       </Col>
     </Row>
  	</div>
@@ -101,22 +105,20 @@
         <Icon type="ios-information-outline"></Icon>手续费为经过微信商户平台收取的手续费
       </div>
   </Modal>
-  <Modal
+<!--   <Modal
     v-model="binduserModal"
       title="绑定提现账户" name="binduser">
-        <div>
           <Table border :columns="employeeColumn" :data="employeeData" class="employeetable"></Table>
           <div style="margin: 10px;overflow: hidden">
               <div style="float: right;"> 
                   <Page :total="pager.total" :current="pager.current" @on-change="getEmployeeList(pager.current)"  size="small"></Page>
               </div>
           </div>
-        </div>
        <div slot="footer" class="text-left">
         <Icon type="ios-information-outline"></Icon>通过选取员工列表
       </div>
     
-  </Modal>
+  </Modal> -->
 </div>
 </template>
 
@@ -138,8 +140,13 @@ export default {
       weixinpayModal: false,
       binduserModal:false,
       withdrawModal: false,
-      rate:3.6,
+      rate:3.6,//提现手续费
       employeeColumn:[
+        // {
+        //    type: 'selection',
+        //    width: 60,
+        //    align: 'center'
+        // },
         {
           title: '昵称',
           key: 'nickName',
@@ -162,7 +169,7 @@ export default {
           title: '操作',
           key: 'action',
           render (row) {
-            return '<i-button type="text" size="small" @click="updateOpenId(row.accountid)">选定</i-button>'
+            return '<i-button type="text" size="small">选定</i-button>'
           }
         }
       ],
@@ -193,11 +200,17 @@ export default {
       })
     },
     getEmployeeList (pageNo) {
-      this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo||1,{pageNo:10}).then( res => {
+      this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + (pageNo||1)+ "?pageSize=100&employee=1").then( res => {
         if(res.error === false){
           if(res.result){
             this.pager = res.result
-            this.employeeData = res.result.records
+            this.employeeData = []
+            for(var obj of res.result.records){
+              if(obj.employee === 1){
+              this.employeeData.push(obj)
+              }
+            }
+            //this.employeeData = res.result.records
           }
           
         }
@@ -207,13 +220,18 @@ export default {
       this.binduserModal = true
       this.getEmployeeList(1)
     },
-    updateOpenId (accountid) {
-      console.log(accountid)
-      this.http.put(this.$store.state.prefix +'/company/updateOpenId' ,{accountId: accountid}).then(res => {
+    updateOpenId (newdata,olddata) {
+      if(!newdata){return}
+      var params={
+        accountId:newdata.accountId
+      }
+      this.http.put(this.$store.state.prefix +'/company/updateOpenId' , {accountId: newdata.accountId}).then(res => {
         if(res.error ===false) {
           this.$Message.info("设置成功");
           this.binduserModal=false
           this.getCompanyinfo()
+        }else{
+          this.$Message.error(res.msg)
         }
       })
     },

@@ -342,7 +342,7 @@ export default {
     line-height 0
   .activityMain
     background #fff
-    padding-bottom 20px;
+    padding-bottom rrem(180px)
   .homeCompany_body
     position fixed
     bottom rrem(50px)

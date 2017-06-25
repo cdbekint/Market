@@ -42,7 +42,6 @@ export default {
   watch: {
     activity: function (val) {
       this.value.name = val.companyName
-      debugger
       if (val.groupInfo === null) return
       val.groupInfo.forEach(item=>{
         item.joinDate = this.changeDateToTime(item.joinDate);

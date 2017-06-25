@@ -75,6 +75,9 @@
       <Form-item label="二级邀请人返还积分比率" class="text-left">
         <span v-text="companyinfo.secondReturn+'%'"></span>
       </Form-item>
+      <Form-item label="公司宣传页面" class="text-left">
+        <div v-html="companyinfo.show" class="richtext"></div>
+      </Form-item>
     </Form>
   </div>
 <!--  <Modal
@@ -129,6 +132,7 @@ export default {
           if (res.result !== null) {
             this.companyinfo = res.result
             this.companyinfo.expireDate = this.util.getFormatDate(this.companyinfo.expireDate)
+            this.companyinfo.show = this.util.escapeToHtml(this.companyinfo.show)
             this.Group = JSON.parse(this.companyinfo.employeeRate.replace(/&quot;/g,'"'));
           }
         }
@@ -152,4 +156,8 @@ export default {
     .companyavater
       width:60px
       height:auto
+.richtext
+  p
+    img
+      width:100%
 </style>

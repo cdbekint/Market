@@ -219,6 +219,16 @@
 
     </div>
   </li>
+  <li class='companyitem'>
+    <div class='itemname'>公司宣传页面</div>
+    <div class='itemcontent ueditor-wrapper'>
+     <ueditor :value="defaultMSg" :config="Ueditorconfig" @input="Ueditorinput" v-on:ready="Ueditorready"></ueditor>
+    </div>
+    <div class='itemhepler'>
+
+    </div>
+  </li>
+ 
 
   <li class='companyitem'>
     <div class='itemcontent'>
@@ -235,6 +245,7 @@
 
 <script  type='text/ecmascript-6'>
 import uploader from '../Util/Uploader'
+import ueditor from '../Ueditor'
 export default {
   name: 'company',
   data () {
@@ -285,10 +296,26 @@ export default {
         showUploadList: false,
         parent: 'company',
         child: 'companyLogo'
+      },
+      defaultMSg: '',
+      Ueditorconfig: {
+        initialFrameWidth: null,
+        initialFrameHeight: 320,
+        info: {},
+        imageUrl: 'http://up.qiniu.com/',
+        imageActionName: 'uploadimage',
+        imageFieldName: 'file',
+        imageMaxSize: 5120,
+        imageAllowFiles: ['.jpg', '.png', '.jpeg'],
+        imageCompressEnable: true,
+        imageCompressBorder: 1600,
+        imageInsertAlign: 'none',
+        imageUrlPrefix: 'http://oolds3geo.bkt.clouddn.com/',
+        imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
       }
     }
   },
-  components: { uploader },
+  components: { uploader ,ueditor},
   methods: {
     change (e, val) {
       if (val === 1) {
@@ -425,6 +452,11 @@ export default {
       else
         return false;
     },
+    Ueditorready (editor) {},
+    Ueditorinput (obj) {
+      this.company.show = obj.content
+      this.Ueditorconfig.info = obj
+    }
   },
   created () {
     if (this.$store.state.companyId) {
@@ -466,6 +498,8 @@ $content_height=70px
       top 0px
       .itemcontent
         position relative
+      .itemcontent.ueditor-wrapper
+        width:60%
       .itemname
         position absolute
         top 0px

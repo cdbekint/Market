@@ -19,19 +19,20 @@
           <router-link :to="{path:'/accountinfo'}"  tag="dd" active-class="active" exact>账户信息</router-link>
           
         </dl>
-         <dl class="menulist">
+         
+        <dl class="menulist">
+          <dt><i class="fa fa-area-chart"></i>活动管理</dt>
+          <router-link :to="{path:'/music'}" tag="dd" active-class="active">音乐库</router-link>
+          <router-link :to="{path:'/gift'}" tag="dd" active-class="active">礼品管理</router-link>
+          <router-link :to="{path:'/activity'}" tag="dd" active-class="active">活动管理</router-link>
+        </dl>
+        <dl class="menulist">
           <dt>
           <i class="fa fa-shopping-cart"></i>商品管理
           </dt>
           <router-link :to="{path:'/goods'}"  tag="dd" active-class="active">商品管理</router-link>
           <router-link :to="{path:'/orders'}" tag="dd" active-class="active">订单管理</router-link>
 
-        </dl>
-        <dl class="menulist">
-          <dt><i class="fa fa-area-chart"></i>活动管理</dt>
-          <router-link :to="{path:'/music'}" tag="dd" active-class="active">音乐库</router-link>
-          <router-link :to="{path:'/gift'}" tag="dd" active-class="active">礼品管理</router-link>
-          <router-link :to="{path:'/activity'}" tag="dd" active-class="active">活动管理</router-link>
         </dl>
         <dl class="menulist">
           <dt><i class="fa fa-money"></i>交易提现</dt>

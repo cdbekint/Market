@@ -3,13 +3,23 @@
     <mainHead :val="value"></mainHead>
     <div class="section_gift">
       <img src="/static/images/up.png" class = "upImg">
-      <div class="gifttitle">
+
+      <div class="giftNote">
         连续分享{{activity.shareTimes}}天，即可到店领取如下礼品之一
       </div>
-        
-      <div class = "gift_img">
-        <img :src='murl + activity.activityImg' class = "main_img">
+      <div v-for="gf in giftlist" class="giftlistwrapper">
+        <div class="gifttitle" v-text="gf.giftName">
+          
+        </div>
+          
+        <div class = "gift_img">
+          <img :src='murl + gf.giftImg' class = "main_img" v-if="gf.giftImg">
+        </div>
+        <div class="gift_desc" v-text="gf.giftDesc">
+          
+        </div>
       </div>
+      
       <img src="/static/images/down.png" class="foot">
     </div>
   </div>
@@ -24,6 +34,11 @@
     watch: {
       activity: function (val, oldVal) {
         this.value.name = val.companyName
+        this.http.get(this.$store.state.prefix + '/gift/getByIds/' + val.giftIds).then(res => {
+          if(res.error === false){
+              this.giftlist = res.result
+          }
+        })
       }
     },
     data () {
@@ -32,7 +47,8 @@
           head: '赠送礼品',
           name: null,
           no: 4
-        }
+        },
+        giftlist:[]
       }
     }
   }
@@ -51,13 +67,35 @@
       width:96%
       margin auto
       position relative
-      .gifttitle
+      .giftNote
         width:100%
         height auto
         padding:10px 0px
         display:inline-block
         text-align:center
         font-weight:bolder
+      .giftlistwrapper
+        width:80%
+        padding:10px
+        margin:0 auto
+        border:1px solid #ccc
+        margin-bottom:10px
+        .gifttitle
+          height:1.2em
+          line-height:1.2em
+          width:100%
+          text-align:center
+          font-weight:bolder
+          color:red
+        .gift_img
+          width:80%
+          margin:0 auto
+          img
+            width:100%
+            max-height rrem(1200px)
+        .gift_desc
+          line-height rrem(72px)
+          text-align:center
       .upImg
         position absolute
         top rrem(-75px)
