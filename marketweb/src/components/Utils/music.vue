@@ -25,7 +25,7 @@
     },
     mounted(){
       this.element = document.getElementById("musicImg");
-      this.timer = setInterval(this.rotate,30);
+      this.timer = setInterval(this.rotate,30)
     },
     methods: {
       rotate(){
@@ -39,13 +39,12 @@
       },
       changeState () {
         if (this.state == 1) {
-          
+          debugger
           clearInterval(this.timer);
           this.timer = null;
           this.state = 0;
           document.getElementById('bgMusic').pause();
-        }
-        else {
+        } else {
           this.state = 1;
           document.getElementById('bgMusic').play();
 

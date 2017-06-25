@@ -148,6 +148,7 @@ export default {
           this.isGroup = false
         this.activity.discount = this.activity.discount == 0?10:this.activity.discount;
         document.title = res.result.activityName
+        this.getGroupInfo()
       }
     }).then(()=> {
       if(this.activity.musicId != void 0 && this.activity.musicId != ''){
@@ -168,7 +169,7 @@ export default {
 
     if (res.error === false) {
       this.wx.config({
-        debug: true,
+        debug: false,
         appId: res.result.appId,
         timestamp: res.result.timestamp,
         nonceStr: res.result.noncestr,
@@ -266,9 +267,33 @@ export default {
     getGroupInfo () {
       this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ this.userInfo.account.id+'/'+this.activityId).then(res=>{
         if(res.error === false) {
-          console.log(res)
-          this.activity.joinActivityInfo =res.joinGroupInfo
-          this.activity.groupInfo =res.userGroupInfo
+          this.activity.joinActivityInfo =res.result.joinGroupInfo
+          this.activity.groupInfo =res.result.userGroupInfo
+          //重新计算折扣信息
+          var discountLevel =this.util.ArraySort(JSON.parse(this.activity.discountLevel),'mans',true)
+          if (this.activity.activityType === 1) {
+            //自由模式
+            var joinNum = res.result.joinNum
+            this.activity.joinNum = joinNum
+            for(var i in discountLevel){
+                if(joinNum > discountLevel[i].mans) {
+                  this.activity.discount = discountLevel[i].discount
+                  break;
+                }
+                
+            }
+          } else {
+            //组团模式
+            var joinNum = res.result.userGroupInfo.length
+            this.activity.joinNum = joinNum
+            for(var i in discountLevel){
+                if(joinNum > discountLevel[i].mans) {
+                  this.activity.discount = discountLevel[i].discount
+                  break;
+                }
+                
+            }
+          }
         }
       })
     }
