@@ -1,6 +1,6 @@
 <template>
   <div class = "music">
-    <audio :src="murl + music" preload="auto" autoplay="autoplay" id="bgMusic" loop></audio>
+    <audio :src="murl + music" preload="auto" autoplay="autoplay" id="bgMusic" loop v-if="music"></audio>
     <img :src="'/static/images/music.png'" @click="changeState" id="musicImg">
   </div>
 </template>

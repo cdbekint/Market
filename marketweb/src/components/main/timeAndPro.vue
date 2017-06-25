@@ -32,12 +32,19 @@
         <div class = "main_time">
           <div class = "time_count">
             <p>当前折扣&nbsp&nbsp&nbsp&nbsp<span>{{activity.discount}}</span> &nbsp&nbsp&nbsp 折 </p>
+            
           </div>
         </div>
         <div class = "main_title">
           <span class = "text">已参与{{activity.joinNum}}人</span>
           <img src="/static/images/line.png" alt="">
           <span class = "english">THE PARTICIPANTS NUMBER</span>
+        </div>
+      </div>
+      <div class = "pro_line line4">
+        <div class = "main_time_note">
+            <p>最低折扣：<span>{{Group[0].mans}}</span>人团，<span>{{Group[0].discount}}</span>折</p>
+          
         </div>
       </div>
     </div>
@@ -53,12 +60,15 @@ export default {
   props: ['activity'],
   watch: {
     activity: function (val) {
-        this.progress = val.progress.toFixed(2);
+        this.progress = val.progress.toFixed(2)
+        var group=JSON.parse(val.discountLevel)
+        this.Group = this.util.ArraySort(group,'discount',false)
     }
   },
   data () {
     return {
-      progress: 0
+      progress: 0,
+      Group:[]
     }
   }
 }
@@ -70,7 +80,7 @@ export default {
   }
   .time
     width 100%
-    height rrem(684px)
+    height rrem(720px)
     position relative
     background #fff
     .main_head
@@ -143,5 +153,15 @@ export default {
             span
               font-size rrem(65px)
               color red
+      .line4
+        top rrem(270px + 380px)
+        .main_time_note
+          display:block
+          position absolute
+          left rrem(265px)
+          text-align:center
+          background transparent
+
+
 
 </style>

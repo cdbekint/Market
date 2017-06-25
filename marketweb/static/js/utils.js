@@ -109,4 +109,21 @@ export default {
     });
     return res;
   },
+  ArraySort:function(array, field, reverse) {
+    if(array.length < 2 || !field || typeof array[0] !== "object") return array;
+    if(typeof array[0][field] === "number") {
+      array.sort(function(x, y) {
+        return x[field] - y[field]
+      });
+    }
+    if(typeof array[0][field] === "string") {
+      array.sort(function(x, y) {
+        return x[field].localeCompare(y[field])
+      });
+    }
+    if(reverse) {
+      array.reverse();
+    }
+    return array;
+  }
 }

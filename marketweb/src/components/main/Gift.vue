@@ -3,6 +3,10 @@
     <mainHead :val="value"></mainHead>
     <div class="section_gift">
       <img src="/static/images/up.png" class = "upImg">
+      <div class="gifttitle">
+        连续分享{{activity.shareTimes}}天，即可到店领取如下礼品之一
+      </div>
+        
       <div class = "gift_img">
         <img :src='murl + activity.activityImg' class = "main_img">
       </div>
@@ -47,6 +51,13 @@
       width:96%
       margin auto
       position relative
+      .gifttitle
+        width:100%
+        height auto
+        padding:10px 0px
+        display:inline-block
+        text-align:center
+        font-weight:bolder
       .upImg
         position absolute
         top rrem(-75px)

@@ -40,7 +40,7 @@ export default {
         this.isloading=false
         if(res.error == false){
           this.$Message.success("恭喜你成功加入该团。");
-          location.reload();
+          this.$emit('watchGroup')
         }else{
           this.$Message.error(res.msg)
         }

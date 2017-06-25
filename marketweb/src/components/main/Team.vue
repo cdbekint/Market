@@ -55,7 +55,8 @@ export default {
         this.loading = false
         if(res.error == false){
           this.$Message.success("恭喜创建新团成功。")
-          location.reload();
+          // location.reload();
+          this.$emit('watchGroup')
         }else{
           this.$Message.error(res.msg)
         }

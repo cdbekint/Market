@@ -9,8 +9,8 @@
     <Group :activity = "activity" v-if="isGroup"></Group>
     <Discount :activity="activity"></Discount>
     <Money :activity="activity"></Money>
-    <Team :activity="activity"></Team>
-    <teamList :activity="activity"></teamList>
+    <Team :activity="activity" @watchGroup="getGroupInfo"></Team>
+    <teamList :activity="activity" @watchGroup="getGroupInfo"></teamList>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
     <div class="homeCompany_body">
       <div class="body_company" @click="goCompany">
@@ -105,6 +105,7 @@ export default {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
     var inviterId = state[1] == void 0 ? 0 : state[1];
+    this.activityId = activityId
 
     if(window.localStorage["ownId"] != inviterId){
       window.localStorage["inviterId"] = inviterId;
@@ -186,7 +187,7 @@ export default {
         wxlineLink: url,
         wximgUrl: this.murl + this.activity.shareImg
       };
-
+    var _this=this
     this.wx.onMenuShareAppMessage({
       title: content.wxshareTitle,
       desc: content.wxdescContent,
@@ -195,7 +196,7 @@ export default {
       type: 'link',
       dataUrl: '',
       success: function () {
-        this.shareSuccess()
+        _this.shareSuccess()
       },
       cancel: function () {
         console.log('cancel app')
@@ -207,7 +208,7 @@ export default {
       link: content.wxlineLink,
       imgUrl: content.wximgUrl,
       success: function () {
-        this.shareSuccess()
+        _this.shareSuccess()
       },
       cancel: function () {
         console.log('cancel time')
@@ -258,8 +259,17 @@ export default {
       this.$router.push("/home")
     },
     shareSuccess () {
-      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/'+ activityId).then(res => {
+      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/'+ this.activityId).then(res => {
         this.$Message.success("恭喜你分享成功");
+      })
+    },
+    getGroupInfo () {
+      this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ this.userInfo.account.id+'/'+this.activityId).then(res=>{
+        if(res.error === false) {
+          console.log(res)
+          this.activity.joinActivityInfo =res.joinGroupInfo
+          this.activity.groupInfo =res.userGroupInfo
+        }
       })
     }
   }
