@@ -31,6 +31,7 @@ export default {
       no:8,
       payMoney:0,
       payPoint:0,
+      loading:false
     }
   },
   watch: {
@@ -46,9 +47,12 @@ export default {
   },
   methods: {
     newTeam () {
+      if(this.loading)return
+      this.loading = true
       this.http.post(this.$store.state.prefix + '/activity/addGroup',{
         activityId:this.activeId
       }).then(res => {
+        this.loading = false
         if(res.error == false){
           this.$Message.success("恭喜创建新团成功。")
           location.reload();

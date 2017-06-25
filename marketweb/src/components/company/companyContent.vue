@@ -126,7 +126,10 @@ export default {
       this.notDetail = true;
     },
     payGoods(){
+      if(this.isloading)return
+      this.isloading = true
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
+        this.isloading = false 
         if (res.error === false) {
           var row = res.result;
           var onBridgeReady = () => {
@@ -291,12 +294,10 @@ export default {
 
   },
   created(){
-    alert("active" + this.ids.activeId)
     if(this.ids != void 0){
       this.showDetail(this.ids.id,1);
     };
     this.getGoodsByType(1);
-
     this.http.get( this.$store.state.prefix + "/shop/getActivities").then(res=>{
       if(res.error == false){
         var row = res.result;
@@ -435,7 +436,8 @@ export default {
           on:'#ff017e',
           off:'#434343'
         }
-      ]
+      ],
+      isloading:false
     }
   }
 }
@@ -620,7 +622,9 @@ export default {
         .hr_4
           flex 3
       .member_list
-        width 100%;
+        width 100%
+        min-height rrem(1640px)
+        background:#fff2f2
         .member_content
           display flex
           height rrem(140px)

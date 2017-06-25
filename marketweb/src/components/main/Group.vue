@@ -119,6 +119,7 @@ export default {
         margin-top rrem(-300px)
         margin-left rrem(-30px)
       ul
+        min-height:150px
         div
           &:first-child
             .groupName

@@ -31,10 +31,13 @@ export default {
   props: ['activity'],
   methods:{
     joinTeam(){
+      if(this.isloading)return
+      this.isloading=true
       this.http.post(this.$store.state.prefix + '/activity/addGroup',{
         groupId:this.curGroup.id,
         activityId:this.curGroup.activeId
       }).then(res => {
+        this.isloading=false
         if(res.error == false){
           this.$Message.success("恭喜你加入该团。");
           location.reload();
@@ -73,7 +76,8 @@ export default {
         img:'',
         name:'',
         peopleNum:0
-      }
+      },
+      isloading: false
     }
   }
 }

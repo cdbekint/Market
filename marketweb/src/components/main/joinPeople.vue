@@ -3,20 +3,22 @@
     <mainHead :val="value"></mainHead>
     <div class='attend-users'>
       <img src="/static/images/up.png" class = "upImg">
-      <Row>
+      <Row class="attend-wrapper">
         <Col v-for = "index in peoples" span='4' class='attend-users-list'>
-        <div class='attend-avater'>
-          <img :src='index.headImg'>
-        </div>
-        <div class='attend-name'>
-          {{index.userName}}
-        </div>
+          <div class='attend-avater'>
+            <img :src='index.headImg'>
+          </div>
+          <div class='attend-name'>
+            {{index.userName}}
+          </div>
         </Col>
+
         <Col span='4' class='attend-users-list' v-if="isExceed">
-        <div class='attend-avater'>
-          <img src='/static/images/expless.png'>
-        </div>
+          <div class='attend-avater'>
+            <img src='/static/images/expless.png'>
+          </div>
         </Col>
+        <Col span='24' v-if='peoples.length == 0' style="text-align:center;padding:10px"> 暂无人参加</Col>
       </Row>
       <div class="foot">
         <img src="/static/images/down.png">
@@ -69,7 +71,8 @@ export default {
       width:94%
       margin auto
       position relative
-      min-height:150px
+      .attend-wrapper
+        min-height:150px
       .upImg
         position absolute
         top rrem(-75px)

@@ -3,7 +3,7 @@
     <mainHead :val="value"></mainHead>
     <div class='list'>
       <img src="/static/images/up.png" class = "upImg">
-      <Table stripe :columns='col' :data='data'></Table>
+      <Table stripe :columns='col' :data='data' height="150px"></Table>
       <img src="/static/images/down.png" class="foot">
     </div>
   </div>
