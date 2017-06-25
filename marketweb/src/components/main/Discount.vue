@@ -3,8 +3,7 @@
     <mainHead :val="value"></mainHead>
     <div class="section_gift">
       <img src="/static/images/up.png" class = "upImg">
-      <div class = "gift_img">
-        <img :src='murl + activity.activityImg' class = "main_img">
+      <div class = "activity_content" v-html="this.util.escapeToHtml(activity.content)">
       </div>
       <img src="/static/images/down.png" class="foot">
     </div>
@@ -65,4 +64,13 @@
           width 100%
           display block
           margin auto
+.activity_content
+  min-height rrem(200px)
+  padding-left rrem(20px)
+  padding-top rrem(20px)
+  p
+    line-height:1em
+    img
+      width:100%
+      margin-top rrem(20px)
 </style>

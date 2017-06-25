@@ -31,15 +31,15 @@ export default {
           align: 'center'
         },
         {
-          title: '用户名',
-          key: 'name'
-        },
-        {
           title: '头像',
           key: 'headName',
           render (row) {
             return '<img class="pointlistavater" :src="row.headImg" width="40px" height="40px"/>'
           }
+        },
+        {
+          title: '用户名',
+          key: 'name'
         },
         {
           title: '联系电话',
@@ -48,6 +48,9 @@ export default {
         {
           title: '积分',
           key: 'points'
+        },{
+          title: '说明',
+          key: 'remarks'
         },
         {
           title: '时间',

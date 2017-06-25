@@ -64,7 +64,7 @@ export default {
           title: '折扣',
           key: 'discount',
           render (row) {
-            return '<span>{{row.discount}}%</span>'
+            return '<span>{{row.discount}}</span>'
           }
         },
         {

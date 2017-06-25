@@ -36,8 +36,10 @@ export default {
   watch: {
     activity: function (val) {
       this.value.name = val.companyName
-
       if (val.joinActivityInfo === null) return
+      debugger
+      this.peoples=[]
+      this.isExceed=false
       if (val.joinActivityInfo.length >= 17) {
         this.peoples = val.joinActivityInfo.slice(0, 17);
         this.isExceed = true

@@ -109,6 +109,10 @@ export default {
     });
     return res;
   },
+  escapeToHtml:function (str) {
+    var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+    return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+  },
   ArraySort:function(array, field, reverse) {
     if(array.length < 2 || !field || typeof array[0] !== "object") return array;
     if(typeof array[0][field] === "number") {

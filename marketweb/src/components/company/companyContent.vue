@@ -44,7 +44,7 @@
       <div class="detail_btn" @click="payGoods">立即购买</div>
       <div class="detail_html">
         <div class="bg"></div>
-        <div class="txt">{{currentGoods.desc}}</div>
+        <div class="txt" v-html="currentGoods.desc"></div>
       </div>
     </div>
 
@@ -173,17 +173,19 @@ export default {
       this.http.get(this.$store.state.prefix + '/goods/'+id).then((res) => {
         if(res.error == false){
           var row = res.result;
+          console.log(row.goodsDesc)
           this.currentGoods = {
             saleNum : row.saleNum,
             storageNum : row.storageNum,
             name:row.goodsName,
             price:row.goodsPrice,
             img:row.goodsImg,
-            desc:row.goodsDesc,
+            desc:this.util.escapeToHtml(row.goodsDesc),
             price:''
           };
-
+          console.log(this.currentGoods)
           if(state == 1){
+          //判断是否是从活动中带过来支付
             this.params = {
               businessId: this.ids.activeId,
               payType: 2,
@@ -745,6 +747,7 @@ export default {
         margin-top rrem(60px)
         color #fff
         width 100%
+        overflow-x:hidden
         text-align center
         height rrem(640px)
         padding-top rrem(50px)
@@ -759,5 +762,10 @@ export default {
           background #000
         .txt
           width 100%
+          p
+            line-height:1em
+            img
+              width:100%
+              height:auto
 
 </style>

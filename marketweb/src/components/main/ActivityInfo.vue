@@ -9,8 +9,8 @@
     <Group :activity = "activity" v-if="isGroup"></Group>
     <Discount :activity="activity"></Discount>
     <Money :activity="activity"></Money>
-    <Team :activity="activity" @watchGroup="getGroupInfo"></Team>
-    <teamList :activity="activity" @watchGroup="getGroupInfo"></teamList>
+    <Team :activity="activity" @watchGroup="getGroupInfo"  v-if="!hasGroup"></Team>
+    <teamList :activity="activity" @watchGroup="getGroupInfo" v-if="!hasGroup"></teamList>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
     <div class="homeCompany_body">
       <div class="body_company" @click="goCompany">
@@ -97,7 +97,9 @@ export default {
         inviterId:''
       },
       music: '',
-      weixinConfig: {}
+      weixinConfig: {},
+      inviter:{},
+      hasGroup:false
     }
   },
   components: {mainImg, teamList, timeAndPro, Team, Discount, Gift, Group, Money, joinPeople,goodsList,register, music},
@@ -108,7 +110,9 @@ export default {
     this.activityId = activityId
 
     if(window.localStorage["ownId"] != inviterId){
+      //判断是否是已经跳转了的页面
       window.localStorage["inviterId"] = inviterId;
+      window.localStorage["realInviterId"] = inviterId
       window.localStorage.removeItem("token");
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
@@ -138,31 +142,52 @@ export default {
       }
     })
 
-    // 获取活动详细信息
-    this.http.get(this.$store.state.prefix + '/activity/' + activityId+'?inviterId='+window.localStorage["inviterId"]).then(res => {
-      if (res.error === false) {
-        this.activity = res.result;
-        if(this.activity.activityType == 2)
-          this.isGroup = true
-        else
-          this.isGroup = false
-        this.activity.discount = this.activity.discount == 0?10:this.activity.discount;
-        document.title = res.result.activityName
-        this.getGroupInfo()
-      }
-    }).then(()=> {
-      if(this.activity.musicId != void 0 && this.activity.musicId != ''){
-        this.http.get(this.$store.state.prefix + '/music/' + this.activity.musicId).then(res2 => {
-          if (res2.error === false){
-            this.music = res2.result.url
+    //获取真正的邀请人的信息
+    // this.http.get(this.$store.state.prefix + '/account/getAccount/'+window.localStorage["realInviterId"]).then(res => {
+    //   if (res.error === false) {
+    //     this.inviter = res.result
+    //   }
+    //   else{
+    //     this.$Message.error(res.msg)
+    //   }
+    // })
+    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ window.localStorage["ownId"]+'/'+this.activityId).then( res=> {
+        if(res.result.userGroupInfo.length>0) {
+          //判断是否已经加入任意团
+          this.hasGroup = true
+        }
+        // 获取活动详细信息
+        var requesturl =""
+        if(this.hasGroup){
+          requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["inviterId"]
+        }else {
+          requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["realInviterId"]
+        }
+        this.http.get(this.$store.state.prefix + requesturl).then(res => {
+          if (res.error === false) {
+            this.activity = res.result;
+            if(this.activity.activityType == 2)
+              this.isGroup = true
+            else
+              this.isGroup = false
+            this.activity.discount = this.activity.discount == 0?10:this.activity.discount;
+            document.title = res.result.activityName
           }
-          else{
-            this.$Message.error(res.msg)
+        }).then(()=> {
+          if(this.activity.musicId != void 0 && this.activity.musicId != ''){
+            this.http.get(this.$store.state.prefix + '/music/' + this.activity.musicId).then(res2 => {
+              if (res2.error === false){
+                this.music = res2.result.url
+              }
+              else{
+                this.$Message.error(res.msg)
+              }
+            })
           }
         })
-      }
-
     })
+    
+
     var url = location.href.split("#")[0];
     // 获取微信分享配置
   this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' + url).then(res => {
@@ -269,31 +294,38 @@ export default {
         if(res.error === false) {
           this.activity.joinActivityInfo =res.result.joinGroupInfo
           this.activity.groupInfo =res.result.userGroupInfo
+          console.log(this.activity)
+          debugger
           //重新计算折扣信息
           var discountLevel =this.util.ArraySort(JSON.parse(this.activity.discountLevel),'mans',true)
-          if (this.activity.activityType === 1) {
+          var joinNum = 0
+          if (~~this.activity.activityType === 1) {
             //自由模式
-            var joinNum = res.result.joinNum
-            this.activity.joinNum = joinNum
-            for(var i in discountLevel){
-                if(joinNum > discountLevel[i].mans) {
-                  this.activity.discount = discountLevel[i].discount
-                  break;
-                }
-                
-            }
+            debugger
+            joinNum = res.result.joinNum
           } else {
             //组团模式
-            var joinNum = res.result.userGroupInfo.length
-            this.activity.joinNum = joinNum
-            for(var i in discountLevel){
-                if(joinNum > discountLevel[i].mans) {
-                  this.activity.discount = discountLevel[i].discount
-                  break;
-                }
-                
-            }
+            debugger
+            joinNum = res.result.userGroupInfo.length
           }
+          this.activity.progress = Number(parseFloat(joinNum/(discountLevel[0].mans)).toFixed(2))
+          this.activity.joinNum = joinNum
+          debugger
+          for(var i in discountLevel){
+            if(joinNum > discountLevel[i].mans) {
+              this.activity.discount = discountLevel[i].discount
+              break
+            }
+                
+          }
+
+          if(res.result.userGroupInfo.length>0) {
+            //判断是否已经加入任意团
+            this.hasGroup = true
+          }
+          //手动触发activity的watch函数
+          var nactivity=JSON.parse(JSON.stringify(this.activity))
+          this.activity=nactivity
         }
       })
     }
