@@ -4,7 +4,7 @@
     <div class='attend-users'>
       <img src="/static/images/up.png" class = "upImg">
       <Row class="attend-wrapper">
-        <Col v-for = "index in peoples" span='4' class='attend-users-list'>
+        <Col v-for = "index in peoples" :key="index.id" span='4' class='attend-users-list'>
           <div class='attend-avater'>
             <img :src='index.headImg'>
           </div>

@@ -168,7 +168,7 @@ export default {
 
     if (res.error === false) {
       this.wx.config({
-        debug: false,
+        debug: true,
         appId: res.result.appId,
         timestamp: res.result.timestamp,
         nonceStr: res.result.noncestr,
