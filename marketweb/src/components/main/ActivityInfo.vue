@@ -195,7 +195,7 @@ export default {
       type: 'link',
       dataUrl: '',
       success: function () {
-        console.log('you share app message ok')
+        this.shareSuccess()
       },
       cancel: function () {
         console.log('cancel app')
@@ -207,7 +207,7 @@ export default {
       link: content.wxlineLink,
       imgUrl: content.wximgUrl,
       success: function () {
-        console.log('you share time message ok')
+        this.shareSuccess()
       },
       cancel: function () {
         console.log('cancel time')
@@ -256,6 +256,11 @@ export default {
         return;
       }
       this.$router.push("/home")
+    },
+    shareSuccess () {
+      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/'+ activityId).then(res => {
+        this.$Message.success("恭喜你分享成功");
+      })
     }
   }
 }

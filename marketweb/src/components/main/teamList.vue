@@ -39,7 +39,7 @@ export default {
       }).then(res => {
         this.isloading=false
         if(res.error == false){
-          this.$Message.success("恭喜你加入该团。");
+          this.$Message.success("恭喜你成功加入该团。");
           location.reload();
         }else{
           this.$Message.error(res.msg)
