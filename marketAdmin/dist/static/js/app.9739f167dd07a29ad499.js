@@ -2312,7 +2312,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         storageNum: [{ type: 'integer', min: 0, message: '库存量只能为正整数', trigger: 'blur' }]
       },
       uploaderconfig: {
-        maxSize: 51200,
+        maxSize: 5120,
         format: ['jpg', 'png', 'jpeg'],
         showUploadList: false,
         parent: 'Goods',
@@ -2422,7 +2422,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         storageNum: [{ type: 'integer', min: 0, message: '库存量只能为正整数', trigger: 'blur' }]
       },
       uploaderconfig: {
-        maxSize: 51200,
+        maxSize: 5120,
         format: ['jpg', 'png', 'jpeg'],
         showUploadList: false,
         parent: 'Goods',
@@ -40538,4 +40538,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.ddab7a5c74fa9bce2a91.js.map
+//# sourceMappingURL=app.9739f167dd07a29ad499.js.map

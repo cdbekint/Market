@@ -99,7 +99,7 @@ export default {
         ]
       },
       uploaderconfig: {
-        maxSize: 51200,
+        maxSize: 5120,
         format: ['jpg', 'png', 'jpeg'],
         showUploadList: false,
         parent: 'Goods',

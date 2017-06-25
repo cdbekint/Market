@@ -69,6 +69,7 @@ export default {
       width:94%
       margin auto
       position relative
+      min-height:150px
       .upImg
         position absolute
         top rrem(-75px)
