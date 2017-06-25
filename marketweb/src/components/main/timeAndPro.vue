@@ -68,7 +68,10 @@ export default {
   data () {
     return {
       progress: 0,
-      Group:[]
+      Group:[{
+        mans:1,
+        discount:10
+      }]
     }
   }
 }
