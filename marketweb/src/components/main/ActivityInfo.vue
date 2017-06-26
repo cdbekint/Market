@@ -199,9 +199,9 @@ export default {
                 peopleNum:0
               }
             }
-            alert(this.currentGroup.id)
-            alert(this.currentGroup.name)
-            alert(this.currentGroup.img)
+            alert(this.currentGroup.id);
+            alert(this.currentGroup.name);
+            alert(this.currentGroup.img);
           }
         }).then(()=> {
           if(this.activity.musicId != void 0 && this.activity.musicId != ''){
