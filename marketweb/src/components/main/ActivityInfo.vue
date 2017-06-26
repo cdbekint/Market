@@ -188,7 +188,7 @@ export default {
 
             var info = this.activity.groupInfo[0];
             if(info.length > 0) {
-              this.curgroup = {
+              this.currentGroup = {
                 id:info.groupId,
                 img:info.headImg,
                 name:this.util.sliceStr(info.username,4),
@@ -196,7 +196,7 @@ export default {
               }
             }
             else {
-              this.curgroup = {
+              this.currentGroup = {
                 img:this.murl + this.activity.companyLogoImg,
                 name:this.util.sliceStr(this.activity.companyName,6),
                 peoplenum:0
