@@ -18,7 +18,7 @@
         <div class="one_jinum jifen_num">
           <span class="chiness">{{points}}</span>
         </div>
-        <div class="one_btn">
+        <div class="one_btn" @click="">
           <span>积分换购</span>
         </div>
       </div>
@@ -39,7 +39,7 @@
         <div class="one_jinum jifen_num">
           <span class="chiness">{{cashs}}</span>
         </div>
-        <div class="one_btn two_btn">
+        <div class="one_btn two_btn" @click="getMoney">
           <span>提&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp现</span>
         </div>
       </div>
@@ -51,7 +51,11 @@
 export default {
   name: 'peopleMoney',
   props: ['data'],
-  methods:{},
+  methods:{
+    getMoney(){
+
+    }
+  },
   watch:{
     data:{
       handler(val){
