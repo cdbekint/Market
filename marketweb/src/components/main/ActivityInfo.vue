@@ -9,8 +9,6 @@
     <Group :activity = "activity" v-if="isGroup"></Group>
     <Discount :activity="activity"></Discount>
     <Money :activity="activity"></Money>
-    <!--<Team :activity="activity" @watchGroup="getGroupInfo"  v-if="!hasGroup"></Team>-->
-    <!--<teamList :activity="activity" @watchGroup="getGroupInfo" v-if="!hasGroup"></teamList>-->
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
     <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 2000;">
       <img src="/static/images/bg.png">
@@ -128,21 +126,21 @@ export default {
     var inviterId = state[1] == void 0 ? 0 : state[1];
     this.activityId = activityId;
 
-    if(window.localStorage["ownId"] != inviterId){
+    if(window.localStorage["ownId"] != inviterId || location.href.index("from") > 0){
       //判断是否是已经跳转了的页面
       window.localStorage["inviterId"] = inviterId;
       window.localStorage["realInviterId"] = inviterId
       window.localStorage.removeItem("token");
+
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
-
       var preUrl = oldUrl.slice(0,index+1);
       var state = "state=" + activityId + "," + window.localStorage["ownId"];
-
       var url = preUrl + state;
       location.href = url
     }else{
       window.localStorage["realInviterId"] = inviterId
+
     }
 
     // 获取登录者个人信息
