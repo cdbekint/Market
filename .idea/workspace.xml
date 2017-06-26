@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/css/app.dfede6ce95088b94656b1b50e5e45362.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/css/app.dfede6ce95088b94656b1b50e5e45362.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.6db49c21331920d67ae9.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/app.6db49c21331920d67ae9.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.13335b0daa31287bdc95.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/manifest.13335b0daa31287bdc95.js.map" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/dist/index.html" afterPath="$PROJECT_DIR$/marketweb/dist/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/dist/static/js/utils.js" afterPath="$PROJECT_DIR$/marketweb/dist/static/js/utils.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/static/js/utils.js" afterPath="$PROJECT_DIR$/marketweb/static/js/utils.js" />
     </list>
     <ignored path="Market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,19 +28,20 @@
       <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-720">
-              <caret line="14" column="71" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
+            <state relative-caret-position="591">
+              <caret line="298" column="6" selection-start-line="298" selection-start-column="6" selection-end-line="298" selection-end-column="6" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="e#2140#3498#0" expanded="false" />
-                <element signature="e#9185#9225#0" expanded="false" />
-                <element signature="e#9627#9873#0" expanded="false" />
-                <element signature="e#9887#10132#0" expanded="false" />
-                <element signature="e#10154#10316#0" expanded="false" />
+                <element signature="e#3618#8247#0" expanded="false" />
+                <element signature="e#9387#9427#0" expanded="false" />
+                <element signature="e#10089#10334#0" expanded="false" />
+                <element signature="e#10356#10518#0" expanded="false" />
+                <element signature="e#10540#11819#0" expanded="false" />
                 <element signature="n#style#0;n#!!top" expanded="false" />
-                <element signature="e#12906#13222#0" expanded="false" />
+                <element signature="e#13108#13424#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -493,12 +485,12 @@
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
       <workItem from="1498284093356" duration="16786000" />
-      <workItem from="1498438689683" duration="20104000" />
+      <workItem from="1498438689683" duration="20487000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="529938000" />
+    <option name="totallyTimeSpent" value="530321000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -955,19 +947,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-720">
-          <caret line="14" column="71" selection-start-line="14" selection-start-column="71" selection-end-line="14" selection-end-column="71" />
+        <state relative-caret-position="591">
+          <caret line="298" column="6" selection-start-line="298" selection-start-column="6" selection-end-line="298" selection-end-column="6" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
             <element signature="e#2140#3498#0" expanded="false" />
-            <element signature="e#9185#9225#0" expanded="false" />
-            <element signature="e#9627#9873#0" expanded="false" />
-            <element signature="e#9887#10132#0" expanded="false" />
-            <element signature="e#10154#10316#0" expanded="false" />
+            <element signature="e#3618#8247#0" expanded="false" />
+            <element signature="e#9387#9427#0" expanded="false" />
+            <element signature="e#10089#10334#0" expanded="false" />
+            <element signature="e#10356#10518#0" expanded="false" />
+            <element signature="e#10540#11819#0" expanded="false" />
             <element signature="n#style#0;n#!!top" expanded="false" />
-            <element signature="e#12906#13222#0" expanded="false" />
+            <element signature="e#13108#13424#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -274,6 +274,10 @@ export default {
   },
   methods: {
     joinTeam(){
+      if(this.$store.state.isMember == 0){
+        this.currentState = true;
+        return;
+      }
       if(this.isLoading)return;
 
       this.isLoading = true;
@@ -292,6 +296,10 @@ export default {
       });
     },
     newTeam () {
+      if(this.$store.state.isMember == 0){
+        this.currentState = true;
+        return;
+      }
       if(this.isLoading)return;
 
       this.isLoading = true;
