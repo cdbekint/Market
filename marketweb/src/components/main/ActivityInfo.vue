@@ -187,11 +187,20 @@ export default {
 
 
             var info = this.activity.groupInfo[0];
-            this.curGroup = {
-              id:info.groupId,
-              img:info.headImg,
-              name:this.util.sliceStr(info.userName,4),
-              peopleNum:len
+            if(info.length > 0) {
+              this.curgroup = {
+                id:info.groupId,
+                img:info.headImg,
+                name:this.util.sliceStr(info.username,4),
+                peoplenum:len
+              }
+            }
+            else {
+              this.curgroup = {
+                img:this.murl + this.activity.companyLogoImg,
+                name:this.util.sliceStr(this.activity.companyName,6),
+                peoplenum:0
+              }
             }
           }
           alert(this.hasGroup)
