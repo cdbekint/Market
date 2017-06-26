@@ -37,7 +37,6 @@ export default {
     activity: function (val) {
       this.value.name = val.companyName
       if (val.joinActivityInfo === null) return
-      debugger
       this.peoples=[]
       this.isExceed=false
       if (val.joinActivityInfo.length >= 17) {
