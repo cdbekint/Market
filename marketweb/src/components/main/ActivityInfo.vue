@@ -122,6 +122,8 @@ export default {
 
       var url = preUrl + state;
       location.href = url
+    }else{
+      window.localStorage["realInviterId"] = inviterId
     }
 
     // 获取登录者个人信息
@@ -159,10 +161,11 @@ export default {
         // 获取活动详细信息
         var requesturl =""
         if(this.hasGroup){
-          requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["inviterId"]
+          requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["ownId"]
         }else {
           requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["realInviterId"]
         }
+        alert(requesturl)
         this.http.get(this.$store.state.prefix + requesturl).then(res => {
           if (res.error === false) {
             this.activity = res.result;
@@ -186,7 +189,7 @@ export default {
           }
         })
     })
-    
+
 
     var url = location.href.split("#")[0];
     // 获取微信分享配置
@@ -316,7 +319,7 @@ export default {
               this.activity.discount = discountLevel[i].discount
               break
             }
-                
+
           }
 
           if(res.result.userGroupInfo.length>0) {
