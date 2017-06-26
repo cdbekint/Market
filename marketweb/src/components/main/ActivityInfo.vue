@@ -192,16 +192,18 @@ export default {
                 id:info.groupId,
                 img:info.headImg,
                 name:this.util.sliceStr(info.username,4),
-                peoplenum:len
+                peopleNum:len
               }
             }
             else {
               this.currentGroup = {
                 img:this.murl + this.activity.companyLogoImg,
                 name:this.util.sliceStr(this.activity.companyName,6),
-                peoplenum:0
+                peopleNum:0
               }
             }
+
+            console.log(this.currentGroup)
           }
           alert(this.hasGroup)
         }).then(()=> {

@@ -28,18 +28,18 @@
       <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="198" column="31" selection-start-line="198" selection-start-column="31" selection-end-line="198" selection-end-column="31" />
+            <state relative-caret-position="486">
+              <caret line="205" column="41" selection-start-line="205" selection-start-column="41" selection-end-line="205" selection-end-column="41" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="e#9195#9235#0" expanded="false" />
-                <element signature="e#9265#9620#0" expanded="false" />
-                <element signature="e#9637#9883#0" expanded="false" />
-                <element signature="e#9897#10142#0" expanded="false" />
-                <element signature="e#10164#10326#0" expanded="false" />
+                <element signature="e#9239#9279#0" expanded="false" />
+                <element signature="e#9309#9664#0" expanded="false" />
+                <element signature="e#9681#9927#0" expanded="false" />
+                <element signature="e#9941#10186#0" expanded="false" />
+                <element signature="e#10208#10370#0" expanded="false" />
                 <element signature="n#style#0;n#!!top" expanded="false" />
-                <element signature="e#12926#13242#0" expanded="false" />
+                <element signature="e#12970#13286#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -493,12 +493,12 @@
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
       <workItem from="1498284093356" duration="16786000" />
-      <workItem from="1498438689683" duration="19113000" />
+      <workItem from="1498438689683" duration="19310000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="528947000" />
+    <option name="totallyTimeSpent" value="529144000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -953,18 +953,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="198" column="31" selection-start-line="198" selection-start-column="31" selection-end-line="198" selection-end-column="31" />
+        <state relative-caret-position="486">
+          <caret line="205" column="41" selection-start-line="205" selection-start-column="41" selection-end-line="205" selection-end-column="41" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#9195#9235#0" expanded="false" />
-            <element signature="e#9265#9620#0" expanded="false" />
-            <element signature="e#9637#9883#0" expanded="false" />
-            <element signature="e#9897#10142#0" expanded="false" />
-            <element signature="e#10164#10326#0" expanded="false" />
+            <element signature="e#9239#9279#0" expanded="false" />
+            <element signature="e#9309#9664#0" expanded="false" />
+            <element signature="e#9681#9927#0" expanded="false" />
+            <element signature="e#9941#10186#0" expanded="false" />
+            <element signature="e#10208#10370#0" expanded="false" />
             <element signature="n#style#0;n#!!top" expanded="false" />
-            <element signature="e#12926#13242#0" expanded="false" />
+            <element signature="e#12970#13286#0" expanded="false" />
           </folding>
         </state>
       </provider>
