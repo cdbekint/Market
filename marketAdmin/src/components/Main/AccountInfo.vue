@@ -48,8 +48,10 @@
           <div class="infocontent">
           <Row>
             <div class="ownavater" v-if="companyinfo.openId">
-              <span v-text="companyinfo.openId"></span>
-              <Icon type="checkmark-circled" color="#00c26" size="18"></Icon>
+              <div class="withdrawuser">
+                <img :src="companyinfo.account.headImg" alt="">
+               
+              </div><span v-text="companyinfo.account.realName||companyinfo.account.nickName"></span>
             </div> 
             <div v-else>暂未设置</div>
           </Row>
@@ -98,7 +100,7 @@
 
           </Row>
           <Row style="text-align:center">
-            {{companyinfo.balance-Number(withdrawMoney)*(1+rate/100)}}={{companyinfo.balance}} - {{Number(withdrawMoney)}}*(1+{{rate}}%)
+            {{parseFloat(companyinfo.balance-Number(withdrawMoney)*(1+rate/100)).toFixed(2)}}={{companyinfo.balance}} - {{Number(withdrawMoney)}}*(1+{{rate}}%)
           </Row>
       </div>
        <div slot="footer" class="text-left">
@@ -246,6 +248,8 @@ export default {
             this.getCompanyinfo()
             this.withdrawModal=false
             this.withdrawMoney = 0
+          } else {
+            this.$Message.error(res.msg)
           }
         })
     }
@@ -271,4 +275,11 @@ export default {
   .infocontent
     text-align:left
     flex:1
+.withdrawuser
+  width:60px
+  height:60px
+  overflow:hidden
+  img
+    width:100%
+    border-radius:5px
 </style>

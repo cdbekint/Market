@@ -9,9 +9,8 @@
       <div class="titellink">
         <Select v-model="orderquery.payType" slot="prepend" style="width:30%;" placeholder="请选择订单类型">
           <Option value="">所有订单</Option>
-          <Option value="1">活动订单</Option>
           <Option value="2">商品订单</Option>
-          <Option value="3">会员续费</Option>
+          <Option value="5">注册会员</Option>
           <Option value="4">账户充值</Option>
         </Select>
         <Input v-model="orderquery.remarks" placeholder="请输入关键字"  style="width:30%"></Input>
