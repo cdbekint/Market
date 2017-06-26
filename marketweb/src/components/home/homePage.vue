@@ -123,7 +123,7 @@ export default {
         var row = res.result.account;
         var companys = res.result.customers;
 
-        this.currentCompanyId = companys[0].id;
+        this.currentCompanyId = companys[0].companyId;
         this.personInfo = {
           nickName:row.nickName,
           headImg:row.headImg,
@@ -135,7 +135,7 @@ export default {
         companys.forEach((item)=>{
           var obj = {
             name:item.companyName,
-            id:item.id
+            id:item.companyId
           };
 
           companyArr.push(obj)

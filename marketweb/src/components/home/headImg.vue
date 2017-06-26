@@ -23,6 +23,7 @@ export default {
   props: ['data'],
   watch: {
     data (val) {
+      console.log(val)
       val.company.forEach((item,index)=>{
         var obj;
         item.name = this.util.sliceStr(item.name,4)
