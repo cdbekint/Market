@@ -194,6 +194,7 @@ export default {
               peopleNum:len
             }
           }
+          alert(this.hasGroup)
         }).then(()=> {
           if(this.activity.musicId != void 0 && this.activity.musicId != ''){
             this.http.get(this.$store.state.prefix + '/music/' + this.activity.musicId).then(res2 => {

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
     </list>
     <ignored path="Market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,18 +28,18 @@
       <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2394">
-              <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+            <state relative-caret-position="432">
+              <caret line="196" column="29" selection-start-line="196" selection-start-column="29" selection-end-line="196" selection-end-column="29" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="e#8855#8895#0" expanded="false" />
-                <element signature="e#8925#9280#0" expanded="false" />
-                <element signature="e#9297#9543#0" expanded="false" />
-                <element signature="e#9557#9802#0" expanded="false" />
-                <element signature="e#9824#9986#0" expanded="false" />
+                <element signature="e#8886#8926#0" expanded="false" />
+                <element signature="e#8956#9311#0" expanded="false" />
+                <element signature="e#9328#9574#0" expanded="false" />
+                <element signature="e#9588#9833#0" expanded="false" />
+                <element signature="e#9855#10017#0" expanded="false" />
                 <element signature="n#style#0;n#!!top" expanded="false" />
-                <element signature="e#12586#12902#0" expanded="false" />
+                <element signature="e#12617#12933#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -525,12 +523,12 @@
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
       <workItem from="1498284093356" duration="16786000" />
-      <workItem from="1498438689683" duration="17964000" />
+      <workItem from="1498438689683" duration="18044000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="527798000" />
+    <option name="totallyTimeSpent" value="527878000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -985,18 +983,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2394">
-          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
+        <state relative-caret-position="432">
+          <caret line="196" column="29" selection-start-line="196" selection-start-column="29" selection-end-line="196" selection-end-column="29" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#8855#8895#0" expanded="false" />
-            <element signature="e#8925#9280#0" expanded="false" />
-            <element signature="e#9297#9543#0" expanded="false" />
-            <element signature="e#9557#9802#0" expanded="false" />
-            <element signature="e#9824#9986#0" expanded="false" />
+            <element signature="e#8886#8926#0" expanded="false" />
+            <element signature="e#8956#9311#0" expanded="false" />
+            <element signature="e#9328#9574#0" expanded="false" />
+            <element signature="e#9588#9833#0" expanded="false" />
+            <element signature="e#9855#10017#0" expanded="false" />
             <element signature="n#style#0;n#!!top" expanded="false" />
-            <element signature="e#12586#12902#0" expanded="false" />
+            <element signature="e#12617#12933#0" expanded="false" />
           </folding>
         </state>
       </provider>
