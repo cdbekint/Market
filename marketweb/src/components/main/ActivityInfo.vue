@@ -176,7 +176,7 @@ export default {
           requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["realInviterId"]
         }
         this.http.get(this.$store.state.prefix + requesturl).then(res => {
-          if (res.error === false) {
+          if (res.error == false) {
             this.activity = res.result;
             if(this.activity.activityType == 2)
               this.isGroup = true
@@ -186,7 +186,7 @@ export default {
             document.title = res.result.activityName
 
 
-            var info = this.activity.groupInfo[0];
+            var info = this.activity.groupInfo;
             if(info.length > 0) {
               this.currentGroup = {
                 id:info.groupId,
@@ -203,6 +203,7 @@ export default {
               }
             }
 
+            console.log(123)
             console.log(this.currentGroup)
           }
           alert(this.hasGroup)
