@@ -12,7 +12,7 @@
     <Team :activity="activity" @watchGroup="getGroupInfo"  v-if="!hasGroup"></Team>
     <teamList :activity="activity" @watchGroup="getGroupInfo" v-if="!hasGroup"></teamList>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
-    <div class="homeCompany_body">
+    <div class="homeCompany_body" style="z-index:2000;">
       <div class="body_company" @click="goCompany">
         <img :src="'/static/images/active/' + comState + '.png'">
       </div>

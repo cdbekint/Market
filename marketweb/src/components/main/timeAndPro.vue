@@ -32,7 +32,7 @@
         <div class = "main_time">
           <div class = "time_count">
             <p>当前折扣&nbsp&nbsp&nbsp&nbsp<span>{{activity.discount}}</span> &nbsp&nbsp&nbsp 折 </p>
-            
+
           </div>
         </div>
         <div class = "main_title">
@@ -44,7 +44,7 @@
       <div class = "pro_line line4">
         <div class = "main_time_note">
             <p>最低折扣：<span>{{Group[0].mans}}</span>人团，<span>{{Group[0].discount}}</span>折</p>
-          
+
         </div>
       </div>
     </div>
@@ -91,7 +91,6 @@ export default {
       top 0px
       width 100%
       height rrem(212px)
-      z-index 1000
       img
         width rrem(288px)
         height 100%
