@@ -95,7 +95,7 @@ export default {
     len = len == void 0?4:len;
     text = text == void 0?"..":text;
     return target.length > len?
-    target.slice(0,len+1)+text : String(target);
+    target.slice(0,len)+text : String(target);
   },
   getQuery:function (hash) {
     if(hash == void 0)hash = location.hash;

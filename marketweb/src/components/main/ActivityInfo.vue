@@ -12,7 +12,7 @@
     <!--<Team :activity="activity" @watchGroup="getGroupInfo"  v-if="!hasGroup"></Team>-->
     <!--<teamList :activity="activity" @watchGroup="getGroupInfo" v-if="!hasGroup"></teamList>-->
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
-    <div class="activeInfo_team" v-if="!hasGroup">
+    <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 2000;">
       <img src="/static/images/bg.png">
       <div class="team_peopleInfo">
         <img :src="currentGroup.img">
@@ -126,7 +126,7 @@ export default {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
     var inviterId = state[1] == void 0 ? 0 : state[1];
-    this.activityId = activityId
+    this.activityId = activityId;
 
     if(window.localStorage["ownId"] != inviterId){
       //判断是否是已经跳转了的页面
@@ -202,11 +202,7 @@ export default {
                 peopleNum:0
               }
             }
-
-            console.log(123)
-            console.log(this.currentGroup)
           }
-          alert(this.hasGroup)
         }).then(()=> {
           if(this.activity.musicId != void 0 && this.activity.musicId != ''){
             this.http.get(this.$store.state.prefix + '/music/' + this.activity.musicId).then(res2 => {
@@ -283,8 +279,8 @@ export default {
       this.isLoading = true;
 
       this.http.post(this.$store.state.prefix + '/activity/addGroup',{
-        groupId:this.curGroup.id,
-        activityId:this.curGroup.activeId
+        groupId:this.currentGroup.id,
+        activityId:this.activity.id
       }).then(res => {
         if(res.error == false){
           this.$Message.success("恭喜你成功加入该团。");
@@ -301,7 +297,7 @@ export default {
       this.isLoading = true;
 
       this.http.post(this.$store.state.prefix + '/activity/addGroup',{
-        activityId:this.activeId
+        activityId:this.activity.id
       }).then(res => {
         if(res.error == false){
           this.$Message.success("恭喜创建新团成功。")
@@ -363,7 +359,6 @@ export default {
         if(res.error === false) {
           this.activity.joinActivityInfo =res.result.joinGroupInfo
           this.activity.groupInfo =res.result.userGroupInfo
-          console.log(this.activity)
           //重新计算折扣信息
           var discountLevel =this.util.ArraySort(JSON.parse(this.activity.discountLevel),'mans',true)
           var joinNum = 0
@@ -426,6 +421,7 @@ export default {
       height rrem(110px)
       border rrem(7px) solid #fff
       img
+        border-radius 100%
         width 100%
         height 100%
     .team_startTeam,.team_joinTeam
