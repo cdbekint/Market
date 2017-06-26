@@ -39,11 +39,19 @@
         <div class="one_jinum jifen_num">
           <span class="chiness">{{cashs}}</span>
         </div>
-        <div class="one_btn two_btn" @click="getMoney">
+        <div class="one_btn two_btn" @click="isWithdraw = true">
           <span>提&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp现</span>
         </div>
       </div>
     </div>
+    <Modal
+      v-model="isWithdraw"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <Input v-model="withdrawPoint">
+      <span slot="prepend">提现积分数</span>
+      </Input>
+    </Modal>
   </div>
 </template>
 
@@ -52,9 +60,22 @@ export default {
   name: 'peopleMoney',
   props: ['data'],
   methods:{
-    getMoney(){
-
-    }
+    ok(){
+      this.http.post(this.$store.state.prefix + "/withdraw",{
+        withdrawType:1,
+        withdrawPoints:this.withdrawPoint
+      }).then(res=> {
+        if(res.error == false){
+          this.$Message.success("恭喜你提现成功");
+        }
+        else{
+          this.$Message.error(res.msg);
+        }
+      })
+    },
+    cancel(){
+      this.isWithdraw = false;
+    },
   },
   watch:{
     data:{
@@ -69,6 +90,8 @@ export default {
   },
   data () {
     return {
+      isWithdraw:false,
+      withdrawPoint:0,
       totalPoint:0,
       points:0,
       usedCash:0,

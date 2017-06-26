@@ -10,7 +10,7 @@
     </div>
     <div class="main_info">
       <div class="info_jifen info_active" v-for="x in activityInfo" v-if="index==0">
-        <img :src="x.img" class="jifen_img  active_img">
+        <img :src="murl + x.img" class="jifen_img  active_img">
         <div class="jifen_name active_name">
           <span class="name_head active_head">{{x.name}}</span>
           <div class="active_info">
@@ -33,37 +33,36 @@
         </div>
       </div>
 
-      <!--<div class="info_jifen" v-for="x in jifenInfo" v-if="index==1">-->
-        <!--<img :src="x.img" class="jifen_img">-->
-        <!--<div class="jifen_name">-->
-          <!--<span class="name_head jifen_head">{{x.name}}</span>-->
-          <!--&lt;!&ndash;<span class="name_info">潍坊回味和wefwefwefwefefwefwefwef范围服务靠</span>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="jifen_operator">-->
-          <!--<div class="oper_one">-->
-            <!--<img src="/static/images/red/ji.png">-->
-            <!--<span>{{x.jifen}}</span>-->
-          <!--</div>-->
-          <!--<div class="oper_one">-->
-            <!--<img src="/static/images/red/mo.png">-->
-            <!--<span>{{x.money}}</span>-->
-          <!--</div>-->
-          <!--<div class="oper_one">-->
-            <!--<img src="/static/images/red/pe.png">-->
-            <!--<span>{{x.peopleNum}}</span>-->
-          <!--</div>-->
-          <!--<div class="oper_one">-->
-            <!--<img src="/static/images/red/re.png">-->
-            <!--<span>{{x.forward}}</span>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
+<!--      <div class="info_jifen" v-for="x in jifenInfo" v-if="index==1">
+        <img :src="x.img" class="jifen_img">
+        <div class="jifen_name">
+          <span class="name_head jifen_head">{{x.name}}</span>
+          &lt;!&ndash;<span class="name_info">潍坊回味和wefwefwefwefefwefwefwef范围服务靠</span>&ndash;&gt;
+        </div>
+        <div class="jifen_operator">
+          <div class="oper_one">
+            <img src="/static/images/red/ji.png">
+            <span>{{x.jifen}}</span>
+          </div>
+          <div class="oper_one">
+            <img src="/static/images/red/mo.png">
+            <span>{{x.money}}</span>
+          </div>
+          <div class="oper_one">
+            <img src="/static/images/red/pe.png">
+            <span>{{x.peopleNum}}</span>
+          </div>
+          <div class="oper_one">
+            <img src="/static/images/red/re.png">
+            <span>{{x.forward}}</span>
+          </div>
+        </div>
+      </div>-->
 
       <div class="info_jifen info_people" v-for="x in memberInfo" v-if="index==1">
         <img :src="x.img" class="jifen_img  people_img">
         <div class="jifen_name people_name">
           <span class="name_head people_head">{{x.name}}</span>
-          <!--<span class="name_info people_info">潍坊回味和wefwefwefwefefwefwefwef范围服务靠</span>-->
         </div>
         <div class="jifen_operator people_operator">
           <div class="oper_one">
@@ -168,7 +167,7 @@
         active:"active",
         noactive:"",
         menuList:[],
-        menu:['参加活动','我的邀请','消费记录'],
+        menu:['参加活动','我的邀请','积分记录'],
         activityInfo:[],
         memberInfo:[],
 //        jifenInfo:[],
