@@ -119,7 +119,7 @@ export default {
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .loginrow
-  background:url(http://xdl.7192.com/static/img/banner_02.png) no-repeat top
+  background:url(/static/images/banner.png) no-repeat top
   min-height:450px
 .loginmainpanel
   background:#fff

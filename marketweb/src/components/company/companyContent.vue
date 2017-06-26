@@ -451,7 +451,7 @@ export default {
   }
 }
 </script>
-<style scoped lang='stylus' rel="stylesheet/stylus">
+<style  lang='stylus' rel="stylesheet/stylus">
   rrem(val){
     return (val/108px)rem
   }

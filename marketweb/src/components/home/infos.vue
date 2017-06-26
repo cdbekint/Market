@@ -33,32 +33,15 @@
         </div>
       </div>
 
-<!--      <div class="info_jifen" v-for="x in jifenInfo" v-if="index==1">
-        <img :src="x.img" class="jifen_img">
-        <div class="jifen_name">
-          <span class="name_head jifen_head">{{x.name}}</span>
-          &lt;!&ndash;<span class="name_info">潍坊回味和wefwefwefwefefwefwefwef范围服务靠</span>&ndash;&gt;
-        </div>
-        <div class="jifen_operator">
-          <div class="oper_one">
-            <img src="/static/images/red/ji.png">
-            <span>{{x.jifen}}</span>
-          </div>
-          <div class="oper_one">
-            <img src="/static/images/red/mo.png">
-            <span>{{x.money}}</span>
-          </div>
-          <div class="oper_one">
-            <img src="/static/images/red/pe.png">
-            <span>{{x.peopleNum}}</span>
-          </div>
-          <div class="oper_one">
-            <img src="/static/images/red/re.png">
-            <span>{{x.forward}}</span>
-          </div>
-        </div>
-      </div>-->
-
+      <div class="info_jifen" v-if="index==3">
+        <ul class="pointrecords">
+          <li v-for="x in jifenInfo">
+            <div class="r_points" v-text="x.jifen"></div>
+            <div class="r_remarks" v-text="x.content"></div>
+            <div class="r_date" v-text="x.time"></div>
+          </li>
+        </ul>
+      </div>
       <div class="info_jifen info_people" v-for="x in memberInfo" v-if="index==1">
         <img :src="x.img" class="jifen_img  people_img">
         <div class="jifen_name people_name">
@@ -163,7 +146,7 @@
         handler(val){
           this.activityInfo = val.activityInfo;
           this.memberInfo = val.memberInfo;
-//          this.jifenInfo = val.jifenInfo;
+         this.jifenInfo = val.jifenInfo;
           this.consumeInfo = val.consumeInfo;
 
         },
@@ -178,10 +161,10 @@
         active:"active",
         noactive:"",
         menuList:[],
-        menu:['参加活动','我的邀请','积分记录'],
+        menu:['参加活动','我的邀请','消费记录','积分记录'],
         activityInfo:[],
         memberInfo:[],
-//        jifenInfo:[],
+       jifenInfo:[],
         consumeInfo:[]
       }
     }
@@ -228,13 +211,29 @@
       width 96%
       margin rrem(0px) auto
       .info_jifen
-        height rrem(68px)
         width 100%
         background #ebebeb
         border-radius 10px
         position relative
         top rrem(35px)
         margin-bottom rrem(6px)
+        .pointrecords
+          li
+            height rrem(30px)
+            line-height rrem(30px)
+            display:flex
+            border-bottom:dashed 1px #fff
+            .r_points
+              flex:1
+              text-align:center
+              font-weight:bolder
+              color:red
+            .r_remarks
+              flex:3
+              overflow:hidden
+            .r_date
+              flex:1
+              text-align:center
         .jifen_img
           width rrem(60px)
           height rrem(60px)

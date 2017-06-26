@@ -85,7 +85,7 @@ export default {
   .syslogo
     display:block
     height:60px
-    background:url(https://res.wx.qq.com/mpres/htmledition/images/bg/bg_logo318e8e.png) no-repeat left
+    background:url(/static/images/logo.png) no-repeat left
   .dropmenus
     .ivu-menu-horizontal
       height:57px

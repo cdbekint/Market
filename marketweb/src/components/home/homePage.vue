@@ -37,6 +37,7 @@ export default {
     },
     getInfosByCompanyId(companyId){
 
+      //获取活动列表
       this.http.get(this.$store.state.prefix + "/home/getActivityInfo/" + companyId).then(res=> {
         if(res.error == false){
           var arr = [];
@@ -55,6 +56,7 @@ export default {
         }
       })
 
+      //获取已邀请的人
       this.http.get(this.$store.state.prefix + "/home/getInvitedMems/" + companyId).then(res=> {
         if(res.error == false){
           var arr = [];
@@ -71,7 +73,7 @@ export default {
         }
       });
 
-
+      //获取交易记录
       this.http.get(this.$store.state.prefix + "/home/getUserExpense/" + companyId).then(res=> {
         if(res.error == false){
           var arr = [];
@@ -86,6 +88,24 @@ export default {
             })
           });
           this.datas.consumeInfo = arr;
+        }
+      });
+
+      //获取积分记录
+      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" + companyId).then(res=> {
+        if(res.error == false){
+          var arr = [];
+          res.result.forEach(item=>{
+            var time = new Date(item.createDate);
+            time = time.toLocaleString().split(" ")[0];
+            arr.push({
+              time:time,
+              content:item.remarks,
+              jifen:item.points,
+              pointType:item.pointType
+            })
+          });
+          this.datas.jifenInfo = arr;
         }
       });
 
