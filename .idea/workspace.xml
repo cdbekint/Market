@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/Utils/activeCount.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/Utils/activeCount.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/home/infos.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/home/infos.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/home/peopleMoney.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/home/peopleMoney.vue" />
     </list>
     <ignored path="Market.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,10 +29,10 @@
       <file leaf-file-name="infos.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/infos.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="11" column="56" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
+            <state relative-caret-position="288">
+              <caret line="118" column="32" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
               <folding>
-                <element signature="e#1262#2211#0" expanded="false" />
+                <element signature="e#1278#2227#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -46,10 +41,11 @@
       <file leaf-file-name="homePage.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/homePage.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+            <state relative-caret-position="324">
+              <caret line="25" column="39" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
               <folding>
                 <element signature="e#228#515#0" expanded="false" />
+                <element signature="e#572#607#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -58,7 +54,7 @@
       <file leaf-file-name="headImg.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/headImg.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-486">
+            <state relative-caret-position="162">
               <caret line="9" column="89" selection-start-line="9" selection-start-column="89" selection-end-line="9" selection-end-column="89" />
               <folding />
             </state>
@@ -158,9 +154,9 @@
         <option value="$PROJECT_DIR$/marketweb/src/main.js" />
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyContent.vue" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/home/infos.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/Utils/activeCount.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/home/peopleMoney.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/home/infos.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" />
       </list>
     </option>
@@ -503,12 +499,12 @@
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
       <workItem from="1498284093356" duration="16786000" />
-      <workItem from="1498438689683" duration="6774000" />
+      <workItem from="1498438689683" duration="7131000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="516608000" />
+    <option name="totallyTimeSpent" value="516965000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -775,7 +771,7 @@
         <state relative-caret-position="1818">
           <caret line="259" column="42" selection-start-line="259" selection-start-column="42" selection-end-line="259" selection-end-column="42" />
           <folding>
-            <element signature="e#1129#1164#0" expanded="true" />
+            <element signature="e#1129#1164#0" expanded="false" />
             <element signature="n#style#0;n#!!top" expanded="false" />
           </folding>
         </state>
@@ -881,16 +877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/infos.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="11" column="56" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
-          <folding>
-            <element signature="e#1262#2211#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/Utils/ProgressMe.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -934,18 +920,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/headImg.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-486">
+        <state relative-caret-position="162">
           <caret line="9" column="89" selection-start-line="9" selection-start-column="89" selection-end-line="9" selection-end-column="89" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/infos.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="118" column="32" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
+          <folding>
+            <element signature="e#1278#2227#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/homePage.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+        <state relative-caret-position="324">
+          <caret line="25" column="39" selection-start-line="25" selection-start-column="39" selection-end-line="25" selection-end-column="39" />
           <folding>
             <element signature="e#228#515#0" expanded="false" />
+            <element signature="e#572#607#0" expanded="true" />
           </folding>
         </state>
       </provider>

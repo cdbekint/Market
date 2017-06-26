@@ -23,18 +23,7 @@ export default {
   components:{headImg,peopleMoney,infos},
   methods:{
     changePoint(){
-      console.log(this.currentCompanyId);
-
-      var oldUrl = location.href;
-      var index = oldUrl.indexOf("?");
-      var state = this.util.getURLParam('state').split(",")
-
-      var preUrl = oldUrl.slice(0,index+1);
-      var state = "state=" + this.currentCompanyId + "," + window.localStorage["ownId"];
-
-      var url = preUrl + state;
-      console.log(url)
-      location.href = url;
+      console.log(this.currentCompanyId)
     },
     getCompanyId (id) {
       this.currentCompanyId = id;

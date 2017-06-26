@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="main_info">
-      <div class="info_jifen info_active" v-for="x in activityInfo" v-if="index==0" @click="">
+      <div class="info_jifen info_active" v-for="x in activityInfo" v-if="index==0" @click="goToActive(x.id)">
         <img :src="murl + x.img" class="jifen_img  active_img">
         <div class="jifen_name active_name">
           <span class="name_head active_head">{{x.name}}</span>
@@ -111,6 +111,17 @@
     props: ['datas'],
     components: { countdown },
     methods:{
+      goToActive(id){
+        var oldUrl = location.href;
+        var index = oldUrl.indexOf("?");
+        var state = this.util.getURLParam('state').split(",")
+
+        var preUrl = oldUrl.slice(0,index+1);
+        var state = "state=" + id + "," + window.localStorage["ownId"];
+
+        var url = preUrl + state;
+        location.href = url;
+      },
       changeCompany (val) {
         if(this.index !== val){
           this.index = val
