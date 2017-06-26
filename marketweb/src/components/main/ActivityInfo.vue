@@ -172,7 +172,6 @@ export default {
             window.localStorage["realInviterId"] = 0;
           requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["realInviterId"]
         }
-        alert(requesturl)
         this.http.get(this.$store.state.prefix + requesturl).then(res => {
           if (res.error == false) {
             this.activity = res.result;
@@ -200,6 +199,9 @@ export default {
                 peopleNum:0
               }
             }
+            alert(this.currentGroup.id)
+            alert(this.currentGroup.name)
+            alert(this.currentGroup.img)
           }
         }).then(()=> {
           if(this.activity.musicId != void 0 && this.activity.musicId != ''){
