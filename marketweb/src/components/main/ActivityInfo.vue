@@ -168,6 +168,8 @@ export default {
         if(this.hasGroup){
           requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["ownId"]
         }else {
+          if(window.localStorage["realInviterId"] == void 0)
+            window.localStorage["realInviterId"] = 0;
           requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["realInviterId"]
         }
         alert(requesturl)
