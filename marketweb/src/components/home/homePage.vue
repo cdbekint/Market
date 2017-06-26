@@ -140,11 +140,12 @@ export default {
           companyArr.push(obj)
 
           var pointObj = {
-            id:item.id,
+            id:item.companyId,
             totalPoint:item.allPoints,
             points:item.points,
             usedCash:item.withDrawAmount,
-            cashs:(item.points * item.toCashRate/100)
+            cashs:(item.points * item.toCashRate/100),
+            toCashRate: item.toCashRat,
           };
           pointArr.push(pointObj)
 

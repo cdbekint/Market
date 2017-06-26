@@ -104,13 +104,13 @@ export default {
               break
             }
           }
-          // if (realMoney < 10 || isNaN(realMoney)) {
-          //   this.$Notice.error({
-          //     title: '错误',
-          //     desc: '充值金额必须大于10'
-          //   })
-          //   return
-          // }
+          if (realMoney < 10 || isNaN(realMoney)) {
+            this.$Notice.error({
+              title: '错误',
+              desc: '充值金额必须大于10'
+            })
+            return
+          }
           this.realMoney = realMoney
           var param = {
             payType: 4,

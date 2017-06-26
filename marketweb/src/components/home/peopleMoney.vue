@@ -48,9 +48,15 @@
       v-model="isWithdraw"
       @on-ok="ok"
       @on-cancel="cancel">
-      <Input v-model="withdrawPoint">
+      <Row style="text-align:center">
+        <Input-number :min="1" v-model="withdrawPoint">
       <span slot="prepend">提现积分数</span>
-      </Input>
+      </Input-number>
+      </Row>
+      
+      <span>可提积分{{points}}({{cashs}}元)</span>
+      <br>
+      <span>当前提现金额:{{parseFloat(cashs/points*(withdrawPoint>points?points:withdrawPoint)).toFixed(2)}}</span>
     </Modal>
   </div>
 </template>
@@ -88,6 +94,7 @@ export default {
         this.points = val.points;
         this.usedCash = val.usedCash;
         this.cashs = val.cashs;
+        this.toCashRate = val.toCashRate
       },
       deep:true
     }
@@ -99,7 +106,8 @@ export default {
       totalPoint:0,
       points:0,
       usedCash:0,
-      cashs:0
+      cashs:0,
+      toCashRate:0,
     }
   }
 }
