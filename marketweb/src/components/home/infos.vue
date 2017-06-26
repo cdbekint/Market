@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="main_info">
-      <div class="info_jifen info_active" v-for="x in activityInfo" v-if="index==0">
+      <div class="info_jifen info_active" v-for="x in activityInfo" v-if="index==0" @click="">
         <img :src="murl + x.img" class="jifen_img  active_img">
         <div class="jifen_name active_name">
           <span class="name_head active_head">{{x.name}}</span>

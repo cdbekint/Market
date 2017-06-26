@@ -18,7 +18,7 @@
         <div class="one_jinum jifen_num">
           <span class="chiness">{{points}}</span>
         </div>
-        <div class="one_btn" @click="">
+        <div class="one_btn" @click="changePoint">
           <span>积分换购</span>
         </div>
       </div>
@@ -60,6 +60,9 @@ export default {
   name: 'peopleMoney',
   props: ['data'],
   methods:{
+    changePoint(){
+      this.$emit("changePointById");
+    },
     ok(){
       this.http.post(this.$store.state.prefix + "/withdraw",{
         withdrawType:1,
@@ -71,6 +74,7 @@ export default {
         else{
           this.$Message.error(res.msg);
         }
+        location.reload();
       })
     },
     cancel(){

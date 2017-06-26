@@ -23,26 +23,9 @@ export default {
   components:{companyHead,companyContent},
   methods:{
     goCompany(){
-      this.comState = "coming";
-      setTimeout(()=>{
-        this.comState = "com";
-      },300);
-
-      if(this.$store.state.isMember == 0){
-        this.currentState = true;
-        return;
-      }
       this.$router.push("/company");
     },
     goHome(){
-      this.homeState = "homeing";
-      setTimeout(()=>{
-        this.homeState = "home";
-      },300);
-      if(this.$store.state.isMember == 0){
-        this.currentState = true;
-        return;
-      }
       this.$router.push("/home")
     }
   },

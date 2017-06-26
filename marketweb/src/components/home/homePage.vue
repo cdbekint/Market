@@ -1,16 +1,16 @@
 <template>
   <div class="homePage">
     <headImg :data="personInfo" @head_company="getCompanyId"></headImg>
-    <peopleMoney :data="pointAndMoney"></peopleMoney>
+    <peopleMoney :data="pointAndMoney" @changePointById="changePoint"></peopleMoney>
     <infos :datas="datas"></infos>
-    <div class="homeCompany_body">
+<!--    <div class="homeCompany_body">
       <div class="body_company" @click="goCompany">
         <img src="/static/images/active/com.png">
       </div>
       <div class="body_company" @click="goHome">
         <img src="/static/images/active/home.png" alt="">
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -22,11 +22,19 @@ export default {
   name: 'homepage',
   components:{headImg,peopleMoney,infos},
   methods:{
-    goCompany(){
-      this.$router.push("/company");
-    },
-    goHome(){
-      this.$router.push("/home")
+    changePoint(){
+      console.log(this.currentCompanyId);
+
+      var oldUrl = location.href;
+      var index = oldUrl.indexOf("?");
+      var state = this.util.getURLParam('state').split(",")
+
+      var preUrl = oldUrl.slice(0,index+1);
+      var state = "state=" + this.currentCompanyId + "," + window.localStorage["ownId"];
+
+      var url = preUrl + state;
+      console.log(url)
+      location.href = url;
     },
     getCompanyId (id) {
       this.currentCompanyId = id;
@@ -40,6 +48,7 @@ export default {
           var arr = [];
           res.result.forEach(item=>{
             arr.push({
+              id:item.id,
               img:item.activityImg,
               name:item.activityName,
               date:item.endDate,
@@ -141,7 +150,7 @@ export default {
             totalPoint:item.allPoints,
             points:item.points,
             usedCash:item.withDrawAmount,
-            cashs:(item.points * item.toCashRate)
+            cashs:(item.points * item.toCashRate/100)
           };
           pointArr.push(pointObj)
 

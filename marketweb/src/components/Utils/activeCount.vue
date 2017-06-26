@@ -14,7 +14,7 @@
       <div class="clearfix"></div>
     </ul>
     <div class="isover" v-if="countDownData.over">
-      时间到
+      活动已结束
     </div>
   </div>
 </template>

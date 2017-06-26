@@ -132,7 +132,7 @@ export default {
       if(this.isloading)return
       this.isloading = true
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
-        this.isloading = false 
+        this.isloading = false
         if (res.error === false) {
           var row = res.result;
           var onBridgeReady = () => {
@@ -223,10 +223,9 @@ export default {
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
       var state = this.util.getURLParam('state').split(",")
-      var inviterId = state[1] == void 0 ? 0 : state[1];
 
       var preUrl = oldUrl.slice(0,index+1);
-      var state = "state=" + id + "," + inviterId;
+      var state = "state=" + id + "," + window.localStorage["ownId"];
 
       var url = preUrl + state;
       location.href = url;
