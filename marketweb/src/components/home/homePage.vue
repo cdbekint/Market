@@ -24,6 +24,12 @@ export default {
   methods:{
     changePoint(){
       console.log(this.currentCompanyId)
+      this.$router.push({
+        path:'/company',
+        query:{
+          companyId:this.currentCompanyId
+        }
+      })
     },
     getCompanyId (id) {
       this.currentCompanyId = id;

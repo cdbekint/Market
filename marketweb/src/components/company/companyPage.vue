@@ -2,12 +2,9 @@
   <div class="companyPage">
     <img src="/static/images/company/bg.png" class="page_img">
     <div class="page_bg"></div>
-    <companyHead ></companyHead>
+    <companyHead :companyId="companyId"></companyHead>
     <companyContent :ids="params"></companyContent>
     <div class="homeCompany_body">
-      <div class="body_company" @click="goCompany">
-        <img src="/static/images/active/com.png">
-      </div>
       <div class="body_company" @click="goHome">
         <img src="/static/images/active/home.png" alt="">
       </div>
@@ -22,9 +19,6 @@ export default {
   name: 'companyPage',
   components:{companyHead,companyContent},
   methods:{
-    goCompany(){
-      this.$router.push("/company");
-    },
     goHome(){
       this.$router.push("/home")
     }
@@ -34,10 +28,14 @@ export default {
     if(query.id != void 0){
       this.params = query;
     }
+    if(query.companyId != void 0){
+      this.companyId = query.companyId
+    }
   },
   data () {
     return {
-      params:null
+      params:null,
+      companyId:null
     }
   }
 }

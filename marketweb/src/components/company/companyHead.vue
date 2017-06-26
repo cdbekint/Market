@@ -12,10 +12,9 @@
 <script type="text/ecmascript-6">
 export default {
   name: 'companyHead',
-  methods:{
-  },
+  props:["companyId"],
   created(){
-    this.http.get( this.$store.state.prefix + "/shop").then(res=>{
+    this.http.get(this.$store.state.prefix + "/shop?companyId="+this.companyId).then(res=>{
       if(res.error == false){
         this.info.name = res.result.companyName;
         this.info.logo = res.result.companyLogo;

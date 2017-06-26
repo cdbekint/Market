@@ -70,11 +70,11 @@ export default {
       }).then(res=> {
         if(res.error == false){
           this.$Message.success("恭喜你提现成功");
+          location.reload();
         }
         else{
           this.$Message.error(res.msg);
         }
-        location.reload();
       })
     },
     cancel(){
