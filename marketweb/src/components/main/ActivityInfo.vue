@@ -182,8 +182,8 @@ export default {
             this.activity.discount = this.activity.discount == 0?10:this.activity.discount;
             document.title = res.result.activityName
 
-
-            if(this.activity.groupInfo.length > 0) {
+            var len = this.activity.groupInfo.length;
+            if(len > 0) {
               var info = this.activity.groupInfo[0];
               this.currentGroup = {
                 id:info.groupId,
