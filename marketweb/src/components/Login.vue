@@ -32,6 +32,7 @@ export default {
     var inviterId = state[1] === void 0 ? '' : state[1];
 
     window.localStorage["inviterId"] = inviterId;
+    window.localStorage["realInviterId"] = inviterId
 
     if (window.localStorage["token"] != void 0) {
       // 判断是否已登录--已登录:进入主页

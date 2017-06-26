@@ -138,9 +138,6 @@ export default {
       var state = "state=" + activityId + "," + window.localStorage["ownId"];
       var url = preUrl + state;
       location.href = url
-    }else{
-      window.localStorage["realInviterId"] = inviterId
-
     }
 
     // 获取登录者个人信息
