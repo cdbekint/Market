@@ -14,7 +14,8 @@ export default {
   name: 'companyHead',
   props:["companyId"],
   created(){
-    this.http.get(this.$store.state.prefix + "/shop?companyId="+this.companyId).then(res=>{
+    var url = this.companyId == void 0 ? '':'?companyId='+this.companyId
+    this.http.get(this.$store.state.prefix + "/shop"+url).then(res=>{
       if(res.error == false){
         this.info.name = res.result.companyName;
         this.info.logo = res.result.companyLogo;
