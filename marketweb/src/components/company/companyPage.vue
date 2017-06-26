@@ -5,8 +5,10 @@
     <companyHead :companyId="companyId"></companyHead>
     <companyContent :ids="params"></companyContent>
     <div class="homeCompany_body">
+      <div class="body_company">
+      </div>
       <div class="body_company" @click="goHome">
-        <img src="/static/images/active/home.png" alt="">
+        <img src="/static/images/active/home.png">
       </div>
     </div>
   </div>
@@ -25,7 +27,7 @@ export default {
   },
   created(){
     var query = this.util.getQuery();
-    if(query.id != void 0){
+    if(query != void 0){
       this.params = query;
     }
     if(query.companyId != void 0){

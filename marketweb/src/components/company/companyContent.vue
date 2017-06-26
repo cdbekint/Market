@@ -240,7 +240,6 @@ export default {
       })
     },
     changeJifen(index){
-      console.log(index)
      this.titleImgs.forEach((item,i) => {
        item.static = 0;
        if(index == i){
@@ -258,8 +257,10 @@ export default {
       this.goods = [];
       this.getGoodsByType(index);
     },
-    getGoodsByType(id){
-      this.http.get( this.$store.state.prefix + "/shop/getGoodsInfo/"+id).then(res=>{
+    getGoodsByType(id,url){
+      if(url == void 0)
+        url = '';
+      this.http.get( this.$store.state.prefix + "/shop/getGoodsInfo/"+ id + url).then(res=>{
         if(res.error == false){
           res.result.forEach(item=>{
             var obj = null;
@@ -296,11 +297,17 @@ export default {
 
   },
   created(){
-    if(this.ids != void 0){
+    var url = '';
+    if(this.ids.id != void 0){
       this.showDetail(this.ids.id,1);
     };
-    this.getGoodsByType(1);
-    this.http.get( this.$store.state.prefix + "/shop/getActivities").then(res=>{
+
+    if(this.ids.companyId != void 0){
+      url = '?companyId=' + this.ids.companyId
+    }
+
+    this.getGoodsByType(1,url);
+    this.http.get( this.$store.state.prefix + "/shop/getActivities" + url).then(res=>{
       if(res.error == false){
         var row = res.result;
         row.forEach(item=>{
@@ -328,7 +335,7 @@ export default {
     })
 
 
-    this.http.get( this.$store.state.prefix + "/shop/getMemsInfo").then(res=>{
+    this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" +url).then(res=>{
       if(res.error == false){
         var row = res.result;
         row.forEach(item=>{
@@ -343,7 +350,7 @@ export default {
       }
     })
 
-    this.http.get( this.$store.state.prefix + "/shop/getCompanyShow").then(res=>{
+    this.http.get( this.$store.state.prefix + "/shop/getCompanyShow" +url).then(res=>{
       if(res.error == false){
         this.showInfo = this.util.escapeToHtml(res.result.show);
       }
