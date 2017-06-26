@@ -173,6 +173,7 @@ export default {
         }else {
           requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["realInviterId"]
         }
+        alert(requesturl)
         this.http.get(this.$store.state.prefix + requesturl).then(res => {
           if (res.error == false) {
             this.activity = res.result;
