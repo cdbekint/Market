@@ -126,7 +126,7 @@ export default {
     var inviterId = state[1] == void 0 ? 0 : state[1];
     this.activityId = activityId;
 
-    if(window.localStorage["ownId"] != inviterId || location.href.index("from") > 0){
+    if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0){
       //判断是否是已经跳转了的页面
       window.localStorage["inviterId"] = inviterId;
       window.localStorage["realInviterId"] = inviterId
