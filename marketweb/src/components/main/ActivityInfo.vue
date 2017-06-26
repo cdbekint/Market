@@ -184,8 +184,8 @@ export default {
             document.title = res.result.activityName
 
 
-            var info = this.activity.groupInfo;
-            if(info.length > 0) {
+            if(this.activity.groupInfo.length > 0) {
+              var info = this.activity.groupInfo[0];
               this.currentGroup = {
                 id:info.groupId,
                 img:info.headImg,
