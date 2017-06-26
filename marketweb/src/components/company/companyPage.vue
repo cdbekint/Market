@@ -5,7 +5,7 @@
     <companyHead :companyId="companyId"></companyHead>
     <companyContent :ids="params"></companyContent>
     <div class="homeCompany_body">
-      <div class="body_company">
+      <div class="body_company" style="border:0px;">
       </div>
       <div class="body_company" @click="goHome">
         <img src="/static/images/active/home.png">
