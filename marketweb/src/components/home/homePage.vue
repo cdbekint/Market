@@ -23,7 +23,6 @@ export default {
   components:{headImg,peopleMoney,infos},
   methods:{
     changePoint(){
-      console.log(this.currentCompanyId)
       this.$router.push({
         path:'/company',
         query:{
@@ -45,7 +44,7 @@ export default {
             arr.push({
               id:item.id,
               img:item.activityImg,
-              name:item.activityName,
+              name:this.util.sliceStr(item.activityName,7),
               date:item.endDate,
               jifen:item.gainPoints,
               peopleNum:item.joinNum,
@@ -62,7 +61,7 @@ export default {
           res.result.forEach(item=>{
             arr.push({
               img:item.headImg,
-              name:item.nickName,
+              name:this.util.sliceStr(item.nickName,7),
               jifen:item.allPoints,
               peopleNum:item.invitedMems,
               consume:item.selfExpense
@@ -123,7 +122,7 @@ export default {
         var row = res.result.account;
         var companys = res.result.customers;
 
-        this.currentCompanyId = companys[0].id;
+        this.currentCompanyId = companys[0].companyId;
         this.personInfo = {
           nickName:row.nickName,
           headImg:row.headImg,
@@ -135,7 +134,7 @@ export default {
         companys.forEach((item)=>{
           var obj = {
             name:item.companyName,
-            id:item.id
+            id:item.companyId
           };
 
           companyArr.push(obj)

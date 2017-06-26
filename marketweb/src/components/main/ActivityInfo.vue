@@ -9,9 +9,22 @@
     <Group :activity = "activity" v-if="isGroup"></Group>
     <Discount :activity="activity"></Discount>
     <Money :activity="activity"></Money>
-    <Team :activity="activity" @watchGroup="getGroupInfo"  v-if="!hasGroup"></Team>
-    <teamList :activity="activity" @watchGroup="getGroupInfo" v-if="!hasGroup"></teamList>
+    <!--<Team :activity="activity" @watchGroup="getGroupInfo"  v-if="!hasGroup"></Team>-->
+    <!--<teamList :activity="activity" @watchGroup="getGroupInfo" v-if="!hasGroup"></teamList>-->
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
+    <div class="activeInfo_team" v-if="!hasGroup">
+      <img src="/static/images/bg.png">
+      <div class="team_peopleInfo">
+        <img :src="currentGroup.img">
+      </div>
+      <div class="team_peopleName">
+        <p class="peopleName">{{currentGroup.name}}</p>
+        <p>正在邀请你加入</p>
+        <p>已有 {{currentGroup.peopleNum}} 人加入</p>
+      </div>
+      <img src="/static/images/startTeam.png" class="team_startTeam" @click="newTeam">
+      <img src="/static/images/joinTeam.png" class="team_joinTeam" @click="">
+    </div>
     <div class="homeCompany_body" style="z-index:2000;">
       <div class="body_company" @click="goCompany">
         <img :src="'/static/images/active/' + comState + '.png'">
@@ -48,6 +61,13 @@ export default {
       userInfo: {
         account: {},
         customer: {}
+      },
+      currentGroup:{
+        activeId:0,
+        id:'',
+        img:'',
+        name:'',
+        peopleNum:0
       },
       props: {
         endDate: '2017-04-26T23:08:01.928Z',
@@ -144,15 +164,6 @@ export default {
       }
     })
 
-    //获取真正的邀请人的信息
-    // this.http.get(this.$store.state.prefix + '/account/getAccount/'+window.localStorage["realInviterId"]).then(res => {
-    //   if (res.error === false) {
-    //     this.inviter = res.result
-    //   }
-    //   else{
-    //     this.$Message.error(res.msg)
-    //   }
-    // })
     this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ window.localStorage["ownId"]+'/'+this.activityId).then( res=> {
         if(res.result.userGroupInfo.length>0) {
           //判断是否已经加入任意团
@@ -165,7 +176,6 @@ export default {
         }else {
           requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["realInviterId"]
         }
-        alert(requesturl)
         this.http.get(this.$store.state.prefix + requesturl).then(res => {
           if (res.error === false) {
             this.activity = res.result;
@@ -175,6 +185,15 @@ export default {
               this.isGroup = false
             this.activity.discount = this.activity.discount == 0?10:this.activity.discount;
             document.title = res.result.activityName
+
+
+            var info = this.activity.groupInfo[0];
+            this.curGroup = {
+              id:info.groupId,
+              img:info.headImg,
+              name:this.util.sliceStr(info.userName,4),
+              peopleNum:len
+            }
           }
         }).then(()=> {
           if(this.activity.musicId != void 0 && this.activity.musicId != ''){
@@ -246,6 +265,31 @@ export default {
     })
   },
   methods: {
+    joinTeam(){
+      this.http.post(this.$store.state.prefix + '/activity/addGroup',{
+        groupId:this.curGroup.id,
+        activityId:this.curGroup.activeId
+      }).then(res => {
+        if(res.error == false){
+          this.$Message.success("恭喜你成功加入该团。");
+          this.$emit('watchGroup')
+        }else{
+          this.$Message.error(res.msg)
+        }
+      });
+    },
+    newTeam () {
+      this.http.post(this.$store.state.prefix + '/activity/addGroup',{
+        activityId:this.activeId
+      }).then(res => {
+        if(res.error == false){
+          this.$Message.success("恭喜创建新团成功。")
+          this.getGroupInfo();
+        }else{
+          this.$Message.error(res.msg)
+        }
+      });
+    },
     changeState(state){
       this.currentState = state;
     },
@@ -298,28 +342,23 @@ export default {
           this.activity.joinActivityInfo =res.result.joinGroupInfo
           this.activity.groupInfo =res.result.userGroupInfo
           console.log(this.activity)
-          debugger
           //重新计算折扣信息
           var discountLevel =this.util.ArraySort(JSON.parse(this.activity.discountLevel),'mans',true)
           var joinNum = 0
           if (~~this.activity.activityType === 1) {
             //自由模式
-            debugger
             joinNum = res.result.joinNum
           } else {
             //组团模式
-            debugger
             joinNum = res.result.userGroupInfo.length
           }
           this.activity.progress = Number(parseFloat(joinNum/(discountLevel[0].mans)).toFixed(2))
           this.activity.joinNum = joinNum
-          debugger
           for(var i in discountLevel){
             if(joinNum > discountLevel[i].mans) {
               this.activity.discount = discountLevel[i].discount
               break
             }
-
           }
 
           if(res.result.userGroupInfo.length>0) {
@@ -346,6 +385,51 @@ export default {
   .activityMain
     background #fff
     padding-bottom rrem(180px)
+  .activeInfo_team
+    position fixed
+    width rrem(590px)
+    height rrem(200px)
+    bottom rrem(46px)
+    left rrem(0px)
+    img
+      position absolute
+      width 100%
+      height 100%
+    .team_peopleInfo
+      position absolute
+      top rrem(38px)
+      left rrem(22px)
+      border-radius 100%
+      width rrem(110px)
+      height rrem(110px)
+      border rrem(7px) solid #fff
+      img
+        width 100%
+        height 100%
+    .team_startTeam,.team_joinTeam
+      position absolute
+      right rrem(31px)
+      top rrem(24px)
+      width rrem(158px)
+      height rrem(58px)
+    .team_joinTeam
+      right rrem(44px)
+      top rrem(105px)
+    .team_peopleName
+      position absolute
+      width rrem(238px)
+      height 100%
+      left rrem(140px)
+      padding-top rrem(40px)
+      color #fff
+      font-size rrem(28px)
+      .peopleName
+        margin-bottom rrem(10px)
+        font-weight bold
+        font-size rrem(30px)
+      p
+        height rrem(33px)
+        line-height rrem(33px)
   .homeCompany_body
     position fixed
     bottom rrem(50px)

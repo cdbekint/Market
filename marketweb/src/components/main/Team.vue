@@ -46,22 +46,6 @@ export default {
     deep:true
   },
   methods: {
-    newTeam () {
-      if(this.loading)return
-      this.loading = true
-      this.http.post(this.$store.state.prefix + '/activity/addGroup',{
-        activityId:this.activeId
-      }).then(res => {
-        this.loading = false
-        if(res.error == false){
-          this.$Message.success("恭喜创建新团成功。")
-          // location.reload();
-          this.$emit('watchGroup')
-        }else{
-          this.$Message.error(res.msg)
-        }
-      });
-    }
   }
 }
 </script>
