@@ -21,7 +21,7 @@
         <p>已有 {{currentGroup.peopleNum}} 人加入</p>
       </div>
       <img src="/static/images/startTeam.png" class="team_startTeam" @click="newTeam">
-      <img src="/static/images/joinTeam.png" class="team_joinTeam" @click="">
+      <img src="/static/images/joinTeam.png" class="team_joinTeam" @click="joinTeam">
     </div>
     <div class="homeCompany_body" style="z-index:2000;">
       <div class="body_company" @click="goCompany">
@@ -271,17 +271,14 @@ export default {
   },
   methods: {
     joinTeam(){
-      alert("join member" +this.$store.state.isMember)
       if(this.$store.state.isMember == 0){
         this.currentState = true;
         return;
       }
-      alert("join load" + this.isLoading)
       if(this.isLoading)return;
 
       this.isLoading = true;
 
-      alert("join group" + this.currentGroup.id)
       this.http.post(this.$store.state.prefix + '/activity/addGroup',{
         groupId:this.currentGroup.id,
         activityId:this.activity.id
