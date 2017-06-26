@@ -30,6 +30,22 @@ export default {
   name: 'teamList',
   props: ['activity'],
   methods:{
+    joinTeam(){
+      if(this.isloading)return
+      this.isloading=true
+      this.http.post(this.$store.state.prefix + '/activity/addGroup',{
+        groupId:this.curGroup.id,
+        activityId:this.curGroup.activeId
+      }).then(res => {
+        this.isloading=false
+        if(res.error == false){
+          this.$Message.success("恭喜你成功加入该团。");
+          this.$emit('watchGroup')
+        }else{
+          this.$Message.error(res.msg)
+        }
+      });
+    }
   },
   watch: {
     activity:{
@@ -39,6 +55,14 @@ export default {
           this.haveGroup = false;
           return;
         }
+        var info = val.groupInfo[0];
+        this.curGroup = {
+          activeId:val.id,
+          id:info.groupId,
+          img:info.headImg,
+          name:this.util.sliceStr(info.userName,4),
+          peopleNum:len
+        }
       },
       deep:true
     }
@@ -47,6 +71,11 @@ export default {
     return {
       haveGroup:true,
       curGroup:{
+        activeId:0,
+        id:'',
+        img:'',
+        name:'',
+        peopleNum:0
       },
       isloading: false
     }

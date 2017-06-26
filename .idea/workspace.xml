@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d989e5d-65fa-481d-a52a-350f6b285517" name="Default" comment="vvvkj">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marketweb/static/images/bg.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marketweb/static/images/joinTeam.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/marketweb/static/images/startTeam.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" afterPath="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
     </list>
     <ignored path="Market.iws" />
@@ -35,21 +30,18 @@
       <file leaf-file-name="ActivityInfo.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+            <state relative-caret-position="-2394">
+              <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="e#2198#3516#0" expanded="false" />
-                <element signature="e#8730#8770#0" expanded="false" />
-                <element signature="e#8800#9155#0" expanded="false" />
-                <element signature="e#9172#9418#0" expanded="false" />
-                <element signature="e#9432#9677#0" expanded="false" />
-                <element signature="e#9699#9861#0" expanded="false" />
-                <element signature="e#9883#11199#0" expanded="false" />
+                <element signature="e#8855#8895#0" expanded="false" />
+                <element signature="e#8925#9280#0" expanded="false" />
+                <element signature="e#9297#9543#0" expanded="false" />
+                <element signature="e#9557#9802#0" expanded="false" />
+                <element signature="e#9824#9986#0" expanded="false" />
                 <element signature="n#style#0;n#!!top" expanded="false" />
-                <element signature="e#12461#12777#0" expanded="false" />
-                <marker date="1498463189543" expanded="false" signature="7992:11203" ph="{...}" />
+                <element signature="e#12586#12902#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -58,8 +50,8 @@
       <file leaf-file-name="homePage.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/homePage.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1698">
-              <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
+            <state relative-caret-position="1512">
+              <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
               <folding>
                 <element signature="e#228#515#0" expanded="false" />
                 <element signature="e#572#607#0" expanded="true" />
@@ -81,7 +73,7 @@
       <file leaf-file-name="Team.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Team.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
+            <state relative-caret-position="864">
               <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#!!top" expanded="false" />
@@ -93,8 +85,8 @@
       <file leaf-file-name="teamList.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/teamList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state relative-caret-position="265">
+              <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
               <folding>
                 <element signature="n#style#0;n#!!top" expanded="false" />
               </folding>
@@ -165,10 +157,10 @@
         <option value="$PROJECT_DIR$/marketweb/dist/index.html" />
         <option value="$PROJECT_DIR$/marketweb/src/components/company/companyPage.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/timeAndPro.vue" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/Team.vue" />
-        <option value="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/App.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/main/teamList.vue" />
+        <option value="$PROJECT_DIR$/marketweb/src/components/home/homePage.vue" />
         <option value="$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue" />
       </list>
     </option>
@@ -533,12 +525,12 @@
       <workItem from="1498182763592" duration="25235000" />
       <workItem from="1498217667724" duration="531000" />
       <workItem from="1498284093356" duration="16786000" />
-      <workItem from="1498438689683" duration="17112000" />
+      <workItem from="1498438689683" duration="17964000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="526946000" />
+    <option name="totallyTimeSpent" value="527798000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -860,8 +852,8 @@
         <state relative-caret-position="126">
           <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#522#565#0" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="e#522#565#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -952,30 +944,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Team.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/teamList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/home/homePage.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1698">
-          <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
+        <state relative-caret-position="1512">
+          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
           <folding>
             <element signature="e#228#515#0" expanded="false" />
             <element signature="e#572#607#0" expanded="true" />
@@ -991,23 +963,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/Team.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/teamList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+          <folding>
+            <element signature="n#style#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/marketweb/src/components/main/ActivityInfo.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+        <state relative-caret-position="-2394">
+          <caret line="14" column="40" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="40" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="e#2198#3516#0" expanded="false" />
-            <element signature="e#8730#8770#0" expanded="false" />
-            <element signature="e#8800#9155#0" expanded="false" />
-            <element signature="e#9172#9418#0" expanded="false" />
-            <element signature="e#9432#9677#0" expanded="false" />
-            <element signature="e#9699#9861#0" expanded="false" />
-            <element signature="e#9883#11199#0" expanded="false" />
+            <element signature="e#8855#8895#0" expanded="false" />
+            <element signature="e#8925#9280#0" expanded="false" />
+            <element signature="e#9297#9543#0" expanded="false" />
+            <element signature="e#9557#9802#0" expanded="false" />
+            <element signature="e#9824#9986#0" expanded="false" />
             <element signature="n#style#0;n#!!top" expanded="false" />
-            <element signature="e#12461#12777#0" expanded="false" />
-            <marker date="1498463189543" expanded="false" signature="7992:11203" ph="{...}" />
+            <element signature="e#12586#12902#0" expanded="false" />
           </folding>
         </state>
       </provider>

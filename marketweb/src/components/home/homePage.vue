@@ -89,24 +89,6 @@ export default {
         }
       });
 
-//      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" + companyId).then(res=> {
-//        if(res.error == false){
-//          console.log(res)
-//          var arr = [];
-//          res.result.forEach(item=>{
-//            arr.push({
-//              img:item.headImg,
-//              name:item.nickName,
-//              jifen:item.points,
-//              peopleNum:item.invitedMems,
-//              consume:item.selfExpense
-//            })
-//          });
-//          this.datas.jifenInfo = arr;
-//        }
-//      });
-
-      console.log(this.datas)
     },
     setPointByCurrentCompany(companyId){
       this.pointAndMoneyArr.forEach(item=>{

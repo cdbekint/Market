@@ -44,8 +44,6 @@ import Gift from './Gift.vue'
 import music from '../Utils/music.vue'
 import Group from './Group.vue'
 import Money from './Moeny.vue'
-import Team from './Team.vue'
-import teamList from './teamList.vue'
 import Discount from './Discount.vue'
 import joinPeople from './joinPeople.vue'
 import goodsList from './goodsList.vue'
@@ -54,6 +52,7 @@ export default {
   name: 'ActivityInfo',
   data () {
     return {
+      isLoading:false,
       comState:"com",
       homeState:"home",
       isGroup:true,
@@ -122,7 +121,7 @@ export default {
       hasGroup:false
     }
   },
-  components: {mainImg, teamList, timeAndPro, Team, Discount, Gift, Group, Money, joinPeople,goodsList,register, music},
+  components: {mainImg, timeAndPro, Discount, Gift, Group, Money, joinPeople,goodsList,register, music},
   created () {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
@@ -266,19 +265,28 @@ export default {
   },
   methods: {
     joinTeam(){
+      if(this.isLoading)return;
+
+      this.isLoading = true;
+
       this.http.post(this.$store.state.prefix + '/activity/addGroup',{
         groupId:this.curGroup.id,
         activityId:this.curGroup.activeId
       }).then(res => {
         if(res.error == false){
           this.$Message.success("恭喜你成功加入该团。");
-          this.$emit('watchGroup')
+          this.getGroupInfo();
         }else{
           this.$Message.error(res.msg)
         }
+        this.isLoading = false;
       });
     },
     newTeam () {
+      if(this.isLoading)return;
+
+      this.isLoading = true;
+
       this.http.post(this.$store.state.prefix + '/activity/addGroup',{
         activityId:this.activeId
       }).then(res => {
@@ -288,6 +296,7 @@ export default {
         }else{
           this.$Message.error(res.msg)
         }
+        this.isLoading = false;
       });
     },
     changeState(state){
