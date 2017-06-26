@@ -199,6 +199,9 @@ export default {
                 peopleNum:0
               }
             }
+            alert(this.currentGroup.id);
+            alert(this.currentGroup.name);
+            alert(this.currentGroup.img);
           }
         }).then(()=> {
           if(this.activity.musicId != void 0 && this.activity.musicId != ''){
@@ -278,10 +281,8 @@ export default {
       if(this.isLoading)return;
 
       this.isLoading = true;
-      alert(this.currentGroup.id);
-      alert(this.currentGroup.name);
-      alert(this.currentGroup.img);
 
+      alert("join")
       this.http.post(this.$store.state.prefix + '/activity/addGroup',{
         groupId:this.currentGroup.id,
         activityId:this.activity.id
