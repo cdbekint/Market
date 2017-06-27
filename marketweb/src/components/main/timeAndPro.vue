@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class = "main_title">
-          <span class = "text">已参与{{activity.joinNum}}人</span>
+          <span class = "text">总参与{{activity.joinNum}}人</span>
           <img src="/static/images/line.png" alt="">
           <span class = "english">THE PARTICIPANTS NUMBER</span>
         </div>
