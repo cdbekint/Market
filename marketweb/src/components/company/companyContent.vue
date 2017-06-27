@@ -182,13 +182,18 @@ export default {
                 },
                 function (res) {
                   alert(res.err_msg)
-                  if (res.err_msg != 'get_brand_wcpay_request:fail' && res.err_msg != 'get_brand_wcpay_request:cancel') {
+                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
                     this.payState = true
                     this.$Message.success("购买成功");
                     this.$router.push('/');
+                    alert("1")
                   }
-                  else {
+                  else if(res.err_msg != 'get_brand_wcpay_request:cancel'){
+                    this.$Message.error("取消支付");
+                   alert("2") 
+                  } else{
                     this.$Message.error("购买失败");
+                    alert("3")
                   }
                 }
               )
