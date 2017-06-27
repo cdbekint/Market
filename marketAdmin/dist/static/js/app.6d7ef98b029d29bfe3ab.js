@@ -2588,7 +2588,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       areasTwo: [],
       areasThree: [],
       uploaderconfig: {
-        maxSize: 5120,
+        maxSize: 1024,
         format: ['jpg', 'png', 'jpeg'],
         showUploadList: false,
         parent: 'company',
@@ -5602,7 +5602,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     domProps: {
-      "textContent": _vm._s(_vm.companyinfo.toCashRate)
+      "textContent": _vm._s(_vm.companyinfo.toCashRate + '%')
     }
   })]), _vm._v(" "), _c('Form-item', {
     staticClass: "text-left",
@@ -5675,7 +5675,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v("\n          (折算现金:"), _c('span', {
     domProps: {
-      "textContent": _vm._s(_vm.companyinfo.sharePoints * _vm.companyinfo.toCashRate + '元')
+      "textContent": _vm._s(_vm.companyinfo.sharePoints * _vm.companyinfo.toCashRate / 100 + '元')
     }
   }), _vm._v(")\n          \n        ")]), _vm._v(" "), _c('Form-item', {
     staticClass: "text-left",
@@ -5706,7 +5706,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v("\n         (折算现金:"), _c('span', {
     domProps: {
-      "textContent": _vm._s(_vm.companyinfo.registerPoints * _vm.companyinfo.toCashRate + '元')
+      "textContent": _vm._s(_vm.companyinfo.registerPoints * _vm.companyinfo.toCashRate / 100 + '元')
     }
   }), _vm._v(")\n      ")]), _vm._v(" "), _c('Form-item', {
     staticClass: "text-left",
@@ -8215,26 +8215,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "itemname"
   }, [_vm._v("\r\n      积分折现金比\r\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "itemcontent"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.company.toCashRate),
-      expression: "company.toCashRate"
-    }],
+  }, [_c('Input', {
     attrs: {
       "type": "text"
     },
-    domProps: {
-      "value": (_vm.company.toCashRate)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.company.toCashRate = $event.target.value
-      }
+    model: {
+      value: (_vm.company.toCashRate),
+      callback: function($$v) {
+        _vm.company.toCashRate = $$v
+      },
+      expression: "company.toCashRate"
     }
-  })]), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticStyle: {
+      "display": "block",
+      "width": "35px"
+    },
+    slot: "append"
+  }, [_vm._v("%")])])], 1), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
   })]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
@@ -8455,29 +8453,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "itemname"
   }, [_vm._v("自己消费返还积分比率")]), _vm._v(" "), _c('div', {
     staticClass: "itemcontent"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.company.selfReturn),
-      expression: "company.selfReturn"
-    }],
+  }, [_c('Input', {
     attrs: {
       "type": "number"
     },
-    domProps: {
-      "value": (_vm.company.selfReturn)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.company.selfReturn = $event.target.value
+    model: {
+      value: (_vm.company.selfReturn),
+      callback: function($$v) {
+        _vm.company.selfReturn = $$v
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "company.selfReturn"
     }
-  })]), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticStyle: {
+      "display": "block",
+      "width": "35px"
+    },
+    slot: "append"
+  }, [_vm._v("%")])])], 1), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
   })]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
@@ -8485,29 +8478,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "itemname"
   }, [_vm._v("一级邀请人返还积分比率")]), _vm._v(" "), _c('div', {
     staticClass: "itemcontent"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.company.oneReturn),
-      expression: "company.oneReturn"
-    }],
+  }, [_c('Input', {
     attrs: {
       "type": "number"
     },
-    domProps: {
-      "value": (_vm.company.oneReturn)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.company.oneReturn = $event.target.value
+    model: {
+      value: (_vm.company.oneReturn),
+      callback: function($$v) {
+        _vm.company.oneReturn = $$v
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "company.oneReturn"
     }
-  })]), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticStyle: {
+      "display": "block",
+      "width": "35px"
+    },
+    slot: "append"
+  }, [_vm._v("%")])])], 1), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
   })]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
@@ -8515,29 +8503,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "itemname"
   }, [_vm._v("二级邀请人返还积分比率")]), _vm._v(" "), _c('div', {
     staticClass: "itemcontent"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.company.secondReturn),
-      expression: "company.secondReturn"
-    }],
+  }, [_c('Input', {
     attrs: {
       "type": "number"
     },
-    domProps: {
-      "value": (_vm.company.secondReturn)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.company.secondReturn = $event.target.value
+    model: {
+      value: (_vm.company.secondReturn),
+      callback: function($$v) {
+        _vm.company.secondReturn = $$v
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "company.secondReturn"
     }
-  })]), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticStyle: {
+      "display": "block",
+      "width": "35px"
+    },
+    slot: "append"
+  }, [_vm._v("%")])])], 1), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
   })]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
@@ -40651,4 +40634,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.88f0af08c4a235ac97d2.js.map
+//# sourceMappingURL=app.6d7ef98b029d29bfe3ab.js.map

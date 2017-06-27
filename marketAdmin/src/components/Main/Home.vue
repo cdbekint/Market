@@ -35,7 +35,7 @@
         <span v-text="companyinfo.balance+'元'"></span>
       </Form-item>
         <Form-item label="积分抵扣现金" class="text-left">
-          <span v-text="companyinfo.toCashRate"></span>
+          <span v-text="companyinfo.toCashRate+'%'"></span>
         </Form-item>
         <Form-item label="员工提成比" class="text-left">
           <Row v-for='(group,index) in Group' :key='group' :label='"项目" + (index + 1)' style='margin:7px;'>
@@ -53,7 +53,7 @@
         </Form-item>
         <Form-item label="转发积分" class="text-left">
           <span v-text="companyinfo.sharePoints"></span>
-          (折算现金:<span v-text="companyinfo.sharePoints*companyinfo.toCashRate+'元'"></span>)
+          (折算现金:<span v-text="companyinfo.sharePoints*companyinfo.toCashRate/100+'元'"></span>)
           
         </Form-item>
          <Form-item label="转发次数" class="text-left">
@@ -64,7 +64,7 @@
       </Form-item>
       <Form-item label="注册返还积分" class="text-left">
         <span v-text="companyinfo.registerPoints"></span>
-         (折算现金:<span v-text="companyinfo.registerPoints*companyinfo.toCashRate+'元'"></span>)
+         (折算现金:<span v-text="companyinfo.registerPoints*companyinfo.toCashRate/100+'元'"></span>)
       </Form-item>
       <Form-item label="自己消费返还积分比率" class="text-left">
         <span v-text="companyinfo.selfReturn+'%'"></span>

@@ -114,7 +114,9 @@
       积分折现金比
     </div>
     <div class='itemcontent'>
-      <input type='text' v-model='company.toCashRate'>
+      <Input type='text' v-model='company.toCashRate'>
+      <span slot="append" style="display: block;width:35px;">%</span>
+      </Input>
     </div>
     <div class='itemhepler'>
 
@@ -195,7 +197,9 @@
   <li class='companyitem'>
     <div class='itemname'>自己消费返还积分比率</div>
     <div class='itemcontent'>
-      <input type='number' v-model='company.selfReturn'>
+      <Input type='number' v-model='company.selfReturn'>
+      <span slot="append" style="display: block;width:35px;">%</span>
+      </Input>
     </div>
     <div class='itemhepler'>
 
@@ -204,7 +208,9 @@
   <li class='companyitem'>
     <div class='itemname'>一级邀请人返还积分比率</div>
     <div class='itemcontent'>
-      <input type='number' v-model='company.oneReturn'>
+      <Input type='number' v-model='company.oneReturn'>
+      <span slot="append" style="display: block;width:35px;">%</span>
+      </Input>
     </div>
     <div class='itemhepler'>
 
@@ -213,7 +219,9 @@
   <li class='companyitem'>
     <div class='itemname'>二级邀请人返还积分比率</div>
     <div class='itemcontent'>
-      <input type='number' v-model='company.secondReturn'>
+      <Input type='number' v-model='company.secondReturn'>
+      <span slot="append" style="display: block;width:35px;">%</span>
+      </Input>
     </div>
     <div class='itemhepler'>
 
@@ -291,7 +299,7 @@ export default {
       areasTwo: [],
       areasThree: [],
       uploaderconfig: {
-        maxSize: 5120,
+        maxSize: 1024,
         format: ['jpg', 'png', 'jpeg'],
         showUploadList: false,
         parent: 'company',
