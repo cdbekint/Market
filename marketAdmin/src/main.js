@@ -104,7 +104,6 @@ new Vue({
   components: { App },
   created () {
     if (!store.state.token) {
-      alert(this.util.isWeiXin())
       if (this.util.isWeiXin()) {
         location.replace('/login.html')
       } else {

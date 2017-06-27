@@ -1,5 +1,5 @@
 <template>
-  <div class='infos'>
+  <div class='infos' id="infos">
     <div class="main_companyInfo">
       <div class="main_company">
         <div class="company_info" v-for="x,index in menuList" :class="x.active" @click="changeCompany(index)">
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="main_info">
-      <div class="info_jifen info_active" v-for="x in activityInfo" v-if="index==0" @click="goToActive(x.id)">
+      <div class="info_jifen info_active" v-for="x in activityInfo.info" v-if="index==0" @click="goToActive(x.id)">
         <img :src="murl + x.img" class="jifen_img  active_img">
         <div class="jifen_name active_name">
           <span class="name_head active_head">{{x.name}}</span>
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div class="info_jifen info_people" v-for="x in memberInfo" v-if="index==1">
+      <div class="info_jifen info_people" v-for="x in memberInfo.info" v-if="index==1">
         <img :src="x.img" class="jifen_img  people_img">
         <div class="jifen_name people_name">
           <span class="name_head people_head">{{x.name}}</span>
@@ -54,7 +54,6 @@
         </div>
       </div>
 
-
       <div class="info_jifen info_count" v-if="index==2">
         <div class="count_main">
           <div class="div_text main_time">时间</div>
@@ -65,7 +64,7 @@
             <img src="/static/images/red/mo.png">
           </div>
         </div>
-        <div class="count_main count_list" v-for="x in consumeInfo">
+        <div class="count_main count_list" v-for="x in consumeInfo.info">
           <div class="div_text main_time">{{x.time}}</div>
           <div class="main_content div_text">{{x.content}}</div>
           <div class="main_jifen div_text">
@@ -75,10 +74,9 @@
         </div>
       </div>
 
-
       <div class="info_jifen" v-if="index==3">
         <ul class="pointrecords">
-          <li v-for="x in jifenInfo">
+          <li v-for="x in jifenInfo.info">
             <div class="r_points" v-text="x.jifen"></div>
             <div class="r_remarks" v-text="x.content"></div>
             <div class="r_date" v-text="x.time"></div>
@@ -88,7 +86,7 @@
     </div>
 
     <div class="discount_pull" v-if="!currentPageLimit">
-      <img src="/static/images/company/pull.png" >
+      <img src="/static/images/company/pull.png"  @click="requestInfoByScroll">
     </div>
   </div>
 </template>
@@ -112,11 +110,9 @@
         location.href = url;
       },
       changeCompany (val) {
-        if(this.index !== val){
-          this.index = val
-        }
+        this.index = val
         var currentPage = this.infoArr[val];
-        if(this[currentPage].length >= 12){
+        if(this[currentPage].info.length >= 12 && (this[currentPage].total > this[currentPage].page)){
           this.currentPageLimit = false;
         }
         else{
@@ -134,8 +130,13 @@
         this.$emit("head_company",val);
       },
       requestInfoByScroll(){
-
-        this.$emit("getMoreInfoByScroll",this.index,page);
+        if( !this.currentPageLimit){
+          var currentTitle = this.infoArr[this.index];
+          console.log(currentTitle)
+          var page = this[currentTitle].page+1;
+          console.log(page)
+          this.$emit("getMoreInfoByScroll",this.index,page);
+        }
       }
     },
     created(){
@@ -166,6 +167,12 @@
           this.jifenInfo = val.jifenInfo;
           this.consumeInfo = val.consumeInfo;
 
+          if(this.activityInfo.info.length >= 12 && (this.activityInfo.total > this.activityInfo.page)){
+            this.currentPageLimit = false;
+          }
+          else{
+            this.currentPageLimit = true;
+          }
         },
         deep:true
       }
@@ -181,10 +188,10 @@
         menuList:[],
         menu:['参加活动','我的邀请','消费记录','积分记录'],
         infoArr:["activityInfo","memberInfo","consumeInfo","jifenInfo"],
-        activityInfo:[],
-        memberInfo:[],
-        jifenInfo:[],
-        consumeInfo:[]
+        activityInfo:{},
+        memberInfo:{},
+        jifenInfo:{},
+        consumeInfo:{}
       }
     }
   }
