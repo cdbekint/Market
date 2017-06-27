@@ -86,6 +86,10 @@
         </ul>
       </div>
     </div>
+
+    <div class="discount_pull" v-if="!currentPageLimit">
+      <img src="/static/images/company/pull.png" >
+    </div>
   </div>
 </template>
 
@@ -110,6 +114,10 @@
       changeCompany (val) {
         if(this.index !== val){
           this.index = val
+        }
+        var currentPage = this.infoArr[val];
+        if(this[currentPage].length >= 12){
+          this.currentPageLimit = false;
         }
         this.menuList.forEach((item,index)=>{
           if(index == val){
@@ -157,6 +165,7 @@
     },
     data () {
       return {
+        currentPageLimit:true,
         index:0,
         on:"boff.png",
         off:"bon.png",
@@ -164,6 +173,7 @@
         noactive:"",
         menuList:[],
         menu:['参加活动','我的邀请','消费记录','积分记录'],
+        infoArr:["activityInfo","memberInfo","consumeInfo","jifenInfo"],
         activityInfo:[],
         memberInfo:[],
         jifenInfo:[],
@@ -379,4 +389,13 @@
               left rrem(77px)
 
 
+    .discount_pull
+      text-align center
+      width 100%
+      height rrem(30px)
+      margin-top rrem(30px)
+      img
+        margin rrem(20px) 0px
+        width rrem(105px)
+        height rrem(31px)
 </style>

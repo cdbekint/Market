@@ -117,6 +117,8 @@
     <div class="main_company" v-if="currentPage==3" v-html="showInfo">
 
     </div>
+
+
   </div>
 </template>
 
