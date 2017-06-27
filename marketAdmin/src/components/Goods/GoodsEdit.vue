@@ -19,8 +19,11 @@
           <input type="hidden" v-model="Goods.goodsImg">
         </Form-item>
         <Form-item label="图片预览">
-          <a :href="murl + gg" target="_blank" v-if="Goods.goodsImg" v-for="gg in Goods.goodsImg.split(',')">
+          <a  v-if="Goods.goodsImg" class="goodsimgwrapper" v-for="gg,index in Goods.goodsImg.split(',')">
            <img :src="murl+gg" alt="" class="goodsimgthumb" style="width:250px;height:250px;">
+           <div class="delbtns">
+             <img src="/static/images/del.png" alt="" @click="delThisPic(index)">
+           </div>
          </a>
         </Form-item>
         <Form-item label="商品类型" prop="goodsType">
@@ -172,6 +175,11 @@
         console.log(obj)
         this.Goods.goodsDesc = obj.content
         this.Ueditorconfig.info = obj
+      },
+      delThisPic (index) {
+      var temp=this.Goods.goodsImg.split(",");
+      temp.splice(index,1)
+        this.Goods.goodsImg=temp.join(",")
       }
     }
   }
@@ -181,9 +189,21 @@
   .goodseditform
     width:60%
     margin-top:30px
-  .goodsimgthumb
-    width:100%
-    height:auto
+  .goodsimgwrapper
+    display:block
+    position:relative
+    .delbtns
+      position:absolute
+      right:10px
+      bottom:50%
+      height:25px
+      width:25px
+      img
+        width:100%
+    .goodsimgthumb
+      width:100%
+      height:auto
+      
   .ueditor-wrapper
     width:166%
 </style>

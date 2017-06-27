@@ -134,8 +134,8 @@ export default {
     getList (pageNo) {
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1).then(res => {
         if (res.error === false) {
-          this.pager.totalPage = res.result.totalPage
-          this.pager.pageNo = res.result.pageNo
+          this.pager.totalPage = res.result.pages
+          this.pager.pageNo = res.result.current
           this.companyData = res.result.records;
         }
       })
@@ -144,8 +144,8 @@ export default {
       var url = this.searchVal == 1 ? '/customer/getCompanyUserInfo/1?member=1&employee=0':'/customer/getCompanyUserInfo/1?member=0&employee=1';
       this.http.get(this.$store.state.prefix + url).then(res => {
         if (res.error === false) {
-          this.pager.totalPage = res.result.totalPage
-          this.pager.pageNo = res.result.pageNo
+          this.pager.totalPage = res.result.pages
+          this.pager.pageNo = res.result.current
           this.companyData = res.result.records;
         }
       })

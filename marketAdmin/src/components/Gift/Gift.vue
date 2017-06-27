@@ -14,7 +14,7 @@
     <Table border :columns="giftlistColumns" :data="giftlistData" class="giftlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="giftpager.total" :current="giftpager.current" @on-change="changePage($event)"></Page>
+            <Page :total="giftpager.pages" :current="giftpager.current" @on-change="changePage($event)"></Page>
         </div>
     </div>
  	</div>

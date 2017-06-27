@@ -12,7 +12,7 @@
     <Table border :columns="goodslistColumns" :data="goodslistData" class="goodslistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="goodspager.total" :current="goodspager.current" @on-change="changePage"></Page>
+            <Page :total="goodspager.pages" :current="goodspager.current" @on-change="changePage"></Page>
         </div>
     </div>
  	</div>
@@ -97,7 +97,7 @@
         ],
         goodslistData: [],
         goodspager: {
-          total: 1,
+          pages: 1,
           current: 1
         }
       }
@@ -109,6 +109,7 @@
       getGoodsList (pageNo) {
         this.http.get(this.$store.state.prefix +'/goods/page/' + (pageNo || 1)).then(res => {
           if (res.error === false) {
+            debugger
             this.goodspager = res.result
             for (var i in res.result.records) {
               res.result.records[i].goodsImg = res.result.records[i].goodsImg.split(',')[0]
@@ -118,6 +119,7 @@
         })
       },
       changePage () {
+        debugger
         this.getGoodsList(this.goodspager.current)
       },
       update (id) {

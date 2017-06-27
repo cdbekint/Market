@@ -14,7 +14,7 @@
    <Table border :columns="activitylistColumns" :data="activitylistData" class="activitylistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="activitypager.total" :current="activitypager.current" @on-change="changePage"></Page>
+            <Page :total="activitypager.pages" :current="activitypager.current" @on-change="changePage"></Page>
         </div>
     </div>
  	</div>

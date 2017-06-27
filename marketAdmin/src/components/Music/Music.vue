@@ -14,7 +14,7 @@
   <Table border :columns="musiclistColumns" :data="musiclistData" class="musiclistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="musicpager.total" :current="musicpager.current" @on-change="changePage"></Page>
+            <Page :total="musicpager.pages" :current="musicpager.current" @on-change="changePage"></Page>
         </div>
     </div>
  </div>
@@ -59,7 +59,7 @@ export default {
       ],
       musiclistData: [],
       musicpager: {
-        total: 1,
+        pages: 1,
         current: 1
       }
     }

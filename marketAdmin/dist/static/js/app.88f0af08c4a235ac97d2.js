@@ -1230,7 +1230,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageUrl: 'http://up.qiniu.com/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
-        imageMaxSize: 2048000,
+        imageMaxSize: 2048,
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
         imageCompressEnable: true,
         imageCompressBorder: 1600,
@@ -1264,14 +1264,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         level: 10
       }]), _activity),
       Mainuploaderconfig: {
-        maxSize: 10240,
+        maxSize: 5120,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
         child: 'activityImg'
       },
       uploaderconfig: {
-        maxSize: 10240,
+        maxSize: 1024,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
@@ -2230,7 +2230,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       goodslistData: [],
       goodspager: {
-        total: 1,
+        pages: 1,
         current: 1
       }
     };
@@ -2245,6 +2245,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.http.get(this.$store.state.prefix + '/goods/page/' + (pageNo || 1)).then(function (res) {
         if (res.error === false) {
+          debugger;
           _this.goodspager = res.result;
           for (var i in res.result.records) {
             res.result.records[i].goodsImg = res.result.records[i].goodsImg.split(',')[0];
@@ -2254,6 +2255,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     changePage: function changePage() {
+      debugger;
       this.getGoodsList(this.goodspager.current);
     },
     update: function update(id) {
@@ -2389,6 +2391,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(obj);
       this.Goods.goodsDesc = obj.content;
       this.Ueditorconfig.info = obj;
+    },
+    delThisPic: function delThisPic(index) {
+      var temp = this.Goods.goodsImg.split(",");
+      temp.splice(index, 1);
+      this.Goods.goodsImg = temp.join(",");
     }
   }
 });
@@ -2512,6 +2519,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(obj);
       this.Goods.goodsDesc = obj.content;
       this.Ueditorconfig.info = obj;
+    },
+    delThisPic: function delThisPic(index) {
+      var temp = this.Goods.goodsImg.split(",");
+      temp.splice(index, 1);
+      this.Goods.goodsImg = temp.join(",");
     }
   }
 });
@@ -2870,8 +2882,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1).then(function (res) {
         if (res.error === false) {
-          _this3.pager.totalPage = res.result.totalPage;
-          _this3.pager.pageNo = res.result.pageNo;
+          _this3.pager.totalPage = res.result.pages;
+          _this3.pager.pageNo = res.result.current;
           _this3.companyData = res.result.records;
         }
       });
@@ -2882,8 +2894,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var url = this.searchVal == 1 ? '/customer/getCompanyUserInfo/1?member=1&employee=0' : '/customer/getCompanyUserInfo/1?member=0&employee=1';
       this.http.get(this.$store.state.prefix + url).then(function (res) {
         if (res.error === false) {
-          _this4.pager.totalPage = res.result.totalPage;
-          _this4.pager.pageNo = res.result.pageNo;
+          _this4.pager.totalPage = res.result.pages;
+          _this4.pager.pageNo = res.result.current;
           _this4.companyData = res.result.records;
         }
       });
@@ -2955,7 +2967,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       orderlistData: [],
       pager: {
-        total: 1,
         pages: 1,
         current: 1
       }
@@ -3028,8 +3039,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       listData: [],
       pointpager: {
-        total: 1,
-        pages: 1
+        pages: 1,
+        current: 1
       }
     };
   },
@@ -3552,7 +3563,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       musiclistData: [],
       musicpager: {
-        total: 1,
+        pages: 1,
         current: 1
       }
     };
@@ -5246,7 +5257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.goodspager.total,
+      "total": _vm.goodspager.pages,
       "current": _vm.goodspager.current
     },
     on: {
@@ -5470,7 +5481,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.giftpager.total,
+      "total": _vm.giftpager.pages,
       "current": _vm.giftpager.current
     },
     on: {
@@ -6307,7 +6318,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.pager.total,
+      "total": _vm.pager.pages,
       "current": _vm.pager.current
     },
     on: {
@@ -7305,7 +7316,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.activitypager.total,
+      "total": _vm.activitypager.pages,
       "current": _vm.activitypager.current
     },
     on: {
@@ -7723,12 +7734,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label": "图片预览"
     }
-  }, _vm._l((_vm.Goods.goodsImg.split(',')), function(gg) {
+  }, _vm._l((_vm.Goods.goodsImg.split(',')), function(gg, index) {
     return (_vm.Goods.goodsImg) ? _c('a', {
-      attrs: {
-        "href": _vm.murl + gg,
-        "target": "_blank"
-      }
+      staticClass: "goodsimgwrapper"
     }, [_c('img', {
       staticClass: "goodsimgthumb",
       staticStyle: {
@@ -7739,7 +7747,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": _vm.murl + gg,
         "alt": ""
       }
-    })]) : _vm._e()
+    }), _vm._v(" "), _c('div', {
+      staticClass: "delbtns"
+    }, [_c('img', {
+      attrs: {
+        "src": "/static/images/del.png",
+        "alt": ""
+      },
+      on: {
+        "click": function($event) {
+          _vm.delThisPic(index)
+        }
+      }
+    })])]) : _vm._e()
   })), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "商品类型",
@@ -8598,7 +8618,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.musicpager.total,
+      "total": _vm.musicpager.pages,
       "current": _vm.musicpager.current
     },
     on: {
@@ -8717,8 +8737,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.pointpager.total,
-      "current": _vm.pointpager.pages
+      "total": _vm.pointpager.pages,
+      "current": _vm.pointpager.current
     },
     on: {
       "on-change": function($event) {
@@ -9591,12 +9611,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label": "图片预览"
     }
-  }, _vm._l((_vm.Goods.goodsImg.split(',')), function(gg) {
+  }, _vm._l((_vm.Goods.goodsImg.split(',')), function(gg, index) {
     return (_vm.Goods.goodsImg) ? _c('a', {
-      attrs: {
-        "href": _vm.murl + gg,
-        "target": "_blank"
-      }
+      staticClass: "goodsimgwrapper"
     }, [_c('img', {
       staticClass: "goodsimgthumb",
       staticStyle: {
@@ -9607,7 +9624,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": _vm.murl + gg,
         "alt": ""
       }
-    })]) : _vm._e()
+    }), _vm._v(" "), _c('div', {
+      staticClass: "delbtns"
+    }, [_c('img', {
+      attrs: {
+        "src": "/static/images/del.png",
+        "alt": ""
+      },
+      on: {
+        "click": function($event) {
+          _vm.delThisPic(index)
+        }
+      }
+    })])]) : _vm._e()
   })), _vm._v(" "), _c('Form-item', {
     attrs: {
       "label": "商品类型",
@@ -40622,4 +40651,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.5b11f17c6efe84b23752.js.map
+//# sourceMappingURL=app.88f0af08c4a235ac97d2.js.map
