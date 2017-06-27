@@ -27,7 +27,23 @@
 
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
       <img src="/static/images/company/fanhui.png" @click="returnGoodsList" class="detail_return">
-      <img :src="murl + currentGoods.img" class="detail_bg">
+      <div class="detail_bg">
+      <swiper id="swiper_vertical"
+        direction="horizontal"
+        :mousewheel-control="false"
+        :performance-mode="false"
+        :pagination-visible="true"
+        :pagination-clickable="true"
+        :loop="false"
+        @slide-change-start="onSlideChangeStart"
+        @slide-change-end="onSlideChangeEnd">
+          <div class="swiperItem" v-for="ci in currentGoods.images">
+            <img :src="murl + ci">
+          </div>
+      </swiper>
+        
+      </div>
+      
       <div class="detail_text">
         <div class="text_main">
           <span class="main_title">{{currentGoods.name}}</span>
@@ -123,9 +139,11 @@
 </template>
 
 <script type="text/ecmascript-6">
+import Swiper from 'vue-swiper'
 export default {
   name: 'companyContent',
   props:["ids"],
+  components:{Swiper},
   methods:{
     returnGoodsList(){
       this.notDetail = true;
@@ -184,6 +202,7 @@ export default {
             name:row.goodsName,
             price:row.goodsPrice,
             img:row.goodsImg,
+            images:row.goodsImg.split(","),
             desc:this.util.escapeToHtml(row.goodsDesc),
             price:''
           }
@@ -297,6 +316,12 @@ export default {
           })
         }
       })
+    },
+    onSlideChangeStart (currentPage) {
+      console.log('onSlideChangeStart', currentPage);
+    },
+    onSlideChangeEnd (currentPage) {
+      console.log('onSlideChangeEnd', currentPage);
     }
 
   },
@@ -364,7 +389,8 @@ export default {
     return {
       currentGoods:{
         saleNum:0,
-        storageNum:0
+        storageNum:0,
+        images:[]
       },
       selectGoodsId:0,
       params: {
@@ -698,15 +724,22 @@ export default {
       height rrem(970px)
       background #fff;
       position relative
-      img
+      .detail_bg
         height rrem(600px)
         width 100%
+        .swiperItem
+          width:100%
+          height rrem(600px)
+          overflow-y:hidden
+          img
+            width:100%
       .detail_return
         position absolute
         top rrem(35px)
         left rrem(35px)
         width rrem(100px)
         height rrem(100px)
+        z-index:2
       .detail_text
         width 93%
         height rrem(100px)
@@ -760,7 +793,8 @@ export default {
         width 100%
         overflow-x:hidden
         text-align center
-        height rrem(640px)
+        min-height rrem(640px)
+        height:auto
         padding-top rrem(50px)
         position relative
         .bg
@@ -768,17 +802,20 @@ export default {
           width 100%
           position absolute
           top 0px
-          height rrem(640px)
+          height:auto
+          min-height rrem(640px)
           opacity 0.5
           background #000
         .txt
           width 100%
           padding:5px
           text-align:left
-          min-height rrem(200px)
+          min-height rrem(640px)
           padding-left rrem(20px)
           padding-top rrem(20px)
+          background:#fff
           p
+            color:#000
             line-height:1em
             img
               width:100%
