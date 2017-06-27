@@ -525,7 +525,7 @@ export default {
     margin-bottom rrem(100px)
     height rrem(1640px)
     .info_isNull
-      width rrem(100%)
+      width rrem(1000px)
       height rrem(340px)
       background #fff
       text-align center
