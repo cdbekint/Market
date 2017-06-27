@@ -19,10 +19,10 @@
             <span class="text_price">{{x.price}}</span>
           </div>
         </div>
-      </div>
-      <div class="info_isNull" v-if="!showGoods">
-        <img src="/static/images/shop.png">
-        <p>这里暂时没有商品喔</p>
+        <div class="info_isNull" v-if="!showGoods">
+          <img src="/static/images/shop.png">
+          <p>这里暂时没有商品喔</p>
+        </div>
       </div>
       <!--<div class="class_pull">-->
         <!--<img src="/static/images/company/pull.png" alt="">-->
@@ -268,9 +268,30 @@ export default {
           item.static = 1;
         }
       })
+      var url = this.url == ''?"?orderType="+index : this.url+"&orderType="+index;
+      this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" + url ).then(res=>{
+        if(res.error == false){
+          this.member = [];
+          var row = res.result;
+          row.forEach(item=>{
+            var obj = {
+              img:item.headImg,
+              surplus:item.points,
+              total:item.allPoints,
+              people:item.invitedMems
+            }
+            this.member.push(obj)
+          });
+
+          if(this.member.length == 0)
+            this.showMember = false;
+          else
+            this.showMember = true;
+        }
+      })
     },
     changeJifen(index){
-     this.titleImgs.forEach((item,i) => {
+     this.jifenCategory.forEach((item,i) => {
        item.static = 0;
        if(index == i){
          item.static = 1;
@@ -288,10 +309,8 @@ export default {
       this.goods = [];
       this.getGoodsByType(index);
     },
-    getGoodsByType(id,url){
-      if(url == void 0)
-        url = '';
-      this.http.get( this.$store.state.prefix + "/shop/getGoodsInfo/"+ id + url).then(res=>{
+    getGoodsByType(id){
+      this.http.get( this.$store.state.prefix + "/shop/getGoodsInfo/"+ id + this.url).then(res=>{
         if(res.error == false){
           res.result.forEach(item=>{
             var obj = null;
@@ -339,17 +358,16 @@ export default {
 
   },
   created(){
-    var url = '';
     if(this.ids.id != void 0){
       this.showDetail(this.ids.id,1);
     };
 
     if(this.ids.companyId != void 0){
-      url = '?companyId=' + this.ids.companyId
+      this.url = '?companyId=' + this.ids.companyId
     }
 
-    this.getGoodsByType(1,url);
-    this.http.get( this.$store.state.prefix + "/shop/getActivities" + url).then(res=>{
+    this.getGoodsByType(1);
+    this.http.get( this.$store.state.prefix + "/shop/getActivities" + this.url).then(res=>{
       if(res.error == false){
         var row = res.result;
         row.forEach(item=>{
@@ -377,7 +395,7 @@ export default {
     })
 
 
-    this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" +url).then(res=>{
+    this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" + this.url).then(res=>{
       if(res.error == false){
         var row = res.result;
         row.forEach(item=>{
@@ -396,7 +414,7 @@ export default {
       }
     })
 
-    this.http.get( this.$store.state.prefix + "/shop/getCompanyShow" +url).then(res=>{
+    this.http.get( this.$store.state.prefix + "/shop/getCompanyShow" + this.url).then(res=>{
       if(res.error == false){
         this.showInfo = this.util.escapeToHtml(res.result.show);
         if(this.showInfo == void 0 || this.showInfo == '')
@@ -411,6 +429,7 @@ export default {
       showGoods:true,
       showHtml:true,
       showMember:true,
+      url:'',
       swiperOption:{
         autoplay: 3500,
         setWrapperSize :true,
@@ -534,7 +553,7 @@ export default {
         height rrem(196px)
         margin-top rrem(55px)
       p
-        margin-top rrem(14px)
+        margin-top rrem(25px)
         font-size rrem(28px)
     .main_title
       height rrem(80px)
