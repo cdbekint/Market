@@ -250,6 +250,7 @@ export default {
      })
     },
     changeTxt(index){
+      debugger
       this.category.forEach((item,i) => {
         item.state = 0;
         if((index-1) == i){
@@ -266,10 +267,11 @@ export default {
         if(res.error == false){
           res.result.forEach(item=>{
             var obj = null;
+            debugger
             if(id == 1) {
               obj = {
                 id:item.id,
-                img: item.goodsImg,
+                img: item.goodsImg.split(",")[0],
                 title: item.goodsName,
                 price: item.goodsPrice + "元"
               }
@@ -277,7 +279,7 @@ export default {
             else if(id == 2){
               obj = {
                 id:item.id,
-                img: item.goodsImg,
+                img: item.goodsImg.split(",")[0],
                 title: item.goodsName,
                 price: item.maxPoints + "积分"
               }
@@ -285,7 +287,7 @@ export default {
             else if(id == 3){
               obj = {
                 id:item.id,
-                img: item.goodsImg,
+                img: item.goodsImg.split(",")[0],
                 title: item.goodsName,
                 price: item.goodsPrice + "元 + "+item.maxPoints+"积分"
               }

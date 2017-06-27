@@ -132,6 +132,7 @@
       this.http.get(this.$store.state.prefix +  "/goods/"+query.id).then(res=>{
         if (res.error === false) {
           this.Goods = res.result;
+          this.Goods.goodsDesc = this.util.escapeToHtml(this.Goods.goodsDesc)
           this.defaultMSg=res.result.goodsDesc
         }
       });

@@ -45,7 +45,7 @@ export default {
           title: '头像',
           key: 'headImg',
           render (row) {
-            return '<img class="goodslistavater" :src="murl + row.headImg" style="width:40px;height:40px;"/>'
+            return '<img class="goodslistavater" :src="row.headImg" style="width:40px;height:40px;"/>'
           }
         },
         {
@@ -71,6 +71,16 @@ export default {
         {
           title: '提现积分',
           key: 'withdrawPoints'
+        },{
+          title: '提现状态',
+          key: 'withdrawStatus',
+          render (row){
+            if(row.withdrawStatus === 1) {
+              return '成功'
+            }else {
+              return '未成功'
+            }
+          }
         },
         {
           title: '提现时间',

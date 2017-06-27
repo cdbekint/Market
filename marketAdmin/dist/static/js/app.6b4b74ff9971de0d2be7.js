@@ -2212,6 +2212,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '库存',
         key: 'storageNum'
       }, {
+        title: '上架状态',
+        key: 'goodsStatus',
+        render: function render(row) {
+          if (row.goodsStatus == 1) {
+            return '上架';
+          } else {
+            return '下架';
+          }
+        }
+      }, {
         title: '操作',
         key: 'action',
         render: function render(row) {
@@ -2456,6 +2466,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.http.get(this.$store.state.prefix + "/goods/" + query.id).then(function (res) {
       if (res.error === false) {
         _this.Goods = res.result;
+        _this.Goods.goodsDesc = _this.util.escapeToHtml(_this.Goods.goodsDesc);
         _this.defaultMSg = res.result.goodsDesc;
       }
     });
@@ -3150,7 +3161,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '头像',
         key: 'headImg',
         render: function render(row) {
-          return '<img class="goodslistavater" :src="murl + row.headImg" style="width:40px;height:40px;"/>';
+          return '<img class="goodslistavater" :src="row.headImg" style="width:40px;height:40px;"/>';
         }
       }, {
         title: '提现内容',
@@ -3170,6 +3181,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }, {
         title: '提现积分',
         key: 'withdrawPoints'
+      }, {
+        title: '提现状态',
+        key: 'withdrawStatus',
+        render: function render(row) {
+          if (row.withdrawStatus === 1) {
+            return '成功';
+          } else {
+            return '未成功';
+          }
+        }
       }, {
         title: '提现时间',
         key: 'successDate'
@@ -40602,4 +40623,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.6a68357482458623b13e.js.map
+//# sourceMappingURL=app.6b4b74ff9971de0d2be7.js.map

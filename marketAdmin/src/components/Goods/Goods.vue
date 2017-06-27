@@ -76,6 +76,17 @@
             key: 'storageNum'
           },
           {
+            title: '上架状态',
+            key: 'goodsStatus',
+            render (row) {
+              if(row.goodsStatus == 1){
+                return '上架'
+              } else {
+                return '下架'
+              }
+            }
+          },
+          {
             title: '操作',
             key: 'action',
             render (row) {
