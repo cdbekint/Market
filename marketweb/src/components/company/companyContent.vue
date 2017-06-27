@@ -304,6 +304,26 @@ export default {
          item.static = 1;
        }
      })
+      var url = this.url == ''?"?orderType="+index : this.url + "&orderType=" + index
+      this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" + url).then(res=> {
+        if(res.error == false){
+          this.member = [];
+          var row = res.result;
+          row.forEach(item=>{
+            var obj = {
+              img:item.headImg,
+              surplus:item.points,
+              total:item.allPoints,
+              people:item.invitedMems
+            }
+            this.member.push(obj)
+          })
+          if(this.member.length == 0)
+            this.showMember = false;
+          else
+            this.showMember = true;
+        }
+      })
     },
     changeTxt(index){
       this.category.forEach((item,i) => {
