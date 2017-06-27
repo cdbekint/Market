@@ -109,7 +109,6 @@
     <div class="main_member" v-if="currentPage==2">
       <div class="member_hr">
         <div class="hr_1"></div>
-
         <div v-for="x,index in jifenCategory" :class="'hr_'+x.num"
              @click="changeJifen(index)" :style="x.state==1?{color:x.on}:{color:x.off}">{{x.txt}}</div>
       </div>
@@ -304,7 +303,7 @@ export default {
          item.static = 1;
        }
      })
-      var url = this.url == ''?"?orderType="+index : this.url + "&orderType=" + index
+      var url = this.url == ''?"?orderType="+index : this.url + "&orderType=" + (index+1)
       this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" + url).then(res=> {
         if(res.error == false){
           this.member = [];
