@@ -126,19 +126,19 @@ export default {
     var inviterId = state[1] == void 0 ? 0 : state[1];
     this.activityId = activityId;
 
-//    if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0){
-//      //判断是否是已经跳转了的页面
-//      window.localStorage["inviterId"] = inviterId;
-//      window.localStorage["realInviterId"] = inviterId
-//      window.localStorage.removeItem("token");
-//
-//      var oldUrl = location.href;
-//      var index = oldUrl.indexOf("?");
-//      var preUrl = oldUrl.slice(0,index+1);
-//      var state = "state=" + activityId + "," + window.localStorage["ownId"];
-//      var url = preUrl + state;
-//      location.href = url
-//    }
+    if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0){
+      //判断是否是已经跳转了的页面
+      window.localStorage["inviterId"] = inviterId;
+      window.localStorage["realInviterId"] = inviterId
+      window.localStorage.removeItem("token");
+
+      var oldUrl = location.href;
+      var index = oldUrl.indexOf("?");
+      var preUrl = oldUrl.slice(0,index+1);
+      var state = "state=" + activityId + "," + window.localStorage["ownId"];
+      var url = preUrl + state;
+      location.href = url
+    }
 
     // 获取登录者个人信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
