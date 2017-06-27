@@ -41,9 +41,9 @@
             <img :src="murl + ci">
           </div>
       </swiper>
-        
+
       </div>
-      
+
       <div class="detail_text">
         <div class="text_main">
           <span class="main_title">{{currentGoods.name}}</span>
@@ -139,11 +139,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Swiper from 'vue-swiper'
 export default {
   name: 'companyContent',
   props:["ids"],
-  components:{Swiper},
   methods:{
     returnGoodsList(){
       this.notDetail = true;
