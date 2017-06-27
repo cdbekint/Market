@@ -8,10 +8,10 @@
       </div>
       <div class="body_input" >
         <div class="input_name">
-          <input type="text" v-model="name" placeholder="   请输入您的真实姓名">
+          <input type="text" v-model="name" placeholder="   *请输入您的真实姓名（必填）">
         </div>
         <div class="input_num">
-          <input type="text" v-model="phone" placeholder="   请输入您的手机号码" >
+          <input type="text" v-model="phone" placeholder="   *请输入您的手机号码（必填）" >
         </div>
         <div class="input_email">
           <input type="text" v-model="email" placeholder="   请输入您的邮箱号码" >
@@ -153,8 +153,9 @@
           this.msg = "您输入的手机号码格式错误";
           return false;
         }
+          debugger
 
-        if(this.email != void 0) {
+        if(this.email != void 0 && this.email != "") {
           var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
           if (!myreg.test(this.email)) {
             this.isCheck = true;
@@ -239,6 +240,7 @@
           height rrem(100px)
           width 100%
           line-height rrem(100px)
+          padding-left rrem(20px)
         .input_name
           width 100%
       .body_check
