@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="Notice">
-     
+     div.
   </div>
 </template>
 
@@ -19,5 +19,5 @@
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .Notice
   width:100%
-  
+
 </style>

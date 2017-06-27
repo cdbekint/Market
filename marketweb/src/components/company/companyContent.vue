@@ -55,7 +55,10 @@
           <span>{{currentGoods.price}}</span>
         </div>
       </div>
-      <div class="detail_btn" @click="payGoods">立即购买</div>
+      <div class="detail_btn" @click="payGoods">
+        <span v-if="!payState">立即购买</span>
+        <span v-else><Icon type="ios-checkmark-outline" size="23" style="margin-right:10px"></Icon>购买成功</span>
+      </div>
       <div class="detail_html">
         <div class="bg"></div>
         <div class="txt good_details" v-html="currentGoods.desc"></div>
@@ -151,40 +154,48 @@ export default {
       this.isloading = true
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
         this.isloading = false
+        debugger
         if (res.error === false) {
           var row = res.result;
-          var onBridgeReady = () => {
-            WeixinJSBridge.invoke(
-              'getBrandWCPayRequest',{
-                'appId': row.appid,
-                'timeStamp': row.timeStamp,
-                'nonceStr': row.nonce_str,
-                'package':  row.prepay_id,
-                'signType': row.sign_type,
-                'paySign': row.sign
-              },
-              function (res) {
-                if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                  this.payState = true
-                  this.$Message.success("购买成功");
-                  this.$router.push('/');
-                }
-                else{
-                  this.$Message.error("购买失败");
-                }
-              }
-            )
-          }
-          if (typeof WeixinJSBridge === 'undefined') {
-            if (document.addEventListener) {
-              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
-            } else if (document.attachEvent) {
-              document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
-              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
-            }
+          if (this.currentGoods.goodsType === 2){
+            this.payState = true
+            this.$Message.success("购买成功");
           } else {
-            onBridgeReady()
+            debugger
+            var onBridgeReady = () => {
+              WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',{
+                  'appId': row.appid,
+                  'timeStamp': row.timeStamp,
+                  'nonceStr': row.nonce_str,
+                  'package':  row.prepay_id,
+                  'signType': row.sign_type,
+                  'paySign': row.sign
+                },
+                function (res) {
+                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                    this.payState = true
+                    this.$Message.success("购买成功");
+                    this.$router.push('/');
+                  }
+                  else{
+                    this.$Message.error("购买失败");
+                  }
+                }
+              )
+            }
+            if (typeof WeixinJSBridge === 'undefined') {
+              if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+              } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+              }
+            } else {
+              onBridgeReady()
+            }
           }
+          
         }else {
           this.$Message.error(res.msg)
         }
@@ -202,7 +213,8 @@ export default {
             img:row.goodsImg,
             images:row.goodsImg.split(","),
             desc:this.util.escapeToHtml(row.goodsDesc),
-            price:''
+            price:'',
+            goodsType:row.goodsType
           }
           if(state == 1){
           //判断是否是从活动中带过来支付
@@ -267,7 +279,6 @@ export default {
      })
     },
     changeTxt(index){
-      debugger
       this.category.forEach((item,i) => {
         item.state = 0;
         if((index-1) == i){
@@ -284,7 +295,6 @@ export default {
         if(res.error == false){
           res.result.forEach(item=>{
             var obj = null;
-            debugger
             if(id == 1) {
               obj = {
                 id:item.id,
@@ -439,6 +449,7 @@ export default {
           static:0
         }
       ],
+      payState:false,
       jifenCategory:[
         {
           txt:"剩余积分",
