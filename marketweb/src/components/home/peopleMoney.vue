@@ -56,7 +56,7 @@
       </Input-number>
       </Row>
 
-      <div style="position: absolute;top:5px;left:5px;">
+      <div style="position: absolute;top:16px;left:10px;">
         <span>可提积分{{points}}({{cashs}}元)</span>
         <br>
         <span>当前提现金额:{{parseFloat(cashs/points*(withdrawPoint>points?points:withdrawPoint)).toFixed(2)}}</span>
