@@ -110,9 +110,7 @@
         location.href = url;
       },
       changeCompany (val) {
-        if(this.index !== val){
-          this.index = val
-        }
+        this.index = val
         var currentPage = this.infoArr[val];
         if(this[currentPage].info.length >= 12 && (this[currentPage].total > this[currentPage].page)){
           this.currentPageLimit = false;
@@ -134,8 +132,9 @@
       requestInfoByScroll(){
         if( !this.currentPageLimit){
           var currentTitle = this.infoArr[this.index];
+          console.log(currentTitle)
           var page = this[currentTitle].page+1;
-          this.requestInfoByScroll(page)
+          console.log(page)
           this.$emit("getMoreInfoByScroll",this.index,page);
         }
       }
