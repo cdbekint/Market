@@ -163,8 +163,10 @@
         var downTriggle = this.getVisibleHeight(ele) + this.getScrollTop(ele) + 5 >= this.getScrollHeight(ele);
 
         if(downTriggle && !this.currentPageLimit){
-          var currentTitle = this.infoArr[val];
+
+          var currentTitle = this.infoArr[this.index];
           var page = this[currentTitle].page+1;
+          alert(page)
           requestInfoByScroll(page)
         }
       }
