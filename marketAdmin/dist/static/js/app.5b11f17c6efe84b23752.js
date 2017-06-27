@@ -906,7 +906,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageUrl: 'http://up.qiniu.com/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
-        imageMaxSize: 2048000,
+        imageMaxSize: 20480,
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
         imageCompressEnable: true,
         imageCompressBorder: 1600,
@@ -940,14 +940,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         level: 10
       }]), _activity),
       Mainuploaderconfig: {
-        maxSize: 10240,
+        maxSize: 5120,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
         child: 'activityImg'
       },
       uploaderconfig: {
-        maxSize: 10240,
+        maxSize: 1024,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
@@ -40622,4 +40622,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.b8d5192b4f29b075662f.js.map
+//# sourceMappingURL=app.5b11f17c6efe84b23752.js.map

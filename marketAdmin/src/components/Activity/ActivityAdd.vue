@@ -327,7 +327,7 @@ export default {
         imageUrl: 'http://up.qiniu.com/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
-        imageMaxSize: 2048000,
+        imageMaxSize: 20480,
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
         imageCompressEnable: true,
         imageCompressBorder: 1600,
@@ -368,14 +368,14 @@ export default {
         ]
       },
       Mainuploaderconfig: {
-        maxSize: 10240,
+        maxSize: 5120,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
         child: 'activityImg'
       },
       uploaderconfig: {
-        maxSize: 10240,
+        maxSize: 1024,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
