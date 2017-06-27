@@ -47,16 +47,20 @@
     <Modal
       v-model="isWithdraw"
       @on-ok="ok"
-      @on-cancel="cancel">
+      @on-cancel="cancel"
+      style="position: relative;"
+      >
       <Row style="text-align:center">
         <Input-number :min="1" v-model="withdrawPoint">
       <span slot="prepend">提现积分数</span>
       </Input-number>
       </Row>
-      
-      <span>可提积分{{points}}({{cashs}}元)</span>
-      <br>
-      <span>当前提现金额:{{parseFloat(cashs/points*(withdrawPoint>points?points:withdrawPoint)).toFixed(2)}}</span>
+
+      <div style="position: absolute;top:5px;left:5px;">
+        <span>可提积分{{points}}({{cashs}}元)</span>
+        <br>
+        <span>当前提现金额:{{parseFloat(cashs/points*(withdrawPoint>points?points:withdrawPoint)).toFixed(2)}}</span>
+      </div>
     </Modal>
   </div>
 </template>
