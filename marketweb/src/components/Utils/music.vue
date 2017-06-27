@@ -39,7 +39,6 @@
       },
       changeState () {
         if (this.state == 1) {
-          debugger
           clearInterval(this.timer);
           this.timer = null;
           this.state = 0;

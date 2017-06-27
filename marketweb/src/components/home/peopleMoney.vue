@@ -48,19 +48,27 @@
       v-model="isWithdraw"
       @on-ok="ok"
       @on-cancel="cancel"
-      style="position: relative;"
+      ok-text="即刻提现"
+      :closable="false"
+      title="积分提现"
+      style="position: relative;padding:0px 15%"
       >
-      <Row style="text-align:center">
-        <Input-number :min="1" v-model="withdrawPoint">
-      <span slot="prepend">提现积分数</span>
-      </Input-number>
-      </Row>
 
-      <div style="position: absolute;top:16px;left:10px;">
-        <span>可提积分{{points}}({{cashs}}元)</span>
+
+      <Row style="text-align:left;padding-left:40px;font-size:1.3em;color:#AEAEAE">
+      <div>
+        <span>可提积分 {{points}}({{cashs}} 元)</span>
         <br>
-        <span>当前提现金额:{{parseFloat(cashs/points*(withdrawPoint>points?points:withdrawPoint)).toFixed(2)}}</span>
+        <p>当前提现金额: <span style="color:#131313;font-weight:bolder">{{parseFloat(cashs/points*(withdrawPoint>points?points:withdrawPoint)).toFixed(2)}}元</span></p>
       </div>
+      </Row>
+      <Row style="text-align:center;padding-left:40px;">
+        <Input v-model="withdrawPoint" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5"></Input>
+      </Row>
+      <Row style="text-align:center;font-size:0.8em;padding:10px">
+          提现金额不能低于1元
+      </Row>
+      
     </Modal>
   </div>
 </template>
@@ -74,6 +82,10 @@ export default {
       this.$emit("changePointById");
     },
     ok(){
+      if(this.withdrawPoint === 0){
+          this.$Message.success("提现积分必须大于0");
+          return
+      }
       this.http.post(this.$store.state.prefix + "/withdraw",{
         withdrawType:1,
         withdrawPoints:this.withdrawPoint

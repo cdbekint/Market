@@ -102,7 +102,7 @@ export default {
           var arr = [];
           row.records.forEach(item=>{
             var time = new Date(item.createDate);
-            time = time.toLocaleString().split(",")[0];
+            time = this.util.sliceStr(time.toLocaleString().split(",")[0],10,'');
             var obj = {
               time:time,
               content:item.remarks,
