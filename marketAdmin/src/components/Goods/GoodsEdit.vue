@@ -83,8 +83,8 @@
           maxPoints: '',
           sort: 0,
           storageNum: '',
-          goodsStatus: 1,
-          goodsType: 1,
+          goodsStatus: "1",
+          goodsType: "1",
           goodsDesc: '',
           goodsDate: (new Date().getTime())
         },
@@ -135,6 +135,8 @@
       this.http.get(this.$store.state.prefix +  "/goods/"+query.id).then(res=>{
         if (res.error === false) {
           this.Goods = res.result;
+          this.Goods.goodsType= String(this.Goods.goodsType)
+          this.Goods.goodsStatus= String(this.Goods.goodsStatus)
           this.Goods.goodsDesc = this.util.escapeToHtml(this.Goods.goodsDesc)
           this.defaultMSg=res.result.goodsDesc
         }

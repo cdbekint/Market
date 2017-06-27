@@ -2431,8 +2431,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         maxPoints: '',
         sort: 0,
         storageNum: '',
-        goodsStatus: 1,
-        goodsType: 1,
+        goodsStatus: "1",
+        goodsType: "1",
         goodsDesc: '',
         goodsDate: new Date().getTime()
       },
@@ -2477,6 +2477,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.http.get(this.$store.state.prefix + "/goods/" + query.id).then(function (res) {
       if (res.error === false) {
         _this.Goods = res.result;
+        _this.Goods.goodsType = String(_this.Goods.goodsType);
+        _this.Goods.goodsStatus = String(_this.Goods.goodsStatus);
         _this.Goods.goodsDesc = _this.util.escapeToHtml(_this.Goods.goodsDesc);
         _this.defaultMSg = res.result.goodsDesc;
       }
@@ -40648,4 +40650,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.5c204139a7e9e78a5f5a.js.map
+//# sourceMappingURL=app.f44c94c029d39cff995a.js.map
