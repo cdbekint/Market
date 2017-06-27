@@ -12,12 +12,16 @@
         <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
       </div>
       <div class="class_goods">
-        <div class="goods_info" v-for="x in goods" @click="showDetail(x.id,2)">
+        <div class="goods_info" v-for="x in goods" @click="showDetail(x.id,2)" v-if="showGoods">
           <img :src="murl + x.img" class="info_img" @click="showDetail(x.id,2)">
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
           </div>
+        </div>
+        <div class="info_null" v-if="!showGoods">
+          <img src="/static/images/shop.png" alt="">
+          <span>这里暂时没有商品喔</span>
         </div>
       </div>
       <!--<div class="class_pull">-->
@@ -108,7 +112,7 @@
         <div v-for="x,index in jifenCategory" :class="'hr_'+x.num"
              @click="changeJifen(index)" :style="x.state==1?{color:x.on}:{color:x.off}">{{x.txt}}</div>
       </div>
-      <div class="member_list">
+      <div class="member_list" v-if="showMember">
         <div class="member_content" v-for="x,index in member">
           <div class="list_sort" style="color:#ff017e;font-weight:bold;">{{index+1}}</div>
           <div class="list_img">
@@ -128,10 +132,17 @@
           </div>
         </div>
       </div>
+      <div class="info_null" v-if="!showMember">
+        <img src="/static/images/shop.png" alt="">
+        <span>这里暂时没有商品喔</span>
+      </div>
     </div>
 
     <div class="main_company" v-if="currentPage==3" v-html="showInfo">
-
+      <div class="info_null" v-if="!showMember">
+        <img src="/static/images/shop.png" alt="">
+        <span>这里暂时没有商品喔</span>
+      </div>
     </div>
 
 
@@ -267,7 +278,6 @@ export default {
      })
     },
     changeTxt(index){
-      debugger
       this.category.forEach((item,i) => {
         item.state = 0;
         if((index-1) == i){
@@ -284,7 +294,6 @@ export default {
         if(res.error == false){
           res.result.forEach(item=>{
             var obj = null;
-            debugger
             if(id == 1) {
               obj = {
                 id:item.id,
@@ -312,6 +321,8 @@ export default {
 
             this.goods.push(obj)
           })
+          if(this.goods.length == 0)
+            this.showGoods = false;
         }
       })
     },
@@ -374,17 +385,28 @@ export default {
           }
           this.member.push(obj)
         })
+        if(this.member.length == 0)
+          this.showMember = false;
+        else
+          this.showMember = true;
       }
     })
 
     this.http.get( this.$store.state.prefix + "/shop/getCompanyShow" +url).then(res=>{
       if(res.error == false){
         this.showInfo = this.util.escapeToHtml(res.result.show);
+        if(this.showInfo == void 0)
+          this.showHtml = false;
+        else
+          this.showHtml = true;
       }
     })
   },
   data () {
     return {
+      showGoods:true,
+      showMember:true,
+      showHtml:true,
       currentGoods:{
         saleNum:0,
         storageNum:0,
@@ -522,6 +544,18 @@ export default {
         display flex
         flex-wrap wrap
         justify-content space-between
+        .info_null
+          width 100%
+          heigt rrem(340px)
+          text-align center
+          img
+            margin-top rrem(55px)
+            width rrem(237px)
+            height rrem(196px)
+          span
+            font-size rrem(28px)
+            display block
+            margin-top rrem(14px)
         .goods_info
           width rrem(490px)
           height rrem(645px)
