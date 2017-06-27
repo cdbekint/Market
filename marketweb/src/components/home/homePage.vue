@@ -1,16 +1,10 @@
 <template>
   <div class="homePage">
     <headImg :data="personInfo" @head_company="getCompanyId"></headImg>
-    <peopleMoney :data="pointAndMoney" @changePointById="changePoint"></peopleMoney>
+    <peopleMoney :data="pointAndMoney"
+                 @changePointById="changePoint"
+                 @getMoreInfoByScroll="getMoreInfo"></peopleMoney>
     <infos :datas="datas"></infos>
-<!--    <div class="homeCompany_body">
-      <div class="body_company" @click="goCompany">
-        <img src="/static/images/active/com.png">
-      </div>
-      <div class="body_company" @click="goHome">
-        <img src="/static/images/active/home.png" alt="">
-      </div>
-    </div>-->
   </div>
 </template>
 
@@ -32,83 +26,97 @@ export default {
     },
     getCompanyId (id) {
       this.currentCompanyId = id;
-      this.getInfosByCompanyId(id);
+      this.getInfosByCompanyId();
       this.setPointByCurrentCompany(id);
     },
-    getInfosByCompanyId(companyId){
-
+    getActiveInfo(page){
       //获取活动列表
-      this.http.get(this.$store.state.prefix + "/home/getActivityInfo/" + companyId).then(res=> {
-        if(res.error == false){
-          var arr = [];
-          res.result.forEach(item=>{
-            arr.push({
-              id:item.id,
-              img:item.activityImg,
-              name:this.util.sliceStr(item.activityName,7),
-              date:item.endDate,
-              jifen:item.gainPoints,
-              peopleNum:item.joinNum,
-              totalPeople:item.viewNum
-            })
-          });
-          this.datas.activityInfo = arr;
+      this.http.get(this.$store.state.prefix + "/home/getActivityInfo/" + this.currentCompanyId +"/"+page).then(res=> {
+        if (res.error == false) {
+          res.result.records.forEach(item=> {
+            var obj = {
+              id: item.id,
+              img: item.activityImg,
+              name: this.util.sliceStr(item.activityName, 7),
+              date: item.endDate,
+              jifen: item.gainPoints,
+              peopleNum: item.joinNum,
+              totalPeople: item.viewNum
+            };
+            this.datas.activityInfo.push(obj);
+          })
         }
-      })
-
+      });
+    },
+    getInviterInfo(page){
       //获取已邀请的人
-      this.http.get(this.$store.state.prefix + "/home/getInvitedMems/" + companyId).then(res=> {
+      this.http.get(this.$store.state.prefix + "/home/getInvitedMems/" +  this.currentCompanyId +"/"+page).then(res=> {
         if(res.error == false){
-          var arr = [];
           res.result.forEach(item=>{
-            arr.push({
+            var obj = {
               img:item.headImg,
               name:this.util.sliceStr(item.nickName,7),
               jifen:item.allPoints,
               peopleNum:item.invitedMems,
               consume:item.selfExpense
-            })
+            }
+            this.datas.memberInfo.push(obj);
           });
-          this.datas.memberInfo = arr;
         }
       });
+    },
 
-      //获取交易记录
-      this.http.get(this.$store.state.prefix + "/home/getUserExpense/" + companyId).then(res=> {
+    getConsumeInfo(page){
+      //获取消费记录
+      this.http.get(this.$store.state.prefix + "/home/getUserExpense/" +  this.currentCompanyId +"/"+page).then(res=> {
         if(res.error == false){
-          var arr = [];
           res.result.forEach(item=>{
             var time = new Date(item.payDate);
             time = time.toLocaleString().split(",")[0];
-            arr.push({
+            var obj = {
               time:time,
               content:item.remarks,
               jifen:item.payPoints,
               money:item.payAmount,
-            })
+            };
+
+            this.datas.consumeInfo.push(obj);
           });
-          this.datas.consumeInfo = arr;
         }
       });
+    },
 
+    getUserPointInfo(page){
       //获取积分记录
-      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" + companyId).then(res=> {
+      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" +  this.currentCompanyId+"/" + page).then(res=> {
         if(res.error == false){
-          var arr = [];
           res.result.forEach(item=>{
             var time = new Date(item.createDate);
             time = time.toLocaleString().split(",")[0];
-            arr.push({
+            var obj = {
               time:time,
               content:item.remarks,
               jifen:item.points,
               pointType:item.pointType
-            })
+            }
+            this.datas.jifenInfo.push(obj);
           });
-          this.datas.jifenInfo = arr;
         }
       });
-
+    },
+    getInfosByCompanyId(){
+      this.getActiveInfo(1)
+      this.getInviterInfo(1)
+      this.getConsumeInfo(1)
+      this.getUserPointInfo(1)
+    },
+    getMoreInfo(itemNo,page){
+      switch (itemNo){
+        case 0 : this.getActiveInfo(page);break;
+        case 1 : this.getInviterInfo(page);break;
+        case 2 : this.getConsumeInfo(page);break;
+        case 3 : this.getUserPointInfo(page);break;
+      }
     },
     setPointByCurrentCompany(companyId){
       this.pointAndMoneyArr.forEach(item=>{

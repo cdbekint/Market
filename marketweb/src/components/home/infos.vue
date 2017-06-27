@@ -119,6 +119,9 @@
         if(this[currentPage].length >= 12){
           this.currentPageLimit = false;
         }
+        else{
+          this.currentPageLimit = true;
+        }
         this.menuList.forEach((item,index)=>{
           if(index == val){
             item.img = this.on;
@@ -130,6 +133,10 @@
         })
         this.$emit("head_company",val);
       },
+      requestInfoByScroll(){
+
+        this.$emit("getMoreInfoByScroll",this.index,page);
+      }
     },
     created(){
       this.menu.forEach((item,index)=>{

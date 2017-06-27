@@ -57,15 +57,17 @@
             goodsId:val.id,
             companyId: val.companyId
           }
-          this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
-            if(res.error == false){
-              this.money = res.result.registerMoney;
-              this.params.payAmount = this.money;
-            }
-            else{
-              this.$Message.error(res.msg)
-            }
-          })
+          setTimeout(()=>{
+            this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
+              if(res.error == false){
+                this.money = res.result.registerMoney;
+                this.params.payAmount = this.money;
+              }
+              else{
+                this.$Message.error(res.msg)
+              }
+            })
+          },200)
         }
       },
       deep:true
