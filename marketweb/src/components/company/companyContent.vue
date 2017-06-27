@@ -11,7 +11,7 @@
       <div class="class_txt">
         <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
       </div>
-      <div class="class_goods">
+      <div class="class_goods" v-if="showGoods">
         <div class="goods_info" v-for="x in goods" @click="showDetail(x.id,2)">
           <img :src="murl + x.img" class="info_img" @click="showDetail(x.id,2)">
           <div class="info_text">
@@ -19,7 +19,10 @@
             <span class="text_price">{{x.price}}</span>
           </div>
         </div>
-
+      </div>
+      <div class="info_isNull" v-if="!showGoods">
+        <img src="/static/images/shop.png">
+        <p>这里暂时没有商品喔</p>
       </div>
       <!--<div class="class_pull">-->
         <!--<img src="/static/images/company/pull.png" alt="">-->
@@ -107,7 +110,7 @@
         <div v-for="x,index in jifenCategory" :class="'hr_'+x.num"
              @click="changeJifen(index)" :style="x.state==1?{color:x.on}:{color:x.off}">{{x.txt}}</div>
       </div>
-      <div class="member_list">
+      <div class="member_list" v-if="showMember">
         <div class="member_content" v-for="x,index in member">
           <div class="list_sort" style="color:#ff017e;font-weight:bold;">{{index+1}}</div>
           <div class="list_img">
@@ -127,10 +130,17 @@
           </div>
         </div>
       </div>
+      <div class="info_isNull" v-if="!showMember">
+        <img src="/static/images/shop.png">
+        <p>这里暂时没有数据喔</p>
+      </div>
     </div>
 
     <div class="main_company" v-if="currentPage==3" v-html="showInfo">
-
+      <div class="info_isNull" v-if="!showHtml">
+        <img src="/static/images/shop.png">
+        <p>这里暂时没有数据喔</p>
+      </div>
     </div>
 
 
@@ -313,6 +323,10 @@ export default {
 
             this.goods.push(obj)
           })
+          if(this.goods.length == 0)
+            this.showGoods = false;
+          else
+            this.showGoods = true;
         }
       })
     },
@@ -375,17 +389,28 @@ export default {
           }
           this.member.push(obj)
         })
+        if(this.member.length == 0)
+          this.showMember = false;
+        else
+          this.showMember = true;
       }
     })
 
     this.http.get( this.$store.state.prefix + "/shop/getCompanyShow" +url).then(res=>{
       if(res.error == false){
         this.showInfo = this.util.escapeToHtml(res.result.show);
+        if(this.showInfo == void 0 || this.showInfo == '')
+          this.showHtml = false;
+        else
+          this.showHtml = true;
       }
     })
   },
   data () {
     return {
+      showGoods:true,
+      showHtml:true,
+      showMember:true,
       swiperOption:{
         autoplay: 3500,
         setWrapperSize :true,
@@ -499,6 +524,18 @@ export default {
     margin auto
     margin-bottom rrem(100px)
     height rrem(1640px)
+    .info_isNull
+      width rrem(100%)
+      height rrem(340px)
+      background #fff
+      text-align center
+      img
+        width rrem(237px)
+        height rrem(196px)
+        margin-top rrem(55px)
+      p
+        margin-top rrem(14px)
+        font-size rrem(28px)
     .main_title
       height rrem(80px)
       display flex
