@@ -27,20 +27,19 @@
 
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
       <img src="/static/images/company/fanhui.png" @click="returnGoodsList" class="detail_return">
-      <div class="detail_bg">
-      <swiper id="swiper_vertical"
-        direction="horizontal"
-        :mousewheel-control="false"
-        :performance-mode="false"
-        :pagination-visible="true"
-        :pagination-clickable="true"
-        :loop="false"
-        @slide-change-start="onSlideChangeStart"
-        @slide-change-end="onSlideChangeEnd">
-          <div class="swiperItem" v-for="ci in currentGoods.images">
-            <img :src="murl + ci">
+      <div class="detail_bg" >
+        <swiper v-ref:swiper
+          direction="horizontal"
+          :mousewheel-control="true"
+          :performance-mode="false"
+          :pagination-visible="true"
+          :pagination-clickable="true"
+          :loop="true"
+          :autoplay="true">
+          <div class="swiperItem" v-for="slide,index in currentGoods.images" :key="index">
+            <img :src="murl+slide" alt="">
           </div>
-      </swiper>
+        </swiper>
         
       </div>
       
@@ -139,11 +138,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Swiper from 'vue-swiper'
+import swiper from 'vue-swiper'
 export default {
   name: 'companyContent',
   props:["ids"],
-  components:{Swiper},
+  components:{swiper},
   methods:{
     returnGoodsList(){
       this.notDetail = true;
@@ -387,6 +386,14 @@ export default {
   },
   data () {
     return {
+      swiperOption:{
+        autoplay: 3500,
+        setWrapperSize :true,
+        pagination : '.swiper-pagination',
+        paginationClickable :true,
+        mousewheelControl : true,
+        observeParents:true,
+      },
       currentGoods:{
         saleNum:0,
         storageNum:0,
