@@ -160,11 +160,13 @@
       },
       handleScroll(){
         var ele = this.element;
-        var downTriggle = this.getVisibleHeight(ele) + this.getScrollTop(ele) + 5 >= this.getScrollHeight(ele);
+        var downTriggle = (this.getVisibleHeight(ele) + this.getScrollTop(ele) + 5) >= this.getScrollHeight(ele);
 
+        alert(downTriggle)
         if(downTriggle && !this.currentPageLimit){
 
           var currentTitle = this.infoArr[this.index];
+          alert(currentTitle)
           var page = this[currentTitle].page+1;
           alert(page)
           requestInfoByScroll(page)
