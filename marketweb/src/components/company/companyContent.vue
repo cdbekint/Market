@@ -282,7 +282,7 @@ export default {
          item.state = 1;
        }
      })
-      var url = this.url == ''?"?orderType="+index : this.url + "&orderType=" + (index+1)
+      var url = this.url == ''?"?orderType="+(index+1) : this.url + "&orderType=" + (index+1)
       this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" + url).then(res=> {
         if(res.error == false){
           this.member = [];
