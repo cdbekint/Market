@@ -14,7 +14,7 @@ export default {
   name: 'companyHead',
   props:["companyId"],
   created(){
-    var url = this.companyId == void 0 ? '':'?companyId='+this.companyId
+    var url = this.companyId == void 0 ? '':'?companyId='+this.companyId;
     this.http.get(this.$store.state.prefix + "/shop"+url).then(res=>{
       if(res.error == false){
         this.info.name = res.result.companyName;

@@ -11,7 +11,11 @@
       <div class="class_txt">
         <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
       </div>
+<<<<<<< HEAD
       <div class="class_goods">
+=======
+      <div class="class_goods" v-if="showGoods">
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
         <div class="goods_info" v-for="x in goods" @click="showDetail(x.id,2)">
           <img :src="murl + x.img" class="info_img" @click="showDetail(x.id,2)">
           <div class="info_text">
@@ -20,6 +24,13 @@
           </div>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+      <div class="info_isNull" v-if="!showGoods">
+        <img src="/static/images/shop.png">
+        <p>这里暂时没有商品喔</p>
+      </div>
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
       <!--<div class="class_pull">-->
         <!--<img src="/static/images/company/pull.png" alt="">-->
       <!--</div>-->
@@ -55,10 +66,14 @@
           <span>{{currentGoods.price}}</span>
         </div>
       </div>
+<<<<<<< HEAD
       <div class="detail_btn" @click="payGoods">
         <span v-if="!payState">立即购买</span>
         <span v-else><Icon type="ios-checkmark-outline" size="23" style="margin-right:10px"></Icon>购买成功</span>
       </div>
+=======
+      <div class="detail_btn" @click="payGoods">立即购买</div>
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
       <div class="detail_html">
         <div class="bg"></div>
         <div class="txt good_details" v-html="currentGoods.desc"></div>
@@ -109,7 +124,11 @@
         <div v-for="x,index in jifenCategory" :class="'hr_'+x.num"
              @click="changeJifen(index)" :style="x.state==1?{color:x.on}:{color:x.off}">{{x.txt}}</div>
       </div>
+<<<<<<< HEAD
       <div class="member_list">
+=======
+      <div class="member_list" v-if="showMember">
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
         <div class="member_content" v-for="x,index in member">
           <div class="list_sort" style="color:#ff017e;font-weight:bold;">{{index+1}}</div>
           <div class="list_img">
@@ -129,10 +148,24 @@
           </div>
         </div>
       </div>
+<<<<<<< HEAD
     </div>
 
     <div class="main_company" v-if="currentPage==3" v-html="showInfo">
 
+=======
+      <div class="info_isNull" v-if="!showMember">
+        <img src="/static/images/shop.png">
+        <p>这里暂时没有数据喔</p>
+      </div>
+    </div>
+
+    <div class="main_company" v-if="currentPage==3" v-html="showInfo">
+      <div class="info_isNull" v-if="!showHtml">
+        <img src="/static/images/shop.png">
+        <p>这里暂时没有数据喔</p>
+      </div>
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
     </div>
 
 
@@ -154,6 +187,7 @@ export default {
       this.isloading = true
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
         this.isloading = false
+<<<<<<< HEAD
         debugger
         if (res.error === false) {
           var row = res.result;
@@ -196,6 +230,42 @@ export default {
             }
           }
           
+=======
+        if (res.error === false) {
+          var row = res.result;
+          var onBridgeReady = () => {
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest',{
+                'appId': row.appid,
+                'timeStamp': row.timeStamp,
+                'nonceStr': row.nonce_str,
+                'package':  row.prepay_id,
+                'signType': row.sign_type,
+                'paySign': row.sign
+              },
+              function (res) {
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  this.payState = true
+                  this.$Message.success("购买成功");
+                  this.$router.push('/');
+                }
+                else{
+                  this.$Message.error("购买失败");
+                }
+              }
+            )
+          }
+          if (typeof WeixinJSBridge === 'undefined') {
+            if (document.addEventListener) {
+              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+            } else if (document.attachEvent) {
+              document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+            }
+          } else {
+            onBridgeReady()
+          }
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
         }else {
           this.$Message.error(res.msg)
         }
@@ -213,8 +283,12 @@ export default {
             img:row.goodsImg,
             images:row.goodsImg.split(","),
             desc:this.util.escapeToHtml(row.goodsDesc),
+<<<<<<< HEAD
             price:'',
             goodsType:row.goodsType
+=======
+            price:''
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
           }
           if(state == 1){
           //判断是否是从活动中带过来支付
@@ -279,6 +353,10 @@ export default {
      })
     },
     changeTxt(index){
+<<<<<<< HEAD
+=======
+      debugger
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
       this.category.forEach((item,i) => {
         item.state = 0;
         if((index-1) == i){
@@ -295,6 +373,10 @@ export default {
         if(res.error == false){
           res.result.forEach(item=>{
             var obj = null;
+<<<<<<< HEAD
+=======
+            debugger
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
             if(id == 1) {
               obj = {
                 id:item.id,
@@ -322,6 +404,13 @@ export default {
 
             this.goods.push(obj)
           })
+<<<<<<< HEAD
+=======
+          if(this.goods.length == 0)
+            this.showGoods = false;
+          else
+            this.showGoods = true;
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
         }
       })
     },
@@ -384,17 +473,37 @@ export default {
           }
           this.member.push(obj)
         })
+<<<<<<< HEAD
+=======
+        if(this.member.length == 0)
+          this.showMember = false;
+        else
+          this.showMember = true;
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
       }
     })
 
     this.http.get( this.$store.state.prefix + "/shop/getCompanyShow" +url).then(res=>{
       if(res.error == false){
         this.showInfo = this.util.escapeToHtml(res.result.show);
+<<<<<<< HEAD
+=======
+        if(this.showInfo == void 0 || this.showInfo == '')
+          this.showHtml = false;
+        else
+          this.showHtml = true;
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
       }
     })
   },
   data () {
     return {
+<<<<<<< HEAD
+=======
+      showGoods:true,
+      showHtml:true,
+      showMember:true,
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
       swiperOption:{
         autoplay: 3500,
         setWrapperSize :true,
@@ -449,7 +558,10 @@ export default {
           static:0
         }
       ],
+<<<<<<< HEAD
       payState:false,
+=======
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
       jifenCategory:[
         {
           txt:"剩余积分",
@@ -509,6 +621,21 @@ export default {
     margin auto
     margin-bottom rrem(100px)
     height rrem(1640px)
+<<<<<<< HEAD
+=======
+    .info_isNull
+      width rrem(1000px)
+      height rrem(340px)
+      background #fff
+      text-align center
+      img
+        width rrem(237px)
+        height rrem(196px)
+        margin-top rrem(55px)
+      p
+        margin-top rrem(14px)
+        font-size rrem(28px)
+>>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
     .main_title
       height rrem(80px)
       display flex
