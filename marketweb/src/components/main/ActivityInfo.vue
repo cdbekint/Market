@@ -10,7 +10,7 @@
     <Discount :activity="activity"></Discount>
     <Money :activity="activity"></Money>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
-    <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 2000;" v-if="!currentState">
+    <div class="activeInfo_team" v-if="!hasGroup && !currentState" style="z-index: 2000;">
       <img src="/static/images/bg.png">
       <div class="team_peopleInfo">
         <img :src="currentGroup.img">
