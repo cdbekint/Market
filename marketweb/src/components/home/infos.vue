@@ -160,7 +160,9 @@
       },
       handleScroll(){
         var ele = this.element;
-        var downTriggle = (this.getVisibleHeight(ele) + this.getScrollTop(ele) + 5) >= this.getScrollHeight(ele);
+        alert((this.getVisibleHeight(ele) + this.getScrollTop(ele) + 10))
+        alert(this.getScrollHeight(ele))
+        var downTriggle = (this.getVisibleHeight(ele) + this.getScrollTop(ele) + 10) >= this.getScrollHeight(ele);
 
         alert(downTriggle)
         if(downTriggle && !this.currentPageLimit){
