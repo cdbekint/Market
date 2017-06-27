@@ -21,7 +21,7 @@ const store = new Vuex.Store({
     companyId: util.getCookie('companyId') || '',
     openid: util.getCookie('openid') || '',
     currentActive:'',
-    // prefix: '/api',
+    // prefix: /'api',
     prefix: '',
     isMember:0,
   },

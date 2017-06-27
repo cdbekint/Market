@@ -181,7 +181,8 @@ export default {
                   'paySign': row.sign
                 },
                 function (res) {
-                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  alert(res.err_msg)
+                  if (res.err_msg != 'get_brand_wcpay_request:fail' && res.err_msg != 'get_brand_wcpay_request:cancel') {
                     this.payState = true
                     this.$Message.success("购买成功");
                     this.$router.push('/');
