@@ -160,17 +160,17 @@
       },
       handleScroll(){
         var ele = this.element;
-        alert((this.getVisibleHeight(ele) + this.getScrollTop(ele) + 10))
-        alert(this.getScrollHeight(ele))
+        console.log((this.getVisibleHeight(ele) + this.getScrollTop(ele) + 10))
+        console.log(this.getScrollHeight(ele))
         var downTriggle = (this.getVisibleHeight(ele) + this.getScrollTop(ele) + 10) >= this.getScrollHeight(ele);
 
-        alert(downTriggle)
+        console.log(downTriggle)
         if(downTriggle && !this.currentPageLimit){
 
           var currentTitle = this.infoArr[this.index];
-          alert(currentTitle)
+          console.log(currentTitle)
           var page = this[currentTitle].page+1;
-          alert(page)
+          console.log(page)
           requestInfoByScroll(page)
         }
       }
