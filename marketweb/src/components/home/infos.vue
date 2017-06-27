@@ -132,13 +132,7 @@
       requestInfoByScroll(){
         if( !this.currentPageLimit){
           var currentTitle = this.infoArr[this.index];
-<<<<<<< HEAD
-          console.log(currentTitle)
           var page = this[currentTitle].page+1;
-          console.log(page)
-=======
-          var page = this[currentTitle].page+1;
->>>>>>> 43131d1d06e275c4741fe061a8c9f406429fc4a9
           this.$emit("getMoreInfoByScroll",this.index,page);
         }
       }
