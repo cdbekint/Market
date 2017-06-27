@@ -1,5 +1,5 @@
 <template>
-  <div class='infos'>
+  <div class='infos' id="infos">
     <div class="main_companyInfo">
       <div class="main_company">
         <div class="company_info" v-for="x,index in menuList" :class="x.active" @click="changeCompany(index)">
@@ -86,7 +86,7 @@
     </div>
 
     <div class="discount_pull" v-if="!currentPageLimit">
-      <img src="/static/images/company/pull.png" >
+      <img src="/static/images/company/pull.png"  @click="requestInfoByScroll">
     </div>
   </div>
 </template>
@@ -131,52 +131,16 @@
         })
         this.$emit("head_company",val);
       },
-      requestInfoByScroll(page){
-        this.$emit("getMoreInfoByScroll",this.index,page);
-      },
-      getScrollHeight(ele){
-        if(ele){
-          return ele.scrollHeight;
-        }
-        else{
-          return document.documentElement.scrollHeight;
-        }
-      },
-      getVisibleHeight(ele){
-        if(ele){
-          return ele.offsetHeight;
-        }
-        else{
-          return document.documentElement.offsetHeight;
-        }
-      },
-      getScrollTop(ele){
-        if(ele){
-          return ele.scrollTop;
-        }
-        else{
-          return document.documentElement.scrollTop;
-        }
-      },
-      handleScroll(){
-        var ele = this.element;
-        console.log((this.getVisibleHeight(ele) + this.getScrollTop(ele) + 10))
-        console.log(this.getScrollHeight(ele))
-        var downTriggle = (this.getVisibleHeight(ele) + this.getScrollTop(ele) + 10) >= this.getScrollHeight(ele);
-
-        console.log(downTriggle)
-        if(downTriggle && !this.currentPageLimit){
-
+      requestInfoByScroll(){
+        if( !this.currentPageLimit){
           var currentTitle = this.infoArr[this.index];
-          console.log(currentTitle)
           var page = this[currentTitle].page+1;
-          console.log(page)
-          requestInfoByScroll(page)
+          this.requestInfoByScroll(page)
+          this.$emit("getMoreInfoByScroll",this.index,page);
         }
       }
     },
     created(){
-      window.addEventListener('scroll', this.handleScroll)
       this.menu.forEach((item,index)=>{
         var obj;
         if(index == 0){
