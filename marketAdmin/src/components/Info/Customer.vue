@@ -18,7 +18,7 @@
     <Table border :columns="companyCol" :data="companyData" class="giftlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
-        <Page :total="pager.totalPage" :current="pager.pageNo" @on-change="changePage($event)"></Page>
+        <Page :total="pager.total" :pager-size="pager.size" :current="pager.current" @on-change="changePage"></Page>
       </div>
     </div>
   </div>
@@ -101,8 +101,9 @@ export default {
 
       ],
       pager: {
-        totalPage: 1,
-        pageNo: 1
+        total:1,
+        size:12,
+        current:1
       },
       companyData:[]
     }
@@ -134,8 +135,7 @@ export default {
     getList (pageNo) {
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1).then(res => {
         if (res.error === false) {
-          this.pager.totalPage = res.result.pages
-          this.pager.pageNo = res.result.current
+          this.pager = res.result
           this.companyData = res.result.records;
         }
       })
@@ -144,8 +144,7 @@ export default {
       var url = this.searchVal == 1 ? '/customer/getCompanyUserInfo/1?member=1&employee=0':'/customer/getCompanyUserInfo/1?member=0&employee=1';
       this.http.get(this.$store.state.prefix + url).then(res => {
         if (res.error === false) {
-          this.pager.totalPage = res.result.pages
-          this.pager.pageNo = res.result.current
+          this.pager = res.result
           this.companyData = res.result.records;
         }
       })

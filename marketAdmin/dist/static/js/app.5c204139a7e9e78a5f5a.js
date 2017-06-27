@@ -1873,6 +1873,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       employeelistData: [],
       employeepager: {
         total: 1,
+        size: 1,
         current: 1
       }
     };
@@ -1892,8 +1893,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    changePage: function changePage() {
-      this.getEmployeeList(this.employeepager.current);
+    changePage: function changePage(e) {
+      this.getEmployeeList(e);
     }
   }
 });
@@ -1997,7 +1998,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       giftlistData: [],
       giftpager: {
-        pages: 1,
+        total: 1,
+        size: 1,
         current: 1
       }
     };
@@ -2197,7 +2199,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '商品图片',
         key: 'goodsImg',
         render: function render(row) {
-          return '<img class="goodslistavater" :src="murl + row.goodsImg"/>';
+          return '<img class="goodslistavater" :src="murl + row.goodsImg" v-if="row.goodsImg"/>';
         }
       }, {
         title: '商品价格',
@@ -2230,8 +2232,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       goodslistData: [],
       goodspager: {
+        total: 1,
         pages: 1,
-        current: 1
+        current: 1,
+        size: 12
       }
     };
   },
@@ -2245,8 +2249,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.http.get(this.$store.state.prefix + '/goods/page/' + (pageNo || 1)).then(function (res) {
         if (res.error === false) {
-          debugger;
           _this.goodspager = res.result;
+          console.log(_this.goodspager);
           for (var i in res.result.records) {
             res.result.records[i].goodsImg = res.result.records[i].goodsImg.split(',')[0];
           }
@@ -2254,9 +2258,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    changePage: function changePage() {
+    changePage: function changePage(pageno) {
       debugger;
-      this.getGoodsList(this.goodspager.current);
+      this.getGoodsList(pageno);
     },
     update: function update(id) {
       this.router.push({ path: '/goods/edit', query: { id: id } });
@@ -2842,8 +2846,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       }],
       pager: {
-        totalPage: 1,
-        pageNo: 1
+        total: 1,
+        size: 12,
+        current: 1
       },
       companyData: []
     };
@@ -2882,8 +2887,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1).then(function (res) {
         if (res.error === false) {
-          _this3.pager.totalPage = res.result.pages;
-          _this3.pager.pageNo = res.result.current;
+          _this3.pager = res.result;
           _this3.companyData = res.result.records;
         }
       });
@@ -2894,8 +2898,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var url = this.searchVal == 1 ? '/customer/getCompanyUserInfo/1?member=1&employee=0' : '/customer/getCompanyUserInfo/1?member=0&employee=1';
       this.http.get(this.$store.state.prefix + url).then(function (res) {
         if (res.error === false) {
-          _this4.pager.totalPage = res.result.pages;
-          _this4.pager.pageNo = res.result.current;
+          _this4.pager = res.result;
           _this4.companyData = res.result.records;
         }
       });
@@ -2967,7 +2970,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       orderlistData: [],
       pager: {
-        pages: 1,
+        total: 1,
+        size: 12,
         current: 1
       }
     };
@@ -3039,7 +3043,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       listData: [],
       pointpager: {
-        pages: 1,
+        total: 1,
+        size: 1,
         current: 1
       }
     };
@@ -3119,6 +3124,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       paylistData: [],
       paypager: {
         total: 1,
+        size: 1,
         current: 1
       }
     };
@@ -3139,8 +3145,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    changePage: function changePage() {
-      this.getPayList(this.paypager.current);
+    changePage: function changePage(e) {
+      this.getPayList(e);
     }
   }
 });
@@ -3211,7 +3217,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         total: 1,
         pages: 1,
         current: 1,
-        size: 0
+        size: 12
       }
     };
   },
@@ -3563,7 +3569,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }],
       musiclistData: [],
       musicpager: {
-        pages: 1,
+        total: 1,
+        size: 12,
         current: 1
       }
     };
@@ -3586,8 +3593,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    changePage: function changePage() {
-      this.getMusicList(this.musicpager.current);
+    changePage: function changePage(e) {
+      this.getMusicList(e);
     },
     update: function update(id) {
       this.router.push({ path: '/music/edit', query: { id: id } });
@@ -5257,7 +5264,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.goodspager.pages,
+      "total": _vm.goodspager.total,
+      "page-size": _vm.goodspager.size,
       "current": _vm.goodspager.current
     },
     on: {
@@ -5481,7 +5489,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.giftpager.pages,
+      "total": _vm.giftpager.total,
+      "page-size": _vm.giftpager.size,
       "current": _vm.giftpager.current
     },
     on: {
@@ -5792,6 +5801,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Page', {
     attrs: {
       "total": _vm.pager.total,
+      "page-size": _vm.pager.size,
       "current": _vm.pager.current
     },
     on: {
@@ -5953,6 +5963,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Page', {
     attrs: {
       "total": _vm.employeepager.total,
+      "page-size": _vm.employeepager.size,
       "current": _vm.employeepager.current
     },
     on: {
@@ -6318,7 +6329,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.pager.pages,
+      "total": _vm.pager.total,
+      "page-size": _vm.pager.size,
       "current": _vm.pager.current
     },
     on: {
@@ -7259,6 +7271,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Page', {
     attrs: {
       "total": _vm.paypager.total,
+      "page-size": _vm.paypager.size,
       "current": _vm.paypager.current,
       "size": "small"
     },
@@ -8601,7 +8614,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.musicpager.pages,
+      "total": _vm.musicpager.total,
+      "page-size": _vm.musicpager.size,
       "current": _vm.musicpager.current
     },
     on: {
@@ -8678,13 +8692,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.pager.totalPage,
-      "current": _vm.pager.pageNo
+      "total": _vm.pager.total,
+      "pager-size": _vm.pager.size,
+      "current": _vm.pager.current
     },
     on: {
-      "on-change": function($event) {
-        _vm.changePage($event)
-      }
+      "on-change": _vm.changePage
     }
   })], 1)])], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -8720,7 +8733,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Page', {
     attrs: {
-      "total": _vm.pointpager.pages,
+      "total": _vm.pointpager.total,
+      "page-size": _vm.pointpager.size,
       "current": _vm.pointpager.current
     },
     on: {
@@ -40634,4 +40648,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.6d7ef98b029d29bfe3ab.js.map
+//# sourceMappingURL=app.5c204139a7e9e78a5f5a.js.map

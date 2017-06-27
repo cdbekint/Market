@@ -12,7 +12,7 @@
     <Table border :columns="listColumns" :data="listData" class="giftlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
-        <Page :total="pager.total" :current="pager.current" @on-change="changePage"></Page>
+        <Page :total="pager.total" :page-size="pager.size" :current="pager.current" @on-change="changePage"></Page>
       </div>
     </div>
  	</div>
@@ -92,7 +92,7 @@ export default {
         total: 1,
         pages: 1,
         current:1,
-        size:0
+        size:12
       }
     }
   },

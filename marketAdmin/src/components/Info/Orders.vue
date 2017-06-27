@@ -21,7 +21,7 @@
   <Table border :columns="orderlistColumns" :data="orderlistData" class="orderlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="pager.pages" :current="pager.current" @on-change="changePage($event)"></Page>
+            <Page :total="pager.total" :page-size="pager.size" :current="pager.current" @on-change="changePage($event)"></Page>
         </div>
     </div>
  	</div>
@@ -92,7 +92,8 @@ export default {
       ],
       orderlistData: [],
       pager: {
-        pages: 1,
+        total: 1,
+        size:12,
         current: 1
       }
     }

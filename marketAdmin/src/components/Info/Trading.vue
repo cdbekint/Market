@@ -13,7 +13,7 @@
   <Table border :columns="paylistColumns" :data="paylistData" class="paylistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;"> 
-            <Page :total="paypager.total" :current="paypager.current" @on-change="changePage"  size="small"></Page>
+            <Page :total="paypager.total" :page-size="paypager.size" :current="paypager.current" @on-change="changePage"  size="small"></Page>
         </div>
     </div>
 
@@ -94,6 +94,7 @@ export default {
       paylistData: [],
       paypager: {
         total: 1,
+        size:1,
         current: 1
       }
     }
@@ -111,8 +112,8 @@ export default {
         }
       })
     },
-    changePage () {
-      this.getPayList(this.paypager.current)
+    changePage (e) {
+      this.getPayList(e)
     }
   }
 }

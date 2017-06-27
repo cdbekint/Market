@@ -14,7 +14,7 @@
     <Table border :columns="giftlistColumns" :data="giftlistData" class="giftlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="giftpager.pages" :current="giftpager.current" @on-change="changePage($event)"></Page>
+            <Page :total="giftpager.total" :page-size="giftpager.size" :current="giftpager.current" @on-change="changePage($event)"></Page>
         </div>
     </div>
  	</div>
@@ -60,7 +60,8 @@ export default {
       ],
       giftlistData: [],
       giftpager: {
-        pages: 1,
+        total: 1,
+        size:1,
         current: 1
       }
     }

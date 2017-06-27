@@ -15,7 +15,7 @@
 	 <Table border :columns="employeelistColumns" :data="employeelistData"></Table>
    <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="employeepager.total" :current="employeepager.current" @on-change="changePage"></Page>
+            <Page :total="employeepager.total" :page-size="employeepager.size" :current="employeepager.current" @on-change="changePage"></Page>
         </div>
     </div>
 
@@ -67,6 +67,7 @@ export default {
       employeelistData: [],
       employeepager: {
         total: 1,
+        size:1,
         current: 1
       }
     }
@@ -83,8 +84,8 @@ export default {
         }
       })
     },
-    changePage () {
-      this.getEmployeeList(this.employeepager.current)
+    changePage (e) {
+      this.getEmployeeList(e)
     }
   }
 }

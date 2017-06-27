@@ -14,7 +14,7 @@
   <Table border :columns="musiclistColumns" :data="musiclistData" class="musiclistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="musicpager.pages" :current="musicpager.current" @on-change="changePage"></Page>
+            <Page :total="musicpager.total" :page-size="musicpager.size" :current="musicpager.current" @on-change="changePage"></Page>
         </div>
     </div>
  </div>
@@ -59,7 +59,8 @@ export default {
       ],
       musiclistData: [],
       musicpager: {
-        pages: 1,
+        total: 1,
+        size:12,
         current: 1
       }
     }
@@ -79,8 +80,8 @@ export default {
         }
       })
     },
-    changePage () {
-      this.getMusicList(this.musicpager.current)
+    changePage (e) {
+      this.getMusicList(e)
     },
     update (id) {
       this.router.push({path: '/music/edit', query: {id: id}});

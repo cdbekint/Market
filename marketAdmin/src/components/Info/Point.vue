@@ -11,7 +11,7 @@
   	<Table border :columns="listColumns" :data="listData" class="pointlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="pointpager.pages" :current="pointpager.current" @on-change="changePage($event)"></Page>
+            <Page :total="pointpager.total" :page-size="pointpager.size" :current="pointpager.current" @on-change="changePage($event)"></Page>
         </div>
     </div>
   </div>
@@ -59,7 +59,8 @@ export default {
       ],
       listData: [],
       pointpager: {
-        pages: 1,
+        total: 1,
+        size:1,
         current:1
       }
     }

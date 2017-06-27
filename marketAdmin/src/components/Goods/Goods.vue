@@ -12,7 +12,7 @@
     <Table border :columns="goodslistColumns" :data="goodslistData" class="goodslistable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="goodspager.pages" :current="goodspager.current" @on-change="changePage"></Page>
+            <Page :total="goodspager.total" :page-size="goodspager.size" :current="goodspager.current" @on-change="changePage"></Page>
         </div>
     </div>
  	</div>
@@ -56,7 +56,7 @@
             title: '商品图片',
             key: 'goodsImg',
             render (row) {
-              return '<img class="goodslistavater" :src="murl + row.goodsImg"/>'
+              return '<img class="goodslistavater" :src="murl + row.goodsImg" v-if="row.goodsImg"/>'
             }
           },
           {
@@ -97,8 +97,10 @@
         ],
         goodslistData: [],
         goodspager: {
+          total:1,
           pages: 1,
-          current: 1
+          current: 1,
+          size:12
         }
       }
     },
@@ -109,8 +111,8 @@
       getGoodsList (pageNo) {
         this.http.get(this.$store.state.prefix +'/goods/page/' + (pageNo || 1)).then(res => {
           if (res.error === false) {
-            debugger
             this.goodspager = res.result
+            console.log(this.goodspager)
             for (var i in res.result.records) {
               res.result.records[i].goodsImg = res.result.records[i].goodsImg.split(',')[0]
             }
@@ -118,9 +120,9 @@
           }
         })
       },
-      changePage () {
+      changePage (pageno) {
         debugger
-        this.getGoodsList(this.goodspager.current)
+        this.getGoodsList(pageno)
       },
       update (id) {
         this.router.push({path: '/goods/edit', query: {id: id}});
