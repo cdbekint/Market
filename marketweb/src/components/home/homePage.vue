@@ -97,7 +97,7 @@ export default {
           var arr = [];
           res.result.forEach(item=>{
             var time = new Date(item.createDate);
-            time = time.toLocaleString().split(" ")[0];
+            time = time.toLocaleString().split(",")[0];
             arr.push({
               time:time,
               content:item.remarks,

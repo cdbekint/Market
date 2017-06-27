@@ -10,7 +10,7 @@
     <Discount :activity="activity"></Discount>
     <Money :activity="activity"></Money>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
-    <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 2000;">
+    <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 2000;" v-if="!currentState">
       <img src="/static/images/bg.png">
       <div class="team_peopleInfo">
         <img :src="currentGroup.img">
@@ -23,7 +23,7 @@
       <img src="/static/images/startTeam.png" class="team_startTeam" @click="newTeam">
       <img src="/static/images/joinTeam.png" class="team_joinTeam" @click="joinTeam">
     </div>
-    <div class="homeCompany_body" style="z-index:2000;">
+    <div class="homeCompany_body" style="z-index:2000;" v-if="!currentState">
       <div class="body_company" @click="goCompany">
         <img :src="'/static/images/active/' + comState + '.png'">
       </div>

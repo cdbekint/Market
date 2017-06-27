@@ -8,13 +8,13 @@
       </div>
       <div class="body_input" >
         <div class="input_name">
-          <input type="text" v-model="name" placeholder="   请输入您的真实姓名" >
+          <input type="text" v-model="name" placeholder="   请输入您的真实姓名">
         </div>
         <div class="input_num">
-          <input type="text" v-model="phone" placeholder="   请输入您的手机号码">
+          <input type="text" v-model="phone" placeholder="   请输入您的手机号码" >
         </div>
         <div class="input_email">
-          <input type="text" v-model="email" placeholder="   请输入您的邮箱号码">
+          <input type="text" v-model="email" placeholder="   请输入您的邮箱号码" >
         </div>
         <div class="body_check">
           <img :src="'/static/images/active/'+checkState+'.png'" v-if="isCheck">
@@ -151,18 +151,15 @@
           this.msg = "您输入的手机号码格式错误";
           return false;
         }
-        var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-        if(this.email == ''){
-          this.isCheck = true;
-          this.checkState = "err";
-          this.msg = "请输入正确的邮箱号码";
-          return false;
-        }
-        else if(!myreg.test(this.email)) {
-          this.isCheck = true;
-          this.checkState = "err";
-          this.msg = "您输入的邮箱号码格式错误";
-          return false;
+
+        if(this.email != void 0) {
+          var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+          if (!myreg.test(this.email)) {
+            this.isCheck = true;
+            this.checkState = "err";
+            this.msg = "您输入的邮箱号码格式错误";
+            return false;
+          }
         }
         this.isCheck = true;
         this.checkState="right"

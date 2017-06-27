@@ -33,15 +33,6 @@
         </div>
       </div>
 
-      <div class="info_jifen" v-if="index==3">
-        <ul class="pointrecords">
-          <li v-for="x in jifenInfo">
-            <div class="r_points" v-text="x.jifen"></div>
-            <div class="r_remarks" v-text="x.content"></div>
-            <div class="r_date" v-text="x.time"></div>
-          </li>
-        </ul>
-      </div>
       <div class="info_jifen info_people" v-for="x in memberInfo" v-if="index==1">
         <img :src="x.img" class="jifen_img  people_img">
         <div class="jifen_name people_name">
@@ -82,6 +73,17 @@
             <span class="jifen_money">{{x.money}}</span>
           </div>
         </div>
+      </div>
+
+
+      <div class="info_jifen" v-if="index==3">
+        <ul class="pointrecords">
+          <li v-for="x in jifenInfo">
+            <div class="r_points" v-text="x.jifen"></div>
+            <div class="r_remarks" v-text="x.content"></div>
+            <div class="r_date" v-text="x.time"></div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -146,7 +148,7 @@
         handler(val){
           this.activityInfo = val.activityInfo;
           this.memberInfo = val.memberInfo;
-         this.jifenInfo = val.jifenInfo;
+          this.jifenInfo = val.jifenInfo;
           this.consumeInfo = val.consumeInfo;
 
         },
@@ -164,7 +166,7 @@
         menu:['参加活动','我的邀请','消费记录','积分记录'],
         activityInfo:[],
         memberInfo:[],
-       jifenInfo:[],
+        jifenInfo:[],
         consumeInfo:[]
       }
     }
