@@ -4120,7 +4120,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_2_vuex__["a" /* default */].Store({
     token: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('token') || '',
     companyId: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('companyId') || '',
     qiniutoken: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('qiniutoken') || '',
-    prefix: '/api'
+
+    prefix: 'http://market.cdbeki.com'
   },
   mutations: {
     updateToken: function updateToken(state) {
@@ -40648,4 +40649,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.c07e7e05509f14c0fcc0.js.map
+//# sourceMappingURL=app.74a95fddb81e980b00c2.js.map
