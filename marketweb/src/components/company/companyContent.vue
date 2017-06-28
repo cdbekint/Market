@@ -17,6 +17,7 @@
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
+            <img src="/static/images/fuqian.png" @click="isWithdraw=true">
           </div>
         </div>
       </div>
@@ -145,6 +146,27 @@
       </div>
     </div>
 
+    <Modal
+      v-model="isWithdraw"
+      @on-ok="ok"
+      @on-cancel="cancel"
+      ok-text="付款"
+      :closable="false"
+      title="自助付款"
+      style="position: relative;padding:0px 15%"
+    >
+
+      <Row style="text-align:left;padding-left:40px;font-size:1.3em;color:#AEAEAE">
+        <div>
+          <span>请输入付款金额(元)</span>
+          <br>
+        </div>
+      </Row>
+      <Row style="text-align:center;padding-left:40px;">
+        <Input v-model="withdrawMoney" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5"></Input>
+      </Row>
+
+    </Modal>
 
   </div>
 </template>
@@ -156,6 +178,57 @@ export default {
   props:["ids"],
   components:{swiper},
   methods:{
+    ok(){
+      if(this.withdrawMoney === 0){
+        this.$Message.error("付款金额必须大于0");
+        return
+      }
+
+      //自助付款
+      this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
+        if (res.error === false) {
+          var row = res.result;
+            var onBridgeReady = () => {
+              var _this=this
+              WeixinJSBridge.invoke(
+                'getBrandWCPayRequest', {
+                  'appId': row.appid,
+                  'timeStamp': row.timeStamp,
+                  'nonceStr': row.nonce_str,
+                  'package': row.prepay_id,
+                  'signType': row.sign_type,
+                  'paySign': row.sign
+                },
+                function (res) {
+                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                    _this.$Message.success("付款成功");
+                  }
+                  else if(res.err_msg != 'get_brand_wcpay_request:cancel'){
+                    _this.$Message.error("取消支付");
+                  } else {
+                    _this.$Message.error("购买失败");
+                  }
+                }
+              )
+            }
+            if (typeof WeixinJSBridge === 'undefined') {
+              if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+              } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+              }
+            } else {
+              onBridgeReady()
+            }
+        }
+      })
+
+
+    },
+    cancel(){
+      this.isWithdraw = false;
+    },
     returnGoodsList(){
       this.notDetail = true;
     },
@@ -439,6 +512,8 @@ export default {
   },
   data () {
     return {
+      withdrawMoney:0,
+      isWithdraw:false,
       showGoods:true,
       showHtml:true,
       showMember:true,
@@ -617,6 +692,12 @@ export default {
               width 100%
               display block
               position absolute
+            img
+              position absolute
+              width rrem(90px)
+              height rrem(90px)
+              right rrem(20px)
+              top rrem(10px)
             .text_title
               font-size rrem(35px)
               color #000
