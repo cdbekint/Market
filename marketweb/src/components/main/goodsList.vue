@@ -20,7 +20,14 @@ export default {
   props: ['activity'],
   methods:{
     showGoodsDetail(id){
-      this.$emit("goodsClick",id);
+      if(this.payTime === 1) {
+        this.$emit("goodsClick",id);
+      }else if(this.payTime === 0){
+        this.$Message.info("支付时间未到");
+      } else{
+         this.$Message.info("支付时间已结束");
+      }
+      
     }
   },
   watch: {
@@ -61,14 +68,23 @@ export default {
               if(date >= val.startDate && date <= val.endDate) {
 
                 obj.state = 1;
-                obj.btnTxt = (showDiscount+"折购买")
+                if(date >= val.payStartDate && date <= val.payEndDate){
+                  this.payTime = 1;
+                  obj.btnTxt = (showDiscount+"折购买")
+                } else if(date < val.payStartDate){
+                  this.payTime = 0;
+                  obj.btnTxt = ("等待开始支付")
+                }else {
+                  this.payTime = 2;
+                  obj.btnTxt = ("已截止支付")
+                }
               }else if(date <= val.startDate) {
 
                 obj.state = 0;
                 obj.btnTxt = "活动即将开始"
               }else if(date >= val.endDate) {
-
                 obj.state = 2;
+                this.payTime = 2;
                 obj.btnTxt = "活动已结束"
               }
               this.goodsList.push(obj)
@@ -88,7 +104,8 @@ export default {
         "#1fe3a5",
         "#ff017e",
         "#aeaeae",
-      ]
+      ],
+      payTime:0 //0即将开始，1可以支付，2支付时间结束
     }
   }
 }
