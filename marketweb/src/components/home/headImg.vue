@@ -1,7 +1,7 @@
 <template>
   <div class='headImg'>
     <div class = "main_head">
-      <span class="head_name">{{data.nickName}}</span>
+      <span class="head_name">{{data.realName?data.realName:data.nickName}}</span>
       <img src="/static/images/shuxian.png" alt="">
       <span class="head_phone">{{'TEL : '+data.phone}}</span>
     </div>

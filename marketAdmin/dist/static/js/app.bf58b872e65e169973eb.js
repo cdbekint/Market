@@ -5721,6 +5721,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(")\n      ")]), _vm._v(" "), _c('Form-item', {
     staticClass: "text-left",
     attrs: {
+      "label": "邀请注册返积分"
+    }
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.companyinfo.invitedPoints)
+    }
+  }), _vm._v("\n         (折算现金:"), _c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.companyinfo.invitedPoints * _vm.companyinfo.toCashRate / 100 + '元')
+    }
+  }), _vm._v(")\n      ")]), _vm._v(" "), _c('Form-item', {
+    staticClass: "text-left",
+    attrs: {
       "label": "自己消费返还积分比率"
     }
   }, [_c('span', {
@@ -8462,6 +8475,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
   })]), _vm._v(" "), _c('li', {
+    staticClass: "companyitem"
+  }, [_c('div', {
+    staticClass: "itemname"
+  }, [_vm._v("\r\n      邀请注册返积分\r\n    ")]), _vm._v(" "), _c('div', {
+    staticClass: "itemcontent"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.company.invitedPoints),
+      expression: "company.invitedPoints"
+    }],
+    attrs: {
+      "type": "number"
+    },
+    domProps: {
+      "value": (_vm.company.invitedPoints)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.company.invitedPoints = $event.target.value
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "itemhepler"
+  }, [_vm._v("\r\n      每邀请一个注册用户，返还积分\r\n    ")])]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
   }, [_c('div', {
     staticClass: "itemname"
@@ -40649,4 +40692,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.e7b0319511bfb5288f6c.js.map
+//# sourceMappingURL=app.bf58b872e65e169973eb.js.map

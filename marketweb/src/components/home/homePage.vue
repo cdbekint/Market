@@ -152,7 +152,8 @@ export default {
         this.personInfo = {
           nickName:row.nickName,
           headImg:row.headImg,
-          phone:row.phone
+          phone:row.phone,
+          realName:row.realName
         };
 
         var companyArr = [];

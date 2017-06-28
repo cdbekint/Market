@@ -185,6 +185,7 @@ export default {
             var len = this.activity.groupInfo.length;
             if(len > 0) {
               var info = this.activity.groupInfo[0];
+              debugger
               this.currentGroup = {
                 id:info.groupId,
                 img:info.headImg,

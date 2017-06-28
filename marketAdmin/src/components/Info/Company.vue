@@ -194,6 +194,17 @@
 
     </div>
   </li>
+   <li class='companyitem'>
+    <div class='itemname'>
+      邀请注册返积分
+    </div>
+    <div class='itemcontent'>
+      <input type='number' v-model='company.invitedPoints'>
+    </div>
+    <div class='itemhepler'>
+      每邀请一个注册用户，返还积分
+    </div>
+  </li>
   <li class='companyitem'>
     <div class='itemname'>自己消费返还积分比率</div>
     <div class='itemcontent'>

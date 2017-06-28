@@ -62,9 +62,14 @@
       <Form-item label="注册金额" class="text-left">
         <span v-text="companyinfo.registerMoney+'元'"></span>
       </Form-item>
+
       <Form-item label="注册返还积分" class="text-left">
         <span v-text="companyinfo.registerPoints"></span>
          (折算现金:<span v-text="companyinfo.registerPoints*companyinfo.toCashRate/100+'元'"></span>)
+      </Form-item>
+       <Form-item label="邀请注册返积分" class="text-left">
+        <span v-text="companyinfo.invitedPoints"></span>
+         (折算现金:<span v-text="companyinfo.invitedPoints*companyinfo.toCashRate/100+'元'"></span>)
       </Form-item>
       <Form-item label="自己消费返还积分比率" class="text-left">
         <span v-text="companyinfo.selfReturn+'%'"></span>

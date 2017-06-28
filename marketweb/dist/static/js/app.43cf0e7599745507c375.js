@@ -1587,7 +1587,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this6.personInfo = {
           nickName: row.nickName,
           headImg: row.headImg,
-          phone: row.phone
+          phone: row.phone,
+          realName: row.realName
         };
 
         var companyArr = [];
@@ -2001,6 +2002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var len = _this2.activity.groupInfo.length;
           if (len > 0) {
             var info = _this2.activity.groupInfo[0];
+            debugger;
             _this2.currentGroup = {
               id: info.groupId,
               img: info.headImg,
@@ -5514,7 +5516,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "main_head"
   }, [_c('span', {
     staticClass: "head_name"
-  }, [_vm._v(_vm._s(_vm.data.nickName))]), _vm._v(" "), _c('img', {
+  }, [_vm._v(_vm._s(_vm.data.realName ? _vm.data.realName : _vm.data.nickName))]), _vm._v(" "), _c('img', {
     attrs: {
       "src": "/static/images/shuxian.png",
       "alt": ""
@@ -5862,4 +5864,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.35bad8098a8206ccdf6a.js.map
+//# sourceMappingURL=app.43cf0e7599745507c375.js.map
