@@ -2448,7 +2448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.company = val.companyName;
         this.params = {
-          businessId: window.localStorage["inviterId"] || 0,
+          businessId: window.localStorage["realInviterId"] || 0,
           payType: 5,
           payAmount: 0,
           goodsId: val.id,
@@ -5864,4 +5864,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.43cf0e7599745507c375.js.map
+//# sourceMappingURL=app.8ea60807583699614c21.js.map

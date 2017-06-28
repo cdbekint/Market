@@ -51,7 +51,7 @@
         handler (val) {
           this.company = val.companyName;
           this.params = {
-            businessId: window.localStorage["inviterId"] || 0,
+            businessId: window.localStorage["realInviterId"] || 0,
             payType: 5,
             payAmount: 0,
             goodsId:val.id,
