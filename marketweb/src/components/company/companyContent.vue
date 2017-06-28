@@ -17,7 +17,7 @@
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
-            <img src="/static/images/fuqian.png" @click.stop="isWithdraw=true">
+            
           </div>
         </div>
       </div>
@@ -28,6 +28,7 @@
       <!--<div class="class_pull">-->
         <!--<img src="/static/images/company/pull.png" alt="">-->
       <!--</div>-->
+      <img src="/static/images/fuqian.png" @click.stop="isWithdraw=true" style="position:fixed;right:1em;bottom:6em;height:50px;width:50px;display:none">
     </div>
 
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
@@ -148,7 +149,7 @@
 
     <Modal
       v-model="isWithdraw"
-      @on-ok="ok"
+      @on-ok="customerPay"
       @on-cancel="cancel"
       ok-text="付款"
       :closable="false"
@@ -163,7 +164,16 @@
         </div>
       </Row>
       <Row style="text-align:center;padding-left:40px;">
-        <Input v-model="withdrawMoney" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5"></Input>
+        <Input v-model="payMoney" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5"></Input>
+      </Row>
+      <Row style="text-align:left;padding-left:40px;font-size:1.3em;color:#AEAEAE">
+        <div>
+          <span>请输入备注</span>
+          <br>
+        </div>
+      </Row>
+      <Row style="text-align:center;padding-left:40px;">
+         <Input  v-model="payRemarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
       </Row>
 
     </Modal>
@@ -178,14 +188,16 @@ export default {
   props:["ids"],
   components:{swiper},
   methods:{
-    ok(){
-      if(this.withdrawMoney === 0){
+    customerPay(){
+      if(this.payMoney === 0){
         this.$Message.error("付款金额必须大于0");
         return
       }
+      var param={
 
+      }
       //自助付款
-      this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
+      this.http.post(this.$store.state.prefix + '/pay', param).then((res) => {
         if (res.error === false) {
           var row = res.result;
             var onBridgeReady = () => {
@@ -202,6 +214,8 @@ export default {
                 function (res) {
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
                     _this.$Message.success("付款成功");
+                    _this.payMoney=0;
+                    _this.payRemarks="";
                   }
                   else if(res.err_msg != 'get_brand_wcpay_request:cancel'){
                     _this.$Message.error("取消支付");
@@ -512,7 +526,8 @@ export default {
   },
   data () {
     return {
-      withdrawMoney:0,
+      payMoney:0,
+      payRemarks:"",
       isWithdraw:false,
       showGoods:true,
       showHtml:true,
@@ -697,7 +712,7 @@ export default {
               width rrem(90px)
               height rrem(90px)
               right rrem(20px)
-              top rrem(20px)
+              top rrem(20px) 
             .text_title
               font-size rrem(35px)
               color #000

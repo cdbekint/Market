@@ -931,15 +931,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ["ids"],
   components: { swiper: __WEBPACK_IMPORTED_MODULE_0_vue_swiper___default.a },
   methods: {
-    ok: function ok() {
+    customerPay: function customerPay() {
       var _this2 = this;
 
-      if (this.withdrawMoney === 0) {
+      if (this.payMoney === 0) {
         this.$Message.error("付款金额必须大于0");
         return;
       }
+      var param = {};
 
-      this.http.post(this.$store.state.prefix + '/pay', this.params).then(function (res) {
+      this.http.post(this.$store.state.prefix + '/pay', param).then(function (res) {
         if (res.error === false) {
           var row = res.result;
           var onBridgeReady = function onBridgeReady() {
@@ -954,6 +955,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, function (res) {
               if (res.err_msg === 'get_brand_wcpay_request:ok') {
                 _this.$Message.success("付款成功");
+                _this.payMoney = 0;
+                _this.payRemarks = "";
               } else if (res.err_msg != 'get_brand_wcpay_request:cancel') {
                 _this.$Message.error("取消支付");
               } else {
@@ -1241,7 +1244,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      withdrawMoney: 0,
+      payMoney: 0,
+      payRemarks: "",
       isWithdraw: false,
       showGoods: true,
       showHtml: true,
@@ -5677,24 +5681,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text_title"
     }, [_vm._v(_vm._s(x.title))]), _vm._v(" "), _c('span', {
       staticClass: "text_price"
-    }, [_vm._v(_vm._s(x.price))]), _vm._v(" "), _c('img', {
-      attrs: {
-        "src": "/static/images/fuqian.png"
-      },
-      on: {
-        "click": function($event) {
-          $event.stopPropagation();
-          _vm.isWithdraw = true
-        }
-      }
-    })])])
+    }, [_vm._v(_vm._s(x.price))])])])
   })) : _vm._e(), _vm._v(" "), (!_vm.showGoods) ? _c('div', {
     staticClass: "info_isNull"
   }, [_c('img', {
     attrs: {
       "src": "/static/images/shop.png"
     }
-  }), _vm._v(" "), _c('p', [_vm._v("这里暂时没有商品喔")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.currentPage == 0 && !_vm.notDetail) ? _c('div', {
+  }), _vm._v(" "), _c('p', [_vm._v("这里暂时没有商品喔")])]) : _vm._e(), _vm._v(" "), _c('img', {
+    staticStyle: {
+      "position": "fixed",
+      "right": "1em",
+      "bottom": "6em",
+      "height": "50px",
+      "width": "50px",
+      "display": "none"
+    },
+    attrs: {
+      "src": "/static/images/fuqian.png"
+    },
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.isWithdraw = true
+      }
+    }
+  })]) : _vm._e(), _vm._v(" "), (_vm.currentPage == 0 && !_vm.notDetail) ? _c('div', {
     staticClass: "main_detail"
   }, [_c('img', {
     staticClass: "detail_return",
@@ -5910,7 +5922,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "title": "自助付款"
     },
     on: {
-      "on-ok": _vm.ok,
+      "on-ok": _vm.customerPay,
       "on-cancel": _vm.cancel
     },
     model: {
@@ -5940,11 +5952,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "color": "#B5B5B5"
     },
     model: {
-      value: (_vm.withdrawMoney),
+      value: (_vm.payMoney),
       callback: function($$v) {
-        _vm.withdrawMoney = $$v
+        _vm.payMoney = $$v
       },
-      expression: "withdrawMoney"
+      expression: "payMoney"
+    }
+  })], 1), _vm._v(" "), _c('Row', {
+    staticStyle: {
+      "text-align": "left",
+      "padding-left": "40px",
+      "font-size": "1.3em",
+      "color": "#AEAEAE"
+    }
+  }, [_c('div', [_c('span', [_vm._v("请输入备注")]), _vm._v(" "), _c('br')])]), _vm._v(" "), _c('Row', {
+    staticStyle: {
+      "text-align": "center",
+      "padding-left": "40px"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "type": "textarea",
+      "autosize": {
+        minRows: 2,
+        maxRows: 5
+      },
+      "placeholder": "请输入..."
+    },
+    model: {
+      value: (_vm.payRemarks),
+      callback: function($$v) {
+        _vm.payRemarks = $$v
+      },
+      expression: "payRemarks"
     }
   })], 1)], 1)], 1)
 },staticRenderFns: []}
@@ -5985,4 +6025,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.39b7286cb2b666c9f9c7.js.map
+//# sourceMappingURL=app.2e91b628c6d73cc35db4.js.map
