@@ -139,6 +139,7 @@
           this.Goods.goodsStatus= String(this.Goods.goodsStatus)
           this.Goods.goodsDesc = this.util.escapeToHtml(this.Goods.goodsDesc)
           this.defaultMSg=res.result.goodsDesc
+          this.setGoodsType(this.Goods.goodsType)
         }
       });
     },

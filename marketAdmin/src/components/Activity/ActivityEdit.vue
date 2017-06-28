@@ -328,7 +328,6 @@
           imageUrl: 'http://up.qiniu.com/',
           imageActionName: 'uploadimage',
           imageFieldName: 'file',
-          imageMaxSize: 2048,
           imageAllowFiles: ['.jpg', '.png', '.jpeg'],
           imageCompressEnable: true,
           imageCompressBorder: 1600,

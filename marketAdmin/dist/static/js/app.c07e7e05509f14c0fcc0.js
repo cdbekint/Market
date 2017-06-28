@@ -906,7 +906,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageUrl: 'http://up.qiniu.com/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
-        imageMaxSize: 20480,
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
         imageCompressEnable: true,
         imageCompressBorder: 1600,
@@ -1230,7 +1229,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageUrl: 'http://up.qiniu.com/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
-        imageMaxSize: 2048,
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
         imageCompressEnable: true,
         imageCompressBorder: 1600,
@@ -2481,6 +2479,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.Goods.goodsStatus = String(_this.Goods.goodsStatus);
         _this.Goods.goodsDesc = _this.util.escapeToHtml(_this.Goods.goodsDesc);
         _this.defaultMSg = res.result.goodsDesc;
+        _this.setGoodsType(_this.Goods.goodsType);
       }
     });
   },
@@ -4121,8 +4120,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_2_vuex__["a" /* default */].Store({
     token: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('token') || '',
     companyId: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('companyId') || '',
     qiniutoken: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('qiniutoken') || '',
-
-    prefix: 'http://market.cdbeki.com'
+    prefix: '/api'
   },
   mutations: {
     updateToken: function updateToken(state) {
@@ -40650,4 +40648,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.f44c94c029d39cff995a.js.map
+//# sourceMappingURL=app.c07e7e05509f14c0fcc0.js.map
