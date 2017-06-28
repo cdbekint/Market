@@ -9,16 +9,17 @@
         <Select v-model="searchVal" slot="prepend" style="width:30%;">
           <Option value="1">会员</Option>
           <Option value="2">员工</Option>
+          <Option value="3">会员加员工</Option>
         </Select>
         </Input>
-        <Button type="primary" icon="ios-search" @click = "search(1)">查询</Button>
+        <Button type="primary" icon="ios-search" @click = "search">查询</Button>
       </div>
  	</div>
   <div class="content">
     <Table border :columns="companyCol" :data="companyData" class="giftlistable"></Table>
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
-        <Page :total="pager.total" :pager-size="pager.size" :current="pager.current" @on-change="changePage"></Page>
+        <Page :total="pager.total" :page-size="pager.size" :current="pager.current" @on-change="changePage"></Page>
       </div>
     </div>
   </div>
@@ -94,14 +95,14 @@ export default {
               return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="removeEmployee(row.accountId)"/>'
             else if(row.member == 1)
               return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setEmployee(row.accountId)"/>'
-            else 
+            else
               return ''
           }
         }
 
       ],
       pager: {
-        total:1,
+        total:0,
         size:12,
         current:1
       },
@@ -133,47 +134,60 @@ export default {
       }
     },
     getList (pageNo) {
-    this.companyData=[]
+      this.companyData=[];
       this.pager={
-        total:1,
+        total:0,
         size:12,
         current:1
-      }
+      };
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1).then(res => {
         if (res.error === false) {
-          this.pager = res.result
-          console.log(this.pager)
           this.companyData = res.result.records;
+          this.pager = res.result
         }
       })
     },
-    search (pageNo) {
+    search () {
       this.companyData=[]
       this.pager={
-        total:1,
+        total:0,
         size:12,
         current:1
       }
-      var url = this.searchVal == 1 ? '/customer/getCompanyUserInfo/1?member=1&employee=0':'/customer/getCompanyUserInfo/1?member=0&employee=1';
+      var url = "";
+      if(this.searchVal == 1){
+        url = '/customer/getCompanyUserInfo/1?member=1&employee=0'
+      }else if(this.searchVal == 2){
+        url = '/customer/getCompanyUserInfo/1?member=0&employee=1'
+      }else{
+        url = '/customer/getCompanyUserInfo/1'
+      }
       this.http.get(this.$store.state.prefix + url).then(res => {
         if (res.error === false) {
-          this.pager = res.result
           this.companyData = res.result.records;
+          this.pager = res.result
         }
       })
     },
     changePage (e) {
-      this.getList(e)
+      var url = "";
+      if(this.searchVal == 1){
+        url = '/customer/getCompanyUserInfo/'+e+'?member=1&employee=0'
+      }else if(this.searchVal == 2){
+        url = '/customer/getCompanyUserInfo/'+e+'?member=0&employee=1'
+      }else{
+        url = '/customer/getCompanyUserInfo/'+ e
+      }
+      this.http.get(this.$store.state.prefix + url).then(res => {
+        if (res.error === false) {
+          this.companyData = res.result.records;
+          this.pager = res.result
+        }
+      })
     }
   }
-
 }
 </script>
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
-.customerlisttable
-  .customeravater
-    width:40px
-    height:auto
-    max-height:40px
 </style>

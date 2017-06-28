@@ -406,7 +406,7 @@
           this.Group = JSON.parse(this.activity.discountLevel.replace(/&quot;/g,'"'));
           this.defaultMSg = this.util.escapeToHtml(this.activity.content);
           this.activity.content = this.defaultMSg
-          this.activity.startDate = this.util.getFormatDate(this.activity.starDate)
+          this.activity.startDate = this.util.getFormatDate(this.activity.startDate)
           this.activity.endDate = this.util.getFormatDate(this.activity.endDate)
           this.activity.endDate = this.util.getFormatDate(this.activity.endDate)
           this.activity.payStartDate = this.util.getFormatDate(this.activity.payStartDate)
@@ -433,7 +433,7 @@
             this.goodList = res.result.records
           }
         })
-        
+
 
         this.http.get(this.$store.state.prefix + '/gift/page/1').then(res => {
             if (res.error === false) {
