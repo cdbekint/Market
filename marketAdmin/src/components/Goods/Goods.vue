@@ -85,6 +85,12 @@
                 return '下架'
               }
             }
+          },{
+            title: '商品类型',
+            key: 'goodsType',
+            render (row) {
+             return row.goodsType==1?'现金':row.goodsType==2?'积分':'现金+积分'
+            }
           },
           {
             title: '操作',

@@ -1742,49 +1742,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         width: 60,
         align: 'center'
       }, {
-        title: '团号',
-        key: 'activityName'
-      }, {
         title: '昵称',
-        key: 'activityImg',
-        render: function render(row) {
-          return '<img class="activitylistavater" :src="murl + row.activityImg"/>';
-        }
-      }, {
-        title: '头像',
-        key: 'joinNum',
-        render: function render(row) {
-          return row.joinNum + ',' + row.payNum;
-        }
+        key: 'nickName'
       }, {
         title: '真实姓名',
-        key: 'viewNum',
-        render: function render(row) {
-          return row.viewNum + ',' + row.shareNum;
-        }
+        key: 'realName'
       }, {
         title: '电话',
-        key: 'startDate'
+        key: 'phone'
       }, {
         title: '消费金额',
-        key: 'endDate'
+        key: 'allPayAmount'
       }, {
-        title: '所获积分',
-        key: 'id',
-        render: function render(row) {
-          return '<img @mouseover="showImg" @mouseout="isHover=false" :src="generaUrl(row)" width="80px" height="80px">';
-        }
+        title: '消费所得积分',
+        key: 'allPayPoints'
       }, {
-        title: '交易额',
-        key: 'id',
+        title: '总得积分',
+        key: 'groupPoints'
+      }, {
+        title: '交易状态',
+        key: 'payStatus',
         render: function render(row) {
-          return '<img @mouseover="showImg" @mouseout="isHover=false" :src="generaUrl(row)" width="80px" height="80px">';
+          if (row.payStatus == 1) {
+            return '已支付';
+          } else {
+            return '未支付';
+          }
         }
       }, {
         title: '操作',
         key: 'action',
         render: function render(row) {
-          return '<i-button type="text" size="small">移除团队</i-button>';
+          return '<i-button type="text" size="small" @click="removeTeamUser(row.accountId)">移除团队</i-button>';
         }
       }],
       activityteamuserData: [],
@@ -1795,6 +1784,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       activitypager: {
         pages: 1,
         current: 1,
+        size: 12,
         total: 1
       },
       routerquery: {}
@@ -1823,8 +1813,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    changePage: function changePage() {
-      this.getActivityTeamUser(this.activitypager.current);
+    changePage: function changePage(e) {
+      this.getActivityTeamUser(e);
+    },
+    removeTeamUser: function removeTeamUser(accountId) {
+      var _this2 = this;
+
+      var query = this.util.getQuery(location.hash);
+
+      this.http.put(this.$store.state.prefix + "/activity/removeGroup/" + accountId + "/" + query.id).then(function (res) {
+        if (res.error == false) {
+          _this2.$Message.success("团员移除成功");
+          _this2.getActivityTeamUser(_this2.activitypager.current);
+        } else {
+          _this2.$Message.error(res.msg);
+        }
+      });
     }
   }
 });
@@ -2220,6 +2224,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           } else {
             return '下架';
           }
+        }
+      }, {
+        title: '商品类型',
+        key: 'goodsType',
+        render: function render(row) {
+          return row.goodsType == 1 ? '现金' : row.goodsType == 2 ? '积分' : '现金+积分';
         }
       }, {
         title: '操作',
@@ -2886,9 +2896,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getList: function getList(pageNo) {
       var _this3 = this;
 
+      this.companyData = [];
+      this.pager = {
+        total: 1,
+        size: 12,
+        current: 1
+      };
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1).then(function (res) {
         if (res.error === false) {
           _this3.pager = res.result;
+          console.log(_this3.pager);
           _this3.companyData = res.result.records;
         }
       });
@@ -2896,6 +2913,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     search: function search(pageNo) {
       var _this4 = this;
 
+      this.companyData = [];
+      this.pager = {
+        total: 1,
+        size: 12,
+        current: 1
+      };
       var url = this.searchVal == 1 ? '/customer/getCompanyUserInfo/1?member=1&employee=0' : '/customer/getCompanyUserInfo/1?member=0&employee=1';
       this.http.get(this.$store.state.prefix + url).then(function (res) {
         if (res.error === false) {
@@ -3190,9 +3213,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }, {
         title: '提现金额',
         key: 'withdrawAmount'
-      }, {
-        title: '提现描述',
-        key: 'withdrawDesc'
       }, {
         title: '提现手续费',
         key: 'withdrawFactorage'
@@ -7233,6 +7253,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Page', {
     attrs: {
       "total": _vm.activitypager.total,
+      "page-size": _vm.activitypager.size,
       "current": _vm.activitypager.current
     },
     on: {
@@ -40692,4 +40713,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.bf58b872e65e169973eb.js.map
+//# sourceMappingURL=app.a6f9a40128b67dcabb18.js.map

@@ -61,10 +61,6 @@ export default {
           key: 'withdrawAmount'
         },
         {
-          title: '提现描述',
-          key: 'withdrawDesc'
-        },
-        {
           title: '提现手续费',
           key: 'withdrawFactorage'
         },

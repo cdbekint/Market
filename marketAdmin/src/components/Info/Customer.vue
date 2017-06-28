@@ -133,14 +133,27 @@ export default {
       }
     },
     getList (pageNo) {
+    this.companyData=[]
+      this.pager={
+        total:1,
+        size:12,
+        current:1
+      }
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1).then(res => {
         if (res.error === false) {
           this.pager = res.result
+          console.log(this.pager)
           this.companyData = res.result.records;
         }
       })
     },
     search (pageNo) {
+      this.companyData=[]
+      this.pager={
+        total:1,
+        size:12,
+        current:1
+      }
       var url = this.searchVal == 1 ? '/customer/getCompanyUserInfo/1?member=1&employee=0':'/customer/getCompanyUserInfo/1?member=0&employee=1';
       this.http.get(this.$store.state.prefix + url).then(res => {
         if (res.error === false) {

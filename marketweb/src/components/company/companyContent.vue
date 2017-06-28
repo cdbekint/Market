@@ -17,7 +17,7 @@
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
-            <img src="/static/images/fuqian.png" @click="isWithdraw=true">
+            <img src="/static/images/fuqian.png" @click.stop="isWithdraw=true">
           </div>
         </div>
       </div>
@@ -697,7 +697,7 @@ export default {
               width rrem(90px)
               height rrem(90px)
               right rrem(20px)
-              top rrem(10px)
+              top rrem(20px)
             .text_title
               font-size rrem(35px)
               color #000

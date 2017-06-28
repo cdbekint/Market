@@ -19,7 +19,6 @@
   <div class="hoverShowImg" v-if="isHover" :style="{left:Left+'px',top:Top+'px'}">
     <img :src="currentImg" width="100%" height="100%">
   </div>
-
     </div>
 </template>
 

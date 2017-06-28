@@ -12,7 +12,7 @@
    <Table border :columns="activityteamuserColumns" :data="activityteamuserData" class="activityteamtable"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="activitypager.total" :current="activitypager.current" @on-change="changePage"></Page>
+            <Page :total="activitypager.total" :page-size="activitypager.size" :current="activitypager.current" @on-change="changePage"></Page>
         </div>
     </div>
  	</div>
@@ -36,57 +36,45 @@ export default {
           align: 'center'
         },
         {
-          title: '团号',
-          key: 'activityName'
-        },
-        {
           title: '昵称',
-          key: 'activityImg',
-          render (row) {
-            return '<img class="activitylistavater" :src="murl + row.activityImg"/>'
-          }
-        },
-        {
-          title: '头像',
-          key: 'joinNum',
-          render (row) {
-            return row.joinNum + ',' +row.payNum
-          }
+          key: 'nickName'
         },
         {
           title: '真实姓名',
-          key: 'viewNum',
-          render (row) {
-            return row.viewNum + ',' +row.shareNum
-          }
+          key: 'realName'
         },
         {
           title: '电话',
-          key: 'startDate'
+          key: 'phone'
         },
         {
           title: '消费金额',
-          key: 'endDate'
+          key: 'allPayAmount'
         },
         {
-          title: '所获积分',
-          key: 'id',
-          render (row) {
-             return '<img @mouseover="showImg" @mouseout="isHover=false" :src="generaUrl(row)" width="80px" height="80px">'
-          }
+          title: '消费所得积分',
+          key:'allPayPoints'
         },
         {
-          title: '交易额',
-          key: 'id',
+          title: '总得积分',
+          key: 'groupPoints'
+        },
+        {
+          title: '交易状态',
+          key: 'payStatus',
           render (row) {
-             return '<img @mouseover="showImg" @mouseout="isHover=false" :src="generaUrl(row)" width="80px" height="80px">'
+            if(row.payStatus ==1 ){
+              return '已支付'
+            }else{
+              return '未支付'
+            }
           }
         },
         {
           title: '操作',
           key: 'action',
           render (row) {
-            return '<i-button type="text" size="small">移除团队</i-button>'
+            return '<i-button type="text" size="small" @click="removeTeamUser(row.accountId)">移除团队</i-button>'
           }
         }
       ],
@@ -98,6 +86,7 @@ export default {
       activitypager: {
         pages: 1,
         current: 1,
+        size:12,
         total:1
       },
       routerquery:{
@@ -127,9 +116,21 @@ export default {
         }
       })
     },
-    changePage () {
-      this.getActivityTeamUser(this.activitypager.current)
+    changePage (e) {
+      this.getActivityTeamUser(e)
     },
+    removeTeamUser(accountId){
+      var query = this.util.getQuery(location.hash)
+
+        this.http.put(this.$store.state.prefix+"/activity/removeGroup/"+accountId+"/"+query.id).then(res=>{
+        if(res.error==false){
+          this.$Message.success("团员移除成功");
+          this.getActivityTeamUser(this.activitypager.current)
+        }else {
+        this.$Message.error(res.msg)
+        }
+      })
+    }
   }
 }
 </script>
