@@ -2,7 +2,7 @@
   <div class = "goodsListOne">
     <div class="list_parent">
       <div class="list_item" v-for="x in goodsList">
-        <img :src="murl + x.img" class="item_img">
+        <img :src="murl + x.img" class="item_img" @click="showGoodsDirect(x.id)">
         <div class="item_text">
           <p style="font-weight: bold;color:#434343;">{{x.name}}</p>
           <p style="color:#aeaeae;" class="text_line">{{x.price}}</p>
@@ -10,6 +10,9 @@
         </div>
         <div class="item_btn" :style="{background:stateColor[x.state]}" @click="showGoodsDetail(x.id)">{{x.btnTxt}}</div>
       </div>
+    </div>
+    <div class="payTimeText">
+      支付时间:{{payInfo.payStartDate}}&nbsp;—&nbsp;{{payInfo.payEndDate}}
     </div>
   </div>
 </template>
@@ -25,9 +28,12 @@ export default {
       }else if(this.payTime === 0){
         this.$Message.info("支付时间未到");
       } else{
-         this.$Message.info("支付时间已结束");
+        this.$Message.info("支付时间已结束");
       }
       
+    },
+    showGoodsDirect(id) {
+       this.$emit("goodImgClick",id);
     }
   },
   watch: {
@@ -40,6 +46,8 @@ export default {
         this.http.get(this.$store.state.prefix + '/goods/getGoodsByIds?goodsIds='+val.goodsIds).then(res => {
           this.goodsList = [];
           if(res.error == false){
+            this.payInfo.payStartDate = this.util.getFormatDate (val.payStartDate,1)
+            this.payInfo.payEndDate = this.util.getFormatDate(val.payEndDate,1)
             res.result.forEach(item=>{
               var obj = {
                 name:item.goodsName,
@@ -105,7 +113,11 @@ export default {
         "#ff017e",
         "#aeaeae",
       ],
-      payTime:0 //0即将开始，1可以支付，2支付时间结束
+      payTime:0, //0即将开始，1可以支付，2支付时间结束
+      payInfo:{
+        payStartDate:this.util.getFormatDate(Date.now()),
+        payEndDate:this.util.getFormatDate(Date.now())
+      }
     }
   }
 }
@@ -118,9 +130,15 @@ export default {
   .goodsListOne
     background #FCDDE0
     width 100%
-    height rrem(534px)
+    height rrem(574px)
     position relative
     overflow scroll
+    .payTimeText
+      padding-top rrem(10px)
+      text-align:center
+      width:100%
+      position absolute
+      top rrem(530px)
     .list_parent
       position absolute
       overflow-x auto

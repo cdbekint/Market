@@ -32,6 +32,7 @@ export default {
       this.http.get(this.$store.state.prefix + "/home/getActivityInfo/" + this.currentCompanyId +"/"+page).then(res=> {
         if (res.error == false) {
           var row = res.result;
+          this.datas.activityInfo.info=[]
           row.records.forEach(item=> {
             var obj = {
               id: item.id,
@@ -54,6 +55,7 @@ export default {
       this.http.get(this.$store.state.prefix + "/home/getInvitedMems/" +  this.currentCompanyId +"/"+page).then(res=> {
         if(res.error == false){
           var row = res.result;
+          this.datas.memberInfo.info=[]
           row.records.forEach(item=>{
             var obj = {
               img: item.headImg,
@@ -75,6 +77,7 @@ export default {
       this.http.get(this.$store.state.prefix + "/home/getUserExpense/" +  this.currentCompanyId +"/"+page).then(res=> {
         if(res.error == false){
           var row = res.result;
+          this.datas.consumeInfo.info=[]
           row.records.forEach(item=>{
             var time = new Date(item.payDate);
             time = time.toLocaleString().split(",")[0];
@@ -100,6 +103,7 @@ export default {
         if(res.error == false){
           var row = res.result;
           var arr = [];
+          this.datas.jifenInfo.info=[]
           row.records.forEach(item=>{
             var time = new Date(item.createDate);
             time = this.util.sliceStr(time.toLocaleString().split(",")[0],10,'');

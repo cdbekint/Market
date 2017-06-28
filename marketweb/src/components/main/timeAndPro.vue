@@ -13,7 +13,7 @@
         <div class = "main_title">
           <span class = "text">倒计时</span>
           <img src="/static/images/line.png" alt="">
-          <span class = "english">THE COUNTDOWN</span>
+          <span class = "english">COUNTDOWN</span>
         </div>
       </div>
       <div class = "pro_line line2">
@@ -25,7 +25,7 @@
         <div class = "main_title">
           <span class = "text">当前进度</span>
           <img src="/static/images/line.png" alt="">
-          <span class = "english">THE CURRENT PROGRESS</span>
+          <span class = "english">PROGRESS</span>
         </div>
       </div>
       <div class = "pro_line line3">
@@ -38,7 +38,7 @@
         <div class = "main_title">
           <span class = "text">总参与{{activity.joinNum}}人</span>
           <img src="/static/images/line.png" alt="">
-          <span class = "english">THE PARTICIPANTS NUMBER</span>
+          <span class = "english">PARTICIPANTS</span>
         </div>
       </div>
       <div class = "pro_line line4">

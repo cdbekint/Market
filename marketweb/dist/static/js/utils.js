@@ -132,5 +132,55 @@ export default {
       array.reverse();
     }
     return array;
+  },
+  changeDateToTime(date){
+    var newDate = new Date(date).toJSON();
+    var index = newDate.indexOf("T");
+    return newDate.slice(0,index)
+  },
+  getFormatDate(a,b){
+    //a 时间
+    //b 返回类型  b=1 月+日 +时分秒
+    var date = null;
+    if(a) {
+      date = new Date(a);
+    } else {
+      date = new Date();
+    }
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if(month >= 1 && month <= 9) {
+      month = "0" + month;
+    }
+    if(strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
+    }
+    var Hours= date.getHours();
+    var Minut= date.getMinutes();
+    var Second= date.getSeconds();
+    if(Second >= 0 && Second <= 9) {
+      Second = "0" + Second;
+    }
+    if(Minut >= 0 && Minut <= 9) {
+      Minut = "0" + Minut;
+    }
+    if(Hours >= 0 && Hours <= 9) {
+      Hours = "0" + Hours;
+    }
+
+    var currentdate=""
+    if (b ==1 ){
+    currentdate = month + seperator1 + strDate +
+          " " + Hours + seperator2 + Minut +
+          seperator2 + Hours;
+    }else{
+    currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+          " " + Hours + seperator2 + Minut +
+          seperator2 + Hours;
+    }
+    
+    return currentdate;
   }
 }

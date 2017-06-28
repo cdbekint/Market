@@ -32,6 +32,10 @@
           </div>
         </div>
       </div>
+      <div class="info_isNull" v-if="index==0&&activityInfo.info.length==0">
+        <img src="/static/images/shop.png">
+        <p>暂未参加此商家任何活动</p>
+      </div>
 
       <div class="info_jifen info_people" v-for="x in memberInfo.info" v-if="index==1">
         <img :src="x.img" class="jifen_img  people_img">
@@ -53,6 +57,10 @@
           </div>
         </div>
       </div>
+      <div class="info_isNull" v-if="index==1&&memberInfo.info.length==0">
+        <img src="/static/images/shop.png">
+        <p>暂未邀请任何人员</p>
+      </div>
 
       <div class="info_jifen info_count" v-if="index==2">
         <div class="count_main">
@@ -73,6 +81,10 @@
           </div>
         </div>
       </div>
+      <div class="info_isNull" v-if="index==2&&consumeInfo.info.length==0">
+        <img src="/static/images/shop.png">
+        <p>暂无任何消费记录</p>
+      </div>
 
       <div class="info_jifen" v-if="index==3">
         <ul class="pointrecords">
@@ -82,6 +94,10 @@
             <div class="r_date" v-text="x.time"></div>
           </li>
         </ul>
+      </div>
+      <div class="info_isNull" v-if="index==3&&jifenInfo.info.length==0">
+        <img src="/static/images/shop.png">
+        <p>暂无任何积分记录</p>
       </div>
     </div>
 
@@ -198,6 +214,9 @@
 <style lang="stylus" rel="stylesheet/stylus">
   rrem(val){
     return (val/45px)rem
+  }
+  rrrem(val){
+    return (val/108px)rem
   }
   .infos
     width 100%
@@ -410,4 +429,18 @@
         margin rrem(20px) 0px
         width rrem(105px)
         height rrem(31px)
+
+    .info_isNull
+      width rrrem(1000px)
+      height rrrem(340px)
+      background #fff
+      text-align center
+      margin-top rrrem(55px)
+      img
+        width rrrem(237px)
+        height rrrem(196px)
+        margin-top rrrem(55px)
+      p
+        margin-top rrrem(25px)
+        font-size rrrem(28px)
 </style>

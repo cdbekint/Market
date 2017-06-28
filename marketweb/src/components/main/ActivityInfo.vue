@@ -3,7 +3,7 @@
     <music :url = 'music'></music>
     <mainImg :activity = "activity" ></mainImg>
     <timeAndPro :activity = "activity" ></timeAndPro>
-    <goodsList :activity="activity" @goodsClick="showGoodsDetail"></goodsList>
+    <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect"></goodsList>
     <joinPeople :activity = "activity" ></joinPeople>
     <Gift :activity = "activity"></Gift>
     <Group :activity = "activity" v-if="isGroup"></Group>
@@ -327,6 +327,21 @@ export default {
         query:{
           id:goodsId,
           activeId:this.activity.id,
+          companyId:this.activity.companyId,
+          discount:this.activity.discount
+        }
+      })
+    },
+    showGoodsDirect(goodsId){
+        if(this.$store.state.isMember == 0){
+        this.currentState = true;
+        return;
+      }
+      this.$store.state.currentActive = this.activity.id;
+      this.$router.push({
+        path:"/company",
+        query:{
+          id:goodsId,
           companyId:this.activity.companyId
         }
       })

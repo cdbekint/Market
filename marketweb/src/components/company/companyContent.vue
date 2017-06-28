@@ -56,11 +56,11 @@
         </div>
         <div class="text_jifen">
           <img src="/static/images/jifen2.png">
-          <span>{{currentGoods.price}}</span>
+           <span>{{currentGoods.price}}</span>
         </div>
       </div>
       <div class="detail_btn" @click="payGoods">
-        <span v-if="!payState">立即购买</span>
+        <span v-if="!payState">{{ids.discount?ids.discount+'折':''}}立即购买</span>
         <span v-else><Icon type="ios-checkmark-outline" size="23" style="margin-right:10px"></Icon>购买成功</span>
       </div>
       <div class="detail_html">
@@ -220,8 +220,15 @@ export default {
             img:row.goodsImg,
             images:row.goodsImg.split(","),
             desc:this.util.escapeToHtml(row.goodsDesc),
-            price:'',
             goodsType:row.goodsType
+          }
+          if(this.ids.discount){
+            console.log(this.ids.discount)
+            console.log(this.currentGoods.price)
+
+            this.currentGoods.price =Number(this.currentGoods.price)*Number(this.ids.discount)/10
+
+            console.log(this.currentGoods.price)
           }
           if(state == 1){
           //判断是否是从活动中带过来支付
@@ -244,13 +251,13 @@ export default {
           }
 
           if(row.goodsType == 1){
-            this.currentGoods.price = row.goodsPrice + "元"
+            this.currentGoods.price = this.currentGoods.price + "元"
           }
           else if(row.goodsType == 2){
             this.currentGoods.price = row.maxPoints + "积分"
           }
           else if(row.goodsType == 3){
-            this.currentGoods.price = row.goodsPrice + "元 + "+row.maxPoints+"积分"
+            this.currentGoods.price = this.currentGoods.price + "元 + "+row.maxPoints+"积分"
           }
 
           this.notDetail = false;
@@ -711,6 +718,7 @@ export default {
 
     .main_member
       width 100%
+      margin-top rrem(16px)
       margin-bottom rrem(60px)
       .member_hr
         height rrem(100px)
@@ -865,7 +873,7 @@ export default {
         text-align center
         min-height rrem(640px)
         height:auto
-        padding-top rrem(50px)
+        padding-top rrem(20px)
         position relative
         .bg
           z-index -1
