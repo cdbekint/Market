@@ -368,14 +368,14 @@
           ]
         },
         Mainuploaderconfig: {
-          maxSize: 5120,
+          maxSize: 2048,
           format: ['png', 'jpg', 'jpeg'],
           showUploadList: false,
           parent: 'activity',
           child: 'activityImg'
         },
         uploaderconfig: {
-          maxSize: 1024,
+          maxSize: 500,
           format: ['png', 'jpg', 'jpeg'],
           showUploadList: false,
           parent: 'activity',

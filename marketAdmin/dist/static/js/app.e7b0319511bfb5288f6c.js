@@ -939,14 +939,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         level: 10
       }]), _activity),
       Mainuploaderconfig: {
-        maxSize: 5120,
+        maxSize: 2048,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
         child: 'activityImg'
       },
       uploaderconfig: {
-        maxSize: 1024,
+        maxSize: 500,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
@@ -1262,14 +1262,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         level: 10
       }]), _activity),
       Mainuploaderconfig: {
-        maxSize: 5120,
+        maxSize: 2048,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
         child: 'activityImg'
       },
       uploaderconfig: {
-        maxSize: 1024,
+        maxSize: 500,
         format: ['png', 'jpg', 'jpeg'],
         showUploadList: false,
         parent: 'activity',
@@ -8788,7 +8788,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "ghost",
       "icon": "ios-cloud-upload-outline"
     }
-  }, [_vm._v("上传文件")]), _vm._v(" "), _c('p', [_vm._v("文件格式:" + _vm._s(_vm.config.format.join(",")) + ";文件大小限制:" + _vm._s(parseInt(_vm.config.maxSize / 1024)) + "M")])], 1), _vm._v(" "), (_vm.item.showProgress) ? _c('Progress', {
+  }, [_vm._v("上传文件")]), _vm._v(" "), _c('p', [_vm._v("文件格式:" + _vm._s(_vm.config.format.join(",")) + ";文件大小限制:" + _vm._s(_vm.config.maxSize > 1024 ? (parseInt(_vm.config.maxSize / 1024) + 'M') : (_vm.config.maxSize + 'KB')))])], 1), _vm._v(" "), (_vm.item.showProgress) ? _c('Progress', {
     attrs: {
       "percent": _vm.item.percentage
     }
@@ -40649,4 +40649,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.74a95fddb81e980b00c2.js.map
+//# sourceMappingURL=app.e7b0319511bfb5288f6c.js.map

@@ -14,7 +14,7 @@
         :on-exceeded-size="uploaderSize"
         >
         <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-        <p>文件格式:{{config.format.join(",")}};文件大小限制:{{parseInt(config.maxSize/1024)}}M</p>
+        <p>文件格式:{{config.format.join(",")}};文件大小限制:{{config.maxSize>1024?(parseInt(config.maxSize/1024)+'M'):(config.maxSize+'KB')}}</p>
     </Upload>
      <Progress v-if="item.showProgress" :percent="item.percentage"></Progress>
 </div>
