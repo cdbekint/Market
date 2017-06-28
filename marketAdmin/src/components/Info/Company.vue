@@ -119,7 +119,7 @@
       </Input>
     </div>
     <div class='itemhepler'>
-
+      积分对应的兑换成现金的比例。
     </div>
   </li>
   <li class='companyitem'>
@@ -158,18 +158,18 @@
       <input type='number' v-model='company.sharePoints'>
     </div>
     <div class='itemhepler'>
-      用户分享之后
+      用户分享到朋友圈后可获得积分数量
     </div>
   </li>
   <li class='companyitem'>
     <div class='itemname'>
-      最大分享次数
+      分享朋友圈次数
     </div>
     <div class='itemcontent'>
       <input type='number' v-model='company.shareMax'>
     </div>
     <div class='itemhepler'>
-
+      用户每个活动分享到朋友圈每天可获得积分的次数
     </div>
   </li>
   <li class='companyitem'>
@@ -180,7 +180,7 @@
       <input type='number' v-model='company.registerMoney'>
     </div>
     <div class='itemhepler'>
-
+      用户注册成为会员，需缴纳此金额
     </div>
   </li>
   <li class='companyitem'>
@@ -191,7 +191,7 @@
       <input type='number' v-model='company.registerPoints'>
     </div>
     <div class='itemhepler'>
-
+      用户注册成为会员，返还积分数量
     </div>
   </li>
    <li class='companyitem'>

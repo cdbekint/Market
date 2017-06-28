@@ -8282,7 +8282,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "append"
   }, [_vm._v("%")])])], 1), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
-  })]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\r\n      积分对应的兑换成现金的比例。\r\n    ")])]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
   }, [_c('div', {
     staticClass: "itemname"
@@ -8405,11 +8405,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
-  }, [_vm._v("\r\n      用户分享之后\r\n    ")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\r\n      用户分享到朋友圈后可获得积分数量\r\n    ")])]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
   }, [_c('div', {
     staticClass: "itemname"
-  }, [_vm._v("\r\n      最大分享次数\r\n    ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n      分享朋友圈次数\r\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "itemcontent"
   }, [_c('input', {
     directives: [{
@@ -8435,7 +8435,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
-  })]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\r\n      用户每个活动分享到朋友圈每天可获得积分的次数\r\n    ")])]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
   }, [_c('div', {
     staticClass: "itemname"
@@ -8465,7 +8465,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
-  })]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\r\n      用户注册成为会员，需缴纳此金额\r\n    ")])]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
   }, [_c('div', {
     staticClass: "itemname"
@@ -8495,7 +8495,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "itemhepler"
-  })]), _vm._v(" "), _c('li', {
+  }, [_vm._v("\r\n      用户注册成为会员，返还积分数量\r\n    ")])]), _vm._v(" "), _c('li', {
     staticClass: "companyitem"
   }, [_c('div', {
     staticClass: "itemname"
@@ -40713,4 +40713,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.a6f9a40128b67dcabb18.js.map
+//# sourceMappingURL=app.b9ab62bf63185916bb99.js.map

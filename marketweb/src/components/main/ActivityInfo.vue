@@ -185,7 +185,6 @@ export default {
             var len = this.activity.groupInfo.length;
             if(len > 0) {
               var info = this.activity.groupInfo[0];
-              debugger
               this.currentGroup = {
                 id:info.groupId,
                 img:info.headImg,
@@ -250,7 +249,7 @@ export default {
       type: 'link',
       dataUrl: '',
       success: function () {
-        _this.shareSuccess()
+        _this.shareSuccess(2)
       },
       cancel: function () {
         console.log('cancel app')
@@ -262,7 +261,7 @@ export default {
       link: content.wxlineLink,
       imgUrl: content.wximgUrl,
       success: function () {
-        _this.shareSuccess()
+        _this.shareSuccess(1)
       },
       cancel: function () {
         console.log('cancel time')
@@ -370,8 +369,8 @@ export default {
       }
       this.$router.push("/home")
     },
-    shareSuccess () {
-      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/'+ this.activityId).then(res => {
+    shareSuccess (type) {
+      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/'+ this.activityId +"?shareType="+type).then(res => {
         this.$Message.success("恭喜你分享成功");
       })
     },

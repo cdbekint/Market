@@ -5,7 +5,7 @@
       <img src="/static/images/up.png" class = "upImg">
 
       <div class="giftNote">
-        连续分享{{activity.shareTimes}}天，即可到店领取如下礼品之一
+        累积分享{{activity.shareTimes}}天到朋友圈，即可到店领取如下礼品之一
       </div>
       <div v-for="gf in giftlist" class="giftlistwrapper">
         <div class="gifttitle" v-text="gf.giftName">

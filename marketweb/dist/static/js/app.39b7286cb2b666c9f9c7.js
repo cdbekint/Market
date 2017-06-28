@@ -226,10 +226,12 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_2_ivi
   }, {
     path: '/home',
     name: 'home',
+    requireAuth: true,
     component: __WEBPACK_IMPORTED_MODULE_8__components_home_homePage___default.a
   }, {
     path: '/company',
     name: 'company',
+    requireAuth: true,
     component: __WEBPACK_IMPORTED_MODULE_9__components_company_companyPage___default.a
   }, {
     path: '/login',
@@ -929,24 +931,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ["ids"],
   components: { swiper: __WEBPACK_IMPORTED_MODULE_0_vue_swiper___default.a },
   methods: {
+    ok: function ok() {
+      var _this2 = this;
+
+      if (this.withdrawMoney === 0) {
+        this.$Message.error("付款金额必须大于0");
+        return;
+      }
+
+      this.http.post(this.$store.state.prefix + '/pay', this.params).then(function (res) {
+        if (res.error === false) {
+          var row = res.result;
+          var onBridgeReady = function onBridgeReady() {
+            var _this = _this2;
+            WeixinJSBridge.invoke('getBrandWCPayRequest', {
+              'appId': row.appid,
+              'timeStamp': row.timeStamp,
+              'nonceStr': row.nonce_str,
+              'package': row.prepay_id,
+              'signType': row.sign_type,
+              'paySign': row.sign
+            }, function (res) {
+              if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                _this.$Message.success("付款成功");
+              } else if (res.err_msg != 'get_brand_wcpay_request:cancel') {
+                _this.$Message.error("取消支付");
+              } else {
+                _this.$Message.error("购买失败");
+              }
+            });
+          };
+          if (typeof WeixinJSBridge === 'undefined') {
+            if (document.addEventListener) {
+              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+              document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+          } else {
+            onBridgeReady();
+          }
+        }
+      });
+    },
+    cancel: function cancel() {
+      this.isWithdraw = false;
+    },
     returnGoodsList: function returnGoodsList() {
       this.notDetail = true;
     },
     payGoods: function payGoods() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.isloading) return;
       this.isloading = true;
       this.http.post(this.$store.state.prefix + '/pay', this.params).then(function (res) {
-        _this2.isloading = false;
+        _this3.isloading = false;
         if (res.error === false) {
           var row = res.result;
-          if (_this2.currentGoods.goodsType === 2) {
-            _this2.payState = true;
-            _this2.$Message.success("购买成功");
+          if (_this3.currentGoods.goodsType === 2) {
+            _this3.payState = true;
+            _this3.$Message.success("购买成功");
           } else {
             var onBridgeReady = function onBridgeReady() {
-              var _this = _this2;
+              var _this = _this3;
               WeixinJSBridge.invoke('getBrandWCPayRequest', {
                 'appId': row.appid,
                 'timeStamp': row.timeStamp,
@@ -980,39 +1028,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     showDetail: function showDetail(id, state) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.http.get(this.$store.state.prefix + '/goods/' + id).then(function (res) {
         if (res.error == false) {
           var row = res.result;
-          _this3.currentGoods = {
+          _this4.currentGoods = {
             saleNum: row.saleNum,
             storageNum: row.storageNum,
             name: row.goodsName,
             price: row.goodsPrice,
             img: row.goodsImg,
             images: row.goodsImg.split(","),
-            desc: _this3.util.escapeToHtml(row.goodsDesc),
+            desc: _this4.util.escapeToHtml(row.goodsDesc),
             goodsType: row.goodsType
           };
-          if (_this3.ids.discount) {
-            console.log(_this3.ids.discount);
-            console.log(_this3.currentGoods.price);
+          if (_this4.ids.discount) {
+            console.log(_this4.ids.discount);
+            console.log(_this4.currentGoods.price);
 
-            _this3.currentGoods.price = Number(_this3.currentGoods.price) * Number(_this3.ids.discount) / 10;
+            _this4.currentGoods.price = Number(_this4.currentGoods.price) * Number(_this4.ids.discount) / 10;
 
-            console.log(_this3.currentGoods.price);
+            console.log(_this4.currentGoods.price);
           }
           if (state == 1) {
-            _this3.params = {
-              businessId: _this3.ids.activeId,
+            _this4.params = {
+              businessId: _this4.ids.activeId,
               payType: 2,
               payAmount: 0,
               companyId: row.companyId,
               goodsId: row.id
             };
           } else {
-            _this3.params = {
+            _this4.params = {
               businessId: 0,
               payType: 2,
               payAmount: 0,
@@ -1022,14 +1070,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           }
 
           if (row.goodsType == 1) {
-            _this3.currentGoods.price = _this3.currentGoods.price + "元";
+            _this4.currentGoods.price = _this4.currentGoods.price + "元";
           } else if (row.goodsType == 2) {
-            _this3.currentGoods.price = row.maxPoints + "积分";
+            _this4.currentGoods.price = row.maxPoints + "积分";
           } else if (row.goodsType == 3) {
-            _this3.currentGoods.price = _this3.currentGoods.price + "元 + " + row.maxPoints + "积分";
+            _this4.currentGoods.price = _this4.currentGoods.price + "元 + " + row.maxPoints + "积分";
           }
 
-          _this3.notDetail = false;
+          _this4.notDetail = false;
         }
       });
     },
@@ -1054,7 +1102,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     changeJifen: function changeJifen(index) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.jifenCategory.forEach(function (item, i) {
         item.state = 0;
@@ -1066,7 +1114,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var url = this.url == '' ? "?orderType=" + (index + 1) : this.url + "&orderType=" + (index + 1);
       this.http.get(this.$store.state.prefix + "/shop/getMemsInfo" + url).then(function (res) {
         if (res.error == false) {
-          _this4.member = [];
+          _this5.member = [];
           var row = res.result;
           row.forEach(function (item) {
             var obj = {
@@ -1075,9 +1123,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               total: item.allPoints,
               people: item.invitedMems
             };
-            _this4.member.push(obj);
+            _this5.member.push(obj);
           });
-          if (_this4.member.length == 0) _this4.showMember = false;else _this4.showMember = true;
+          if (_this5.member.length == 0) _this5.showMember = false;else _this5.showMember = true;
         }
       });
     },
@@ -1092,7 +1140,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.getGoodsByType(index);
     },
     getGoodsByType: function getGoodsByType(id) {
-      var _this5 = this;
+      var _this6 = this;
 
       this.http.get(this.$store.state.prefix + "/shop/getGoodsInfo/" + id + this.url).then(function (res) {
         if (res.error == false) {
@@ -1121,9 +1169,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               };
             }
 
-            _this5.goods.push(obj);
+            _this6.goods.push(obj);
           });
-          if (_this5.goods.length == 0) _this5.showGoods = false;else _this5.showGoods = true;
+          if (_this6.goods.length == 0) _this6.showGoods = false;else _this6.showGoods = true;
         }
       });
     },
@@ -1135,7 +1183,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this7 = this;
 
     if (this.ids.id != void 0) {
       this.showDetail(this.ids.id, 1);
@@ -1163,7 +1211,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var date = Date.now();
           if (date >= item.startDate && date <= item.endDate) obj.state = 1;else if (date <= item.startDate) obj.state = 0;else if (date >= item.endDate) obj.state = 2;
 
-          _this6.active.push(obj);
+          _this7.active.push(obj);
         });
       }
     });
@@ -1178,21 +1226,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             total: item.allPoints,
             people: item.invitedMems
           };
-          _this6.member.push(obj);
+          _this7.member.push(obj);
         });
-        if (_this6.member.length == 0) _this6.showMember = false;else _this6.showMember = true;
+        if (_this7.member.length == 0) _this7.showMember = false;else _this7.showMember = true;
       }
     });
 
     this.http.get(this.$store.state.prefix + "/shop/getCompanyShow" + this.url).then(function (res) {
       if (res.error == false) {
-        _this6.showInfo = _this6.util.escapeToHtml(res.result.show);
-        if (_this6.showInfo == void 0 || _this6.showInfo == '') _this6.showHtml = false;else _this6.showHtml = true;
+        _this7.showInfo = _this7.util.escapeToHtml(res.result.show);
+        if (_this7.showInfo == void 0 || _this7.showInfo == '') _this7.showHtml = false;else _this7.showHtml = true;
       }
     });
   },
   data: function data() {
     return {
+      withdrawMoney: 0,
+      isWithdraw: false,
       showGoods: true,
       showHtml: true,
       showMember: true,
@@ -2002,7 +2052,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var len = _this2.activity.groupInfo.length;
           if (len > 0) {
             var info = _this2.activity.groupInfo[0];
-            debugger;
             _this2.currentGroup = {
               id: info.groupId,
               img: info.headImg,
@@ -2064,7 +2113,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         type: 'link',
         dataUrl: '',
         success: function success() {
-          _this.shareSuccess();
+          _this.shareSuccess(2);
         },
         cancel: function cancel() {
           console.log('cancel app');
@@ -2076,7 +2125,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         link: content.wxlineLink,
         imgUrl: content.wximgUrl,
         success: function success() {
-          _this.shareSuccess();
+          _this.shareSuccess(1);
         },
         cancel: function cancel() {
           console.log('cancel time');
@@ -2193,10 +2242,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
       this.$router.push("/home");
     },
-    shareSuccess: function shareSuccess() {
+    shareSuccess: function shareSuccess(type) {
       var _this7 = this;
 
-      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/' + this.activityId).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/' + this.activityId + "?shareType=" + type).then(function (res) {
         _this7.$Message.success("恭喜你分享成功");
       });
     },
@@ -2911,6 +2960,21 @@ new __WEBPACK_IMPORTED_MODULE_1_vue__["default"]({
   store: store,
   template: '<App/>',
   components: { App: __WEBPACK_IMPORTED_MODULE_2__App___default.a }
+});
+
+__WEBPACK_IMPORTED_MODULE_3__router__["a" /* default */].beforeEach(function (to, from, next) {
+  if (to.meta.requireAuth === true) {
+    if (store.state.token) {
+      next();
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      });
+    }
+  } else {
+    next();
+  }
 });
 
 /***/ }),
@@ -5476,7 +5540,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "giftNote"
-  }, [_vm._v("\n      连续分享" + _vm._s(_vm.activity.shareTimes) + "天，即可到店领取如下礼品之一\n    ")]), _vm._v(" "), _vm._l((_vm.giftlist), function(gf) {
+  }, [_vm._v("\n      累积分享" + _vm._s(_vm.activity.shareTimes) + "天到朋友圈，即可到店领取如下礼品之一\n    ")]), _vm._v(" "), _vm._l((_vm.giftlist), function(gf) {
     return _c('div', {
       staticClass: "giftlistwrapper"
     }, [_c('div', {
@@ -5613,7 +5677,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "text_title"
     }, [_vm._v(_vm._s(x.title))]), _vm._v(" "), _c('span', {
       staticClass: "text_price"
-    }, [_vm._v(_vm._s(x.price))])])])
+    }, [_vm._v(_vm._s(x.price))]), _vm._v(" "), _c('img', {
+      attrs: {
+        "src": "/static/images/fuqian.png"
+      },
+      on: {
+        "click": function($event) {
+          $event.stopPropagation();
+          _vm.isWithdraw = true
+        }
+      }
+    })])])
   })) : _vm._e(), _vm._v(" "), (!_vm.showGoods) ? _c('div', {
     staticClass: "info_isNull"
   }, [_c('img', {
@@ -5825,7 +5899,54 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": "/static/images/shop.png"
     }
-  }), _vm._v(" "), _c('p', [_vm._v("这里暂时没有数据喔")])]) : _vm._e()]) : _vm._e()])
+  }), _vm._v(" "), _c('p', [_vm._v("这里暂时没有数据喔")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('Modal', {
+    staticStyle: {
+      "position": "relative",
+      "padding": "0px 15%"
+    },
+    attrs: {
+      "ok-text": "付款",
+      "closable": false,
+      "title": "自助付款"
+    },
+    on: {
+      "on-ok": _vm.ok,
+      "on-cancel": _vm.cancel
+    },
+    model: {
+      value: (_vm.isWithdraw),
+      callback: function($$v) {
+        _vm.isWithdraw = $$v
+      },
+      expression: "isWithdraw"
+    }
+  }, [_c('Row', {
+    staticStyle: {
+      "text-align": "left",
+      "padding-left": "40px",
+      "font-size": "1.3em",
+      "color": "#AEAEAE"
+    }
+  }, [_c('div', [_c('span', [_vm._v("请输入付款金额(元)")]), _vm._v(" "), _c('br')])]), _vm._v(" "), _c('Row', {
+    staticStyle: {
+      "text-align": "center",
+      "padding-left": "40px"
+    }
+  }, [_c('Input', {
+    staticStyle: {
+      "border-radius": "0px",
+      "padding": "3px",
+      "font-size": "1.2em",
+      "color": "#B5B5B5"
+    },
+    model: {
+      value: (_vm.withdrawMoney),
+      callback: function($$v) {
+        _vm.withdrawMoney = $$v
+      },
+      expression: "withdrawMoney"
+    }
+  })], 1)], 1)], 1)
 },staticRenderFns: []}
 
 /***/ }),
@@ -5864,4 +5985,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.8ea60807583699614c21.js.map
+//# sourceMappingURL=app.39b7286cb2b666c9f9c7.js.map
