@@ -24,11 +24,13 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
+      requireAuth:true,
       component: homePage
     },
     {
       path: '/company',
       name: 'company',
+      requireAuth:true,
       component: companyPage
     },
     {
