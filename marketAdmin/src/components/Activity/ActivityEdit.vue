@@ -82,6 +82,29 @@
           </div>
         </li>
         <li>
+        <li>
+          <div class="addname">
+            商家页展示图
+          </div>
+          <div class="addcontent">
+            <uploader :config="Phoneuploaderconfig"></uploader>
+            <input type="hidden" v-model="activity.phoneImg">
+          </div>
+          <div class="addnote">
+            (建议尺寸：1000像素*333像素,移动段商家页面展示活动列表图片)
+          </div>
+        </li>
+        <li v-if="activity.phoneImg">
+          <div class="addname">
+            展示图预览
+          </div>
+          <div class="addcontent">
+            <img :src="murl+activity.activityImg"  class="thumbpreview" alt="">
+          </div>
+          <div class="addnote">
+
+          </div>
+        </li>
           <div class="addname">
             活动起止时间*
           </div>
@@ -341,6 +364,7 @@
           shareDes: '',
           shareImg: '',
           activityImg: '',
+          phoneImg:'',
           startDate: '',
           endDate: '',
           musicId: '',
@@ -373,6 +397,13 @@
           showUploadList: false,
           parent: 'activity',
           child: 'activityImg'
+        },
+        Phoneuploaderconfig: {
+          maxSize: 2048,
+          format: ['png', 'jpg', 'jpeg'],
+          showUploadList: false,
+          parent: 'activity',
+          child: 'phoneImg'
         },
         uploaderconfig: {
           maxSize: 500,
