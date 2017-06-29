@@ -123,7 +123,7 @@ export default {
   created () {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
-    var inviterId = state[1] == void 0 ? 0 : state[1];
+    var inviterId = (state[1] == void 0 )? 0 : state[1];
     this.activityId = activityId;
 
     if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0){
@@ -140,8 +140,8 @@ export default {
       location.href = url
     }
 
-    // 获取登录者个人信息
-    this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
+    // 获取登录者个人信息,在这个活动所在的公司里面的信息
+    this.http.get(this.$store.state.prefix + '/pubInfo/user?activityId='+this.activityId).then(res => {
       if (res.error === false) {
         this.userInfo = res.result;
         if(this.userInfo.customer.member == 1){
@@ -157,7 +157,9 @@ export default {
         this.$Message.error(res.msg)
       }
     })
+    
 
+    //获取自己在这个活动中的团信息
     this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ window.localStorage["ownId"]+'/'+this.activityId).then( res=> {
         if(res.result.userGroupInfo.length>0) {
           //判断是否已经加入任意团
@@ -371,7 +373,12 @@ export default {
     },
     shareSuccess (type) {
       this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/'+ this.activityId +"?shareType="+type).then(res => {
-        this.$Message.success("恭喜你分享成功");
+        
+        if(type==1){
+          this.$Message.success("分享成功，获得积分增长");
+        }else{
+          this.$Message.success("恭喜你分享成功");
+        }
       })
     },
     getGroupInfo () {

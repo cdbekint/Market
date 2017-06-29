@@ -564,7 +564,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var state = this.util.getURLParam('state').split(",");
     var activityId = state[0];
     var inviterId = state[1] === void 0 ? '' : state[1];
-
     window.localStorage["inviterId"] = inviterId;
 
     if (window.localStorage["token"] != void 0) {
@@ -2037,7 +2036,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       location.href = url;
     }
 
-    this.http.get(this.$store.state.prefix + '/pubInfo/user').then(function (res) {
+    this.http.get(this.$store.state.prefix + '/pubInfo/user?activityId=' + this.activityId).then(function (res) {
       if (res.error === false) {
         _this2.userInfo = res.result;
         if (_this2.userInfo.customer.member == 1) {
@@ -2268,7 +2267,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this7 = this;
 
       this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/' + this.activityId + "?shareType=" + type).then(function (res) {
-        _this7.$Message.success("恭喜你分享成功");
+
+        if (type == 1) {
+          _this7.$Message.success("分享成功，获得积分增长");
+        } else {
+          _this7.$Message.success("恭喜你分享成功");
+        }
       });
     },
     getGroupInfo: function getGroupInfo() {
@@ -6049,4 +6053,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.f112c7cbc56946ffa0db.js.map
+//# sourceMappingURL=app.93b18e328fabfa16f8af.js.map
