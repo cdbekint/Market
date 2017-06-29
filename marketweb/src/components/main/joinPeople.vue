@@ -9,7 +9,7 @@
             <img :src='index.headImg'>
           </div>
           <div class='attend-name'>
-            {{index.userName}}
+            {{index.realName||index.nickName}}
           </div>
         </Col>
 

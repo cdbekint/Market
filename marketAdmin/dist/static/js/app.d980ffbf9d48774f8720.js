@@ -2968,7 +2968,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       orderquery: {
         payType: '',
-        remarks: ''
+        remarks: '',
+        payStatus: ''
       },
       orderlistColumns: [{
         title: '序号',
@@ -3028,7 +3029,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getOrderList: function getOrderList(pageNo) {
       var _this = this;
 
-      this.http.get(this.$store.state.prefix + '/pay/page/' + (pageNo || 1) + '?payType=' + this.orderquery.payType + '&remarks=' + this.orderquery.remarks).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/pay/page/' + (pageNo || 1) + '?payType=' + this.orderquery.payType + '&remarks=' + this.orderquery.remarks + "&payStatus=" + this.orderquery.payStatus).then(function (res) {
         if (res.error === false) {
           _this.pager = res.result;
           _this.orderlistData = res.result.records;
@@ -6310,10 +6311,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "titellink"
   }, [_c('Select', {
     staticStyle: {
-      "width": "30%"
+      "width": "25%"
     },
     attrs: {
-      "placeholder": "请选择订单类型"
+      "placeholder": "订单类型"
     },
     slot: "prepend",
     model: {
@@ -6339,9 +6340,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "4"
     }
-  }, [_vm._v("账户充值")])], 1), _vm._v(" "), _c('Input', {
+  }, [_vm._v("账户充值")])], 1), _vm._v(" "), _c('Select', {
     staticStyle: {
-      "width": "30%"
+      "width": "25%"
+    },
+    attrs: {
+      "placeholder": "支付状态"
+    },
+    slot: "prepend",
+    model: {
+      value: (_vm.orderquery.payStatus),
+      callback: function($$v) {
+        _vm.orderquery.payStatus = $$v
+      },
+      expression: "orderquery.payStatus"
+    }
+  }, [_c('Option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("所有状态")]), _vm._v(" "), _c('Option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("成功")]), _vm._v(" "), _c('Option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("未成功")])], 1), _vm._v(" "), _c('Input', {
+    staticStyle: {
+      "width": "20%"
     },
     attrs: {
       "placeholder": "请输入关键字"
@@ -40735,4 +40763,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.eb7d762a44be44264bbe.js.map
+//# sourceMappingURL=app.d980ffbf9d48774f8720.js.map

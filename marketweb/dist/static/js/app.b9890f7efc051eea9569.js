@@ -5044,7 +5044,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })]), _vm._v(" "), _c('div', {
       staticClass: "attend-name"
-    }, [_vm._v("\n          " + _vm._s(index.userName) + "\n        ")])])
+    }, [_vm._v("\n          " + _vm._s(index.realName || index.nickName) + "\n        ")])])
   }), _vm._v(" "), (_vm.isExceed) ? _c('Col', {
     staticClass: "attend-users-list",
     attrs: {
@@ -6025,4 +6025,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.2e91b628c6d73cc35db4.js.map
+//# sourceMappingURL=app.b9890f7efc051eea9569.js.map
