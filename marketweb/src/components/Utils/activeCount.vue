@@ -13,7 +13,7 @@
       <li v-text="countDownData.second"></li>
       <div class="clearfix"></div>
     </ul>
-    <div class="isover" v-if="countDownData.over">
+    <div class="isover" style="color:#fff;" v-if="countDownData.over">
       活动已结束
     </div>
   </div>
@@ -95,6 +95,6 @@ rrem(val){
     float:left
     width:14.25%
     text-align:center
-    color red
+    color #fff
     font-size rrem(37px)
 </style>

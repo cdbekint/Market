@@ -9,6 +9,7 @@ import Shop from '@/components/Shop'
 import Login from '@/components/Login'
 
 import homePage from '@/components/home/homePage'
+import Person from '@/components/Person/person'
 import companyPage from '@/components/company/companyPage'
 
 Vue.use(Router)
@@ -37,6 +38,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/person',
+      name: 'person',
+      component: Person
     },
     {
       path: '/userinfo',
