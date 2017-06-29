@@ -946,12 +946,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$Message.error("商品名称必填");
         return;
       }
+      debugger;
       var param = {
         payAmount: this.payMoney,
         remarks: "自助购买" + this.payRemarks,
         companyId: this.ids.companyId,
         payType: 6
       };
+      debugger;
 
       console.log("自助支付开始了");
       this.http.post(this.$store.state.prefix + '/pay', param).then(function (res) {
@@ -2247,7 +2249,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.currentState = true;
         return;
       }
-      this.$router.push("/company");
+      this.$router.push({ path: "/company", query: { companyId: this.activity.companyId } });
     },
     goHome: function goHome() {
       var _this6 = this;
@@ -6047,4 +6049,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.370d63cc7990d4223ef1.js.map
+//# sourceMappingURL=app.f112c7cbc56946ffa0db.js.map

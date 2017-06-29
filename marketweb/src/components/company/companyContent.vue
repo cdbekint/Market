@@ -204,12 +204,14 @@ export default {
         this.$Message.error("商品名称必填");
         return
       }
+      debugger
       var param={
         payAmount:this.payMoney,
         remarks:"自助购买"+this.payRemarks,
         companyId:this.ids.companyId,
         payType:6
       }
+      debugger
       //自助付款
       console.log("自助支付开始了")
       this.http.post(this.$store.state.prefix + '/pay', param).then((res) => {
@@ -251,7 +253,7 @@ export default {
               onBridgeReady()
             }
         }else{
-        this.$Message.error(res.msg)
+          this.$Message.error(res.msg)
         }
       })
 

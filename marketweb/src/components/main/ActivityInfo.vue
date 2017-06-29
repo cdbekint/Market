@@ -356,7 +356,7 @@ export default {
         this.currentState = true;
         return;
       }
-      this.$router.push("/company");
+      this.$router.push({path:"/company",query:{companyId:this.activity.companyId}});
     },
     goHome(){
       this.homeState = "homeing";
