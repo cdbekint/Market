@@ -54,7 +54,6 @@
           <img :src="murl+activity.shareImg"  class="thumbpreview" alt="">
         </div>
         <div class="addnote">
-
         </div>
       </li>
       <li>
@@ -71,7 +70,30 @@
       </li>
       <li v-if="activity.activityImg">
         <div class="addname">
-          大图缩略图
+          大图预览图
+        </div>
+        <div class="addcontent">
+          <img :src="murl+activity.activityImg"  class="thumbpreview" alt="">
+        </div>
+        <div class="addnote">
+
+        </div>
+      </li>
+      <li>
+        <div class="addname">
+          商家页展示图
+        </div>
+        <div class="addcontent">
+          <uploader :config="Phoneuploaderconfig"></uploader>
+          <input type="hidden" v-model="activity.phoneImg">
+        </div>
+        <div class="addnote">
+          (建议尺寸：1000像素*333像素,移动段商家页面展示活动列表图片)
+        </div>
+      </li>
+      <li v-if="activity.phoneImg">
+        <div class="addname">
+          展示图预览
         </div>
         <div class="addcontent">
           <img :src="murl+activity.activityImg"  class="thumbpreview" alt="">
@@ -340,6 +362,7 @@ export default {
         shareDes: '',
         shareImg: '',
         activityImg: '',
+        phoneImg:'',
         startDate: '',
         endDate: '',
         musicId: '',
@@ -372,6 +395,13 @@ export default {
         showUploadList: false,
         parent: 'activity',
         child: 'activityImg'
+      },
+      Phoneuploaderconfig: {
+        maxSize: 2048,
+        format: ['png', 'jpg', 'jpeg'],
+        showUploadList: false,
+        parent: 'activity',
+        child: 'phoneImg'
       },
       uploaderconfig: {
         maxSize: 500,
@@ -682,6 +712,7 @@ $half_height=30px
       text-align:right
       vertical-align:middle
       line-height:$addcontent_height
+      font-size:1em
       .thin
         line-height:25px
         margin-top:10px
