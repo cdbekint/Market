@@ -934,11 +934,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     customerPay: function customerPay() {
       var _this2 = this;
 
-      if (this.payMoney === 0) {
+      if (this.payMoney <= 0) {
         this.$Message.error("付款金额必须大于0");
         return;
       }
-      var param = {};
+      var param = {
+        payAmount: this.payMoney,
+        remarks: "购买" + this.payRemarks,
+        companyId: this.ids.companyId,
+        payType: 6
+      };
 
       this.http.post(this.$store.state.prefix + '/pay', param).then(function (res) {
         if (res.error === false) {
@@ -5688,14 +5693,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": "/static/images/shop.png"
     }
-  }), _vm._v(" "), _c('p', [_vm._v("这里暂时没有商品喔")])]) : _vm._e(), _vm._v(" "), _c('img', {
+  }), _vm._v(" "), _c('p', [_vm._v("这里暂时没有商品喔")])]) : _vm._e(), _vm._v(" "), (_vm.ids.companyId == 1) ? _c('img', {
     staticStyle: {
       "position": "fixed",
       "right": "1em",
       "bottom": "6em",
       "height": "50px",
-      "width": "50px",
-      "display": "none"
+      "width": "50px"
     },
     attrs: {
       "src": "/static/images/fuqian.png"
@@ -5706,7 +5710,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.isWithdraw = true
       }
     }
-  })]) : _vm._e(), _vm._v(" "), (_vm.currentPage == 0 && !_vm.notDetail) ? _c('div', {
+  }) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.currentPage == 0 && !_vm.notDetail) ? _c('div', {
     staticClass: "main_detail"
   }, [_c('img', {
     staticClass: "detail_return",
@@ -5965,7 +5969,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "1.3em",
       "color": "#AEAEAE"
     }
-  }, [_c('div', [_c('span', [_vm._v("请输入备注")]), _vm._v(" "), _c('br')])]), _vm._v(" "), _c('Row', {
+  }, [_c('div', [_c('span', [_vm._v("商品名称")]), _vm._v(" "), _c('br')])]), _vm._v(" "), _c('Row', {
     staticStyle: {
       "text-align": "center",
       "padding-left": "40px"
@@ -5977,7 +5981,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         minRows: 2,
         maxRows: 5
       },
-      "placeholder": "请输入..."
+      "placeholder": "支付的商品名字"
     },
     model: {
       value: (_vm.payRemarks),
@@ -6025,4 +6029,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.b9890f7efc051eea9569.js.map
+//# sourceMappingURL=app.d71e1b33a0857c9156dc.js.map
