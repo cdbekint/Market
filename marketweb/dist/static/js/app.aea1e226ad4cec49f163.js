@@ -938,9 +938,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$Message.error("付款金额必须大于0");
         return;
       }
+      if (!this.payRemarks) {
+        this.$Message.error("商品名称必填");
+        return;
+      }
       var param = {
         payAmount: this.payMoney,
-        remarks: "购买" + this.payRemarks,
+        remarks: "自助购买" + this.payRemarks,
         companyId: this.ids.companyId,
         payType: 6
       };
@@ -5693,13 +5697,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": "/static/images/shop.png"
     }
-  }), _vm._v(" "), _c('p', [_vm._v("这里暂时没有商品喔")])]) : _vm._e(), _vm._v(" "), (_vm.ids.companyId == 1) ? _c('img', {
+  }), _vm._v(" "), _c('p', [_vm._v("这里暂时没有商品喔")])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticStyle: {
       "position": "fixed",
       "right": "1em",
-      "bottom": "6em",
-      "height": "50px",
-      "width": "50px"
+      "bottom": "6.5em",
+      "height": "52px",
+      "width": "52px",
+      "border-radius": "50%",
+      "border": "1px solid #FE54A8"
+    }
+  }, [_c('img', {
+    staticStyle: {
+      "width": "100%",
+      "height": "100%"
     },
     attrs: {
       "src": "/static/images/fuqian.png"
@@ -5710,7 +5721,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.isWithdraw = true
       }
     }
-  }) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.currentPage == 0 && !_vm.notDetail) ? _c('div', {
+  })])]) : _vm._e(), _vm._v(" "), (_vm.currentPage == 0 && !_vm.notDetail) ? _c('div', {
     staticClass: "main_detail"
   }, [_c('img', {
     staticClass: "detail_return",
@@ -5981,7 +5992,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         minRows: 2,
         maxRows: 5
       },
-      "placeholder": "支付的商品名字"
+      "placeholder": "商品名称与数量"
     },
     model: {
       value: (_vm.payRemarks),
@@ -6029,4 +6040,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.d71e1b33a0857c9156dc.js.map
+//# sourceMappingURL=app.aea1e226ad4cec49f163.js.map

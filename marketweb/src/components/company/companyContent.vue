@@ -28,7 +28,10 @@
       <!--<div class="class_pull">-->
         <!--<img src="/static/images/company/pull.png" alt="">-->
       <!--</div>-->
-      <img src="/static/images/fuqian.png" @click.stop="isWithdraw=true" style="position:fixed;right:1em;bottom:6em;height:50px;width:50px;display:none">
+      <div style="position:fixed;right:1em;bottom:6.5em;height:52px;width:52px;border-radius:50%;border:1px solid #FE54A8">
+          <img src="/static/images/fuqian.png" @click.stop="isWithdraw=true" style="width:100%;height:100%">
+      </div>
+      
     </div>
 
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
@@ -168,12 +171,12 @@
       </Row>
       <Row style="text-align:left;padding-left:40px;font-size:1.3em;color:#AEAEAE">
         <div>
-          <span>请输入备注</span>
+          <span>商品名称</span>
           <br>
         </div>
       </Row>
       <Row style="text-align:center;padding-left:40px;">
-         <Input  v-model="payRemarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
+         <Input  v-model="payRemarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="商品名称与数量"></Input>
       </Row>
 
     </Modal>
@@ -189,12 +192,19 @@ export default {
   components:{swiper},
   methods:{
     customerPay(){
-      if(this.payMoney === 0){
+      if(this.payMoney <= 0){
         this.$Message.error("付款金额必须大于0");
         return
       }
+      if(!this.payRemarks){
+        this.$Message.error("商品名称必填");
+        return
+      }
       var param={
-
+        payAmount:this.payMoney,
+        remarks:"自助购买"+this.payRemarks,
+        companyId:this.ids.companyId,
+        payType:6
       }
       //自助付款
       this.http.post(this.$store.state.prefix + '/pay', param).then((res) => {
