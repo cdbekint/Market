@@ -192,7 +192,11 @@ export default {
   components:{swiper},
   methods:{
     customerPay(){
-      if(this.payMoney <= 0){
+      if(isNaN(this.payMoney)){
+        this.$Message.error("付款金额必须为数字");
+        return
+      }
+      if(Number(this.payMoney) <= 0){
         this.$Message.error("付款金额必须大于0");
         return
       }
@@ -207,6 +211,7 @@ export default {
         payType:6
       }
       //自助付款
+      console.log("自助支付开始了")
       this.http.post(this.$store.state.prefix + '/pay', param).then((res) => {
         if (res.error === false) {
           var row = res.result;
@@ -223,7 +228,7 @@ export default {
                 },
                 function (res) {
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                    _this.$Message.success("付款成功");
+                    _this.$Message.success("自助付款成功");
                     _this.payMoney=0;
                     _this.payRemarks="";
                   }
@@ -245,6 +250,8 @@ export default {
             } else {
               onBridgeReady()
             }
+        }else{
+        this.$Message.error(res.msg)
         }
       })
 

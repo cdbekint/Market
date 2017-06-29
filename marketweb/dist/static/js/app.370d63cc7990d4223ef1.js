@@ -934,7 +934,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     customerPay: function customerPay() {
       var _this2 = this;
 
-      if (this.payMoney <= 0) {
+      if (isNaN(this.payMoney)) {
+        this.$Message.error("付款金额必须为数字");
+        return;
+      }
+      if (Number(this.payMoney) <= 0) {
         this.$Message.error("付款金额必须大于0");
         return;
       }
@@ -949,6 +953,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         payType: 6
       };
 
+      console.log("自助支付开始了");
       this.http.post(this.$store.state.prefix + '/pay', param).then(function (res) {
         if (res.error === false) {
           var row = res.result;
@@ -963,7 +968,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               'paySign': row.sign
             }, function (res) {
               if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                _this.$Message.success("付款成功");
+                _this.$Message.success("自助付款成功");
                 _this.payMoney = 0;
                 _this.payRemarks = "";
               } else if (res.err_msg != 'get_brand_wcpay_request:cancel') {
@@ -983,6 +988,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           } else {
             onBridgeReady();
           }
+        } else {
+          _this2.$Message.error(res.msg);
         }
       });
     },
@@ -6040,4 +6047,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[211]);
-//# sourceMappingURL=app.aea1e226ad4cec49f163.js.map
+//# sourceMappingURL=app.370d63cc7990d4223ef1.js.map
