@@ -9,7 +9,7 @@
            <Submenu name="1">
             <template slot="title">
                 <Icon type="stats-bars"></Icon>
-                {{userInfo.company.companyName}}
+                {{userInfo.company?userInfo.company.companyName:''}}
             </template>
             <Menu-group title="账号管理">
               <div style="margin:10px 0px;">
@@ -69,7 +69,9 @@ export default {
       this.newPass = '';
     },
     loginOut () {
-      this.$Notice.info({title: '提醒', desc: '即将退出登录'})
+      this.$Notice.info({title: '提醒', desc: '退出登录成功'})
+      this.$store.state.token=""
+      this.util.delCookie("token")
     }
   }
 }

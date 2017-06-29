@@ -558,7 +558,9 @@ module.exports = Component.exports
     var index = newDate.indexOf("T");
     return newDate.slice(0,index)
   },
-  getFormatDate(a){
+  getFormatDate(a,b){
+    //a 时间
+    //b 返回类型  b=1 月+日 +时分秒
     var date = null;
     if(a) {
       date = new Date(a);
@@ -575,9 +577,30 @@ module.exports = Component.exports
     if(strDate >= 0 && strDate <= 9) {
       strDate = "0" + strDate;
     }
-    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
-      " " + date.getHours() + seperator2 + date.getMinutes() +
-      seperator2 + date.getSeconds();
+    var Hours= date.getHours();
+    var Minut= date.getMinutes();
+    var Second= date.getSeconds();
+    if(Second >= 0 && Second <= 9) {
+      Second = "0" + Second;
+    }
+    if(Minut >= 0 && Minut <= 9) {
+      Minut = "0" + Minut;
+    }
+    if(Hours >= 0 && Hours <= 9) {
+      Hours = "0" + Hours;
+    }
+
+    var currentdate=""
+    if (b ==1 ){
+    currentdate = month + seperator1 + strDate +
+          " " + Hours + seperator2 + Minut +
+          seperator2 + Hours;
+    }else{
+    currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+          " " + Hours + seperator2 + Minut +
+          seperator2 + Hours;
+    }
+    
     return currentdate;
   }
 });
@@ -670,9 +693,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         type: 2
       },
       register: {
-        username: 'liming',
-        password: 'liming',
-        companyName: '公司名字'
+        username: '',
+        password: '',
+        companyName: ''
       },
       ruleInline: {
         username: [{ required: true, message: '请填写用户名', trigger: 'blur' }],
@@ -683,38 +706,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     handleSubmit: function handleSubmit(name) {
-      var _this = this;
+      var _this2 = this;
 
       this.$refs[name].validate(function (valid) {
         if (valid) {
-          var param = JSON.parse(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(_this.formInline));
+          var param = JSON.parse(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(_this2.formInline));
 
-          _this.http.get(_this.$store.state.prefix + '/account/login' + _this.util.parseParam(param).replace('&', '?')).then(function (res) {
+          _this2.http.get(_this2.$store.state.prefix + '/account/login' + _this2.util.parseParam(param).replace('&', '?')).then(function (res) {
             console.log(res);
             if (res.error === false) {
               if (res.result.access_token) {
-                _this.$store.state.token = res.result.access_token;
-                _this.$store.state.companyId = res.result.user.company.id;
+                _this2.$store.state.token = res.result.access_token;
+                _this2.$store.state.companyId = res.result.user.company.id;
               }
-              _this.util.setCookie('token', res.result.access_token);
-              _this.util.setCookie('companyId', res.result.user.company.id);
-              console.log(_this.$router.query.redirect);
-              if (_this.$router.query.redirect !== undefined) {
-                if (_this.$router.query.redirect.indexOf('/login') > -1) {
-                  _this.$router.push('/');
+              _this2.util.setCookie('token', res.result.access_token);
+              _this2.util.setCookie('companyId', res.result.user.company.id);
+              console.log(_this2.$router.query.redirect);
+              if (_this2.$router.query.redirect !== undefined) {
+                if (_this2.$router.query.redirect.indexOf('/login') > -1) {
+                  _this2.$router.push('/');
                 }
-                _this.$router.push(_this.$route.query.redirect);
+                _this2.$router.push(_this2.$route.query.redirect);
               } else {
-                _this.$router.push('/');
+                _this2.$router.push('/');
               }
             } else {
-              _this.$Message.error(res.msg);
+              _this2.$Message.error(res.msg);
             }
           }, function (res) {
-            _this.$Message.error('登录失败，请重试');
+            _this2.$Message.error('登录失败，请重试');
           });
         } else {
-          _this.$Message.error('表单验证失败!');
+          _this2.$Message.error('表单验证失败!');
         }
       });
     },
@@ -727,6 +750,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     this.util.delCookie('token');
     this.util.delCookie('companyId');
+    var _this = this;
+
+    document.onkeydown = function (event) {
+      var e = event ? event : window.event ? window.event : null;
+      if (e.keyCode == 13) {
+        if (_this.formInline.username || _this.formInline.password) {
+          _this.handleSubmit('formInline');
+        }
+      }
+    };
   }
 });
 
@@ -919,6 +952,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         shareDes: '',
         shareImg: '',
         activityImg: '',
+        phoneImg: '',
         startDate: '',
         endDate: '',
         musicId: '',
@@ -944,6 +978,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showUploadList: false,
         parent: 'activity',
         child: 'activityImg'
+      },
+      Phoneuploaderconfig: {
+        maxSize: 2048,
+        format: ['png', 'jpg', 'jpeg'],
+        showUploadList: false,
+        parent: 'activity',
+        child: 'phoneImg'
       },
       uploaderconfig: {
         maxSize: 500,
@@ -1242,6 +1283,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         shareDes: '',
         shareImg: '',
         activityImg: '',
+        phoneImg: '',
         startDate: '',
         endDate: '',
         musicId: '',
@@ -1267,6 +1309,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showUploadList: false,
         parent: 'activity',
         child: 'activityImg'
+      },
+      Phoneuploaderconfig: {
+        maxSize: 2048,
+        format: ['png', 'jpg', 'jpeg'],
+        showUploadList: false,
+        parent: 'activity',
+        child: 'phoneImg'
       },
       uploaderconfig: {
         maxSize: 500,
@@ -2267,7 +2316,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     changePage: function changePage(pageno) {
-      debugger;
       this.getGoodsList(pageno);
     },
     update: function update(id) {
@@ -2978,7 +3026,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         align: 'center'
       }, {
         title: '订单号',
-        key: 'payNo'
+        key: 'payNo',
+        ellipsis: true
       }, {
         title: '用户名',
         key: 'name'
@@ -3107,7 +3156,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.pointpager = res.result;
           _this.listData = res.result.records;
           _this.listData.forEach(function (item) {
-            item.createDate = _this.util.changeDateToTime(item.createDate);
+            item.createDate = _this.util.getFormatDate(item.createDate);
             item.name = item.account.realName == '' ? item.account.nickName : item.account.realName;
             item.headImg = item.account.headImg;
             item.phone = item.account.phone;
@@ -3276,7 +3325,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.pager = res.result;
           _this.listData = res.result.records;
           _this.listData.forEach(function (item) {
-            item.successDate = _this.util.changeDateToTime(item.successDate);
+            item.successDate = _this.util.getFormatDate(item.successDate);
           });
         }
       });
@@ -3510,7 +3559,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.newPass = '';
     },
     loginOut: function loginOut() {
-      this.$Notice.info({ title: '提醒', desc: '即将退出登录' });
+      this.$Notice.info({ title: '提醒', desc: '退出登录成功' });
+      this.$store.state.token = "";
+      this.util.delCookie("token");
     }
   }
 });
@@ -6065,7 +6116,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "stats-bars"
     }
-  }), _vm._v("\n              " + _vm._s(_vm.userInfo.company.companyName) + "\n          ")], 1), _vm._v(" "), _c('Menu-group', {
+  }), _vm._v("\n              " + _vm._s(_vm.userInfo.company ? _vm.userInfo.company.companyName : '') + "\n          ")], 1), _vm._v(" "), _c('Menu-group', {
     attrs: {
       "title": "账号管理"
     }
@@ -6585,7 +6636,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  })]) : _vm._e(), _vm._v(" "), _c('li', [_c('div', {
+  })]) : _vm._e(), _vm._v(" "), _c('li'), _c('li', [_c('div', {
+    staticClass: "addname"
+  }, [_vm._v("\n          商家页展示图\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "addcontent"
+  }, [_c('uploader', {
+    attrs: {
+      "config": _vm.Phoneuploaderconfig
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.activity.phoneImg),
+      expression: "activity.phoneImg"
+    }],
+    attrs: {
+      "type": "hidden"
+    },
+    domProps: {
+      "value": (_vm.activity.phoneImg)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.activity.phoneImg = $event.target.value
+      }
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "addnote"
+  }, [_vm._v("\n          (建议尺寸：1000像素*333像素,移动段商家页面展示活动列表图片)\n        ")])]), _vm._v(" "), (_vm.activity.phoneImg) ? _c('li', [_c('div', {
+    staticClass: "addname"
+  }, [_vm._v("\n          展示图预览\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "addcontent"
+  }, [_c('img', {
+    staticClass: "thumbpreview",
+    attrs: {
+      "src": _vm.murl + _vm.activity.activityImg,
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "addnote"
+  })]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          活动起止时间*\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
@@ -6626,7 +6718,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  }, [_vm._v("\n          活动的开始和结束时间\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
+  }, [_vm._v("\n          活动的开始和结束时间\n        ")]), _vm._v(" "), _c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          支付起止时间*\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
@@ -7181,7 +7273,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "model": _vm.formInline,
       "rules": _vm.ruleInline
     }
-  }, [_c('Form-item', [_c('h4', [_vm._v("系统用户登录")])]), _vm._v(" "), _c('Form-item', {
+  }, [_c('Form-item', [_c('h3', [_vm._v("系统用户登录")])]), _vm._v(" "), _c('Form-item', {
     attrs: {
       "prop": "user"
     }
@@ -9183,7 +9275,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "addnote"
   }, [_vm._v("\r\n          (建议尺寸：600像素*800像素)\r\n        ")])]), _vm._v(" "), (_vm.activity.activityImg) ? _c('li', [_c('div', {
     staticClass: "addname"
-  }, [_vm._v("\r\n          大图缩略图\r\n        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\r\n          大图预览图\r\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "addcontent"
+  }, [_c('img', {
+    staticClass: "thumbpreview",
+    attrs: {
+      "src": _vm.murl + _vm.activity.activityImg,
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "addnote"
+  })]) : _vm._e(), _vm._v(" "), _c('li', [_c('div', {
+    staticClass: "addname"
+  }, [_vm._v("\r\n          商家页展示图\r\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "addcontent"
+  }, [_c('uploader', {
+    attrs: {
+      "config": _vm.Phoneuploaderconfig
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.activity.phoneImg),
+      expression: "activity.phoneImg"
+    }],
+    attrs: {
+      "type": "hidden"
+    },
+    domProps: {
+      "value": (_vm.activity.phoneImg)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.activity.phoneImg = $event.target.value
+      }
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "addnote"
+  }, [_vm._v("\r\n          (建议尺寸：1000像素*333像素,移动段商家页面展示活动列表图片)\r\n        ")])]), _vm._v(" "), (_vm.activity.phoneImg) ? _c('li', [_c('div', {
+    staticClass: "addname"
+  }, [_vm._v("\r\n          展示图预览\r\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
   }, [_c('img', {
     staticClass: "thumbpreview",
@@ -40763,4 +40896,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[108]);
-//# sourceMappingURL=app.d980ffbf9d48774f8720.js.map
+//# sourceMappingURL=app.13cdedfccaecb0220f9e.js.map

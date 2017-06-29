@@ -5,7 +5,7 @@
 <Col span="6" offset="16">
 <Form ref="formInline" class="loginmainpanel" :model="formInline" :rules="ruleInline">
         <Form-item>
-        <h4>系统用户登录</h4>
+        <h3>系统用户登录</h3>
         </Form-item>
         <Form-item prop="user">
             <Input type="text" v-model="formInline.username" placeholder="用户名">
@@ -48,9 +48,9 @@ export default {
         type: 2
       },
       register: {
-        username: 'liming',
-        password: 'liming',
-        companyName: '公司名字'
+        username: '',
+        password: '',
+        companyName: ''
       },
       ruleInline: {
         username: [
@@ -113,6 +113,18 @@ export default {
   created () {
     this.util.delCookie('token')
     this.util.delCookie('companyId')
+    var _this=this
+
+    document.onkeydown=function(event){ 
+     var e = event ? event :(window.event ? window.event : null); 
+      if(e.keyCode==13){ 
+          if(_this.formInline.username||_this.formInline.password){
+            _this.handleSubmit('formInline')
+
+          }
+        
+      } 
+    } 
   }
 }
 </script>

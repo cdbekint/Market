@@ -127,7 +127,6 @@
         })
       },
       changePage (pageno) {
-        debugger
         this.getGoodsList(pageno)
       },
       update (id) {
@@ -167,8 +166,12 @@
 .ivu-table
   td,th
     text-align:center
-    .goodslistavater
-      width:100px
-      height:auto
-      max-height:100px
+    padding:0px
+    .ivu-table-cell
+      padding:0px
+      .goodslistavater
+        width:90%
+        height:auto
+        margin:0px auto
+        max-height:100px
 </style>

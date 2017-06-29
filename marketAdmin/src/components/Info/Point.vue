@@ -75,7 +75,7 @@ export default {
           this.pointpager = res.result
           this.listData = res.result.records
           this.listData.forEach(item=>{
-            item.createDate = this.util.changeDateToTime(item.createDate);
+            item.createDate = this.util.getFormatDate(item.createDate);
             item.name = item.account.realName == ''?item.account.nickName:item.account.realName;
             item.headImg = item.account.headImg;
             item.phone = item.account.phone;

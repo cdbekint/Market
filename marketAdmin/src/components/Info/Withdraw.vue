@@ -102,7 +102,7 @@ export default {
           this.pager = res.result
           this.listData = res.result.records
           this.listData.forEach(item=>{
-            item.successDate = this.util.changeDateToTime(item.successDate);
+            item.successDate = this.util.getFormatDate(item.successDate);
           })
         }
       })

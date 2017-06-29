@@ -52,7 +52,8 @@ export default {
         },
         {
           title: '订单号',
-          key: 'payNo'
+          key: 'payNo',
+          ellipsis:true
         },
         {
           title: '用户名',
