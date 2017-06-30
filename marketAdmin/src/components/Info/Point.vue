@@ -5,6 +5,8 @@
         <span>客户积分</span>
       </div>
       <div class="titellink">
+        <Input v-model="querytext" placeholder="请输入关键字"  style="width:35%"></Input>
+        <Button type="primary" icon="ios-search" @click = "getPointList(1)" >查询</Button>
       </div>
   </div>
   <div class="content">
@@ -62,7 +64,8 @@ export default {
         total: 1,
         size:1,
         current:1
-      }
+      },
+      querytext:''
     }
   },
   created () {
@@ -70,7 +73,7 @@ export default {
   },
   methods: {
     getPointList (pageNo) {
-      this.http.get(this.$store.state.prefix + '/pointsDetails/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/pointsDetails/page/' + (pageNo || 1)+'?nameOrPhone='+this.querytext).then(res => {
         if (res.error === false) {
           this.pointpager = res.result
           this.listData = res.result.records

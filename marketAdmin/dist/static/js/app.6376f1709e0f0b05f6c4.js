@@ -3242,7 +3242,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       orderquery: {
         payType: '',
-        remarks: '',
+        nameOrPhone: '',
         payStatus: ''
       },
       orderlistColumns: [{
@@ -3304,7 +3304,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getOrderList: function getOrderList(pageNo) {
       var _this = this;
 
-      this.http.get(this.$store.state.prefix + '/pay/page/' + (pageNo || 1) + '?payType=' + this.orderquery.payType + '&remarks=' + this.orderquery.remarks + "&payStatus=" + this.orderquery.payStatus).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/pay/page/' + (pageNo || 1) + '?payType=' + this.orderquery.payType + '&nameOrPhone=' + this.orderquery.nameOrPhone + "&payStatus=" + this.orderquery.payStatus).then(function (res) {
         if (res.error === false) {
           _this.pager = res.result;
           _this.orderlistData = res.result.records;
@@ -3366,7 +3366,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         total: 1,
         size: 1,
         current: 1
-      }
+      },
+      querytext: ''
     };
   },
   created: function created() {
@@ -3377,7 +3378,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getPointList: function getPointList(pageNo) {
       var _this = this;
 
-      this.http.get(this.$store.state.prefix + '/pointsDetails/page/' + pageNo || 1).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/pointsDetails/page/' + (pageNo || 1) + '?nameOrPhone=' + this.querytext).then(function (res) {
         if (res.error === false) {
           _this.pointpager = res.result;
           _this.listData = res.result.records;
@@ -6684,11 +6685,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "请输入关键字"
     },
     model: {
-      value: (_vm.orderquery.remarks),
+      value: (_vm.orderquery.nameOrPhone),
       callback: function($$v) {
-        _vm.orderquery.remarks = $$v
+        _vm.orderquery.nameOrPhone = $$v
       },
-      expression: "orderquery.remarks"
+      expression: "orderquery.nameOrPhone"
     }
   }), _vm._v(" "), _c('Button', {
     attrs: {
@@ -9225,7 +9226,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "pointadd"
+  }, [_c('div', {
+    staticClass: "content-title"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "titellink"
+  }, [_c('Input', {
+    staticStyle: {
+      "width": "35%"
+    },
+    attrs: {
+      "placeholder": "请输入关键字"
+    },
+    model: {
+      value: (_vm.querytext),
+      callback: function($$v) {
+        _vm.querytext = $$v
+      },
+      expression: "querytext"
+    }
+  }), _vm._v(" "), _c('Button', {
+    attrs: {
+      "type": "primary",
+      "icon": "ios-search"
+    },
+    on: {
+      "click": function($event) {
+        _vm.getPointList(1)
+      }
+    }
+  }, [_vm._v("查询")])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "content"
   }, [_c('Table', {
     staticClass: "pointlistable",
@@ -9257,12 +9286,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)])], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "content-title"
-  }, [_c('div', {
     staticClass: "titlename"
-  }, [_c('span', [_vm._v("客户积分")])]), _vm._v(" "), _c('div', {
-    staticClass: "titellink"
-  })])
+  }, [_c('span', [_vm._v("客户积分")])])
 }]}
 
 /***/ }),
@@ -41256,4 +41281,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[109]);
-//# sourceMappingURL=app.27812d28393db66e5974.js.map
+//# sourceMappingURL=app.6376f1709e0f0b05f6c4.js.map

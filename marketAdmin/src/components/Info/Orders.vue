@@ -19,7 +19,7 @@
           <Option value="1">成功</Option>
           <Option value="2">未成功</Option>
         </Select>
-        <Input v-model="orderquery.remarks" placeholder="请输入关键字"  style="width:20%"></Input>
+        <Input v-model="orderquery.nameOrPhone" placeholder="请输入关键字"  style="width:20%"></Input>
         <Button type="primary" icon="ios-search" @click = "getOrderList(1)" >查询</Button>
       </div>
  	</div>
@@ -41,7 +41,7 @@ export default {
     return {
       orderquery:{
         payType: '',
-        remarks: '',
+        nameOrPhone: '',
         payStatus:''
       },
       orderlistColumns: [
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     getOrderList (pageNo) {
-      this.http.get(this.$store.state.prefix + '/pay/page/' + (pageNo || 1) + '?payType=' +this.orderquery.payType+'&remarks='+this.orderquery.remarks+"&payStatus="+this.orderquery.payStatus).then(res => {
+      this.http.get(this.$store.state.prefix + '/pay/page/' + (pageNo || 1) + '?payType=' +this.orderquery.payType+'&nameOrPhone='+this.orderquery.nameOrPhone+"&payStatus="+this.orderquery.payStatus).then(res => {
         if (res.error === false) {
           this.pager = res.result
           this.orderlistData = res.result.records

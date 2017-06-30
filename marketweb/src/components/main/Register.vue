@@ -247,7 +247,7 @@
       height rrem(1000px)
       z-index 1510
       position fixed
-      top rrem(400px)
+      top rrem(350px)
       left rrem(40px)
       background #fff
       .body_join
