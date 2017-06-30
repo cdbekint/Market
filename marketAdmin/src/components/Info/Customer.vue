@@ -23,6 +23,16 @@
       </div>
     </div>
   </div>
+   <Modal 
+      v-model="employeemodal"
+      title="选取新员工" >
+    <Table highlight-row border :columns="employeeColumns" :data="employee" @on-row-click="changeEmployee"></Table>
+    <div style="margin: 10px;overflow: hidden">
+        <div style="float: right;">
+            <Page :total="employeepager.total" :page-size="employeepager.size" :current="employeepager.current" @on-change="getEmployeeList"></Page>
+        </div>
+    </div>
+    </Modal>
 </div>
 </template>
 
@@ -98,6 +108,17 @@ export default {
             else
               return ''
           }
+        },{
+          title: '操作',
+          key: 'action',
+          render(row) {
+            if(row.employee == 1) {
+              return  '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>'
+
+            } else {
+              return ''
+            }
+          }
         }
 
       ],
@@ -106,32 +127,102 @@ export default {
         size:12,
         current:1
       },
-      companyData:[]
+      companyData:[],
+      currentEmployee:{},
+      employeemodal:false,
+      employee:[],
+      employeeColumns:[
+      {
+          title: '序号',
+          type: 'index',
+          width: 60,
+          align: 'center'
+        },
+        {
+          title: '头像',
+          key: 'headImg',
+          render (row) {
+            return '<img :src="row.headImg" style="width:40px;height:40px"/>'
+          }
+        },
+        {
+          title: '会员姓名',
+          key: 'realName'
+        },
+        {
+          title:'电话',
+          key: 'phone'
+        }
+      ],
+      employeepager:{
+        current:1,
+        total:1,
+        size:12
+      }
     }
   },
   created () {
     this.getList(1)
+    this.getEmployeeList(1)
   },
   methods:{
-    removeEmployee(id){
-      if(window.confirm('取消员工后将删除该员工所有的客户资源提成，确定修改？')) {
-        this.http.put(this.$store.state.prefix + '/customer/updateEmployee2User?accountId=' + id).then(res => {
-          if (res.error === false) {
-            this.$Message.success('取消员工成功!')
-            this.getList(1)
-          }
-        })
+    changeEmployee(row){
+      var _this=this
+      var param={
+        accountId:this.currentEmployee.accountId,
+        newAccountId:row.accountId
       }
+      console.log(param)
+      this.$Modal.confirm({
+        title: '客资转移',
+        content: '<p>确定将'+this.currentEmployee.realName+'的所有客户资源转换到'+row.realName+'名下？</p>',
+        onOk: () => {
+            _this.http.put(_this.$store.state.prefix + '/customer/updateEmployee2Other',param).then(res => {
+              if (res.error === false) {
+                _this.$Message.success('客户资源转移成功!')
+                _this.getList(1)
+                _this.employeemodal = false
+                _this.getEmployeeList(1)
+              }else{
+                _this.$Message.error(res.msg)
+              }
+            })
+        },
+        onCancel: () => {
+        }
+      })
+    },getEmployeeList(pageno){
+      this.http.get(this.$store.state.prefix+'/customer/getCompanyUserInfo/'+(pageno||1)+"?employee=1").then(res=>{
+        if(res.error === false){
+          this.employeepager=res.result
+          this.employee=res.result.records
+        }else{
+          this.$Message.error(res.msg)
+        }
+        
+      })
     },
     setEmployee(id){
-      if(window.confirm('设置为员工后将获得额外提成，确定修改？')){
-        this.http.put(this.$store.state.prefix + '/customer/updateUser2Employee?accountId=' + id).then(res => {
-          if (res.error === false) {
-            this.$Message.success('设置员工成功!')
-            this.getList(1)
-          }
-        })
-      }
+
+      var _this=this
+      this.$Modal.confirm({
+        title: '新增确认',
+        content: '<p>设置为员工后将获得额外提成，确定修改？</p>',
+        onOk: () => {
+            _this.http.put(_this.$store.state.prefix + '/customer/updateUser2Employee',{accountId:id}).then(res => {
+              if (res.error === false) {
+                _this.$Message.success('设置员工成功!')
+                _this.getList(1)
+              }
+            })
+        },
+        onCancel: () => {
+        }
+      })
+    },
+    changeCustomer(employee){
+      this.employeemodal=true
+      this.currentEmployee=employee
     },
     getList (pageNo) {
       this.companyData=[];

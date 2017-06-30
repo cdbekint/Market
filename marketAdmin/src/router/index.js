@@ -34,6 +34,7 @@ import ActivityTeamUser from '@/components/Activity/ActivityTeamUser'
 import Trading from '@/components/Info/Trading'
 import Withdraw from '@/components/Info/Withdraw'
 import Customer from '@/components/Info/Customer'
+import AloneMember from '@/components/Info/AloneMember'
 import Point from '@/components/Info/Point'
 
 Vue.use(Router)
@@ -231,6 +232,14 @@ export default new Router({
       path: '/customer',
       name: 'Customer',
       component: Customer,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/alonemenber',
+      name: 'AloneMember',
+      component: AloneMember,
       meta: {
         requireAuth: true
       }

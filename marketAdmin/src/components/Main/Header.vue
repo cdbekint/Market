@@ -9,7 +9,7 @@
            <Submenu name="1">
             <template slot="title">
                 <Icon type="stats-bars"></Icon>
-                {{userInfo.company?userInfo.company.companyName:''}}
+                {{userInfo.company.companyName}}
             </template>
             <Menu-group title="账号管理">
               <div style="margin:10px 0px;">

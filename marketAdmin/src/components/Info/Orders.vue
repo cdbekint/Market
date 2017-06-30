@@ -10,6 +10,7 @@
         <Select v-model="orderquery.payType" slot="prepend" style="width:25%;" placeholder="订单类型">
           <Option value="">所有订单</Option>
           <Option value="2">商品订单</Option>
+          <Option value="6">自助付款</Option>
           <Option value="5">注册会员</Option>
           <Option value="4">账户充值</Option>
         </Select>
