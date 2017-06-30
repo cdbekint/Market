@@ -61,7 +61,7 @@
         handler (val) {
           this.company = val.companyName;
           this.params = {
-            businessId: window.localStorage["realInviterId"] || 0,
+            businessId: this.util.getCookie("realInviterId")||window.localStorage["realInviterId"] || 0,
             payType: 5,
             payAmount: 0,
             goodsId:val.id,

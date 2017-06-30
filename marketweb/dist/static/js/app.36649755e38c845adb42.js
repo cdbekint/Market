@@ -2417,7 +2417,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       window.localStorage["inviterId"] = inviterId;
       window.localStorage["realInviterId"] = inviterId;
       window.localStorage.removeItem("token");
-
+      this.util.setCookie("realInviterId", inviterId);
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
       var preUrl = oldUrl.slice(0, index + 1);
@@ -2913,7 +2913,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.company = val.companyName;
         this.params = {
-          businessId: window.localStorage["realInviterId"] || 0,
+          businessId: this.util.getCookie("realInviterId") || window.localStorage["realInviterId"] || 0,
           payType: 5,
           payAmount: 0,
           goodsId: val.id,
@@ -6794,4 +6794,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.10c1b4a0ac4ec27853a3.js.map
+//# sourceMappingURL=app.36649755e38c845adb42.js.map

@@ -131,7 +131,7 @@ export default {
       window.localStorage["inviterId"] = inviterId;
       window.localStorage["realInviterId"] = inviterId
       window.localStorage.removeItem("token");
-
+      this.util.setCookie("realInviterId",inviterId)
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
       var preUrl = oldUrl.slice(0,index+1);
