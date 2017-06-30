@@ -61,16 +61,16 @@
         handler (val) {
           this.company = val.companyName;
           this.params = {
-            businessId: this.util.getCookie("realInviterId")||window.localStorage["realInviterId"] || 0,
+            inviterId: this.util.getCookie("realInviterId")||window.localStorage["realInviterId"],//邀请人信息
             payType: 5,
             payAmount: 0,
-            goodsId:val.id,
-            companyId: val.companyId
+            activityId:val.id,//活动id
+            companyId: val.companyId//公司id
           }
-          if(!this.params.businessId){
+          if(!this.params.inviterId){
             this.Inviter.realName = this.company
             this.Inviter.headImg = "http://m.market.cdbeki.com/"+val.companyLogoImg
-            this.params.businessId = 0
+            this.params.inviterId = 0
           }else{
             this.getInviterInfo()
           }
@@ -95,7 +95,7 @@
         this.$emit("childClick",false)
       },
       getInviterInfo(){
-        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+window.localStorage["realInviterId"] || 0).then(res=>{
+        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+ this.params.inviterId).then(res=>{
           if(res.error === false)
             {
               this.Inviter=res.result
@@ -111,7 +111,7 @@
         if (this.isPaying === true)
           return;
         this.isPaying = true;
-        this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
+        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.params.inviterId, this.params).then((res) => {
           this.isPaying = false;
           if (res.error === false) {
             var row = res.result;

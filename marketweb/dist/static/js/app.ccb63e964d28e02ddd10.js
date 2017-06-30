@@ -2913,16 +2913,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.company = val.companyName;
         this.params = {
-          businessId: this.util.getCookie("realInviterId") || window.localStorage["realInviterId"] || 0,
+          inviterId: this.util.getCookie("realInviterId") || window.localStorage["realInviterId"],
           payType: 5,
           payAmount: 0,
-          goodsId: val.id,
-          companyId: val.companyId
-        };
-        if (!this.params.businessId) {
+          activityId: val.id,
+          companyId: val.companyId };
+        if (!this.params.inviterId) {
           this.Inviter.realName = this.company;
           this.Inviter.headImg = "http://m.market.cdbeki.com/" + val.companyLogoImg;
-          this.params.businessId = 0;
+          this.params.inviterId = 0;
         } else {
           this.getInviterInfo();
         }
@@ -2948,7 +2947,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getInviterInfo: function getInviterInfo() {
       var _this2 = this;
 
-      this.http.get(this.$store.state.prefix + '/pubInfo/account?accountId=' + window.localStorage["realInviterId"] || 0).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/pubInfo/account?accountId=' + this.params.inviterId).then(function (res) {
         if (res.error === false) {
           _this2.Inviter = res.result;
         } else {
@@ -2963,7 +2962,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       if (this.isPaying === true) return;
       this.isPaying = true;
-      this.http.post(this.$store.state.prefix + '/pay', this.params).then(function (res) {
+      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.params.inviterId, this.params).then(function (res) {
         _this3.isPaying = false;
         if (res.error === false) {
           var row = res.result;
@@ -6794,4 +6793,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.36649755e38c845adb42.js.map
+//# sourceMappingURL=app.ccb63e964d28e02ddd10.js.map
