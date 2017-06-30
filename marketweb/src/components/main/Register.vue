@@ -7,6 +7,16 @@
         <img src="/static/images/active/member.png" alt="">
       </div>
       <div class="body_input" >
+      <div class="inviterinfo">
+        <div class="inviteravater">
+            <img :src="Inviter.headImg" alt="">
+          </div>
+          <div class="inviternote">
+             {{Inviter.realName}}正在邀请你成为会员
+          </div>
+         
+      </div>
+          
         <div class="input_name">
           <input type="text" v-model="name" placeholder="   *请输入您的真实姓名（必填）">
         </div>
@@ -57,6 +67,14 @@
             goodsId:val.id,
             companyId: val.companyId
           }
+          if(!this.params.businessId){
+            this.Inviter.realName = this.company
+            this.Inviter.headImg = "http://m.market.cdbeki.com/"+val.companyLogoImg
+            this.params.businessId = 0
+          }else{
+            this.getInviterInfo()
+          }
+          
           setTimeout(()=>{
             this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
               if(res.error == false){
@@ -75,6 +93,16 @@
     methods:{
       changeState(){
         this.$emit("childClick",false)
+      },
+      getInviterInfo(){
+        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+window.localStorage["realInviterId"] || 0).then(res=>{
+          if(res.error === false)
+            {
+              this.Inviter=res.result
+            }else{
+              this.$Message.error(res.msg)
+            }
+        })
       },
       pay(){
         if(!this._checkInfo())
@@ -153,7 +181,6 @@
           this.msg = "您输入的手机号码格式错误";
           return false;
         }
-          debugger
 
         if(this.email != void 0 && this.email != "") {
           var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -174,7 +201,7 @@
       return {
         isPaying:false,
         payState:false,
-        company:"巴黎春威风威区限技公司",
+        company:"",
         name:'',
         phone:'',
         email:'',
@@ -189,7 +216,11 @@
         showPage:true,
         msg:"请准确输入以上信息",
         money:0,
-        checkState:'err'
+        checkState:'err',
+        Inviter:{
+          realName:'',
+          headImg:''
+        }
       }
     }
   }
@@ -213,10 +244,10 @@
       opacity 0.5
     .main_body
       width rrem(1000px)
-      height rrem(756px)
+      height rrem(1000px)
       z-index 1510
       position fixed
-      top rrem(400px)
+      top rrem(200px)
       left rrem(40px)
       background #fff
       .body_join
@@ -233,7 +264,7 @@
         top rrem(120px)
         left rrem(40px)
         width rrem(920px)
-        height rrem(380px)
+        height rrem(680px)
         input
           border 1px solid #aeaeae
           margin-bottom rrem(40px)
@@ -257,7 +288,7 @@
       .body_pay
         background #ff007e
         position absolute
-        top rrem(600px)
+        top rrem(850px)
         left rrem(40px)
         line-height rrem(125px)
         text-align center
@@ -286,4 +317,20 @@
           color #ff007e
       .payed_pay
         top rrem(360px)
+.inviterinfo
+  text-align:center
+  height rrem(250px)
+  .inviteravater
+    width rrem(160px)
+    height rrem(160px)
+    margin:0px auto
+    img
+      width:100%
+      height:100%
+      border-radius:10px
+  .inviternote
+    width:100%
+    height rrem(90px)
+    text-align:center
+    line-height rrem(90px)
 </style>
