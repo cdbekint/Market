@@ -6102,7 +6102,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "body_join"
   }, [_c('img', {
     attrs: {
-      "src": "/static/images/active/member.png",
+      "src": "/static/images/active/joinsuccess.png",
       "alt": ""
     }
   })])
@@ -6794,4 +6794,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.dcba090251e140dfb624.js.map
+//# sourceMappingURL=app.10c1b4a0ac4ec27853a3.js.map

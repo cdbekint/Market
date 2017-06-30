@@ -36,7 +36,7 @@
 
     <div class="main_body payed_body" v-if="payState">
       <div class="body_join">
-        <img src="/static/images/active/member.png" alt="">
+        <img src="/static/images/active/joinsuccess.png" alt="">
       </div>
       <div class="body_info" >
         <span>恭喜您成为{{company}}会员，众多精彩活动、优质商品在等你喔！</span>
@@ -247,7 +247,7 @@
       height rrem(1000px)
       z-index 1510
       position fixed
-      top rrem(200px)
+      top rrem(400px)
       left rrem(40px)
       background #fff
       .body_join
