@@ -55,7 +55,9 @@
       this.name = ''
       this.phone = ''
       this.email = ''
-      console.log(this.params)
+      var state = this.util.getURLParam('state').split(",")
+      console.warn("看着而："+state[2])
+      this.realInviterId=state[2]
     },
     watch: {
       datas: {
@@ -66,17 +68,13 @@
             activityId:val.id,//活动id
             companyId: val.companyId//公司id
           }
-          console.log(this.params)
-          debugger
           if(!this.params.inviterId){
-            debugger
             this.Inviter.realName = this.company
             this.Inviter.headImg = "http://m.market.cdbeki.com/"+val.companyLogoImg
           }else{
             this.getInviterInfo()
           }
           this.params.inviterId=~~this.params.inviterId
-           console.log(this.params)
           setTimeout(()=>{
             this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
               if(res.error == false){
@@ -113,7 +111,11 @@
         if (this.isPaying === true)
           return;
         this.isPaying = true;
-        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.params.inviterId, this.params).then((res) => {
+        debugger
+        if(!this.params.inviterId){
+          alert("邀请人信息为空")
+        }
+        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId, this.params).then((res) => {
           this.isPaying = false;
           if (res.error === false) {
             var row = res.result;

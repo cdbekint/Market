@@ -534,7 +534,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   components: { vheader: __WEBPACK_IMPORTED_MODULE_0__components_Header___default.a },
   created: function created() {
-
     this.$store.state.token = window.localStorage["token"] || this.util.getCookie("token");
     if (this.$store.state.token == '' || this.$store.state.token == void 0) {
       this.$router.push({
@@ -2412,8 +2411,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     var state = this.util.getURLParam('state').split(",");
     var activityId = state[0];
-    var inviterId = state[1] == void 0 ? 0 : state[1];
+    var inviterId = ~~(state[1] == void 0 ? 0 : state[1]);
     this.activityId = activityId;
+    this.realInvititer = state[2];
 
     if (window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0) {
       window.localStorage["inviterId"] = inviterId;
@@ -2423,7 +2423,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
       var preUrl = oldUrl.slice(0, index + 1);
-      var state = "state=" + activityId + "," + window.localStorage["ownId"];
+      var state = "state=" + activityId + "," + window.localStorage["ownId"] + "," + inviterId;
       var url = preUrl + state;
       location.href = url;
     }
@@ -2906,7 +2906,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.name = '';
     this.phone = '';
     this.email = '';
-    console.log(this.params);
+    var state = this.util.getURLParam('state').split(",");
+    console.warn("看着而：" + state[2]);
+    this.realInviterId = state[2];
   },
 
   watch: {
@@ -2919,17 +2921,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           inviterId: ~~(this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]),
           activityId: val.id,
           companyId: val.companyId };
-        console.log(this.params);
-        debugger;
         if (!this.params.inviterId) {
-          debugger;
           this.Inviter.realName = this.company;
           this.Inviter.headImg = "http://m.market.cdbeki.com/" + val.companyLogoImg;
         } else {
           this.getInviterInfo();
         }
         this.params.inviterId = ~~this.params.inviterId;
-        console.log(this.params);
         setTimeout(function () {
           _this.http.get(_this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then(function (res) {
             if (res.error == false) {
@@ -2966,7 +2964,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       if (this.isPaying === true) return;
       this.isPaying = true;
-      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.params.inviterId, this.params).then(function (res) {
+      debugger;
+      if (!this.params.inviterId) {
+        alert("邀请人信息为空");
+      }
+      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then(function (res) {
         _this3.isPaying = false;
         if (res.error === false) {
           var row = res.result;
@@ -6794,4 +6796,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.5d838c55058510d4649c.js.map
+//# sourceMappingURL=app.6005aef7b472a9445a74.js.map

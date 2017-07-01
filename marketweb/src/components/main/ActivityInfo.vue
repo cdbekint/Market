@@ -123,8 +123,9 @@ export default {
   created () {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
-    var inviterId = (state[1] == void 0 )? 0 : state[1];
+    var inviterId = ~~((state[1] == void 0 )? 0 : state[1]);
     this.activityId = activityId;
+    this.realInvititer=state[2]
 
     if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0){
       //判断是否是已经跳转了的页面
@@ -135,11 +136,10 @@ export default {
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
       var preUrl = oldUrl.slice(0,index+1);
-      var state = "state=" + activityId + "," + window.localStorage["ownId"];
+      var state = "state=" + activityId + "," + window.localStorage["ownId"]+","+inviterId;
       var url = preUrl + state;
       location.href = url
     }
-
     // 获取登录者个人信息,在这个活动所在的公司里面的信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user?activityId='+this.activityId).then(res => {
       if (res.error === false) {
