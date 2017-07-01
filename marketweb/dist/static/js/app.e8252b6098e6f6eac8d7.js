@@ -2960,14 +2960,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     pay: function pay() {
       var _this3 = this;
 
-      if (!this._checkInfo()) return;
-
-      if (this.isPaying === true) return;
-      this.isPaying = true;
-      debugger;
-      if (!this.params.inviterId) {
-        alert("邀请人信息为空");
+      if (!this._checkInfo()) {
+        return;
       }
+
+      if (this.isPaying === true) {
+        this.$Message.error("正在请求中,请稍等");
+        return;
+      }
+      this.isPaying = true;
       this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then(function (res) {
         _this3.isPaying = false;
         if (res.error === false) {
@@ -6796,4 +6797,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.07ba9ba6ad552baa00ea.js.map
+//# sourceMappingURL=app.e8252b6098e6f6eac8d7.js.map
