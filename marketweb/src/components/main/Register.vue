@@ -56,8 +56,7 @@
       this.phone = ''
       this.email = ''
       var state = this.util.getURLParam('state').split(",")
-      console.warn("看着而："+state[2])
-      this.realInviterId=state[2]
+      this.realInviterId=~~(state[2]===undefined?(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]):state[2])
     },
     watch: {
       datas: {
@@ -95,7 +94,7 @@
         this.$emit("childClick",false)
       },
       getInviterInfo(){
-        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+ this.realInviterId||this.params.inviterId).then(res=>{
+        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+ this.realInviterId).then(res=>{
           if(res.error === false)
             {
               this.Inviter=res.result
@@ -110,7 +109,7 @@
         if (this.isPaying === true)
           return;
         this.isPaying = true;
-        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId||this.params.inviterId, this.params).then((res) => {
+        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId, this.params).then((res) => {
           this.isPaying = false;
           if (res.error === false) {
             var row = res.result;

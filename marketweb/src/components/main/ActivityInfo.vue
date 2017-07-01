@@ -125,7 +125,7 @@ export default {
     var activityId = state[0];
     var inviterId = ~~((state[1] == void 0 )? 0 : state[1]);
     this.activityId = activityId;
-    this.realInvititer=state[2]
+    this.realInviterId=~~(state[2]===undefined?(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]):state[2])
     this.ownId=state[1]
 
     if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0){

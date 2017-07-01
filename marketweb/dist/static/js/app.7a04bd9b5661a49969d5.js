@@ -2432,7 +2432,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var activityId = state[0];
     var inviterId = ~~(state[1] == void 0 ? 0 : state[1]);
     this.activityId = activityId;
-    this.realInvititer = state[2];
+    this.realInviterId = ~~(state[2] === undefined ? this.util.getCookie("realInviterId") || window.localStorage["realInviterId"] : state[2]);
     this.ownId = state[1];
 
     if (window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0) {
@@ -2927,8 +2927,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.phone = '';
     this.email = '';
     var state = this.util.getURLParam('state').split(",");
-    console.warn("看着而：" + state[2]);
-    this.realInviterId = state[2];
+    this.realInviterId = ~~(state[2] === undefined ? this.util.getCookie("realInviterId") || window.localStorage["realInviterId"] : state[2]);
   },
 
   watch: {
@@ -2969,7 +2968,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getInviterInfo: function getInviterInfo() {
       var _this2 = this;
 
-      this.http.get(this.$store.state.prefix + '/pubInfo/account?accountId=' + this.realInviterId || this.params.inviterId).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/pubInfo/account?accountId=' + this.realInviterId).then(function (res) {
         if (res.error === false) {
           _this2.Inviter = res.result;
         } else {
@@ -2983,7 +2982,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (!this._checkInfo()) return;
       if (this.isPaying === true) return;
       this.isPaying = true;
-      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId || this.params.inviterId, this.params).then(function (res) {
+      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then(function (res) {
         _this3.isPaying = false;
         if (res.error === false) {
           var row = res.result;
@@ -6841,4 +6840,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.7459874aa7d5f8593ae9.js.map
+//# sourceMappingURL=app.7a04bd9b5661a49969d5.js.map
