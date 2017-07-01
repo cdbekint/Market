@@ -1,7 +1,7 @@
 <template>
   <div class="personPage">
     <headTitle ></headTitle>
-    <headMoney ></headMoney>
+    <headMoney :personInfo="personInfo"></headMoney>
     <infos></infos>
   </div>
 </template>
@@ -165,7 +165,9 @@ export default {
             toCashRate: item.toCashRat,
           };
           pointArr.push(obj)
-
+          if(item.companyId===this.currentCompanyId){
+            this.personInfo.currentCompany=item
+          }
         });
         this.personInfo.company = pointArr;
       }

@@ -2,22 +2,22 @@
   <div class="headMoney">
     <div class="main_bg">
       <img src="/static/images/person/bg.png">
-      <img src="/static/images/b1.png" class="info_img">
+      <img :src="personInfo.headImg" v-if="personInfo.headImg" class="info_img">
       <div class="info_head">
         <div class='head_name'>
           <img src="/static/images/person/guan.png">
-          <span>小浩学长</span>
+          <span v-text="personInfo.realName||realName.nickName"></span>
         </div>
-        <p class="phone">电话：231566468513</p>
-        <p class="email">邮箱：231566468513</p>
+        <p class="phone" v-text="'电话:'+personInfo.phone"></p>
+        <p class="email" v-text="'邮箱:'+personInfo.email"></p>
       </div>
       <div class="main_money">
         <div class="money_info">
           <div class="info_jifen">
-            <span>累计积分：12356分</span>
-            <span>可用积分：126分</span>
-            <span>累计积分：356分</span>
-            <span>累计积分：1256分</span>
+            <span v-text="'累计积分:'+personInfo.currentCompany.allPoints"></span>
+            <span v-text="'可用积分:'+personInfo.currentCompany.points"></span>
+            <span v-text="'已换现金:'+personInfo.currentCompany.withDrawAmount"></span>
+            <span v-text="'可换现金:'+personInfo.currentCompany.cashs"></span>
           </div>
         </div>
       </div>
@@ -27,8 +27,21 @@
   </div>
 </template>
 
-<script>
-
+<script type="text/ecmascript-6">
+export default {
+  name: 'headMoney',
+  props:["personInfo"],
+  created(){
+  },
+  data () {
+    return {
+      info:{
+        name:'巴黎春天',
+        logo:'/static/images/a1.png'
+      }
+    }
+  }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

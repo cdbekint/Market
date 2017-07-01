@@ -95,7 +95,7 @@
         this.$emit("childClick",false)
       },
       getInviterInfo(){
-        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+ this.params.inviterId).then(res=>{
+        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+ this.realInviterId||this.params.inviterId).then(res=>{
           if(res.error === false)
             {
               this.Inviter=res.result
@@ -106,14 +106,9 @@
       },
       pay(){
         if(!this._checkInfo())
-        {
           return;
-        }
         if (this.isPaying === true)
-        {
-          this.$Message.error("正在请求中,请稍等")
           return;
-        }
         this.isPaying = true;
         this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId||this.params.inviterId, this.params).then((res) => {
           this.isPaying = false;

@@ -534,7 +534,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   components: { vheader: __WEBPACK_IMPORTED_MODULE_0__components_Header___default.a },
   created: function created() {
-    this.$store.state.token = window.localStorage["token"];
+    this.$store.state.token = window.localStorage["token"] || this.util.getCookie("token");
     if (this.$store.state.token == '' || this.$store.state.token == void 0) {
       this.$router.push({
         path: '/login'
@@ -637,9 +637,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 188 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'headMoney',
+  props: ["personInfo"],
+  created: function created() {},
+  data: function data() {
+    return {
+      info: {
+        name: '巴黎春天',
+        logo: '/static/images/a1.png'
+      }
+    };
+  }
+});
 
 /***/ }),
 /* 189 */
@@ -961,6 +977,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             toCashRate: item.toCashRat
           };
           pointArr.push(obj);
+          if (item.companyId === _this5.currentCompanyId) {
+            _this5.personInfo.currentCompany = item;
+          }
         });
         _this5.personInfo.company = pointArr;
       }
@@ -2949,7 +2968,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getInviterInfo: function getInviterInfo() {
       var _this2 = this;
 
-      this.http.get(this.$store.state.prefix + '/pubInfo/account?accountId=' + this.params.inviterId).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/pubInfo/account?accountId=' + this.realInviterId || this.params.inviterId).then(function (res) {
         if (res.error === false) {
           _this2.Inviter = res.result;
         } else {
@@ -2960,13 +2979,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     pay: function pay() {
       var _this3 = this;
 
-      if (!this._checkInfo()) {
-        return;
-      }
-      if (this.isPaying === true) {
-        this.$Message.error("正在请求中,请稍等");
-        return;
-      }
+      if (!this._checkInfo()) return;
+      if (this.isPaying === true) return;
       this.isPaying = true;
       this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId || this.params.inviterId, this.params).then(function (res) {
         _this3.isPaying = false;
@@ -5596,7 +5610,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "personPage"
-  }, [_c('headTitle'), _vm._v(" "), _c('headMoney'), _vm._v(" "), _c('infos')], 1)
+  }, [_c('headTitle'), _vm._v(" "), _c('headMoney', {
+    attrs: {
+      "personInfo": _vm.personInfo
+    }
+  }), _vm._v(" "), _c('infos')], 1)
 },staticRenderFns: []}
 
 /***/ }),
@@ -6750,8 +6768,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "headMoney"
   }, [_c('div', {
@@ -6760,12 +6776,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": "/static/images/person/bg.png"
     }
-  }), _vm._v(" "), _c('img', {
+  }), _vm._v(" "), (_vm.personInfo.headImg) ? _c('img', {
     staticClass: "info_img",
     attrs: {
-      "src": "/static/images/b1.png"
+      "src": _vm.personInfo.headImg
     }
-  }), _vm._v(" "), _c('div', {
+  }) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "info_head"
   }, [_c('div', {
     staticClass: "head_name"
@@ -6773,17 +6789,43 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": "/static/images/person/guan.png"
     }
-  }), _vm._v(" "), _c('span', [_vm._v("小浩学长")])]), _vm._v(" "), _c('p', {
-    staticClass: "phone"
-  }, [_vm._v("电话：231566468513")]), _vm._v(" "), _c('p', {
-    staticClass: "email"
-  }, [_vm._v("邮箱：231566468513")])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.personInfo.realName || _vm.realName.nickName)
+    }
+  })]), _vm._v(" "), _c('p', {
+    staticClass: "phone",
+    domProps: {
+      "textContent": _vm._s('电话:' + _vm.personInfo.phone)
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "email",
+    domProps: {
+      "textContent": _vm._s('邮箱:' + _vm.personInfo.email)
+    }
+  })]), _vm._v(" "), _c('div', {
     staticClass: "main_money"
   }, [_c('div', {
     staticClass: "money_info"
   }, [_c('div', {
     staticClass: "info_jifen"
-  }, [_c('span', [_vm._v("累计积分：12356分")]), _vm._v(" "), _c('span', [_vm._v("可用积分：126分")]), _vm._v(" "), _c('span', [_vm._v("累计积分：356分")]), _vm._v(" "), _c('span', [_vm._v("累计积分：1256分")])])])]), _vm._v(" "), _c('img', {
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s('累计积分:' + _vm.personInfo.currentCompany.allPoints)
+    }
+  }), _vm._v(" "), _c('span', {
+    domProps: {
+      "textContent": _vm._s('可用积分:' + _vm.personInfo.currentCompany.points)
+    }
+  }), _vm._v(" "), _c('span', {
+    domProps: {
+      "textContent": _vm._s('已换现金:' + _vm.personInfo.currentCompany.withDrawAmount)
+    }
+  }), _vm._v(" "), _c('span', {
+    domProps: {
+      "textContent": _vm._s('可换现金:' + _vm.personInfo.currentCompany.cashs)
+    }
+  })])])]), _vm._v(" "), _c('img', {
     staticClass: "main_jifen",
     attrs: {
       "src": "/static/images/person/jifen.png"
@@ -6794,8 +6836,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "/static/images/person/tixian.png"
     }
   })])])
-}]}
+},staticRenderFns: []}
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.24660edbfd0a4b59bd80.js.map
+//# sourceMappingURL=app.39f6659a75ffa0a44784.js.map
