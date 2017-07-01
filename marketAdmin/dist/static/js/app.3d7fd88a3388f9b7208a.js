@@ -2836,7 +2836,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageUrl: 'http://up.qiniu.com/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
-        imageMaxSize: 5120,
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
         imageCompressEnable: true,
         imageCompressBorder: 1600,
@@ -41358,4 +41357,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[109]);
-//# sourceMappingURL=app.023110c1bc46edc993db.js.map
+//# sourceMappingURL=app.3d7fd88a3388f9b7208a.js.map

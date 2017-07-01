@@ -17,7 +17,7 @@
             <span v-text="'累计积分:'+personInfo.currentCompany.allPoints"></span>
             <span v-text="'可用积分:'+personInfo.currentCompany.points"></span>
             <span v-text="'已换现金:'+personInfo.currentCompany.withDrawAmount"></span>
-            <span v-text="'可换现金:'+personInfo.currentCompany.cashs"></span>
+            <span v-text="'可换现金:'+personInfo.currentCompany.points*personInfo.currentCompany.toCashRate"></span>
           </div>
         </div>
       </div>

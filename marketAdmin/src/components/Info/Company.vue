@@ -324,7 +324,6 @@ export default {
         imageUrl: 'http://up.qiniu.com/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
-        imageMaxSize: 5120,
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
         imageCompressEnable: true,
         imageCompressBorder: 1600,
