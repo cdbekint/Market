@@ -55,26 +55,28 @@
       this.name = ''
       this.phone = ''
       this.email = ''
+      console.log(this.params)
     },
     watch: {
       datas: {
         handler (val) {
           this.company = val.companyName;
           this.params = {
-            inviterId: this.util.getCookie("realInviterId")||window.localStorage["realInviterId"],//邀请人信息
-            payType: 5,
-            payAmount: 0,
+            inviterId: ~~(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]),//邀请人信息
             activityId:val.id,//活动id
             companyId: val.companyId//公司id
           }
+          console.log(this.params)
+          debugger
           if(!this.params.inviterId){
+            debugger
             this.Inviter.realName = this.company
             this.Inviter.headImg = "http://m.market.cdbeki.com/"+val.companyLogoImg
-            this.params.inviterId = 0
           }else{
             this.getInviterInfo()
           }
-          
+          this.params.inviterId=~~this.params.inviterId
+           console.log(this.params)
           setTimeout(()=>{
             this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
               if(res.error == false){
@@ -206,11 +208,9 @@
         phone:'',
         email:'',
         params: {
-          businessId: 0,
-          payType: 5,
-          payAmount: 0,
-          companyId: 0,
-          goodsId:0
+          inviterId: ~~(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]),//邀请人信息
+          activityId:0,//活动id
+          companyId: 0//公司id
         },
         isCheck:false,
         showPage:true,

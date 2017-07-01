@@ -535,7 +535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { vheader: __WEBPACK_IMPORTED_MODULE_0__components_Header___default.a },
   created: function created() {
 
-    this.$store.state.token = window.localStorage["token"];
+    this.$store.state.token = window.localStorage["token"] || this.util.getCookie("token");
     if (this.$store.state.token == '' || this.$store.state.token == void 0) {
       this.$router.push({
         path: '/login'
@@ -614,6 +614,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.localStorage["token"] = res.result.access_token;
             window.localStorage["ownId"] = res.result.user.account.id;
 
+            _this.util.setCookie("token", res.result.access_token);
+            _this.util.setCookie("ownId", res.result.user.account.id);
             var oldUrl = location.href;
             var index = oldUrl.indexOf("?");
 
@@ -2904,6 +2906,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.name = '';
     this.phone = '';
     this.email = '';
+    console.log(this.params);
   },
 
   watch: {
@@ -2913,19 +2916,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.company = val.companyName;
         this.params = {
-          inviterId: this.util.getCookie("realInviterId") || window.localStorage["realInviterId"],
-          payType: 5,
-          payAmount: 0,
+          inviterId: ~~(this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]),
           activityId: val.id,
           companyId: val.companyId };
+        console.log(this.params);
+        debugger;
         if (!this.params.inviterId) {
+          debugger;
           this.Inviter.realName = this.company;
           this.Inviter.headImg = "http://m.market.cdbeki.com/" + val.companyLogoImg;
-          this.params.inviterId = 0;
         } else {
           this.getInviterInfo();
         }
-
+        this.params.inviterId = ~~this.params.inviterId;
+        console.log(this.params);
         setTimeout(function () {
           _this.http.get(_this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then(function (res) {
             if (res.error == false) {
@@ -3052,12 +3056,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       phone: '',
       email: '',
       params: {
-        businessId: 0,
-        payType: 5,
-        payAmount: 0,
-        companyId: 0,
-        goodsId: 0
-      },
+        inviterId: ~~(this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]),
+        activityId: 0,
+        companyId: 0 },
       isCheck: false,
       showPage: true,
       msg: "请准确输入以上信息",
@@ -6793,4 +6794,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.ccb63e964d28e02ddd10.js.map
+//# sourceMappingURL=app.5d838c55058510d4649c.js.map
