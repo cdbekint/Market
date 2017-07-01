@@ -115,7 +115,7 @@
           return;
         }
         this.isPaying = true;
-        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId, this.params).then((res) => {
+        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId||this.params.inviterId, this.params).then((res) => {
           this.isPaying = false;
           if (res.error === false) {
             var row = res.result;
@@ -163,6 +163,8 @@
             } else {
               onBridgeReady()
             }
+          }else {
+            this.$Message.error(res.msg)
           }
         })
       },

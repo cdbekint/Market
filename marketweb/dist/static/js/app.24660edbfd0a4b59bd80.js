@@ -2968,7 +2968,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return;
       }
       this.isPaying = true;
-      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then(function (res) {
+      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId || this.params.inviterId, this.params).then(function (res) {
         _this3.isPaying = false;
         if (res.error === false) {
           var row = res.result;
@@ -3012,6 +3012,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           } else {
             onBridgeReady();
           }
+        } else {
+          _this3.$Message.error(res.msg);
         }
       });
     },
@@ -6796,4 +6798,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.fe4062ac328e7313fd6c.js.map
+//# sourceMappingURL=app.24660edbfd0a4b59bd80.js.map
