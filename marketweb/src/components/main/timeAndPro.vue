@@ -19,7 +19,7 @@
       <div class = "pro_line line2">
         <div class = "main_time">
           <div class = "time_count">
-            <progressMe :value="progress*100"></progressMe>
+            <progressMe :value="~~(progress*100)"></progressMe>
           </div>
         </div>
         <div class = "main_title">

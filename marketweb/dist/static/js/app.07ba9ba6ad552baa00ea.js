@@ -534,7 +534,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   components: { vheader: __WEBPACK_IMPORTED_MODULE_0__components_Header___default.a },
   created: function created() {
-    this.$store.state.token = window.localStorage["token"] || this.util.getCookie("token");
+    this.$store.state.token = window.localStorage["token"];
     if (this.$store.state.token == '' || this.$store.state.token == void 0) {
       this.$router.push({
         path: '/login'
@@ -5624,7 +5624,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "time_count"
   }, [_c('progressMe', {
     attrs: {
-      "value": _vm.progress * 100
+      "value": ~~(_vm.progress * 100)
     }
   })], 1)]), _vm._v(" "), _vm._m(2)]), _vm._v(" "), _c('div', {
     staticClass: "pro_line line3"
@@ -6796,4 +6796,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.6005aef7b472a9445a74.js.map
+//# sourceMappingURL=app.07ba9ba6ad552baa00ea.js.map
