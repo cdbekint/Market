@@ -161,7 +161,7 @@ export default {
     
 
     //获取自己在这个活动中的团信息
-    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ this.ownId||window.localStorage["ownId"]+'/'+this.activityId).then( res=> {
+    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ (this.ownId||window.localStorage["ownId"])+'/'+this.activityId).then( res=> {
         if(res.result.userGroupInfo.length>0) {
           //判断是否已经加入任意团
           this.hasGroup = true

@@ -2463,7 +2463,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     });
 
-    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/' + this.ownId || window.localStorage["ownId"] + '/' + this.activityId).then(function (res) {
+    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/' + (this.ownId || window.localStorage["ownId"]) + '/' + this.activityId).then(function (res) {
       if (res.result.userGroupInfo.length > 0) {
         _this2.hasGroup = true;
       }
@@ -6841,4 +6841,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.90df37cc567a25e65a4e.js.map
+//# sourceMappingURL=app.7459874aa7d5f8593ae9.js.map
