@@ -1736,6 +1736,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '交易额',
         key: 'allPayAmount'
       }, {
+        title: '创建时间',
+        key: 'joinDate'
+      }, {
         title: '操作',
         key: 'action',
         render: function render(row) {
@@ -1765,8 +1768,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var query = this.util.getQuery(location.hash);
       this.http.get(this.$store.state.prefix + '/activity/getAllGroupInfo/' + query.id).then(function (res) {
         if (res.error === false) {
-          if (res.result) _this.activitypager = res.result;
-          _this.activityteamData = res.result;
+          if (res.result) {
+            _this.activitypager = res.result;
+            for (var i in res.result) {
+              res.result[i].joinDate = _this.util.getFormatDate(res.result[i].joinDate);
+            }
+            _this.activityteamData = res.result;
+          }
         } else {
           _this.$Notice.error("获取失败");
         }
@@ -1818,6 +1826,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '总得积分',
         key: 'groupPoints'
       }, {
+        title: '参团时间',
+        key: 'joinDate'
+      }, {
         title: '交易状态',
         key: 'payStatus',
         render: function render(row) {
@@ -1863,7 +1874,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.http.get(this.$store.state.prefix + '/activity/getGroupMemberInfo/' + query.id + '?activityId=' + query.activityid).then(function (res) {
         if (res.error === false) {
           if (res.result) {
-            _this.activitypager = res.result;
+            for (var i in res.result) {
+              res.result[i].joinDate = _this.util.getFormatDate(res.result[i].joinDate);
+            }
             _this.activityteamuserData = res.result;
           }
         } else {
@@ -2273,6 +2286,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }, {
         title: '库存',
         key: 'storageNum'
+      }, {
+        title: '排序',
+        key: 'sort'
       }, {
         title: '上架状态',
         key: 'goodsStatus',
@@ -3010,6 +3026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       searchVal: '',
+      nameOrPhone: '',
       companyCol: [{
         title: '序号',
         type: 'index',
@@ -3056,16 +3073,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '员工标识',
         key: 'employee',
         render: function render(row) {
-          if (row.employee == 1) return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="removeEmployee(row.accountId)"/>';else if (row.member == 1) return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setEmployee(row.accountId)"/>';else return '';
+          if (row.employee == 1) return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer"/>';else if (row.member == 1) return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setEmployee(row.accountId)"/>';else return '';
         }
       }, {
         title: '操作',
         key: 'action',
         render: function render(row) {
           if (row.employee == 1) {
-            return '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>';
+            return '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>' + '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>';
           } else {
-            return '';
+            return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>';
           }
         }
       }],
@@ -3100,7 +3117,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         current: 1,
         total: 1,
         size: 12
-      }
+      },
+      addPointmodal: false,
+      customerPoints: 0
     };
   },
   created: function created() {
@@ -3194,11 +3213,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
       var url = "";
       if (this.searchVal == 1) {
-        url = '/customer/getCompanyUserInfo/1?member=1&employee=0';
+        url = '/customer/getCompanyUserInfo/1?member=1&employee=0&nameOrPhone=' + this.nameOrPhone;
       } else if (this.searchVal == 2) {
-        url = '/customer/getCompanyUserInfo/1?member=0&employee=1';
+        url = '/customer/getCompanyUserInfo/1?member=0&employee=1&nameOrPhone=' + this.nameOrPhone;
       } else {
-        url = '/customer/getCompanyUserInfo/1';
+        url = '/customer/getCompanyUserInfo/1?nameOrPhone=' + this.nameOrPhone;
       }
       this.http.get(this.$store.state.prefix + url).then(function (res) {
         if (res.error === false) {
@@ -3223,6 +3242,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this5.companyData = res.result.records;
           _this5.pager = res.result;
         }
+      });
+    },
+    addPoints: function addPoints(row) {
+      this.addPointmodal = true;
+      this.willaddPointUser = row;
+    },
+    addPointToUser: function addPointToUser() {
+      var _this6 = this;
+
+      this.customerPoints = ~~this.customerPoints;
+      var _this = this;
+      this.$Modal.confirm({
+        title: '自定义加分',
+        content: '<p>确定为' + (this.willaddPointUser.realName || this.willaddPointUser.nickName) + '自定义加分为:<span style="color:red;font-weight:bold">' + this.customerPoints + (this.customerPoints <= 0 ? '分,且不大于0' : '分') + '</span></p>',
+        onOk: function onOk() {
+          _this.http.put(_this.$store.state.prefix + '/customer/updateUserPoints', { accountId: _this6.willaddPointUser.accountId, points: _this6.customerPoints }).then(function (res) {
+            if (res.error === false) {
+              _this.$Message.success('自定义积分添加成功!');
+              _this6.customerPoints = 0;
+              _this6.addPointmodal = false;
+              _this6.search();
+            }
+          });
+        },
+        onCancel: function onCancel() {}
       });
     }
   }
@@ -7640,25 +7684,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "columns": _vm.activityteamuserColumns,
       "data": _vm.activityteamuserData
     }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "margin": "10px",
-      "overflow": "hidden"
-    }
-  }, [_c('div', {
-    staticStyle: {
-      "float": "right"
-    }
-  }, [_c('Page', {
-    attrs: {
-      "total": _vm.activitypager.total,
-      "page-size": _vm.activitypager.size,
-      "current": _vm.activitypager.current
-    },
-    on: {
-      "on-change": _vm.changePage
-    }
-  })], 1)])], 1), _vm._v(" "), (_vm.isHover) ? _c('div', {
+  }), _vm._v(" "), _vm._m(1)], 1), _vm._v(" "), (_vm.isHover) ? _c('div', {
     staticClass: "hoverShowImg",
     style: ({
       left: _vm.Left + 'px',
@@ -7675,6 +7701,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "titlename"
   }, [_c('span', [_vm._v("团队成员")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticStyle: {
+      "margin": "10px",
+      "overflow": "hidden"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "float": "right"
+    }
+  })])
 }]}
 
 /***/ }),
@@ -9138,7 +9175,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "3"
     }
-  }, [_vm._v("会员加员工")])], 1), _vm._v(" "), _c('Button', {
+  }, [_vm._v("会员加员工")])], 1), _vm._v(" "), _c('Input', {
+    staticStyle: {
+      "width": "30%"
+    },
+    attrs: {
+      "placeholder": "姓名或手机"
+    },
+    model: {
+      value: (_vm.nameOrPhone),
+      callback: function($$v) {
+        _vm.nameOrPhone = $$v
+      },
+      expression: "nameOrPhone"
+    }
+  }), _vm._v(" "), _c('Button', {
     attrs: {
       "type": "primary",
       "icon": "ios-search"
@@ -9212,7 +9263,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "on-change": _vm.getEmployeeList
     }
-  })], 1)])], 1)], 1)
+  })], 1)])], 1), _vm._v(" "), _c('Modal', {
+    attrs: {
+      "title": "自定义加分"
+    },
+    on: {
+      "on-ok": _vm.addPointToUser
+    },
+    model: {
+      value: (_vm.addPointmodal),
+      callback: function($$v) {
+        _vm.addPointmodal = $$v
+      },
+      expression: "addPointmodal"
+    }
+  }, [_c('Input', {
+    model: {
+      value: (_vm.customerPoints),
+      callback: function($$v) {
+        _vm.customerPoints = $$v
+      },
+      expression: "customerPoints"
+    }
+  }), _vm._v(" "), _c('Icon', {
+    attrs: {
+      "type": "information-circled"
+    }
+  }), _vm._v("自定义积分请输入数字\r\n    ")], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "titlename"
@@ -41281,4 +41358,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[109]);
-//# sourceMappingURL=app.6376f1709e0f0b05f6c4.js.map
+//# sourceMappingURL=app.023110c1bc46edc993db.js.map

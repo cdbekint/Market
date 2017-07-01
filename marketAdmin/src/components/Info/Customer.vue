@@ -11,7 +11,7 @@
           <Option value="2">员工</Option>
           <Option value="3">会员加员工</Option>
         </Select>
-        </Input>
+        <Input v-model="nameOrPhone" placeholder="姓名或手机" style="width: 30%"></Input>
         <Button type="primary" icon="ios-search" @click = "search">查询</Button>
       </div>
  	</div>
@@ -33,6 +33,14 @@
         </div>
     </div>
     </Modal>
+    <Modal
+      v-model="addPointmodal"
+      title="自定义加分"
+      @on-ok="addPointToUser"
+      >
+      <Input v-model="customerPoints"></Input>
+      <Icon type="information-circled"></Icon>自定义积分请输入数字
+    </Modal>
 </div>
 </template>
 
@@ -42,6 +50,7 @@ export default {
   data () {
     return {
       searchVal:'',
+      nameOrPhone:'',
       companyCol:[
         {
           title: '序号',
@@ -102,7 +111,7 @@ export default {
           key: 'employee',
           render(row){
             if(row.employee == 1)
-              return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="removeEmployee(row.accountId)"/>'
+              return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer"/>'
             else if(row.member == 1)
               return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setEmployee(row.accountId)"/>'
             else
@@ -113,10 +122,11 @@ export default {
           key: 'action',
           render(row) {
             if(row.employee == 1) {
-              return  '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>'
+              return  '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>'+
+              '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
 
             } else {
-              return ''
+              return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
             }
           }
         }
@@ -158,7 +168,9 @@ export default {
         current:1,
         total:1,
         size:12
-      }
+      },
+      addPointmodal:false,
+      customerPoints:0
     }
   },
   created () {
@@ -247,11 +259,11 @@ export default {
       }
       var url = "";
       if(this.searchVal == 1){
-        url = '/customer/getCompanyUserInfo/1?member=1&employee=0'
+        url = '/customer/getCompanyUserInfo/1?member=1&employee=0&nameOrPhone='+this.nameOrPhone
       }else if(this.searchVal == 2){
-        url = '/customer/getCompanyUserInfo/1?member=0&employee=1'
+        url = '/customer/getCompanyUserInfo/1?member=0&employee=1&nameOrPhone='+this.nameOrPhone
       }else{
-        url = '/customer/getCompanyUserInfo/1'
+        url = '/customer/getCompanyUserInfo/1?nameOrPhone='+this.nameOrPhone
       }
       this.http.get(this.$store.state.prefix + url).then(res => {
         if (res.error === false) {
@@ -273,6 +285,30 @@ export default {
         if (res.error === false) {
           this.companyData = res.result.records;
           this.pager = res.result
+        }
+      })
+    },
+    addPoints(row){
+      this.addPointmodal=true
+      this.willaddPointUser=row
+    },
+    addPointToUser(){
+      this.customerPoints=~~this.customerPoints
+      var _this=this
+        this.$Modal.confirm({
+          title: '自定义加分',
+          content: '<p>确定为'+(this.willaddPointUser.realName||this.willaddPointUser.nickName)+'自定义加分为:<span style="color:red;font-weight:bold">'+this.customerPoints+(this.customerPoints<=0?'分,且不大于0':'分')+'</span></p>',
+          onOk: () => {
+              _this.http.put(_this.$store.state.prefix + '/customer/updateUserPoints',{accountId:this.willaddPointUser.accountId,points:this.customerPoints}).then(res => {
+                if (res.error === false) {
+                  _this.$Message.success('自定义积分添加成功!')
+                  this.customerPoints=0
+                  this.addPointmodal=false
+                  this.search()
+                }
+              })
+        },
+        onCancel: () => {
         }
       })
     }

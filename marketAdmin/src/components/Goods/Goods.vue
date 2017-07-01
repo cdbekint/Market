@@ -74,6 +74,9 @@
           {
             title: '库存',
             key: 'storageNum'
+          },{
+            title: '排序',
+            key: 'sort'
           },
           {
             title: '上架状态',
