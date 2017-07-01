@@ -2433,6 +2433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var inviterId = ~~(state[1] == void 0 ? 0 : state[1]);
     this.activityId = activityId;
     this.realInvititer = state[2];
+    this.ownId = state[1];
 
     if (window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0) {
       window.localStorage["inviterId"] = inviterId;
@@ -2462,7 +2463,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     });
 
-    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/' + window.localStorage["ownId"] + '/' + this.activityId).then(function (res) {
+    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/' + this.ownId || window.localStorage["ownId"] + '/' + this.activityId).then(function (res) {
       if (res.result.userGroupInfo.length > 0) {
         _this2.hasGroup = true;
       }
@@ -6840,4 +6841,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.39f6659a75ffa0a44784.js.map
+//# sourceMappingURL=app.90df37cc567a25e65a4e.js.map

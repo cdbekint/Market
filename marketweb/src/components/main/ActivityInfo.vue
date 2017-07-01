@@ -126,6 +126,7 @@ export default {
     var inviterId = ~~((state[1] == void 0 )? 0 : state[1]);
     this.activityId = activityId;
     this.realInvititer=state[2]
+    this.ownId=state[1]
 
     if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0){
       //判断是否是已经跳转了的页面
@@ -160,7 +161,7 @@ export default {
     
 
     //获取自己在这个活动中的团信息
-    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ window.localStorage["ownId"]+'/'+this.activityId).then( res=> {
+    this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/'+ this.ownId||window.localStorage["ownId"]+'/'+this.activityId).then( res=> {
         if(res.result.userGroupInfo.length>0) {
           //判断是否已经加入任意团
           this.hasGroup = true
