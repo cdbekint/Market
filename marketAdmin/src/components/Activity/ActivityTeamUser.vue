@@ -11,8 +11,8 @@
  	<div class="content">
    <Table border :columns="activityteamuserColumns" :data="activityteamuserData" class="activityteamtable"></Table>
     <div style="margin: 10px;overflow: hidden">
-        <div style="float: right;">
-            <Page :total="activitypager.total" :page-size="activitypager.size" :current="activitypager.current" @on-change="changePage"></Page>
+        <div style="float: right;"><!-- 
+            <Page :total="activitypager.total" :page-size="activitypager.size" :current="activitypager.current" @on-change="changePage"></Page> -->
         </div>
     </div>
  	</div>
@@ -58,6 +58,10 @@ export default {
         {
           title: '总得积分',
           key: 'groupPoints'
+        },
+        {
+          title:'参团时间',
+          key: 'joinDate'
         },
         {
           title: '交易状态',
@@ -107,7 +111,10 @@ export default {
       this.http.get(this.$store.state.prefix + '/activity/getGroupMemberInfo/' + query.id +'?activityId='+query.activityid ).then(res => {
         if(res.error === false) {
           if(res.result){
-            this.activitypager = res.result
+            //this.activitypager = res.result
+            for(var i in res.result){
+              res.result[i].joinDate=this.util.getFormatDate(res.result[i].joinDate)
+            }
             this.activityteamuserData = res.result
           }
           

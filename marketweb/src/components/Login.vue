@@ -53,6 +53,8 @@ export default {
             window.localStorage["token"] = res.result.access_token;
             window.localStorage["ownId"] = res.result.user.account.id;
 
+            this.util.setCookie("token",res.result.access_token)
+            this.util.setCookie("ownId",res.result.user.account.id)
             var oldUrl = location.href;
             var index = oldUrl.indexOf("?");
 

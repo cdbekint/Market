@@ -70,6 +70,10 @@ export default {
           key: 'allPayAmount'
         },
         {
+          title: '创建时间',
+          key: 'joinDate'
+        },
+        {
           title: '操作',
           key: 'action',
           render (row) {
@@ -97,8 +101,14 @@ export default {
       var query = this.util.getQuery(location.hash)
       this.http.get(this.$store.state.prefix + '/activity/getAllGroupInfo/' + query.id).then(res => {
         if(res.error === false) {
-          if(res.result)this.activitypager = res.result
-          this.activityteamData = res.result
+          if(res.result){
+            this.activitypager = res.result
+            for(var i in res.result){
+              res.result[i].joinDate=this.util.getFormatDate(res.result[i].joinDate)
+            }
+            this.activityteamData = res.result
+          }
+          
         } else {
           this.$Notice.error("获取失败");
         }
