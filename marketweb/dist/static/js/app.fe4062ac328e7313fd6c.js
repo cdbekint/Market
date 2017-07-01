@@ -2963,7 +2963,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (!this._checkInfo()) {
         return;
       }
-
       if (this.isPaying === true) {
         this.$Message.error("正在请求中,请稍等");
         return;
@@ -4602,7 +4601,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "team_peopleName"
   }, [_c('p', {
     staticClass: "peopleName"
-  }, [_vm._v(_vm._s(_vm.currentGroup.name))]), _vm._v(" "), _c('p', [_vm._v("正在邀请你加入")]), _vm._v(" "), _c('p', [_vm._v("已有 " + _vm._s(_vm.currentGroup.peopleNum) + " 人加入")])]), _vm._v(" "), _c('img', {
+  }, [_vm._v(_vm._s(_vm.currentGroup.name))]), _vm._v(" "), _c('p', [_vm._v("正在邀请你加入")]), _vm._v(" "), _c('p', [_vm._v("已有 " + _vm._s(_vm.currentGroup.peopleNum) + " 人加入")])]), _vm._v(" "), (_vm.activity.activityType == 2) ? _c('img', {
     staticClass: "team_startTeam",
     attrs: {
       "src": "/static/images/startTeam.png"
@@ -4610,7 +4609,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.newTeam
     }
-  }), _vm._v(" "), _c('img', {
+  }) : _vm._e(), _vm._v(" "), _c('img', {
     staticClass: "team_joinTeam",
     attrs: {
       "src": "/static/images/joinTeam.png"
@@ -6797,4 +6796,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.e8252b6098e6f6eac8d7.js.map
+//# sourceMappingURL=app.fe4062ac328e7313fd6c.js.map

@@ -20,7 +20,7 @@
         <p>正在邀请你加入</p>
         <p>已有 {{currentGroup.peopleNum}} 人加入</p>
       </div>
-      <img src="/static/images/startTeam.png" class="team_startTeam" @click="newTeam">
+      <img src="/static/images/startTeam.png" class="team_startTeam" @click="newTeam" v-if="activity.activityType==2">
       <img src="/static/images/joinTeam.png" class="team_joinTeam" @click="joinTeam">
     </div>
     <div class="homeCompany_body" style="z-index:2000;" v-if="!currentState">
