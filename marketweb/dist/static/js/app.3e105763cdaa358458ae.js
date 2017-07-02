@@ -1741,6 +1741,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var obj = {
             id: item.id,
             img: item.activityImg,
+            phoneImg: item.phoneImg,
             title: item.activityName,
             view: item.viewNum,
             share: item.shareNum,
@@ -6722,7 +6723,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _c('img', {
       staticClass: "info_bg",
       attrs: {
-        "src": _vm.murl + x.img
+        "src": _vm.murl + (x.phoneImg ? x.phoneImg : x.img)
       },
       on: {
         "click": function($event) {
@@ -7086,4 +7087,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[217]);
-//# sourceMappingURL=app.f452a8e84dc6e8b99d75.js.map
+//# sourceMappingURL=app.3e105763cdaa358458ae.js.map

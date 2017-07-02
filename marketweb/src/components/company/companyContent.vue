@@ -79,7 +79,7 @@
       <div class="discount_goods">
         <div class="goods_info" v-for="x in active" @click="goToActive(x.id)">
           <img :src="stateImgArr[x.state]" class="info_state">
-          <img :src="murl + x.img" class="info_bg" @click="goToActive(x.id)">
+          <img :src="murl + (x.phoneImg?x.phoneImg:x.img)" class="info_bg" @click="goToActive(x.id)">
           <div class="info_view">
             <div class="view_share">
               <img src="/static/images/company/return.png">
@@ -493,6 +493,7 @@ export default {
           var obj = {
             id:item.id,
             img:item.activityImg,
+            phoneImg:item.phoneImg,
             title:item.activityName,
             view:item.viewNum,
             share:item.shareNum,

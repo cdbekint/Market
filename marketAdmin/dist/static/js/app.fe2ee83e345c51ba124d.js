@@ -6993,19 +6993,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  }, [_vm._v("\n          (建议尺寸：1000像素*333像素,移动段商家页面展示活动列表图片)\n        ")])]), _vm._v(" "), (_vm.activity.phoneImg) ? _c('li', [_c('div', {
+  }, [_vm._v("\n           (建议尺寸：1000*333px,手机商家页面展示活动列表图片)\n        ")])]), _vm._v(" "), (_vm.activity.phoneImg) ? _c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          展示图预览\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
   }, [_c('img', {
     staticClass: "thumbpreview",
     attrs: {
-      "src": _vm.murl + _vm.activity.activityImg,
+      "src": _vm.murl + _vm.activity.phoneImg,
       "alt": ""
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  })]) : _vm._e(), _vm._v(" "), _c('div', {
+  })]) : _vm._e(), _vm._v(" "), _c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          活动起止时间*\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
@@ -7046,7 +7046,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  }, [_vm._v("\n          活动的开始和结束时间\n        ")]), _vm._v(" "), _c('li', [_c('div', {
+  }, [_vm._v("\n          活动的开始和结束时间\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          支付起止时间*\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
@@ -9746,14 +9746,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  }, [_vm._v("\r\n          (建议尺寸：1000像素*333像素,移动段商家页面展示活动列表图片)\r\n        ")])]), _vm._v(" "), (_vm.activity.phoneImg) ? _c('li', [_c('div', {
+  }, [_vm._v("\r\n          (建议尺寸：1000*333px,手机商家页面展示活动列表图片)\r\n        ")])]), _vm._v(" "), (_vm.activity.phoneImg) ? _c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\r\n          展示图预览\r\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
   }, [_c('img', {
     staticClass: "thumbpreview",
     attrs: {
-      "src": _vm.murl + _vm.activity.activityImg,
+      "src": _vm.murl + _vm.activity.phoneImg,
       "alt": ""
     }
   })]), _vm._v(" "), _c('div', {
@@ -41383,4 +41383,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[109]);
-//# sourceMappingURL=app.e2f062e90ca119432360.js.map
+//# sourceMappingURL=app.fe2ee83e345c51ba124d.js.map

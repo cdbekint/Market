@@ -88,7 +88,7 @@
           <input type="hidden" v-model="activity.phoneImg">
         </div>
         <div class="addnote">
-          (建议尺寸：1000像素*333像素,移动段商家页面展示活动列表图片)
+          (建议尺寸：1000*333px,手机商家页面展示活动列表图片)
         </div>
       </li>
       <li v-if="activity.phoneImg">
@@ -96,7 +96,7 @@
           展示图预览
         </div>
         <div class="addcontent">
-          <img :src="murl+activity.activityImg"  class="thumbpreview" alt="">
+          <img :src="murl+activity.phoneImg"  class="thumbpreview" alt="">
         </div>
         <div class="addnote">
 
