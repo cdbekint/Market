@@ -3,7 +3,7 @@
     <div class = "main_head">
       <img src="/static/images/a1.png" alt="">
     </div>
-    <img :src='murl + activity.activityImg' class = "main_img">
+    <img :src='murl + activity.activityImg' v-if="activity.activityImg" class = "main_img">
   </div>
 </template>
 

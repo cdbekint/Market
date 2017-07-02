@@ -9,26 +9,26 @@
 
     <!--参加的活动-->
     <div class="info_active" v-if="index==0">
-      <div class="active_item" v-for="x in 12">
+      <div class="active_item" v-for="x in activityInfo.info">
         <div class="item_img">
-          <img src="/static/images/person/test.png" >
+          <img :src="murl+x.img" v-if="x.img">
           <div class="img_down">
-            <countdown :endDate="Date.now()" ></countdown>
+            <countdown :endDate="x.date" ></countdown>
           </div>
         </div>
-        <span class="item_name">温度计无法去我的亲吻的威风</span>
+        <span class="item_name" v-text="x.name"></span>
         <div class="item_math">
           <div class="math_jifen">
             <img src="/static/images/person/ji.png">
-            <span>123123</span>
+            <span v-text="x.jifen"></span>
           </div>
           <div class="math_jifen">
             <img src="/static/images/person/pe.png" class="math_people">
-            <span>123123</span>
+            <span v-text="x.peopleNum"></span>
           </div>
           <div class="math_jifen">
             <img src="/static/images/person/view.png" class="math_view">
-            <span>123123</span>
+            <span v-text="x.totalPeople"></span>
           </div>
         </div>
       </div>
@@ -36,18 +36,18 @@
 
     <!--我的邀请-->
     <div class="info_active info_inviter" v-if="index==1">
-      <div class="active_item" v-for="x in 12">
-        <div class="inviter_no">{{x}}</div>
-        <img src="/static/images/person/test.png" class="inviter_head">
-        <span class="item_name inviter_name">温度计无</span>
+      <div class="active_item" v-for="x,index in memberInfo.info">
+        <div class="inviter_no">{{index}}</div>
+        <img :src="x.img" class="inviter_head" v-if="x.img">
+        <span class="item_name inviter_name" v-text="x.name"></span>
         <div class="item_math">
           <div class="math_jifen">
             <img src="/static/images/person/ji.png">
-            <p>123123</p>
+            <p v-text="x.jifen"></p>
           </div>
           <div class="math_jifen">
             <img src="/static/images/person/pe.png" class="math_people">
-            <p>123123</p>
+            <p v-text="x.peopleNum"></p>
           </div>
         </div>
       </div>
@@ -55,18 +55,19 @@
 
     <!--消费记录-->
     <div class="info_active info_consume" v-if="index==2">
-      <div class="active_item consume_item" v-for="x in 12">
-        <img src="/static/images/person/success.png" class="item_state">
-        <span class="item_name consume_name">温耳朵亲无大垩范文芳</span>
+      <div class="active_item consume_item" v-for="x in consumeInfo.info">
+        <img src="/static/images/person/success.png" class="item_state" v-if="x.payStatus==1">
+        <img src="/static/images/person/err.png" class="item_state" v-else>
+        <span class="item_name consume_name" v-text="x.content"></span>
         <div class="item_math">
           <div class="math_jifen">
-            <p>2017/6/28</p>
+            <p v-text="x.time"></p>
           </div>
           <div class="math_jifen math_money">
-            <p>123元</p>
+            <p v-text="x.money+'元'"></p>
           </div>
           <div class="math_jifen math_ji">
-            <p>12312积分</p>
+            <p v-text="x.jifen+'分'"></p>
           </div>
         </div>
       </div>
@@ -74,10 +75,10 @@
 
     <!--积分记录-->
     <div class="info_active info_point" v-if="index==3">
-      <div class="active_item" v-for="x in 12">
-        <p class="item_state">+120</p>
-        <span class="item_nameInfo">温耳朵亲潍坊去我的亲吻的威风威风</span>
-        <span class="item_date">2017/8/25</span>
+      <div class="active_item" v-for="x in jifenInfo.info">
+        <p class="item_state" v-text="x.jifen"></p>
+        <span class="item_nameInfo" v-text="x.content"></span>
+        <span class="item_date" v-text="x.time"></span>
       </div>
     </div>
   </div>
@@ -178,10 +179,10 @@
         menuList:[],
         menu:['参加活动','我的邀请','消费记录','积分记录'],
         infoArr:["activityInfo","memberInfo","consumeInfo","jifenInfo"],
-        activityInfo:{},
-        memberInfo:{},
-        jifenInfo:{},
-        consumeInfo:{}
+        activityInfo:[],
+        memberInfo:[],
+        jifenInfo:[],
+        consumeInfo:[]
       }
     }
   }

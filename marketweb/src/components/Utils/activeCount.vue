@@ -95,6 +95,6 @@ rrem(val){
     float:left
     width:14.25%
     text-align:center
-    color #fff
+    color:red
     font-size rrem(37px)
 </style>

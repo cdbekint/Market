@@ -1,8 +1,8 @@
 <template>
   <div class="personPage">
-    <headTitle ></headTitle>
-    <headMoney :personInfo="personInfo"></headMoney>
-    <infos></infos>
+    <headTitle @headCompany="getCompanyId" :companyId="currentCompanyId" :companyInfo="personInfo.company"></headTitle>
+    <headMoney :Person="personInfo"></headMoney>
+    <infos :datas="datas"></infos>
   </div>
 </template>
 
@@ -25,7 +25,8 @@ export default {
     getCompanyId (id) {
       this.currentCompanyId = id;
       this.getInfosByCompanyId();
-      this.setPointByCurrentCompany();
+      console.log('公司id为:'+id)
+      this.setPointByCurrentCompany(id);
     },
     getActiveInfo(page){
       //获取活动列表
@@ -59,7 +60,7 @@ export default {
           row.records.forEach(item=>{
             var obj = {
               img: item.headImg,
-              name: this.util.sliceStr(item.nickName, 7),
+              name: this.util.sliceStr(item.realName||item.nickName, 7),
               jifen: item.allPoints,
               peopleNum: item.invitedMems,
               consume: item.selfExpense,
@@ -79,14 +80,14 @@ export default {
           var row = res.result;
           this.datas.consumeInfo.info=[]
           row.records.forEach(item=>{
-            var time = new Date(item.payDate);
-            time = time.toLocaleString().split(",")[0];
+            var time = this.util.getDate(item.payDate)
             var obj = {
               time:time,
-              content:item.remarks,
+              content:this.util.sliceStr(item.remarks,8),
               jifen:item.payPoints,
               money:item.payAmount,
               page:row.current,
+              payStatus:item.payStatus,
               total:row.pages
             };
             this.datas.consumeInfo.info.push(obj);
@@ -105,12 +106,11 @@ export default {
           var arr = [];
           this.datas.jifenInfo.info=[]
           row.records.forEach(item=>{
-            var time = new Date(item.createDate);
-            time = this.util.sliceStr(time.toLocaleString().split(",")[0],10,'');
+            var time = this.util.getDate(item.createDate)
             var obj = {
               time:time,
-              content:item.remarks,
-              jifen:item.points,
+              content:this.util.sliceStr(item.remarks,18),
+              jifen:item.points>0?('+'+item.points):item.points,
               pointType:item.pointType
             };
             this.datas.jifenInfo.info.push(obj)
@@ -135,7 +135,17 @@ export default {
       }
     },
     setPointByCurrentCompany(companyId){
-
+      this.personInfo.company.forEach((item)=>{
+        console.log(item)
+        if(item.id==companyId){
+          this.personInfo.totalPoint=item.totalPoint
+          this.personInfo.points=item.points
+          this.personInfo.usedCash=item.usedCash
+          this.personInfo.cashs=(item.points*item.toCashRate/100)
+          this.personInfo.toCashRate=item.toCashRate
+          console.log(this.personInfo)
+        }
+      })
     }
   },
   created(){
@@ -145,6 +155,7 @@ export default {
         var companys = res.result.customers;
 
         this.currentCompanyId = companys[0].companyId;
+        //当前用户的信息
         this.personInfo = {
           nickName:row.realName?row.realName:row.nickName,
           headImg:row.headImg,
@@ -162,11 +173,17 @@ export default {
             points:item.points,
             usedCash:item.withDrawAmount,
             cashs:(item.points * item.toCashRate/100),
-            toCashRate: item.toCashRat,
+            toCashRate: item.toCashRate,
           };
           pointArr.push(obj)
           if(item.companyId===this.currentCompanyId){
-            this.personInfo.currentCompany=item
+            this.personInfo.totalPoint=item.allPoints
+            this.personInfo.points=item.points
+            this.personInfo.usedCash=item.withDrawAmount
+            this.personInfo.cashs=(item.points*item.toCashRate/100)
+            this.personInfo.toCashRate=item.toCashRate
+            var person=JSON.parse(JSON.stringify(this.personInfo))
+            this.personInfo=person
           }
         });
         this.personInfo.company = pointArr;
@@ -183,7 +200,8 @@ export default {
         nickName: '',
         headImg:'',
         phone:'',
-        company:[]
+        company:[],
+        currentCompany:{}
       },
       datas:{
         activityInfo:{

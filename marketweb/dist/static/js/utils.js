@@ -182,5 +182,30 @@ export default {
     }
     
     return currentdate;
+  },
+  getDate(a, b) {
+  var date = new Date(a);
+  var Y = date.getFullYear();
+  var M = date.getMonth() + 1;
+  var D = date.getDate();
+  Y = Y < 10 ? "0" + Y : Y;
+  M = M < 10 ? "0" + M : M;
+  D = D < 10 ? "0" + D : D;
+  if(b == 1) {
+    return Y;
+  } else if(b == 2) {
+    return Y + "-" + M;
+  } else if(b == 3) {
+    return M + "-" + D;
+  } else if(b == 4) {
+    return M + "/" + D;
+  } else if(b == 5) {
+    return M;
+  } else if(b == 6) {
+    return D
+  } else {
+    return Y + "-" + M + "-" + D;
   }
+
+}
 }

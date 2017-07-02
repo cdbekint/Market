@@ -1,5 +1,5 @@
 <template>
-  <div class = "gift">
+  <div class = "gift" v-if="giftlist.length>0">
     <mainHead :val="value"></mainHead>
     <div class="section_gift">
       <img src="/static/images/up.png" class = "upImg">

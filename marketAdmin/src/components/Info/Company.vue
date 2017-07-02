@@ -483,6 +483,7 @@ export default {
           this.company.id = this.$store.state.companyId
           if (res.result !== null) {
             this.company = res.result
+            this.company.show=this.util.escapeToHtml(res.result.show)
             this.Group = JSON.parse(this.company.employeeRate.replace(/&quot;/g,'"'));
           }
         }
