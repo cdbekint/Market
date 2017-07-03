@@ -5,6 +5,7 @@ import 'iview/dist/styles/iview.css'
 
 import Login from '@/Login.vue'
 import Header from '@/components/Main/Header'
+import Dashboard from '@/components/Main/Dashboard'
 import Home from '@/components/Main/Home'
 import Company from '@/components/Info/Company'
 import AccountInfo from '@/components/Main/AccountInfo'
@@ -253,10 +254,17 @@ export default new Router({
       }
     },
     {
-      path: '/',
+      path: '/company',
       name: 'Home',
       component: Home,
       meta: {
+        requireAuth: true
+      }
+    },{
+      path:'/',
+      name:'Dashboard',
+      component:Dashboard,
+      meta:{
         requireAuth: true
       }
     }

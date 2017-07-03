@@ -375,7 +375,6 @@ export default {
     },
     _checkParamAndExecute () {
       var ai = JSON.parse(JSON.stringify(this.company))
-      console.log(ai)
       if (!ai.companyDesc) {
         this.$Notice.info({title: '请完善信息', desc: '请填写企业描述'})
         return false

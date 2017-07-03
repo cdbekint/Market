@@ -15,7 +15,8 @@
           <dt>
           <i class="fa fa-th"></i>基本信息
           </dt>
-          <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
+          <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>主页</router-link>
+          <router-link :to="{path:'/company'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
           <router-link :to="{path:'/accountinfo'}"  tag="dd" active-class="active" exact>账户信息</router-link>
           
         </dl>
@@ -109,7 +110,7 @@ body
 
 .header-wrapper
   width:100%
-  height:60px
+  height:70px
   background:rgb(255,255,255)
   border-top:3px solid #44B549
   border-bottom:1px solid #eee

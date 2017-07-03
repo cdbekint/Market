@@ -3,6 +3,7 @@
     <div class="header-content">
       <Row>
         <Col span="8" class="syslogo">
+        <img src="/static/images/logo.png" alt="">
         </Col>
         <Col span="16" class="dropmenus">
          <Menu mode="horizontal" :active-name="1" v-if="$store.state.token">
@@ -73,6 +74,11 @@ export default {
       this.$store.state.token=""
       this.util.delCookie("token")
     }
+  },
+  watch:{
+    userInfo(val){
+      this.userInfo=val
+    }
   }
 }
 </script>
@@ -81,16 +87,16 @@ export default {
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .header-content
   width: 1000px
-  height:60px
   margin-left: auto
   margin-right: auto
   .syslogo
-    display:block
-    height:60px
-    background:url(/static/images/logo.png) no-repeat left
+    text-align:left
+    img
+      height:70px
+      width:auto
   .dropmenus
     .ivu-menu-horizontal
-      height:57px
+      height:67px
     .ivu-menu-submenu
       float:right
 </style>

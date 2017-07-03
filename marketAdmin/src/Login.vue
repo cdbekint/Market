@@ -1,6 +1,6 @@
 <template>
 <div class="login">
-<Row class="loginrow">
+<Row class="loginrow" id="loginpanel">
 
 <Col span="6" offset="16">
 <Form ref="formInline" class="loginmainpanel" :model="formInline" :rules="ruleInline">
@@ -125,14 +125,21 @@ export default {
         
       } 
     } 
+    
+  },
+  mounted (){
+  debugger
+    var loginrow=document.documentElement.clientHeight-160
+      document.getElementById("loginpanel").style.height=loginrow+"px"
   }
 }
 </script>
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .loginrow
+  width:100%
   background:url(/static/images/banner.png) no-repeat top
-  min-height:450px
+  height:@width
 .loginmainpanel
   background:#fff
   padding:20px 50px 0px 50px
