@@ -42,7 +42,7 @@
     <!--我的邀请-->
     <div class="info_active info_inviter" v-if="index==1">
       <div class="active_item" v-for="x,index in memberInfo.info">
-        <div class="inviter_no">{{index}}</div>
+        <div class="inviter_no">{{index+1}}</div>
         <img :src="x.img" class="inviter_head" v-if="x.img">
         <span class="item_name inviter_name" v-text="x.name"></span>
         <div class="item_math">

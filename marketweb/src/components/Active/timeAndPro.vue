@@ -28,7 +28,7 @@ export default {
   props: ['activity'],
   watch: {
     activity: function (val) {
-      this.progress = val.progress.toFixed(2)
+      this.progress = val.progress.toFixed(2)*100
       this.discount = val.discount == '0'?10:val.discount;
       var group=JSON.parse(val.discountLevel)
       this.Group = group[group.length-1];

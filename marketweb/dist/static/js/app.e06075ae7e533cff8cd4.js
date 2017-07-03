@@ -1600,7 +1600,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['activity'],
   watch: {
     activity: function activity(val) {
-      this.progress = val.progress.toFixed(2);
+      this.progress = val.progress.toFixed(2) * 100;
       this.discount = val.discount == '0' ? 10 : val.discount;
       var group = JSON.parse(val.discountLevel);
       this.Group = group[group.length - 1];
@@ -4668,7 +4668,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" "), _c('span', [_vm._v(_vm._s(x.name))])])
   })), _vm._v(" "), (_vm.index == 0) ? _c('div', {
     staticClass: "info_active"
-  }, _vm._l((_vm.activityInfo.info), function(x) {
+  }, [_vm._l((_vm.activityInfo.info), function(x) {
     return _c('div', {
       staticClass: "active_item",
       on: {
@@ -4733,14 +4733,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "textContent": _vm._s(x.totalPeople)
       }
     })])])])
-  })) : _vm._e(), _vm._v(" "), (_vm.index == 1) ? _c('div', {
+  }), _vm._v(" "), (_vm.activityInfo.info.length == 0) ? _c('div', {
+    staticClass: "info_isNull"
+  }, [_c('img', {
+    attrs: {
+      "src": "/static/images/shop.png"
+    }
+  }), _vm._v(" "), _c('p', [_vm._v("暂未参加此商家任何活动")])]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), (_vm.index == 1) ? _c('div', {
     staticClass: "info_active info_inviter"
-  }, _vm._l((_vm.memberInfo.info), function(x, index) {
+  }, [_vm._l((_vm.memberInfo.info), function(x, index) {
     return _c('div', {
       staticClass: "active_item"
     }, [_c('div', {
       staticClass: "inviter_no"
-    }, [_vm._v(_vm._s(index))]), _vm._v(" "), (x.img) ? _c('img', {
+    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), (x.img) ? _c('img', {
       staticClass: "inviter_head",
       attrs: {
         "src": x.img
@@ -4774,9 +4780,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "textContent": _vm._s(x.peopleNum)
       }
     })])])])
-  })) : _vm._e(), _vm._v(" "), (_vm.index == 2) ? _c('div', {
+  }), _vm._v(" "), (_vm.memberInfo.info.length == 0) ? _c('div', {
+    staticClass: "info_isNull"
+  }, [_c('img', {
+    attrs: {
+      "src": "/static/images/shop.png"
+    }
+  }), _vm._v(" "), _c('p', [_vm._v("暂无邀请任何人员")])]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), (_vm.index == 2) ? _c('div', {
     staticClass: "info_active info_consume"
-  }, _vm._l((_vm.consumeInfo.info), function(x) {
+  }, [_vm._l((_vm.consumeInfo.info), function(x) {
     return _c('div', {
       staticClass: "active_item consume_item"
     }, [(x.payStatus == 1) ? _c('img', {
@@ -4815,9 +4827,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "textContent": _vm._s(x.jifen + '分')
       }
     })])])])
-  })) : _vm._e(), _vm._v(" "), (_vm.index == 3) ? _c('div', {
+  }), _vm._v(" "), (_vm.consumeInfo.info.length == 0) ? _c('div', {
+    staticClass: "info_isNull"
+  }, [_c('img', {
+    attrs: {
+      "src": "/static/images/shop.png"
+    }
+  }), _vm._v(" "), _c('p', [_vm._v("暂无任何消费记录")])]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), (_vm.index == 3) ? _c('div', {
     staticClass: "info_active info_point"
-  }, _vm._l((_vm.jifenInfo.info), function(x) {
+  }, [_vm._l((_vm.jifenInfo.info), function(x) {
     return _c('div', {
       staticClass: "active_item"
     }, [_c('p', {
@@ -4836,7 +4854,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "textContent": _vm._s(x.time)
       }
     })])
-  })) : _vm._e()])
+  }), _vm._v(" "), (_vm.consumeInfo.info.length == 0) ? _c('div', {
+    staticClass: "info_isNull"
+  }, [_c('img', {
+    attrs: {
+      "src": "/static/images/shop.png"
+    }
+  }), _vm._v(" "), _c('p', [_vm._v("暂无任何积分记录")])]) : _vm._e()], 2) : _vm._e()])
 },staticRenderFns: []}
 
 /***/ }),
@@ -6518,12 +6542,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('p', {
     staticClass: "phone",
     domProps: {
-      "textContent": _vm._s('电话:' + _vm.Person.phone)
+      "textContent": _vm._s('电话：' + _vm.Person.phone)
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "email",
     domProps: {
-      "textContent": _vm._s('邮箱:' + _vm.Person.email)
+      "textContent": _vm._s('邮箱：' + _vm.Person.email)
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "main_money"
@@ -6533,19 +6557,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "info_jifen"
   }, [_c('span', {
     domProps: {
-      "textContent": _vm._s('累计积分:' + _vm.Person.totalPoint)
+      "textContent": _vm._s('累计积分：' + _vm.Person.totalPoint)
     }
   }), _vm._v(" "), _c('span', {
     domProps: {
-      "textContent": _vm._s('可用积分:' + _vm.Person.points)
+      "textContent": _vm._s('可用积分：' + _vm.Person.points)
     }
   }), _vm._v(" "), _c('span', {
     domProps: {
-      "textContent": _vm._s('已换现金:' + _vm.Person.usedCash)
+      "textContent": _vm._s('已换现金：' + _vm.Person.usedCash)
     }
   }), _vm._v(" "), _c('span', {
     domProps: {
-      "textContent": _vm._s('可换现金:' + _vm.Person.cashs)
+      "textContent": _vm._s('可换现金：' + _vm.Person.cashs)
     }
   })])])]), _vm._v(" "), _c('img', {
     staticClass: "main_jifen",
@@ -6655,4 +6679,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.547f66f5382a743477b2.js.map
+//# sourceMappingURL=app.e06075ae7e533cff8cd4.js.map
