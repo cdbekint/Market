@@ -15,7 +15,7 @@
       <div class="return_bg"></div>
       <span>活动规则</span>
     </div>
-    <img :src='murl + activity.activityImg' class = "main_img">
+    <img :src='murl + activity.activityImg' class = "main_img" v-if="activity.activityImg">
   </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
   }
   .main
     width 100%
+    min-height rrem(540px)
     position relative
     .main_head
       position absolute
@@ -83,7 +84,6 @@ export default {
         opacity 0.3
       span
         position relative
-        top rrem(-3px)
         font-size rrem(32px)
         color #fff
     .main_img

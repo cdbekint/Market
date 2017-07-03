@@ -3,7 +3,7 @@
     <mainHead :val="value"></mainHead>
     <img src="/static/images/active/bg.png" class="main_bg">
     <div class="people_main">
-      <span class="main_title">已参与353人</span>
+      <span class="main_title">已参与{{activity.joinNum}}人</span>
       <div class="main_parent">
         <div class="parent_item" v-for="x in peoples">
           <img :src="x.headImg">

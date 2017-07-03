@@ -7,6 +7,16 @@
         <img src="/static/images/active/member.png" alt="">
       </div>
       <div class="body_input" >
+      <div class="inviterinfo">
+        <div class="inviteravater">
+            <img :src="Inviter.headImg" alt="">
+          </div>
+          <div class="inviternote">
+             {{Inviter.realName}}正在邀请你成为会员
+          </div>
+         
+      </div>
+          
         <div class="input_name">
           <input type="text" v-model="name" placeholder="   *请输入您的真实姓名（必填）">
         </div>
@@ -26,7 +36,7 @@
 
     <div class="main_body payed_body" v-if="payState">
       <div class="body_join">
-        <img src="/static/images/active/member.png" alt="">
+        <img src="/static/images/active/joinsuccess.png" alt="">
       </div>
       <div class="body_info" >
         <span>恭喜您成为{{company}}会员，众多精彩活动、优质商品在等你喔！</span>
@@ -45,18 +55,25 @@
       this.name = ''
       this.phone = ''
       this.email = ''
+      var state = this.util.getURLParam('state').split(",")
+      this.realInviterId=~~(state[2]===undefined?(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]):state[2])
     },
     watch: {
       datas: {
         handler (val) {
           this.company = val.companyName;
           this.params = {
-            businessId: window.localStorage["realInviterId"] || 0,
-            payType: 5,
-            payAmount: 0,
-            goodsId:val.id,
-            companyId: val.companyId
+            inviterId: ~~(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]),//邀请人信息
+            activityId:val.id,//活动id
+            companyId: val.companyId//公司id
           }
+          if(!this.params.inviterId){
+            this.Inviter.realName = this.company
+            this.Inviter.headImg = "http://m.market.cdbeki.com/"+val.companyLogoImg
+          }else{
+            this.getInviterInfo()
+          }
+          this.params.inviterId=~~this.params.inviterId
           setTimeout(()=>{
             this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
               if(res.error == false){
@@ -76,14 +93,23 @@
       changeState(){
         this.$emit("childClick",false)
       },
+      getInviterInfo(){
+        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+ this.realInviterId).then(res=>{
+          if(res.error === false)
+            {
+              this.Inviter=res.result
+            }else{
+              this.$Message.error(res.msg)
+            }
+        })
+      },
       pay(){
         if(!this._checkInfo())
           return;
-
         if (this.isPaying === true)
           return;
         this.isPaying = true;
-        this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
+        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId, this.params).then((res) => {
           this.isPaying = false;
           if (res.error === false) {
             var row = res.result;
@@ -131,6 +157,8 @@
             } else {
               onBridgeReady()
             }
+          }else {
+            this.$Message.error(res.msg)
           }
         })
       },
@@ -153,7 +181,6 @@
           this.msg = "您输入的手机号码格式错误";
           return false;
         }
-          debugger
 
         if(this.email != void 0 && this.email != "") {
           var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -174,22 +201,24 @@
       return {
         isPaying:false,
         payState:false,
-        company:"巴黎春威风威区限技公司",
+        company:"",
         name:'',
         phone:'',
         email:'',
         params: {
-          businessId: 0,
-          payType: 5,
-          payAmount: 0,
-          companyId: 0,
-          goodsId:0
+          inviterId: ~~(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]),//邀请人信息
+          activityId:0,//活动id
+          companyId: 0//公司id
         },
         isCheck:false,
         showPage:true,
         msg:"请准确输入以上信息",
         money:0,
-        checkState:'err'
+        checkState:'err',
+        Inviter:{
+          realName:'',
+          headImg:''
+        }
       }
     }
   }
@@ -213,10 +242,10 @@
       opacity 0.5
     .main_body
       width rrem(1000px)
-      height rrem(756px)
+      height rrem(1000px)
       z-index 1510
       position fixed
-      top rrem(400px)
+      top rrem(350px)
       left rrem(40px)
       background #fff
       .body_join
@@ -233,7 +262,7 @@
         top rrem(120px)
         left rrem(40px)
         width rrem(920px)
-        height rrem(380px)
+        height rrem(680px)
         input
           border 1px solid #aeaeae
           margin-bottom rrem(40px)
@@ -257,7 +286,7 @@
       .body_pay
         background #ff007e
         position absolute
-        top rrem(600px)
+        top rrem(850px)
         left rrem(40px)
         line-height rrem(125px)
         text-align center
@@ -286,4 +315,20 @@
           color #ff007e
       .payed_pay
         top rrem(360px)
+.inviterinfo
+  text-align:center
+  height rrem(250px)
+  .inviteravater
+    width rrem(160px)
+    height rrem(160px)
+    margin:0px auto
+    img
+      width:100%
+      height:100%
+      border-radius:10px
+  .inviternote
+    width:100%
+    height rrem(90px)
+    text-align:center
+    line-height rrem(90px)
 </style>

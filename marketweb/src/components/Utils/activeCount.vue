@@ -38,21 +38,37 @@ export default {
     }
   },
   created(){
-    setTimeout(()=>{
-      const countTime = moment(this.endDate).format('X') - moment().format('X')
-      if (countTime < 0) {
-        this.countDownData.over = true
-        clearInterval(this.interval)
-        return
-      }
-      this.countDownData.realCount = ~~(countTime)
-      const _this = this
-      this.interval = setInterval(function () {
-        _this.getCount()
-      }, 1000)
-    },1000)
+    this.generateCount(this.endDate)
+  },
+  watch:{
+    endDate(val){
+      if(val){
+        this.generateCount(val)
+        }
+    }
   },
   methods: {
+    generateCount(val){
+    const _this = this
+        setTimeout(()=>{
+              //获取enddate与当前时间差
+          var countTime = ~~((val-Date.now())/1000);
+          debugger
+          if (countTime <= 0) {
+             _this.countDownData.over = true
+            clearInterval(_this.interval)
+            return
+          }else{
+
+             _this.countDownData.over = false
+          }
+          _this.countDownData.realCount = countTime
+          
+          _this.interval = setInterval(function () {
+            _this.getCount()
+          }, 1000)
+        },1000)
+      },
     getCount () {
       var time = this.countDownData.realCount
       if (time <= 0) {
@@ -95,6 +111,6 @@ rrem(val){
     float:left
     width:14.25%
     text-align:center
-    color:red
+    color:#fff
     font-size rrem(37px)
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="activeHead">
     <div class="head_img">
-      <img :src="murl+info.companyLogo" alt="">
+      <img :src="murl+info.companyLogo" alt="" v-if="info.companyLogo">
     </div>
     <div class="head_txt">
       <p>{{info.companyName}}</p>

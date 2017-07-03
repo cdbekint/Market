@@ -1,11 +1,11 @@
 <template>
   <div class="activeHead">
     <div class="head_img">
-      <img :src="murl+info.logo" alt="">
+      <img :src="murl+info.logo" alt="" v-if="info.logo">
     </div>
     <div class="head_txt">
       <p>{{info.name}}</p>
-      <span>客服电话：{{info.tel}}</span>
+      <span>客服电话：<a :href="'tel://'+info.tel" style="color:#fff">{{info.tel}}</a></span>
       <span>会员数：{{info.member}}</span>
     </div>
   </div>

@@ -50,7 +50,8 @@ export default {
         },
         {
           title: '时间',
-          key: 'createDate'
+          key: 'createDate',
+          width:"75px"
         }
       ],
       data: [
@@ -70,6 +71,9 @@ export default {
       this.data.forEach(item => {
         item.createDate = this.changeDateToTime(item.createDate);
       })
+      if(val.activityType !=2 ){
+          this.value.no = "04"
+      }
       console.log(this.data)
     }
   }
@@ -105,10 +109,11 @@ export default {
       position relative
       z-index 100
       .ivu-table-cell
-        width rrem(240px)
+        width 100%
         height rrem(130px)
         margin 0px
         padding 0px
         line-height rrem(130px)
         text-align center
+
 </style>

@@ -3,10 +3,8 @@ import Router from 'vue-router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
-import ActivityInfo from '@/components/main/ActivityInfo'
+// import ActivityInfo from '@/components/main/ActivityInfo'
 import Activity from '@/components/Active/ActivityInfo'
-import UserInfo from '@/components/UserInfo'
-import Shop from '@/components/Shop'
 import Login from '@/components/Login'
 
 import homePage from '@/components/home/homePage'
@@ -18,13 +16,13 @@ Vue.use(iView)
 
 export default new Router({
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'ActivityInfo',
+    //   component: ActivityInfo
+    // },
     {
       path: '/',
-      name: 'ActivityInfo',
-      component: ActivityInfo
-    },
-    {
-      path: '/new',
       name: 'Activity',
       component: Activity
     },
@@ -32,7 +30,7 @@ export default new Router({
       path: '/home',
       name: 'home',
       requireAuth:true,
-      component: homePage
+      component: Person
     },
     {
       path: '/company',
@@ -45,20 +43,10 @@ export default new Router({
       name: 'Login',
       component: Login
     },
-    {
-      path: '/person',
-      name: 'person',
-      component: Person
-    },
-    {
-      path: '/userinfo',
-      name: 'UserInfo',
-      component: UserInfo
-    },
-    {
-      path: '/shop',
-      name: 'Shop',
-      component: Shop
-    }
+    // {
+    //   path: '/person',
+    //   name: 'person',
+    //   component: Person
+    // }
   ]
 })

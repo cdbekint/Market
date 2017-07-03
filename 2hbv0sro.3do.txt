@@ -1,0 +1,61 @@
+﻿Merge branch 'master' of https://github.com/cdbekint/Market
+
+# Conflicts:
+#	marketweb/src/components/Person/person.vue
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 2 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   marketweb/config/index.js
+#	new file:   marketweb/src/components/Active/ActivityInfo.vue
+#	new file:   marketweb/src/components/Active/Discount.vue
+#	new file:   marketweb/src/components/Active/Gift.vue
+#	new file:   marketweb/src/components/Active/Group.vue
+#	new file:   marketweb/src/components/Active/Moeny.vue
+#	new file:   marketweb/src/components/Active/Register.vue
+#	new file:   marketweb/src/components/Active/companyHead.vue
+#	new file:   marketweb/src/components/Active/goodsList.vue
+#	new file:   marketweb/src/components/Active/joinPeople.vue
+#	new file:   marketweb/src/components/Active/mainHead.vue
+#	new file:   marketweb/src/components/Active/mainImg.vue
+#	new file:   marketweb/src/components/Active/timeAndPro.vue
+#	modified:   marketweb/src/components/Person/infos.vue
+#	modified:   marketweb/src/components/Person/person.vue
+#	modified:   marketweb/src/components/Utils/ProgressMe.vue
+#	modified:   marketweb/src/components/company/companyContent.vue
+#	modified:   marketweb/src/components/company/companyHead.vue
+#	modified:   marketweb/src/router/index.js
+#	new file:   marketweb/static/images/active/01.png
+#	new file:   marketweb/static/images/active/02.png
+#	new file:   marketweb/static/images/active/03.png
+#	new file:   marketweb/static/images/active/04.png
+#	new file:   marketweb/static/images/active/05.png
+#	new file:   marketweb/static/images/active/06.png
+#	new file:   marketweb/static/images/active/07.png
+#	new file:   marketweb/static/images/active/08.png
+#	new file:   marketweb/static/images/active/09.png
+#	new file:   marketweb/static/images/active/bg.png
+#	new file:   marketweb/static/images/active/clock.png
+#	new file:   marketweb/static/images/active/title.png
+#	modified:   marketweb/static/images/company/pe.png
+#	modified:   marketweb/static/images/company/team.png
+#	modified:   marketweb/static/images/company/view.png
+#	new file:   marketweb/static/images/sheng.png
+#
+# Untracked files:
+#	lboy3yxn.xar.txt
+#
+

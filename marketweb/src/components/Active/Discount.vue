@@ -20,7 +20,7 @@
     watch: {
       activity: function (val, oldVal) {
         if(val.activityType != 2)
-          this.value.no = 5;
+          this.value.no = "03";
       }
     },
     data () {

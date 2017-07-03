@@ -88,6 +88,7 @@ export default {
         withdrawPoints:this.withdrawPoint,
         companyId:this.Person.companyId
       }).then(res=> {
+        debugger
         if(res.error == false){
           this.$Message.success("恭喜你提现成功");
           location.reload();
