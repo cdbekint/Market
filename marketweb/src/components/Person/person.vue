@@ -135,12 +135,15 @@ export default {
     },
     setPointByCurrentCompany(companyId){
       this.personInfo.company.forEach((item)=>{
-        if(item.id==companyId){
+        if(item.id === companyId){
           this.personInfo.totalPoint=item.totalPoint
           this.personInfo.points=item.points
           this.personInfo.usedCash=item.usedCash
           this.personInfo.cashs=(item.points*item.toCashRate/100)
           this.personInfo.toCashRate=item.toCashRate
+          this.personInfo.companyId=item.id
+          var psesoninfo=JSON.parse(JSON.stringify(this.personInfo))
+          this.personInfo=psesoninfo
         }
       })
     }

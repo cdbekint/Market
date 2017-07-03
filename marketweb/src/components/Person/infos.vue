@@ -16,7 +16,7 @@
             <countdown :endDate="x.date" ></countdown>
           </div>
         </div>
-        <span class="item_name" v-text="x.name"></span>
+        <span class="item_name" v-text="x.name" @click="goToActive(x.id)"></span>
         <div class="item_math">
           <div class="math_jifen">
             <img src="/static/images/person/ji.png">

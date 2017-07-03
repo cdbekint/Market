@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-      <img src="/static/images/person/jifen.png" class="main_jifen" @click="changePoint">
+      <img src="/static/images/person/jifen.png" class="main_jifen" @click="goToCompany">
       <img src="/static/images/person/tixian.png" class="main_jifen main_tixian" @click="isWithdraw=true">
     </div>
     <Modal
@@ -39,7 +39,7 @@
       <div>
         <span>可提积分 {{Person.points}}({{Person.cashs}} 元)</span>
         <br>
-        <p>当前提现金额: <span style="color:#131313;font-weight:bolder">{{parseFloat(Person.toCashRate*(Person.withdrawPoint>Person.points?Person.points:Person.withdrawPoint)).toFixed(2)}}元</span></p>
+        <p>当前提现金额: <span style="color:#131313;font-weight:bolder">{{parseFloat(Person.toCashRate/100*(withdrawPoint>Person.points?Person.points:withdrawPoint)).toFixed(2)}}元</span></p>
       </div>
       </Row>
       <Row style="text-align:center;padding-left:40px;">
@@ -76,12 +76,17 @@ export default {
   methods:{
     ok(){
       if(this.withdrawPoint === 0){
-          this.$Message.success("提现积分必须大于0");
+          this.$Message.error("提现积分必须大于0");
+          return
+      }
+      if(this.withdrawPoint*this.Person.toCashRate<1){
+         this.$Message.error("提现积分必须大于0")
           return
       }
       this.http.post(this.$store.state.prefix + "/withdraw",{
         withdrawType:1,
-        withdrawPoints:this.withdrawPoint
+        withdrawPoints:this.withdrawPoint,
+        companyId:this.Person.companyId
       }).then(res=> {
         if(res.error == false){
           this.$Message.success("恭喜你提现成功");
@@ -94,8 +99,17 @@ export default {
     },
     cancel(){
       this.isWithdraw = false;
+    },
+    goToCompany(){
+      this.$router.push({path:'/company',query:{companyId:this.Person.companyId}})
     }
-  }
+  },watch:{
+      Person:{
+        handler(val){
+          console.log(val)
+        },deep:true
+      }
+    }
 }
 </script>
 
