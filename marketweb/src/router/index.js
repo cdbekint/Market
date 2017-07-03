@@ -3,8 +3,8 @@ import Router from 'vue-router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
-// import ActivityInfo from '@/components/main/ActivityInfo'
-import Activity from '@/components/Active/ActivityInfo'
+import ActivityInfo from '@/components/main/ActivityInfo'
+// import Activity from '@/components/Active/ActivityInfo'
 import Login from '@/components/Login'
 
 import homePage from '@/components/home/homePage'
@@ -16,22 +16,30 @@ Vue.use(iView)
 
 export default new Router({
   routes: [
+   //TODO 切换线上线下，把Activity的组件注释状态切换，将如下一二对象和三四对象切换注释
     // {
     //   path: '/',
-    //   name: 'ActivityInfo',
-    //   component: ActivityInfo
+    //   name: 'Activity',
+    //   component: Activity
+    // },
+    // {
+    //   path: '/home',
+    //   name: 'home',
+    //   requireAuth:true,
+    //   component: Person
     // },
     {
       path: '/',
-      name: 'Activity',
-      component: Activity
+      name: 'ActivityInfo',
+      component: ActivityInfo
     },
     {
       path: '/home',
       name: 'home',
       requireAuth:true,
-      component: Person
+      component: homePage
     },
+
     {
       path: '/company',
       name: 'company',
@@ -42,11 +50,6 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    // {
-    //   path: '/person',
-    //   name: 'person',
-    //   component: Person
-    // }
+    }
   ]
 })
