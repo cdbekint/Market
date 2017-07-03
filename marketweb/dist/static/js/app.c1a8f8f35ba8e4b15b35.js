@@ -620,6 +620,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var inviterId = state[1] === void 0 ? '' : state[1];
     window.localStorage["inviterId"] = inviterId;
     window.localStorage["realInviterId"] = inviterId;
+    this.util.setCookie("realInviterId", inviterId);
     if (window.localStorage["token"] != void 0) {
       this.$router.push('/');
     } else {
@@ -2543,7 +2544,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var activityId = state[0];
     var inviterId = ~~(state[1] == void 0 ? 0 : state[1]);
     this.activityId = activityId;
-    this.realInviterId = ~~state[2];
+    this.realInviterId = ~~(state[2] || this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]);
     this.ownId = state[1];
     if (window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0 || this.realInviterId == undefined) {
       window.localStorage["inviterId"] = inviterId;
@@ -7096,4 +7097,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[217]);
-//# sourceMappingURL=app.e7a08bae34eb43bbdd10.js.map
+//# sourceMappingURL=app.c1a8f8f35ba8e4b15b35.js.map

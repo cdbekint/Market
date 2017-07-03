@@ -125,7 +125,7 @@ export default {
     var activityId = state[0];
     var inviterId = ~~((state[1] == void 0 )? 0 : state[1]);
     this.activityId = activityId;
-    this.realInviterId=~~(state[2]) //获取到用户的真实
+    this.realInviterId= ~~(state[2]||this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]);//获取到用户的真实
     this.ownId=state[1]
     if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0||this.realInviterId==undefined){
       //判断是否是已经跳转了的页面
