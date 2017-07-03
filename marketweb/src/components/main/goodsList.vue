@@ -176,4 +176,5 @@ export default {
           background #ff017e
           height rrem(58px)
           width rrem(288px)
+    
 </style>

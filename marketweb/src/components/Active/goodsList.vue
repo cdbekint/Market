@@ -13,6 +13,9 @@
         </div>
       </div>
     </div>
+    <div class="payTimeText">
+      支付时间:{{payInfo.payStartDate}}&nbsp;—&nbsp;{{payInfo.payEndDate}}
+    </div>
   </div>
 </template>
 
@@ -63,7 +66,7 @@ export default {
               }
               else if(item.goodsType == 2){
                 obj.price = item.maxPoints + "积分"
-                obj.newPrice = (item.maxPoints * discount) + "元"
+                obj.newPrice = (item.maxPoints * discount) + "分"
               }
               else if(item.goodsType == 3){
                 obj.price = item.goodsPrice + "元 + "+item.maxPoints+"积分"
@@ -133,6 +136,12 @@ export default {
     padding-top rrem(40px)
     position relative
     overflow scroll
+    .payTimeText
+      position absolute
+      width 100%
+      text-align center
+      top rrem(520px)
+      left:0px
     .list_parent
       position absolute
       overflow-x auto
@@ -179,4 +188,5 @@ export default {
             font-weight bold
             font-size rrem(34px)
             width rrem(282px)
+
 </style>

@@ -1455,7 +1455,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 obj.newPrice = item.goodsPrice * discount + "元";
               } else if (item.goodsType == 2) {
                 obj.price = item.maxPoints + "积分";
-                obj.newPrice = item.maxPoints * discount + "元";
+                obj.newPrice = item.maxPoints * discount + "分";
               } else if (item.goodsType == 3) {
                 obj.price = item.goodsPrice + "元 + " + item.maxPoints + "积分";
                 obj.newPrice = item.goodsPrice * discount + "元 + " + item.maxPoints * discount + "积分";
@@ -2284,6 +2284,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       over: false,
       current: 0
     };
+  },
+
+  watch: {
+    value: function value(val) {
+      if (val > 100) {
+        this.count = 100;
+      } else {
+        this.count = val;
+      }
+    }
   }
 });
 
@@ -5149,7 +5159,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v(_vm._s(x.btnTxt))])])])
-  }))])
+  })), _vm._v(" "), _c('div', {
+    staticClass: "payTimeText"
+  }, [_vm._v("\n    支付时间:" + _vm._s(_vm.payInfo.payStartDate) + " — " + _vm._s(_vm.payInfo.payEndDate) + "\n  ")])])
 },staticRenderFns: []}
 
 /***/ }),
@@ -6679,4 +6691,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[216]);
-//# sourceMappingURL=app.e06075ae7e533cff8cd4.js.map
+//# sourceMappingURL=app.8f505615bb179351a025.js.map

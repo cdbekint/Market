@@ -20,6 +20,16 @@ export default {
       over: false,
       current: 0
     }
+  },
+  watch:{
+    value (val) {
+      if(val>100){
+        this.count=100
+      }else{
+        this.count = val
+      }
+      
+    }
   }
 }
 </script>
