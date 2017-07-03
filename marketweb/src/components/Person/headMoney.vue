@@ -8,20 +8,20 @@
           <img src="/static/images/person/guan.png">
           <span v-text="Person.realName||Person.nickName"></span>
         </div>
-        <p class="phone" v-text="'电话:'+Person.phone"></p>
-        <p class="email" v-text="'邮箱:'+Person.email" ></p>
+        <p class="phone" v-text="'电话：'+Person.phone"></p>
+        <p class="email" v-text="'邮箱：'+Person.email" ></p>
       </div>
       <div class="main_money">
         <div class="money_info">
           <div class="info_jifen">
-            <span v-text="'累计积分:'+Person.totalPoint"></span>
-            <span v-text="'可用积分:'+Person.points"></span>
-            <span v-text="'已换现金:'+Person.usedCash"></span>
-            <span v-text="'可换现金:'+Person.cashs"></span>
+            <span v-text="'累计积分：'+Person.totalPoint"></span>
+            <span v-text="'可用积分：'+Person.points"></span>
+            <span v-text="'已换现金：'+Person.usedCash"></span>
+            <span v-text="'可换现金：'+Person.cashs"></span>
           </div>
         </div>
       </div>
-      <img src="/static/images/person/jifen.png" class="main_jifen">
+      <img src="/static/images/person/jifen.png" class="main_jifen" @click="changePoint">
       <img src="/static/images/person/tixian.png" class="main_jifen main_tixian" @click="isWithdraw=true">
     </div>
     <Modal
@@ -48,7 +48,7 @@
       <Row style="text-align:center;font-size:0.8em;padding:10px">
           提现金额不能低于1元
       </Row>
-      
+
     </Modal>
   </div>
 </template>
