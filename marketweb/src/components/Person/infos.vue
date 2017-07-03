@@ -32,6 +32,11 @@
           </div>
         </div>
       </div>
+
+      <div class="info_isNull" v-if="activityInfo.info.length==0">
+        <img src="/static/images/shop.png">
+        <p>暂未参加此商家任何活动</p>
+      </div>
     </div>
 
     <!--我的邀请-->
@@ -50,6 +55,11 @@
             <p v-text="x.peopleNum"></p>
           </div>
         </div>
+      </div>
+
+      <div class="info_isNull" v-if="memberInfo.info.length==0">
+        <img src="/static/images/shop.png">
+        <p>暂无邀请任何人员</p>
       </div>
     </div>
 
@@ -71,6 +81,11 @@
           </div>
         </div>
       </div>
+
+      <div class="info_isNull" v-if="consumeInfo.info.length==0">
+        <img src="/static/images/shop.png">
+        <p>暂无任何消费记录</p>
+      </div>
     </div>
 
     <!--积分记录-->
@@ -79,6 +94,11 @@
         <p class="item_state" v-text="x.jifen"></p>
         <span class="item_nameInfo" v-text="x.content"></span>
         <span class="item_date" v-text="x.time"></span>
+      </div>
+
+      <div class="info_isNull" v-if="consumeInfo.info.length==0">
+        <img src="/static/images/shop.png">
+        <p>暂无任何积分记录</p>
       </div>
     </div>
   </div>
@@ -223,6 +243,19 @@
       background #fff
       margin auto
       margin-top rrem(14px)
+      .info_isNull
+        width rrem(1000px)
+        height rrem(340px)
+        background #fff
+        text-align center
+        margin-top rrem(15px)
+        img
+          width rrem(237px)
+          height rrem(196px)
+          margin-top rrem(55px)
+        p
+          margin-top rrem(25px)
+          font-size rrem(28px)
       .active_item
         &:nth-child(odd)
           background #f5f5f5
