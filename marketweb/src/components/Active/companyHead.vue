@@ -1,14 +1,12 @@
 <template>
   <div class="activeHead">
     <div class="head_img">
-      <img :src="murl+info.companyLogo" alt="">
+      <img :src="murl+info.logo" alt="">
     </div>
     <div class="head_txt">
-      <p>{{info.companyName}}</p>
-      <span>会员：{{info.memberNum}}</span>
-      <span>客户：{{info.customerNum}}</span>
-      <span>浏览：{{info.allViewNum}}</span>
-      <span>分享：{{info.allShareNum}}</span>
+      <p>{{info.name}}</p>
+      <span>客服电话：{{info.tel}}</span>
+      <span>会员数：{{info.member}}</span>
     </div>
   </div>
 </template>
@@ -24,11 +22,13 @@ export default {
   },
   methods:{
     getInfoByCompanyId(val){
-      console.log(val)
       if(val == void 0 || val == '')return
       this.http.get(this.$store.state.prefix + "/shop/?companyId="+val).then(res=>{
         if(res.error == false){
-          this.info = res.result;
+          this.info.name = res.result.companyName;
+          this.info.logo = res.result.companyLogo;
+          this.info.tel = res.result.companyTel;
+          this.info.member = res.result.memberNum;
         }
       })
     }
@@ -38,7 +38,12 @@ export default {
   },
   data () {
     return {
-      info:{}
+      info:{
+        name:'',
+        tel:'',
+        member:0,
+        logo:''
+      }
     }
   }
 }

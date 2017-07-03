@@ -25,7 +25,6 @@ export default {
     getCompanyId (id) {
       this.currentCompanyId = id;
       this.getInfosByCompanyId();
-      console.log('公司id为:'+id)
       this.setPointByCurrentCompany(id);
     },
     getActiveInfo(page){
@@ -38,7 +37,7 @@ export default {
             var obj = {
               id: item.id,
               img: item.activityImg,
-              name: this.util.sliceStr(item.activityName, 7),
+              name: this.util.sliceStr(item.activityName, 13),
               date: item.endDate,
               jifen: item.gainPoints,
               peopleNum: item.joinNum,
@@ -177,7 +176,16 @@ export default {
             toCashRate: item.toCashRate,
           };
           pointArr.push(obj)
-          
+          if(item.companyId===this.currentCompanyId){
+            this.personInfo.totalPoint=item.allPoints
+            this.personInfo.points=item.points
+            this.personInfo.usedCash=item.withDrawAmount
+            this.personInfo.cashs=(item.points*item.toCashRate/100);
+            this.personInfo.toCashRate=item.toCashRate
+
+            var person=JSON.parse(JSON.stringify(this.personInfo));
+            this.personInfo=person
+          }
         });
         this.personInfo.company = pointArr;
       }

@@ -9,7 +9,7 @@
 
     <!--参加的活动-->
     <div class="info_active" v-if="index==0">
-      <div class="active_item" v-for="x in activityInfo.info">
+      <div class="active_item" v-for="x in activityInfo.info" @click="goToActive(x.id)">
         <div class="item_img">
           <img :src="murl+x.img" v-if="x.img">
           <div class="img_down">
@@ -115,12 +115,12 @@
           if(index == val){
             item.img = this.on;
             item.active = this.active;
-          }else{
+          }
+          else{
             item.img = this.off;
             item.active = this.noactive;
           }
         })
-        this.$emit("head_company",val);
       },
       requestInfoByScroll(){
         if( !this.currentPageLimit){
@@ -278,7 +278,7 @@
               width rrem(42px)
             span
               margin-top rrem(35px)
-              display inline-block
+              display block
             p
               margin-top rrem(35px)
             .math_people

@@ -4,6 +4,7 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
 import ActivityInfo from '@/components/main/ActivityInfo'
+import Activity from '@/components/Active/ActivityInfo'
 import UserInfo from '@/components/UserInfo'
 import Shop from '@/components/Shop'
 import Login from '@/components/Login'
@@ -21,6 +22,11 @@ export default new Router({
       path: '/',
       name: 'ActivityInfo',
       component: ActivityInfo
+    },
+    {
+      path: '/new',
+      name: 'Activity',
+      component: Activity
     },
     {
       path: '/home',
