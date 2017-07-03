@@ -77,6 +77,10 @@ export default {
           }
         },
         {
+          title: '电话',
+          key: 'phone'
+        },
+        {
           title: '消费金额',
           key: 'selfExpense'
         },

@@ -10,7 +10,7 @@
     <Discount :activity="activity"></Discount>
     <Money :activity="activity"></Money>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
-    <div class="activeInfo_team" v-if="!hasGroup && !currentState" style="z-index: 2000;">
+    <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 1000;">
       <img src="/static/images/bg.png">
       <div class="team_peopleInfo">
         <img :src="currentGroup.img">
@@ -125,14 +125,13 @@ export default {
     var activityId = state[0];
     var inviterId = ~~((state[1] == void 0 )? 0 : state[1]);
     this.activityId = activityId;
-    this.realInviterId=~~(state[2]===undefined?(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]):state[2])
+    this.realInviterId=~~(state[2]) //获取到用户的真实
     this.ownId=state[1]
-
-    if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0){
+    if(window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0||this.realInviterId==undefined){
       //判断是否是已经跳转了的页面
       window.localStorage["inviterId"] = inviterId;
-      window.localStorage["realInviterId"] = inviterId
-      window.localStorage.removeItem("token");
+      window.localStorage["realInviterId"] = inviterId;
+
       this.util.setCookie("realInviterId",inviterId)
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
@@ -141,6 +140,8 @@ export default {
       var url = preUrl + state;
       location.href = url
     }
+
+
     // 获取登录者个人信息,在这个活动所在的公司里面的信息
     this.http.get(this.$store.state.prefix + '/pubInfo/user?activityId='+this.activityId).then(res => {
       if (res.error === false) {
@@ -151,7 +152,7 @@ export default {
         }
         else{
           this.$store.state.isMember = 0;
-          this.currentState = true;
+          //this.currentState = true;
         }
       }
       else{
@@ -173,7 +174,7 @@ export default {
         }else {
           if(window.localStorage["realInviterId"] == void 0)
             window.localStorage["realInviterId"] = 0;
-          requesturl='/activity/' + activityId+'?inviterId='+window.localStorage["realInviterId"]
+          requesturl='/activity/' + activityId+'?inviterId='+this.realInviterId
         }
         this.http.get(this.$store.state.prefix + requesturl).then(res => {
           if (res.error == false) {
@@ -196,11 +197,8 @@ export default {
               }
             }
             else {
-              this.currentGroup = {
-                img:this.murl + this.activity.companyLogoImg,
-                name:this.util.sliceStr(this.activity.companyName,6),
-                peopleNum:0
-              }
+            this.getInviterInfo()
+             
             }
           }
         }).then(()=> {
@@ -415,7 +413,21 @@ export default {
           this.activity=nactivity
         }
       })
-    }
+    },
+      getInviterInfo(){
+        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+ this.realInviterId).then(res=>{
+          if(res.error === false)
+            {
+               this.currentGroup = {
+                img:res.result.headImg,
+                name:res.result.realName||res.result.nickName,
+                peopleNum:0
+              }
+            }else{
+              this.$Message.error(res.msg)
+            }
+        })
+      }
   }
 }
 </script>

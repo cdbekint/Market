@@ -561,7 +561,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { vheader: __WEBPACK_IMPORTED_MODULE_0__components_Header___default.a },
   created: function created() {
     this.$store.state.token = window.localStorage["token"] || this.util.getCookie("token");
-    if (this.$store.state.token == '' || this.$store.state.token == void 0) {
+    if (this.$store.state.token == '' || this.$store.state.token == void 0 || window.localStorage['ownId'] == undefined) {
       this.$router.push({
         path: '/login'
       });
@@ -584,7 +584,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     Title: function Title(val) {
       console.log(val);
       if (val == '' || val == void 0) {
-        this.Title = '射洪巴黎春天';
+        this.Title = '';
       }
     }
   },
@@ -619,7 +619,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var activityId = state[0];
     var inviterId = state[1] === void 0 ? '' : state[1];
     window.localStorage["inviterId"] = inviterId;
-
     if (window.localStorage["token"] != void 0) {
       this.$router.push('/');
     } else {
@@ -2543,13 +2542,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var activityId = state[0];
     var inviterId = ~~(state[1] == void 0 ? 0 : state[1]);
     this.activityId = activityId;
-    this.realInviterId = ~~(state[2] === undefined ? this.util.getCookie("realInviterId") || window.localStorage["realInviterId"] : state[2]);
+    this.realInviterId = ~~state[2];
     this.ownId = state[1];
-
-    if (window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0) {
+    if (window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0 || this.realInviterId == undefined) {
       window.localStorage["inviterId"] = inviterId;
       window.localStorage["realInviterId"] = inviterId;
-      window.localStorage.removeItem("token");
+
       this.util.setCookie("realInviterId", inviterId);
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
@@ -2567,7 +2565,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.currentState = false;
         } else {
           _this2.$store.state.isMember = 0;
-          _this2.currentState = true;
         }
       } else {
         _this2.$Message.error(res.msg);
@@ -2584,7 +2581,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         requesturl = '/activity/' + activityId + '?inviterId=' + window.localStorage["ownId"];
       } else {
         if (window.localStorage["realInviterId"] == void 0) window.localStorage["realInviterId"] = 0;
-        requesturl = '/activity/' + activityId + '?inviterId=' + window.localStorage["realInviterId"];
+        requesturl = '/activity/' + activityId + '?inviterId=' + _this2.realInviterId;
       }
       _this2.http.get(_this2.$store.state.prefix + requesturl).then(function (res) {
         if (res.error == false) {
@@ -2603,11 +2600,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               peopleNum: len
             };
           } else {
-            _this2.currentGroup = {
-              img: _this2.murl + _this2.activity.companyLogoImg,
-              name: _this2.util.sliceStr(_this2.activity.companyName, 6),
-              peopleNum: 0
-            };
+            _this2.getInviterInfo();
           }
         }
       }).then(function () {
@@ -2828,6 +2821,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           var nactivity = JSON.parse(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(_this8.activity));
           _this8.activity = nactivity;
+        }
+      });
+    },
+    getInviterInfo: function getInviterInfo() {
+      var _this9 = this;
+
+      this.http.get(this.$store.state.prefix + '/pubInfo/account?accountId=' + this.realInviterId).then(function (res) {
+        if (res.error === false) {
+          _this9.currentGroup = {
+            img: res.result.headImg,
+            name: res.result.realName || res.result.nickName,
+            peopleNum: 0
+          };
+        } else {
+          _this9.$Message.error(res.msg);
         }
       });
     }
@@ -4708,10 +4716,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "childClick": _vm.changeState
     }
-  }), _vm._v(" "), (!_vm.hasGroup && !_vm.currentState) ? _c('div', {
+  }), _vm._v(" "), (!_vm.hasGroup) ? _c('div', {
     staticClass: "activeInfo_team",
     staticStyle: {
-      "z-index": "2000"
+      "z-index": "1000"
     }
   }, [_c('img', {
     attrs: {
@@ -7087,4 +7095,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[217]);
-//# sourceMappingURL=app.3e105763cdaa358458ae.js.map
+//# sourceMappingURL=app.52d9876bbd5d8a501754.js.map

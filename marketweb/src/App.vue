@@ -16,7 +16,7 @@ export default {
   components: { vheader },
   created () {
     this.$store.state.token =window.localStorage["token"]||this.util.getCookie("token");
-    if (this.$store.state.token == '' || this.$store.state.token == void 0) {
+    if (this.$store.state.token == '' || this.$store.state.token == void 0 || window.localStorage['ownId'] == undefined) {
       this.$router.push({
         path: '/login'
       })

@@ -12,7 +12,7 @@ export default {
     Title(val){
       console.log(val)
       if(val == '' || val == void 0){
-        this.Title = '射洪巴黎春天'
+        this.Title = ''
       }
     }
   },
