@@ -3074,6 +3074,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return '<img :src="row.headImg" style="width:40px;height:40px;"/>';
         }
       }, {
+        title: '电话',
+        key: 'phone'
+      }, {
         title: '消费金额',
         key: 'selfExpense'
       }, {
@@ -41383,4 +41386,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[109]);
-//# sourceMappingURL=app.fe2ee83e345c51ba124d.js.map
+//# sourceMappingURL=app.f9b20d6adbafcf25fc10.js.map
