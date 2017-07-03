@@ -25,7 +25,6 @@ export default {
     getCompanyId (id) {
       this.currentCompanyId = id;
       this.getInfosByCompanyId();
-      console.log('公司id为:'+id)
       this.setPointByCurrentCompany(id);
     },
     getActiveInfo(page){
@@ -38,7 +37,7 @@ export default {
             var obj = {
               id: item.id,
               img: item.activityImg,
-              name: this.util.sliceStr(item.activityName, 7),
+              name: this.util.sliceStr(item.activityName, 13),
               date: item.endDate,
               jifen: item.gainPoints,
               peopleNum: item.joinNum,
@@ -136,14 +135,12 @@ export default {
     },
     setPointByCurrentCompany(companyId){
       this.personInfo.company.forEach((item)=>{
-        console.log(item)
         if(item.id==companyId){
           this.personInfo.totalPoint=item.totalPoint
           this.personInfo.points=item.points
           this.personInfo.usedCash=item.usedCash
           this.personInfo.cashs=(item.points*item.toCashRate/100)
           this.personInfo.toCashRate=item.toCashRate
-          console.log(this.personInfo)
         }
       })
     }
@@ -180,9 +177,10 @@ export default {
             this.personInfo.totalPoint=item.allPoints
             this.personInfo.points=item.points
             this.personInfo.usedCash=item.withDrawAmount
-            this.personInfo.cashs=(item.points*item.toCashRate/100)
+            this.personInfo.cashs=(item.points*item.toCashRate/100);
             this.personInfo.toCashRate=item.toCashRate
-            var person=JSON.parse(JSON.stringify(this.personInfo))
+
+            var person=JSON.parse(JSON.stringify(this.personInfo));
             this.personInfo=person
           }
         });

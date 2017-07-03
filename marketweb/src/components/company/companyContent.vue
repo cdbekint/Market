@@ -17,7 +17,7 @@
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
-            
+
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
       <div style="position:fixed;right:1em;bottom:6.5em;height:52px;width:52px;border-radius:50%;border:1px solid #FE54A8">
           <img src="/static/images/fuqian.png" @click.stop="isWithdraw=true" style="width:100%;height:100%">
       </div>
-      
+
     </div>
 
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
@@ -732,7 +732,7 @@ export default {
               width rrem(90px)
               height rrem(90px)
               right rrem(20px)
-              top rrem(20px) 
+              top rrem(20px)
             .text_title
               font-size rrem(35px)
               color #000
@@ -778,7 +778,7 @@ export default {
             margin-top rrem(25px)
             margin-right rrem(15px)
             width rrem(55px)
-            height rrem(50px)
+            height rrem(55px)
           span
             position absolute
             top rrem(57px)
