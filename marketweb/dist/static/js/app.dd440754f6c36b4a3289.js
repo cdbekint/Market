@@ -694,12 +694,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       if (this.withdrawPoint === 0) {
-        this.$Message.success("提现积分必须大于0");
+        this.$Message.error("提现积分必须大于0");
+        return;
+      }
+      if (this.withdrawPoint * this.Person.toCashRate < 1) {
+        this.$Message.error("提现积分必须大于0");
         return;
       }
       this.http.post(this.$store.state.prefix + "/withdraw", {
         withdrawType: 1,
-        withdrawPoints: this.withdrawPoint
+        withdrawPoints: this.withdrawPoint,
+        companyId: this.Person.companyId
       }).then(function (res) {
         if (res.error == false) {
           _this.$Message.success("恭喜你提现成功");
@@ -711,6 +716,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     cancel: function cancel() {
       this.isWithdraw = false;
+    },
+    goToCompany: function goToCompany() {
+      this.$router.push({ path: '/company', query: { companyId: this.Person.companyId } });
+    }
+  }, watch: {
+    Person: {
+      handler: function handler(val) {
+        console.log(val);
+      },
+      deep: true
     }
   }
 });
@@ -1039,14 +1054,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this5 = this;
 
       this.personInfo.company.forEach(function (item) {
-        console.log(item);
-        if (item.id == companyId) {
+        if (item.id === companyId) {
           _this5.personInfo.totalPoint = item.totalPoint;
           _this5.personInfo.points = item.points;
           _this5.personInfo.usedCash = item.usedCash;
           _this5.personInfo.cashs = item.points * item.toCashRate / 100;
           _this5.personInfo.toCashRate = item.toCashRate;
-          console.log(_this5.personInfo);
+          _this5.personInfo.companyId = item.id;
+          var psesoninfo = JSON.parse(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(_this5.personInfo));
+          _this5.personInfo = psesoninfo;
         }
       });
     }
@@ -1081,15 +1097,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             toCashRate: item.toCashRate
           };
           pointArr.push(obj);
-          if (item.companyId === _this6.currentCompanyId) {
-            _this6.personInfo.totalPoint = item.allPoints;
-            _this6.personInfo.points = item.points;
-            _this6.personInfo.usedCash = item.withDrawAmount;
-            _this6.personInfo.cashs = item.points * item.toCashRate / 100;
-            _this6.personInfo.toCashRate = item.toCashRate;
-            var person = JSON.parse(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(_this6.personInfo));
-            _this6.personInfo = person;
-          }
         });
         _this6.personInfo.company = pointArr;
       }
@@ -3459,8 +3466,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
     companyId: __WEBPACK_IMPORTED_MODULE_5__static_js_utils_js__["a" /* default */].getCookie('companyId') || '',
     openid: __WEBPACK_IMPORTED_MODULE_5__static_js_utils_js__["a" /* default */].getCookie('openid') || '',
     currentActive: '',
+    prefix: '/api',
 
-    prefix: '',
     isMember: 0
   },
   mutations: {
@@ -4824,6 +4831,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "item_name",
       domProps: {
         "textContent": _vm._s(x.name)
+      },
+      on: {
+        "click": function($event) {
+          _vm.goToActive(x.id)
+        }
       }
     }), _vm._v(" "), _c('div', {
       staticClass: "item_math"
@@ -7023,6 +7035,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "main_jifen",
     attrs: {
       "src": "/static/images/person/jifen.png"
+    },
+    on: {
+      "click": _vm.goToCompany
     }
   }), _vm._v(" "), _c('img', {
     staticClass: "main_jifen main_tixian",
@@ -7067,7 +7082,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "color": "#131313",
       "font-weight": "bolder"
     }
-  }, [_vm._v(_vm._s(parseFloat(_vm.Person.toCashRate * (_vm.Person.withdrawPoint > _vm.Person.points ? _vm.Person.points : _vm.Person.withdrawPoint)).toFixed(2)) + "元")])])])]), _vm._v(" "), _c('Row', {
+  }, [_vm._v(_vm._s(parseFloat(_vm.Person.toCashRate / 100 * (_vm.withdrawPoint > _vm.Person.points ? _vm.Person.points : _vm.withdrawPoint)).toFixed(2)) + "元")])])])]), _vm._v(" "), _c('Row', {
     staticStyle: {
       "text-align": "center",
       "padding-left": "40px"
@@ -7097,4 +7112,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[217]);
-//# sourceMappingURL=app.c1a8f8f35ba8e4b15b35.js.map
+//# sourceMappingURL=app.dd440754f6c36b4a3289.js.map

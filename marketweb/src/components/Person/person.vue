@@ -136,14 +136,15 @@ export default {
     },
     setPointByCurrentCompany(companyId){
       this.personInfo.company.forEach((item)=>{
-        console.log(item)
-        if(item.id==companyId){
+        if(item.id === companyId){
           this.personInfo.totalPoint=item.totalPoint
           this.personInfo.points=item.points
           this.personInfo.usedCash=item.usedCash
           this.personInfo.cashs=(item.points*item.toCashRate/100)
           this.personInfo.toCashRate=item.toCashRate
-          console.log(this.personInfo)
+          this.personInfo.companyId=item.id
+          var psesoninfo=JSON.parse(JSON.stringify(this.personInfo))
+          this.personInfo=psesoninfo
         }
       })
     }
@@ -176,15 +177,7 @@ export default {
             toCashRate: item.toCashRate,
           };
           pointArr.push(obj)
-          if(item.companyId===this.currentCompanyId){
-            this.personInfo.totalPoint=item.allPoints
-            this.personInfo.points=item.points
-            this.personInfo.usedCash=item.withDrawAmount
-            this.personInfo.cashs=(item.points*item.toCashRate/100)
-            this.personInfo.toCashRate=item.toCashRate
-            var person=JSON.parse(JSON.stringify(this.personInfo))
-            this.personInfo=person
-          }
+          
         });
         this.personInfo.company = pointArr;
       }
