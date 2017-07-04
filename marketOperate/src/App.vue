@@ -17,7 +17,7 @@
           <dt><i class="fa fa-area-chart"></i>公司管理</dt>
           <router-link :to="{path:'/companylist'}" tag="dd" active-class="active">公司列表</router-link>
           <router-link :to="{path:'/companyAdd'}" tag="dd" active-class="active">新增公司</router-link>
-          <router-link :to="{path:'/companyinfo'}" tag="dd" active-class="active">客户系统</router-link>
+          <router-link :to="{path:'/customerList'}" tag="dd" active-class="active">客户系统</router-link>
         </dl>
         <dl class="menulist">
           <dt>

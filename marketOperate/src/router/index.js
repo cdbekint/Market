@@ -8,13 +8,19 @@ import Home from '@/components/Main/Home'
 import companyAdd from '@/components/Main/companyAdd'
 import companyEdit from '@/components/Main/companyEdit'
 
-import WithDrawList from '@/components/Withdraw/WithDrawList'
+import WithDrawList from '@/components/WithDraw/WithDrawList'
+import customerList from '@/components/customer/customerList'
 
 Vue.use(Router)
 Vue.use(iView)
 
 export default new Router({
   routes: [
+    {
+      path: '/customerList',
+      name: 'customerList',
+      component:customerList
+    },
     {
       path: '/companyEdit',
       name: 'companyEdit',
