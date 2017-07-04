@@ -157,7 +157,10 @@
       },
       getCompanyList(){
         this.isGetting=true
-        if(this.companyName=='')return;
+        if(this.companyName==''){
+          this.showcompanylist=false
+          return;
+        }
         this.showcompanylist=true
         this.http.get(this.$store.state.prefix+"/operate/getCompanyBaseInfo/1?useable=1&companyName="+this.companyName).then(res=>{
           if(res.error==false){

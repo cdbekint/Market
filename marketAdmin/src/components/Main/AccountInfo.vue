@@ -67,6 +67,15 @@
            <Table border :columns="employeeColumn" :data="employeeData" class="employeetable"></Table>
         </div> -->
       </Col>
+      <Col span="12" class="withdrawlist">
+        当前申请提现
+        <Table highlight-row border :columns="withdrawColumns" :data="withdrawlist"></Table>
+      <div style="margin: 10px;overflow: hidden">
+          <div style="float: right;">
+              <Page :total="queryinfo.total" :page-size="queryinfo.size" :current="queryinfo.current" @on-change="getWithDrawList"></Page>
+          </div>
+      </div>
+      </Col>
     </Row>
  	</div>
   <Modal
@@ -107,20 +116,6 @@
         <Icon type="ios-information-outline"></Icon>手续费为经过微信商户平台收取的手续费
       </div>
   </Modal>
-<!--   <Modal
-    v-model="binduserModal"
-      title="绑定提现账户" name="binduser">
-          <Table border :columns="employeeColumn" :data="employeeData" class="employeetable"></Table>
-          <div style="margin: 10px;overflow: hidden">
-              <div style="float: right;"> 
-                  <Page :total="pager.total" :current="pager.current" @on-change="getEmployeeList(pager.current)"  size="small"></Page>
-              </div>
-          </div>
-       <div slot="footer" class="text-left">
-        <Icon type="ios-information-outline"></Icon>通过选取员工列表
-      </div>
-    
-  </Modal> -->
 </div>
 </template>
 
@@ -180,12 +175,58 @@ export default {
         total: 1,
         current: 1
       },
-      withdrawMoney:0
+      withdrawMoney:0,
+      queryinfo:{
+        companyId:this.util.getCookie("companyId"),
+        withdrawType:'2',
+        withdrawStatus:'2',
+        dealDate:this.util.getDate(),
+        current:1,
+        size:12,
+        total:1
+      },withdrawColumns:[
+        {
+          title: '序号',
+          type: 'index',
+          width: 60,
+          align: 'center'
+        },
+        {
+          title: '收款人',
+          key: 'realName',
+          render(row){
+            return row.realName||row.nickName
+          }
+        },
+        {
+          title: '金额',
+          key: 'withdrawAmount',
+          render(row){
+            return '<p style="font-size:1.2em;color:red;font-weight:bold" v-text="row.withdrawAmount"></p>'
+          }
+        },
+        {
+          title: '手续',
+          key: 'withdrawFactorage',
+          width: 70
+        },
+        {
+          title: '申请时间',
+          key: 'applyDate'
+        },
+        {
+          title: '预结算',
+          key: 'dealDate',
+          sortable: true
+        }
+      ],
+      withdrawlist:[]
     }
   },
   created () {
     if (this.$store.state.companyId) {
       this.getCompanyinfo()
+      this.getWithDrawList()
     }
   },
   methods: {
@@ -252,6 +293,32 @@ export default {
             this.$Message.error(res.msg)
           }
         })
+    },
+    getWithDrawList(pageno){
+      if(!isNaN(pageno)){
+        this.queryinfo.current=pageno
+      }else{
+        this.queryinfo.current=1
+      }
+      var param=JSON.parse(JSON.stringify(this.queryinfo))
+      if(!param.companyId){
+        this.$Message.error("请先选择查询的公司")
+        return
+      }
+      delete param.companyName
+      this.http.get(this.$store.state.prefix+"/operate/getCompanyWithdrawInfo/"+param.current+"?a=1"+this.util.parseParam(param)).then(res=>{
+        if(res.error==false){
+          this.queryinfo.current=res.result.current
+          this.queryinfo.total=res.result.total
+          this.queryinfo.size=res.result.size
+          res.result.records.forEach((item)=>{
+            item.dealDate=item.dealDate?this.util.getFormatDate(item.dealDate,1):''
+            item.applyDate=item.applyDate?this.util.getFormatDate(item.applyDate,1):''
+            item.successDate=item.successDate?this.util.getFormatDate(item.successDate,1):''
+          })
+          this.withdrawlist=res.result.records
+        }
+      })
     }
   }
 }
