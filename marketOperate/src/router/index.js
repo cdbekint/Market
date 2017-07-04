@@ -5,6 +5,8 @@ import 'iview/dist/styles/iview.css'
 
 import Login from '@/Login.vue'
 import Home from '@/components/Main/Home'
+import companyAdd from '@/components/Main/companyAdd'
+import companyEdit from '@/components/Main/companyEdit'
 
 Vue.use(Router)
 Vue.use(iView)
@@ -12,7 +14,17 @@ Vue.use(iView)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/companyEdit',
+      name: 'companyEdit',
+      component: companyEdit
+    },
+    {
+      path: '/companyAdd',
+      name: 'companyAdd',
+      component: companyAdd
+    },
+    {
+      path: '/companyList',
       name: 'Home',
       component: Home
     },

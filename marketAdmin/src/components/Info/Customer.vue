@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-   <Modal 
+   <Modal
       v-model="employeemodal"
       title="选取新员工" >
     <Table highlight-row border :columns="employeeColumns" :data="employee" @on-row-click="changeEmployee"></Table>
@@ -215,7 +215,7 @@ export default {
         }else{
           this.$Message.error(res.msg)
         }
-        
+
       })
     },
     setEmployee(id){
