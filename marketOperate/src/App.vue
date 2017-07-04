@@ -6,50 +6,18 @@
     </vheader>
     <div class="content-wrapper" v-if="$store.state.token">
       <div class="menu-wrapper">
-        <!-- 菜单区域 -->
-        <!-- <dl class="menulist" v-for="(m,index) in menu">
-          <dt><i :class="m.icon"></i><span v-text="m.category"></span></dt>
-          <router-link v-for="(ms,indexs) in m.subMenu" v-if="m.subMenu" :to="ms" :tag='ms.tag' v-text="ms.title" :active-class="ms.active" @click="selectThis(ms)"></router-link>
-        </dl> -->
         <dl class="menulist">
           <dt>
           <i class="fa fa-th"></i>概览
           </dt>
-          <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>主页</router-link>
+          <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>公司管理</router-link>
           <router-link :to="{path:'/company'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
           <router-link :to="{path:'/accountinfo'}"  tag="dd" active-class="active" exact>账户信息</router-link>
-          
         </dl>
-         
-        <dl class="menulist">
-          <dt><i class="fa fa-area-chart"></i>公司管理</dt>
-          <router-link :to="{path:'/music'}" tag="dd" active-class="active">音乐库</router-link>
-          <router-link :to="{path:'/gift'}" tag="dd" active-class="active">礼品管理</router-link>
-          <router-link :to="{path:'/activity'}" tag="dd" active-class="active">活动管理</router-link>
-        </dl>
-        <dl class="menulist">
-          <dt>
-          <i class="fa fa-shopping-cart"></i>商家提现
-          </dt>
-          <router-link :to="{path:'/goods'}"  tag="dd" active-class="active">商品管理</router-link>
-          <router-link :to="{path:'/orders'}" tag="dd" active-class="active">订单管理</router-link>
-
-        </dl>
-        <dl class="menulist">
-          <dt><i class="fa fa-money"></i>交易提现</dt>
-          <router-link :to="{path:'/withdraw'}" tag="dd" active-class="active">用户提现</router-link>
-        </dl>
-        <dl class="menulist">
-          <dt><i class="fa fa-user"></i>客户管理</dt>
-          <router-link :to="{path:'/customer'}" tag="dd" active-class="active">客户管理</router-link>
-          <router-link :to="{path:'/alonemenber'}" tag="dd" active-class="active">孤单会员</router-link>
-          <router-link :to="{path:'/point'}" tag="dd" active-class="active">积分查询</router-link>
-        </dl>
-
       </div>
       <div class="realcontent-wrapper">
-      <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
-         <router-view></router-view>
+        <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+          <router-view></router-view>
          </transition>
       </div>
       <div class="clearfix"></div>
