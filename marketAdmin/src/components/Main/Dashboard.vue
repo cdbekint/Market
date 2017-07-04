@@ -34,40 +34,42 @@
 	  			</div>
 	  		</div>
   		</Col>
-  		<Col span="6" class="infoitem">
-  		<div class="realinfo yellow">
-  			<div class="contenttitle">
-  				<div class="symbol">
-  					<Icon type="social-yen"></Icon>
-  				</div>
-  				<div class="title">
-  					<span>账户余额</span>
-  				</div>
-  			</div>
-  			
-  			<div class="contentval" v-text="~~baseinfo.balance">
-  				
-  			</div>
-  		</div>
-  			
-  		</Col>
+  		
   		
   		<Col span="6" class="infoitem">
-  		<div class="realinfo">
+  		<div class="realinfo thinred">
   			<div class="contenttitle">
   				<div class="symbol">
+            <Icon type="ios-pie-outline"></Icon>
   				</div>
   				<div class="title">
-  					<span></span>
+  					<span>用户提现</span>
   				</div>
   			</div>
   			
-  			<div class="contentval" >
+  			<div class="contentval" v-text="baseinfo.userWithdraw">
   				
   			</div>
   		</div>
   			
   		</Col>
+      <Col span="6" class="infoitem">
+      <div class="realinfo yellow">
+        <div class="contenttitle">
+          <div class="symbol">
+            <Icon type="social-yen"></Icon>
+          </div>
+          <div class="title">
+            <span>账户余额</span>
+          </div>
+        </div>
+        
+        <div class="contentval" v-text="~~baseinfo.balance">
+          
+        </div>
+      </div>
+        
+      </Col>
   		<Col span="6" class="infoitem">
   		<div class="realinfo cyan">
   			<div class="contenttitle">

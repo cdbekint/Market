@@ -6503,6 +6503,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "span": "6"
     }
   }, [_c('div', {
+    staticClass: "realinfo thinred"
+  }, [_c('div', {
+    staticClass: "contenttitle"
+  }, [_c('div', {
+    staticClass: "symbol"
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-pie-outline"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "title"
+  }, [_c('span', [_vm._v("用户提现")])])]), _vm._v(" "), _c('div', {
+    staticClass: "contentval",
+    domProps: {
+      "textContent": _vm._s(_vm.baseinfo.userWithdraw)
+    }
+  })])]), _vm._v(" "), _c('Col', {
+    staticClass: "infoitem",
+    attrs: {
+      "span": "6"
+    }
+  }, [_c('div', {
     staticClass: "realinfo yellow"
   }, [_c('div', {
     staticClass: "contenttitle"
@@ -6519,21 +6541,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(~~_vm.baseinfo.balance)
     }
-  })])]), _vm._v(" "), _c('Col', {
-    staticClass: "infoitem",
-    attrs: {
-      "span": "6"
-    }
-  }, [_c('div', {
-    staticClass: "realinfo"
-  }, [_c('div', {
-    staticClass: "contenttitle"
-  }, [_c('div', {
-    staticClass: "symbol"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "title"
-  }, [_c('span')])]), _vm._v(" "), _c('div', {
-    staticClass: "contentval"
   })])]), _vm._v(" "), _c('Col', {
     staticClass: "infoitem",
     attrs: {
@@ -41765,4 +41772,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[110]);
-//# sourceMappingURL=app.ab1acc035c2f127ae997.js.map
+//# sourceMappingURL=app.1abefc72ab02bba8b366.js.map
