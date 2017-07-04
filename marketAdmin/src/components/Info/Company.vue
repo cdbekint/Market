@@ -114,7 +114,7 @@
       积分折现金比
     </div>
     <div class='itemcontent'>
-      <Input type='text' v-model='company.toCashRate'>
+      <Input type='number' min="0" v-model='company.toCashRate'>
       <span slot="append" style="display: block;width:35px;">%</span>
       </Input>
     </div>
@@ -155,7 +155,7 @@
       分享赠送积分
     </div>
     <div class='itemcontent'>
-      <input type='number' v-model='company.sharePoints'>
+      <Input-number  v-model="company.sharePoints"></Input-number>
     </div>
     <div class='itemhepler'>
       用户分享到朋友圈后可获得积分数量
@@ -166,7 +166,7 @@
       分享朋友圈次数
     </div>
     <div class='itemcontent'>
-      <input type='number' v-model='company.shareMax'>
+      <Input-number v-model='company.shareMax'></Input-number>
     </div>
     <div class='itemhepler'>
       用户每个活动分享到朋友圈每天可获得积分的次数
@@ -177,7 +177,7 @@
       注册金额
     </div>
     <div class='itemcontent'>
-      <input type='number' v-model='company.registerMoney'>
+      <Input-number v-model='company.registerMoney'></Input-number>
     </div>
     <div class='itemhepler'>
       用户注册成为会员，需缴纳此金额
@@ -188,7 +188,7 @@
       注册返还积分
     </div>
     <div class='itemcontent'>
-      <input type='number' v-model='company.registerPoints'>
+      <Input-number v-model='company.registerPoints'></Input-number>
     </div>
     <div class='itemhepler'>
       用户注册成为会员，返还积分数量
@@ -199,7 +199,7 @@
       邀请注册返积分
     </div>
     <div class='itemcontent'>
-      <input type='number' v-model='company.invitedPoints'>
+      <Input-number v-model='company.invitedPoints'></Input-number>
     </div>
     <div class='itemhepler'>
       每邀请一个注册用户，返还积分
@@ -278,15 +278,15 @@ export default {
         companyTel: '',
         companyLogo: '',
         smsTel:'',
-        toCashRate: '',
-        employeeRate: '',
-        sharePoints:'',
-        shareMax: '',
-        registerMoney:'',
-        registerPoints:'',
-        selfReturn:'',
-        oneReturn:'',
-        secondReturn:''
+        toCashRate: 0,
+        employeeRate: 0,
+        sharePoints:0,
+        shareMax: 0,
+        registerMoney:0,
+        registerPoints:0,
+        selfReturn:0,
+        oneReturn:0,
+        secondReturn:0
       },
       Group: [
         {
@@ -483,6 +483,7 @@ export default {
           this.company.id = this.$store.state.companyId
           if (res.result !== null) {
             this.company = res.result
+            this.company.sharePoints=Number(res.result.sharePoints)
             this.company.show=this.util.escapeToHtml(res.result.show)
             var areaIds = this.company.companyAddrCode.split(",");
             this.areaOne.id = areaIds[0];

@@ -29,7 +29,7 @@
 	  				</div>
 	  			</div>
 	  			
-	  			<div class="contentval" v-text="baseinfo.withDrawAmount">
+	  			<div class="contentval" v-text="Math.abs(baseinfo.withDrawAmount)">
 	  				
 	  			</div>
 	  		</div>
