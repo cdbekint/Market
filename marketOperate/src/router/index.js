@@ -8,6 +8,8 @@ import Home from '@/components/Main/Home'
 import companyAdd from '@/components/Main/companyAdd'
 import companyEdit from '@/components/Main/companyEdit'
 
+import WithDrawList from '@/components/Withdraw/WithDrawList'
+
 Vue.use(Router)
 Vue.use(iView)
 
@@ -32,6 +34,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/withdrawlist',
+      name: 'WithDrawList',
+      component: WithDrawList
     }
   ]
 })
