@@ -242,7 +242,7 @@ export default {
           this.$Message.error("提现金额过大,请重新修改金额再提现")
           return
         }
-        this.http.post(this.$store.state.prefix + '/withdraw', {withdrawType:2,withdrawAmount:this.withdrawMoney}).then(res => {
+        this.http.post(this.$store.state.prefix + '/withdraw', {withdrawType:2,withdrawAmount:this.withdrawMoney,companyId:this.util.getCookie("companyId")}).then(res => {
           if(res.error === false) {
             this.$Message.info("提现请求已发送")
             this.getCompanyinfo()

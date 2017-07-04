@@ -6,6 +6,8 @@ import 'iview/dist/styles/iview.css'
 import Login from '@/Login.vue'
 import Home from '@/components/Main/Home'
 
+import WithDrawList from '@/components/Withdraw/WithDrawList'
+
 Vue.use(Router)
 Vue.use(iView)
 
@@ -20,6 +22,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/withdrawlist',
+      name: 'WithDrawList',
+      component: WithDrawList
     }
   ]
 })
