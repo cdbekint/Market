@@ -9,6 +9,7 @@ import companyAdd from '@/components/Main/companyAdd'
 import companyEdit from '@/components/Main/companyEdit'
 
 import WithDrawList from '@/components/Withdraw/WithDrawList'
+import WaitAudit from '@/components/Withdraw/WaitAudit'
 
 Vue.use(Router)
 Vue.use(iView)
@@ -39,6 +40,11 @@ export default new Router({
       path: '/withdrawlist',
       name: 'WithDrawList',
       component: WithDrawList
+    },
+    {
+      path: '/waitaudit',
+      name: 'WaitAudit',
+      component: WaitAudit
     }
   ]
 })
