@@ -54,7 +54,7 @@
         <Form-item label="转发积分" class="text-left">
           <span v-text="companyinfo.sharePoints"></span>
           (折算现金:<span v-text="companyinfo.sharePoints*companyinfo.toCashRate/100+'元'"></span>)
-          
+
         </Form-item>
          <Form-item label="转发次数" class="text-left">
           <span v-text="companyinfo.shareMax"></span>
@@ -138,6 +138,7 @@ export default {
             this.companyinfo = res.result
             this.companyinfo.expireDate = this.util.getFormatDate(this.companyinfo.expireDate)
             this.companyinfo.show = this.util.escapeToHtml(this.companyinfo.show)
+
             this.Group = JSON.parse(this.companyinfo.employeeRate.replace(/&quot;/g,'"'));
           }
         }

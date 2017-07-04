@@ -68,7 +68,7 @@
         <Select v-model="areaTwo.id" style="width:32%;" placeholder="请选择所在地" :disabled="!areaOne.id" @on-change="change($event,2)" :label-in-value=true>
           <Option v-for = "area in areasTwo" :value="area.region_id" :key = "area">{{area.region_name}}</Option>
         </Select>
-        <Select v-model="company.areaId" style="width:32%;" placeholder="请选择所在地" :disabled="!areaTwo.id" @on-change="change($event,3)" :label-in-value=true>
+        <Select v-model="areaThree.id" style="width:32%;" placeholder="请选择所在地" :disabled="!areaTwo.id" @on-change="change($event,3)" :label-in-value=true>
           <Option v-for = "area in areasThree" :value="area.region_id" :key = "area">{{area.region_name}}</Option>
         </Select>
     </div>
@@ -247,7 +247,7 @@
 
     </div>
   </li>
- 
+
 
   <li class='companyitem'>
     <div class='itemcontent'>
@@ -278,7 +278,7 @@ export default {
         companyTel: '',
         companyLogo: '',
         smsTel:'',
-        toCashRate: 0,
+        toCashRate: '',
         employeeRate: '',
         sharePoints:'',
         shareMax: '',
@@ -337,21 +337,21 @@ export default {
   methods: {
     change (e, val) {
       if (val === 1) {
-        this.areaOne.name = e.label;
+        this.areaOne.name = e.value;
         this.http.get(this.$store.state.prefix + '/company/getRegionInfo?parentId=' + e.value).then((res) => {
           if (res.error === false) {
             this.areasTwo = res.result;
           }
         });
       } else if (val === 2) {
-        this.areaTwo.name = e.label;
+        this.areaTwo.name = e.value;
         this.http.get(this.$store.state.prefix + '/company/getRegionInfo?parentId=' + e.value).then((res) => {
           if (res.error === false) {
             this.areasThree = res.result;
           }
         });
       } else {
-        this.areaThree.name = e.label;
+        this.areaThree.name = e.value;
       }
     },
     minusGroup (index) {
@@ -367,9 +367,10 @@ export default {
     editCompany () {
       var addr = '';
       if(this.areaThree.name != '' && this.areaThree.name != void 0){
-        addr = this.areaThree.name + '-';
+        addr = this.areaThree.name;
       }
-      this.company.companyAddr = this.areaOne.name + '-' + this.areaTwo.name + '-' + addr + this.company.companyAddr;
+      this.company.companyAddrCode = this.areaOne.name + ',' + this.areaTwo.name + ',' + addr;
+      console.log(this.company.companyAddrCode)
       if(!this._setGroupDiscount())return;
       if (!this._checkParamAndExecute()) return;
     },
@@ -395,7 +396,7 @@ export default {
         this.$Notice.info({title: '请完善信息', desc: '请上传公司logo'})
         return false
       }
-      if (!ai.toCashRate) {
+      if (ai.toCashRate === '') {
         this.$Notice.info({title: '请完善信息', desc: '请填写积分抵现金比例'})
         return false
       }
@@ -483,6 +484,11 @@ export default {
           if (res.result !== null) {
             this.company = res.result
             this.company.show=this.util.escapeToHtml(res.result.show)
+            var areaIds = this.company.companyAddrCode.split(",");
+            this.areaOne.id = areaIds[0];
+            this.areaTwo.id = areaIds[1];
+            this.areaThree.id = areaIds[2];
+            console.log(this.areasOne)
             this.Group = JSON.parse(this.company.employeeRate.replace(/&quot;/g,'"'));
           }
         }
