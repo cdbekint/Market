@@ -3130,11 +3130,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           if (row.employee == 1) return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer"/>';else if (row.member == 1) return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setEmployee(row.accountId)"/>';else return '';
         }
       }, {
+        title: '代理',
+        key: 'employee',
+        render: function render(row) {
+          if (row.employee == 1) {
+            if (row.agent == 0) {
+              return '<img src="/static/images/agentno.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setAgent(row)"/>';
+            } else {
+              return '<img src="/static/images/agentyes.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="cancelAgent(row)"/>';
+            }
+          } else {
+            return '';
+          }
+        }
+      }, {
         title: '操作',
         key: 'action',
         render: function render(row) {
           if (row.employee == 1) {
-            return '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>' + '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>';
+            if (row.agent == 1) {
+              return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>';
+            } else {
+              return '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>' + '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>';
+            }
           } else {
             return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>';
           }
@@ -3317,6 +3335,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this6.customerPoints = 0;
               _this6.addPointmodal = false;
               _this6.search();
+            }
+          });
+        },
+        onCancel: function onCancel() {}
+      });
+    },
+    cancelAgent: function cancelAgent(row) {
+      var _this7 = this;
+
+      this.$Modal.confirm({
+        title: '取消代理',
+        content: '<p>确定取消' + (row.realName || row.nickName) + '的代理权限？</p>',
+        onOk: function onOk() {
+          _this7.http.put(_this7.$store.state.prefix + "/customer/cancelAgent2Employee", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
+            if (res.error == false) {
+              _this7.$Notice.info({ title: "取消成功", desc: (row.realName || row.nickName) + '的代理权限取消成功，将不再享有提成分红' });
+              _this7.search();
+            }
+          });
+        },
+        onCancel: function onCancel() {}
+      });
+    },
+    setAgent: function setAgent(row) {
+      var _this8 = this;
+
+      console.log(row);
+      this.$Modal.confirm({
+        title: '设为代理',
+        content: '<p>确定将' + (row.realName || row.nickName) + '设为公司代理？</p>',
+        onOk: function onOk() {
+          _this8.http.put(_this8.$store.state.prefix + "/customer/updateEmployee2Agent", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
+            if (res.error == false) {
+              _this8.$Notice.info({ title: "设置成功", desc: (row.realName || row.nickName) + '的代理权限设置成功，将享有提成分红' });
             }
           });
         },
@@ -41713,4 +41765,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ],[110]);
-//# sourceMappingURL=app.6442745fdb97d5ff0cac.js.map
+//# sourceMappingURL=app.ab1acc035c2f127ae997.js.map

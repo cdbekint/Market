@@ -122,12 +122,33 @@ export default {
               return ''
           }
         },{
+          title: '代理',
+          key: 'employee',
+          render(row){
+            if(row.employee == 1)
+            {
+              if(row.agent == 0){
+                return '<img src="/static/images/agentno.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setAgent(row)"/>'
+              }else{
+                return '<img src="/static/images/agentyes.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="cancelAgent(row)"/>'
+              }
+              
+            }else{
+            return ''
+            }
+          }
+        },{
           title: '操作',
           key: 'action',
           render(row) {
             if(row.employee == 1) {
+              if(row.agent==1){
+                return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
+              }else{
               return  '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>'+
               '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
+              }
+              
 
             } else {
               return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
@@ -315,10 +336,45 @@ export default {
         onCancel: () => {
         }
       })
+    },
+    cancelAgent(row){
+      this.$Modal.confirm({
+        title:'取消代理',
+        content:'<p>确定取消'+(row.realName||row.nickName)+'的代理权限？</p>',
+        onOk:()=>{
+            this.http.put(this.$store.state.prefix+"/customer/cancelAgent2Employee",{companyId:row.companyId,accountId:row.accountId}).then(res=>{
+              if(res.error==false){
+                this.$Notice.info({title:"取消成功",desc:(row.realName||row.nickName)+'的代理权限取消成功，将不再享有提成分红'})
+                this.search()
+              }
+            })
+        },
+        onCancel:()=>{
+
+        }
+      })
+    },
+    setAgent(row){
+      console.log(row)
+      this.$Modal.confirm({
+        title:'设为代理',
+        content:'<p>确定将'+(row.realName||row.nickName)+'设为公司代理？</p>',
+        onOk:()=>{
+            this.http.put(this.$store.state.prefix+"/customer/updateEmployee2Agent",{companyId:row.companyId,accountId:row.accountId}).then(res=>{
+              if(res.error==false){
+                this.$Notice.info({title:"设置成功",desc:(row.realName||row.nickName)+'的代理权限设置成功，将享有提成分红'})
+              }
+            })
+        },
+        onCancel:()=>{
+
+        }
+      })
     }
   }
 }
 </script>
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
+
 </style>
