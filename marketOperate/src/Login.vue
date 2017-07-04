@@ -68,19 +68,10 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           const param = JSON.parse(JSON.stringify(this.formInline))
-          // this.jsonp(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?'),null,function(err,res){
-          //   if (err) {
-          //     console.error(err.message);
-          //   } else {
-          //     console.log(res);
-          //   }
-          // })
-          this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
-            console.log(res)
+          this.http.post(this.$store.state.prefix + '/account/sysLogin' ,param).then(res => {
             if (res.error === false) {
               if (res.result.access_token) {
                 this.$store.state.token = res.result.access_token
-                this.$store.state.companyId = res.result.user.company.id
               }
               this.util.setCookie('token', res.result.access_token)
               this.util.setCookie('companyId', res.result.user.company.id)
@@ -128,7 +119,6 @@ export default {
     
   },
   mounted (){
-  debugger
     var loginrow=document.documentElement.clientHeight-160
       document.getElementById("loginpanel").style.height=loginrow+"px"
   }

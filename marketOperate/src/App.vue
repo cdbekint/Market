@@ -10,10 +10,22 @@
           <dt>
           <i class="fa fa-th"></i>概览
           </dt>
-          <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>公司管理</router-link>
-          <router-link :to="{path:'/company'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
-          <router-link :to="{path:'/accountinfo'}"  tag="dd" active-class="active" exact>账户信息</router-link>
+          <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>主页</router-link>
         </dl>
+
+        <dl class="menulist">
+          <dt><i class="fa fa-area-chart"></i>公司管理</dt>
+          <router-link :to="{path:'/companylist'}" tag="dd" active-class="active">公司列表</router-link>
+          <router-link :to="{path:'/addcompany'}" tag="dd" active-class="active">新增公司</router-link>
+          <router-link :to="{path:'/companyinfo'}" tag="dd" active-class="active">客户系统</router-link>
+        </dl>
+        <dl class="menulist">
+          <dt>
+          <i class="fa fa-shopping-cart"></i>商家提现
+          </dt>
+          <router-link :to="{path:'/withdrawlist'}"  tag="dd" active-class="active">提现申请</router-link>
+        </dl>
+
       </div>
       <div class="realcontent-wrapper">
         <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
