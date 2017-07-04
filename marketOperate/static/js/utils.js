@@ -124,7 +124,12 @@ export default {
     return currentdate;
   },
   getDate(a, b) {
-    var date = new Date(a);
+    var date;
+    if(a){
+      date=new Date(a)
+    }else{
+        date=new Date()
+    }
     var Y = date.getFullYear();
     var M = date.getMonth() + 1;
     var D = date.getDate();

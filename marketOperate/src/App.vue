@@ -24,6 +24,7 @@
           <i class="fa fa-shopping-cart"></i>商家提现
           </dt>
           <router-link :to="{path:'/withdrawlist'}"  tag="dd" active-class="active">提现申请</router-link>
+          <router-link :to="{path:'/waitaudit'}"  tag="dd" active-class="active">待审提现</router-link>
         </dl>
 
       </div>

@@ -2,22 +2,11 @@
   <div class="withdrawlist">
   	<div class="content-title">
       <div class="titlename" style="width:30%">
-      	<span>提现记录</span>
+      	<span>待审提现</span>
       </div>
-      <div class="titellink" style="width:68%;position:relative">
-
-         <Input v-model="queryinfo.companyName" placeholder="公司名称" style="width:25%" @on-change="getCompanyList" class="companyfilter"></Input>
-         <div class="companydrowplist" v-if="showcompanylist">
-         		<ul>
-         			<li v-for="cl in companyList" @click="setCompany(cl)">
-         				<div class="companylogo">
-         					<img :src="murl+cl.companyLogo" alt="">
-         				</div>
-         				<div class="companyname" v-text="cl.companyName"></div>
-         			</li>
-         			<li v-if="companyList.length==0" style="text-align:center">暂无匹配项</li>
-         		</ul>
-         </div>
+     <!--  <div class="titellink" style="width:68%;position:relative">
+        <Date-picker type="date" placeholder="选择日期" style="width: 20%"></Date-picker>
+        </Col>
       	<Select v-model="queryinfo.withdrawType" slot="prepend" style="width:15%;" placeholder="提现类型">
           <Option value="1">用户提现</Option>
           <Option value="2">商家提现</Option>
@@ -28,7 +17,7 @@
         </Select>
         <Input v-model="queryinfo.nameOrPhone" placeholder="姓名或手机" style="width:20%"></Input>
         <Button type="primary" icon="ios-search" @click = "getWithDrawList">查询</Button>
-      </div>
+      </div> -->
  	</div>
  	<div class="content">
  			<Table highlight-row border :columns="withdrawColumns" :data="withdrawlist"></Table>
@@ -47,14 +36,10 @@ export default {
   name: 'WithDrawList',
   data () {
     return {
-    	companyList:[],
-    	showcompanylist:false,
-    	isGetting:false,
     	queryinfo:{
-    		companyName:'',
-    		companyId:'',
-    		withdrawType:'',
-    		withdrawStatus:'',
+    		withdrawType:'2',
+        dealDate:this.util.getDate(),
+    		withdrawStatus:'2',
     		nameOrPhone:'',
     		current:1,
     		size:12,
@@ -68,23 +53,27 @@ export default {
           align: 'center'
         },
         {
-          title: '发起人',
+          title: '收款人',
           key: 'realName',
           render(row){
           	return row.realName||row.nickName
           }
         },
         {
-          title: '金额',
-          key: 'withdrawAmount'
+          title: '提现公司',
+          key: 'remarks'
         },
         {
-        	title:'积分',
-        	key:'withdrawPoints'
+          title: '金额',
+          key: 'withdrawAmount',
+          render(row){
+            return '<p style="font-size:1.2em;color:red;font-weight:bold" v-text="row.withdrawAmount"></p>'
+          }
         },
         {
           title: '手续',
-          key: 'withdrawFactorage'
+          key: 'withdrawFactorage',
+          width: 70
         },
         {
           title: '申请时间',
@@ -96,27 +85,12 @@ export default {
           sortable: true
         },
         {
-          title: '到账时间',
-          key: 'successDate',
-          sortable: true
-        },
-        {
-          title: '状态',
-          key: 'withdrawStatus',
-          render(row){
-          	if(row.withdrawStatus==1){
-          		return '成功'
-          	}else{
-							return '进行中'
-          	}
-          }
-        },
-        {
           title: '操作',
           key: 'action',
+          width: 70,
           render (row) {
           	if(row.withdrawType==2&&row.withdrawStatus==2){
-          		return '<i-button type="text" size="small" @click="applyWithdraw(row)">确认放款</i-button>'
+          		return '<i-button type="text" size="small" @click="applyWithdraw(row)">放款</i-button>'
           	}else{
           		return ''
           	}
@@ -127,39 +101,17 @@ export default {
     }
   },
   created () {
+    this.getWithDrawList()
   },
   methods:{
-  	getCompanyList(){
-  		this.isGetting=true
-  		if(this.queryinfo.companyName=='')
-  		{
-  			this.showcompanylist=false
-  			return;
-  		}
-  		this.showcompanylist=true
-  		this.http.get(this.$store.state.prefix+"/operate/getCompanyBaseInfo/1?useable=1&companyName="+this.queryinfo.companyName).then(res=>{
-  			if(res.error==false){
-  				this.getcompanyloading=false
-  				this.isGetting=false
-  				this.companyList=res.result.records
-  			}
-  		})
-  	},
   	getWithDrawList(pageno){
   		if(!isNaN(pageno)){
   			this.queryinfo.current=pageno
   		}else{
   			this.queryinfo.current=1
   		}
-  		if(this.isGetting)return;
-  		this.isGetting=true
   		var param=JSON.parse(JSON.stringify(this.queryinfo))
-  		if(!param.companyId){
-  			this.$Message.error("请先选择查询的公司")
-  			return
-  		}
-  		delete param.companyName
-  		this.http.get(this.$store.state.prefix+"/operate/getCompanyWithdrawInfo/"+param.current+"?"+this.util.parseParam(param)).then(res=>{
+  		this.http.get(this.$store.state.prefix+"/operate/getCompanyWithdrawInfo/"+param.current+"?a=1"+this.util.parseParam(param)).then(res=>{
   			this.isGetting=false
   			if(res.error==false){
   				this.queryinfo.current=res.result.current
@@ -174,25 +126,18 @@ export default {
   			}
   		})
   	},
-  	setCompany(company){
-  		console.log(company)
-  		this.queryinfo.companyId=company.id
-  		this.queryinfo.companyName=company.companyName
-  		this.showcompanylist=false
-  		this.getWithDrawList(1)
-  	},
   	applyWithdraw(row){
   		var param={
   			withdrawId:row.id,
-  			companyId:this.queryinfo.companyId
+  			companyId:row.companyId
   		}
   		this.$Modal.confirm({
             title: '确认划款',
-            content: '<p>确认划款：'+Math.abs(row.withdrawAmount)+'元</p>',
+            content: '<p>确认为'+row.companyName+'划款：'+Math.abs(row.withdrawAmount)+'元</p>',
             onOk: () => {
                 this.http.put(this.$store.state.prefix+"/operate/applyCompanyWithdraw",param).then(res=>{
 					  			if(res.error==false){
-					  				this.$Message.success("放款成功")
+                    this.$Message.success("放款成功")
                     this.getWithDrawList()
 					  			}else{
 					  				this.$Message.error(res.msg);
