@@ -2744,7 +2744,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     shareSuccess: function shareSuccess(type) {
       var _this7 = this;
 
-      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/' + this.activityId + "?shareType=" + type).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/' + this.activityId + "?shareType=" + type + '&companyId=' + this.activity.companyId).then(function (res) {
 
         if (type == 1) {
           _this7.$Message.success("分享成功，获得积分增长");
@@ -6700,4 +6700,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[215]);
-//# sourceMappingURL=app.4aa20f8deaa4699d567a.js.map
+//# sourceMappingURL=app.6a5b8f50020596166ac3.js.map

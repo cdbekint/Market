@@ -371,7 +371,7 @@ export default {
       this.$router.push("/home")
     },
     shareSuccess (type) {
-      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/'+ this.activityId +"?shareType="+type).then(res => {
+      this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/'+ this.activityId +"?shareType="+type+'&companyId='+this.activity.companyId).then(res => {
         
         if(type==1){
           this.$Message.success("分享成功，获得积分增长");
