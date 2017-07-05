@@ -138,6 +138,7 @@ export default {
       this.pointAndMoneyArr.forEach(item=>{
         if(item.id == companyId){
           this.pointAndMoney = item;
+          this.pointAndMoney.companyId=companyId
         }
       })
     }

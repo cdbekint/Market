@@ -2121,6 +2121,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.pointAndMoneyArr.forEach(function (item) {
         if (item.id == companyId) {
           _this5.pointAndMoney = item;
+          _this5.pointAndMoney.companyId = companyId;
         }
       });
     }
@@ -2337,7 +2338,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
       this.http.post(this.$store.state.prefix + "/withdraw", {
         withdrawType: 1,
-        withdrawPoints: this.withdrawPoint
+        withdrawPoints: this.withdrawPoint,
+        companyId: this.companyId
       }).then(function (res) {
         if (res.error == false) {
           _this.$Message.success("恭喜你提现成功");
@@ -2354,6 +2356,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   watch: {
     data: {
       handler: function handler(val) {
+        this.companyId = val.companyId;
         this.totalPoint = val.totalPoint;
         this.points = val.points;
         this.usedCash = val.usedCash;
@@ -6697,4 +6700,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[215]);
-//# sourceMappingURL=app.4533fb877547b7faded1.js.map
+//# sourceMappingURL=app.4aa20f8deaa4699d567a.js.map

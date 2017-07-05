@@ -88,7 +88,8 @@ export default {
       }
       this.http.post(this.$store.state.prefix + "/withdraw",{
         withdrawType:1,
-        withdrawPoints:this.withdrawPoint
+        withdrawPoints:this.withdrawPoint,
+        companyId:this.companyId
       }).then(res=> {
         if(res.error == false){
           this.$Message.success("恭喜你提现成功");
@@ -106,6 +107,7 @@ export default {
   watch:{
     data:{
       handler(val){
+        this.companyId=val.companyId
         this.totalPoint = val.totalPoint;
         this.points = val.points;
         this.usedCash = val.usedCash;
