@@ -54,11 +54,7 @@
             align: 'center'
           },
           {
-            title: '名称',
-            key: 'companyName'
-          },
-          {
-            title: 'Logo',
+            title: 'logo',
             key: 'companyLogo',
             render (row) {
               console.log(row)
@@ -66,35 +62,35 @@
             }
           },
           {
-            title: '地址',
-            key: 'companyAddr'
+            title: '名称',
+            key: 'companyName'
           },
           {
             title: '联系方式',
             key: 'smsTel'
           },
           {
-            title: '一级返还积分',
-            key: 'oneReturn'
+            title: '注册金额',
+            key: 'registerMoney'
           },
           {
-            title: '二级返还积分',
-            key: 'secondReturn'
+            title: '账户余额',
+            key: 'balance',
+            render(row){
+              return ~~row.balance
+            }
           },
           {
-            title: '提现金额',
+            title: '商家提现',
             key: 'withdraw'
           },
           {
-            title: '邀请人积分',
-            key: 'invitedPoints'
+            title: '用户提现',
+            key: 'userWithdraw'
           },
           {
-            title: '到账日期',
-            key: 'expireDate',
-            render(row){
-              return "<span>{{new Date(row.expireDate)}}</span>"
-            }
+            title: '过期日期',
+            key: 'expireDate'
           },
           {
             title: '操作',
@@ -144,6 +140,9 @@
         };
         this.http.get(this.$store.state.prefix + '/operate/getCompanyBaseInfo/' + pageNo || 1).then(res => {
           if (res.error === false) {
+            res.result.records.forEach((item)=>{
+              item.expireDate=this.util.getDate(item.expireDate)
+            })
             this.companyData = res.result.records;
             this.pager = res.result
           }

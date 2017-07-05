@@ -535,39 +535,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         width: 60,
         align: 'center'
       }, {
-        title: '名称',
-        key: 'companyName'
-      }, {
-        title: 'Logo',
+        title: 'logo',
         key: 'companyLogo',
         render: function render(row) {
           console.log(row);
           return '<img :src="murl + row.companyLogo" style="width:40px;height:40px;"/>';
         }
       }, {
-        title: '地址',
-        key: 'companyAddr'
+        title: '名称',
+        key: 'companyName'
       }, {
         title: '联系方式',
         key: 'smsTel'
       }, {
-        title: '一级返还积分',
-        key: 'oneReturn'
+        title: '注册金额',
+        key: 'registerMoney'
       }, {
-        title: '二级返还积分',
-        key: 'secondReturn'
+        title: '账户余额',
+        key: 'balance',
+        render: function render(row) {
+          return ~~row.balance;
+        }
       }, {
-        title: '提现金额',
+        title: '商家提现',
         key: 'withdraw'
       }, {
-        title: '邀请人积分',
-        key: 'invitedPoints'
+        title: '用户提现',
+        key: 'userWithdraw'
       }, {
-        title: '到账日期',
-        key: 'expireDate',
-        render: function render(row) {
-          return "<span>{{new Date(row.expireDate)}}</span>";
-        }
+        title: '过期日期',
+        key: 'expireDate'
       }, {
         title: '操作',
         render: function render(row) {
@@ -619,6 +616,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
       this.http.get(this.$store.state.prefix + '/operate/getCompanyBaseInfo/' + pageNo || 1).then(function (res) {
         if (res.error === false) {
+          res.result.records.forEach(function (item) {
+            item.expireDate = _this2.util.getDate(item.expireDate);
+          });
           _this2.companyData = res.result.records;
           _this2.pager = res.result;
         }
@@ -1134,10 +1134,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '总积分',
         key: 'allPoints'
       }, {
-        title: '员工额外积分',
+        title: '代理积分',
         key: 'employeePoints'
       }, {
-        title: '积分',
+        title: '可用积分',
         key: 'points'
       }, {
         title: '会员标示',
@@ -1149,17 +1149,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '员工标识',
         key: 'employee',
         render: function render(row) {
-          if (row.employee == 1) return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer"/>';else if (row.member == 1) return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setEmployee(row.accountId)"/>';else return '';
+          if (row.employee == 1) return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer"/>';else if (row.member == 1) return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer"/>';else return '';
         }
       }, {
-        title: '操作',
-        key: 'action',
+        title: '代理标识',
+        key: 'agent',
         render: function render(row) {
-          if (row.employee == 1) {
-            return '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>' + '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>';
-          } else {
-            return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>';
-          }
+          if (row.agent == 1) return '<img src="/static/images/agentyes.png" style="width:30px;height:30px;display: block;margin:auto;cursor:pointer"/>';else return '<img src="/static/images/agentno.png" style="width:30px;height:30px;display: block;margin:auto;cursor:pointer"/>';
         }
       }],
       pager: {
@@ -2740,4 +2736,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ]),[78]);
-//# sourceMappingURL=app.b43ccf3047a6fe05a5e4.js.map
+//# sourceMappingURL=app.e060c529c51e0ff46d5a.js.map

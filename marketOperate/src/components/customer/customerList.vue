@@ -89,11 +89,11 @@
             key: 'allPoints'
           },
           {
-            title: '员工额外积分',
+            title: '代理积分',
             key: 'employeePoints'
           },
           {
-            title: '积分',
+            title: '可用积分',
             key: 'points'
           },
           {
@@ -113,21 +113,19 @@
               if(row.employee == 1)
                 return '<img src="/static/images/huang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer"/>'
               else if(row.member == 1)
-                return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer" @click="setEmployee(row.accountId)"/>'
+                return '<img src="/static/images/nohuang.png" style="width:40px;height:40px;display: block;margin:auto;cursor:pointer"/>'
               else
                 return ''
             }
-          },{
-            title: '操作',
-            key: 'action',
-            render(row) {
-              if(row.employee == 1) {
-                return  '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>'+
-                  '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
-
-              } else {
-                return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
-              }
+          },
+          {
+            title: '代理标识',
+            key: 'agent',
+            render(row){
+              if(row.agent == 1)
+                return '<img src="/static/images/agentyes.png" style="width:30px;height:30px;display: block;margin:auto;cursor:pointer"/>'
+              else
+                return '<img src="/static/images/agentno.png" style="width:30px;height:30px;display: block;margin:auto;cursor:pointer"/>'
             }
           }
 
