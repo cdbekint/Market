@@ -35,6 +35,7 @@ import ActivityTeamUser from '@/components/Activity/ActivityTeamUser'
 import Trading from '@/components/Info/Trading'
 import Withdraw from '@/components/Info/Withdraw'
 import Customer from '@/components/Info/Customer'
+import Resources from '@/components/Info/Resources'
 import AloneMember from '@/components/Info/AloneMember'
 import Point from '@/components/Info/Point'
 
@@ -233,6 +234,13 @@ export default new Router({
       path: '/customer',
       name: 'Customer',
       component: Customer,
+      meta: {
+        requireAuth: true
+      }
+    },{
+      path: '/resource',
+      name: 'Resources',
+      component: Resources,
       meta: {
         requireAuth: true
       }

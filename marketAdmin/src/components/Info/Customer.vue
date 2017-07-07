@@ -142,13 +142,15 @@ export default {
           key: 'action',
           render(row) {
             if(row.employee == 1) {
+              var action=""
               if(row.agent==1){
-                return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
+                action = '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
               }else{
-              return  '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>'+
+                action = '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>'+
               '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
               }
-              
+              action+='<i-button type="text" size="small" @click="goToResource(row)">客资</i-button>'
+              return action
 
             } else {
               return '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
@@ -370,6 +372,9 @@ export default {
 
         }
       })
+    },
+    goToResource(row){
+      this.$router.push({path:'/resource',query:{id:row.accountId,name:row.realName||row.nickName}})
     }
   }
 }

@@ -140,6 +140,76 @@
   			
   		</Col>
   	</Row>
+    <Row>
+      <Col span="6" class="infoitem">
+      <div class="realinfo green">
+        <div class="contenttitle">
+          <div class="symbol">
+            <Icon type="ios-personadd-outline"></Icon>
+          </div>
+          <div class="title">
+            <span>会员积分</span>
+          </div>
+        </div>
+        
+        <div class="contentval" v-text="baseinfo.allWithdrawPoints">
+          
+        </div>
+      </div>
+        
+      </Col>
+      <Col span="6" class="infoitem">
+      <div class="realinfo green">
+        <div class="contenttitle">
+          <div class="symbol">
+            <Icon type="ios-personadd-outline"></Icon>
+          </div>
+          <div class="title">
+            <span>会员准备金</span>
+          </div>
+        </div>
+        
+        <div class="contentval" v-text="~~(baseinfo.allWithdrawPoints*baseinfo.toCashRate/100)">
+          
+        </div>
+      </div>
+        
+      </Col>
+      <Col span="6" class="infoitem">
+      <div class="realinfo green">
+        <div class="contenttitle">
+          <div class="symbol">
+            <Icon type="ios-personadd-outline"></Icon>
+          </div>
+          <div class="title">
+            <span>客户积分</span>
+          </div>
+        </div>
+        
+        <div class="contentval" v-text="baseinfo.allPoints">
+          
+        </div>
+      </div>
+        
+      </Col>
+       <Col span="6" class="infoitem">
+      <div class="realinfo green">
+        <div class="contenttitle">
+          <div class="symbol">
+            <Icon type="ios-personadd-outline"></Icon>
+          </div>
+          <div class="title">
+            <span>客户准备金</span>
+          </div>
+        </div>
+        
+        <div class="contentval" v-text="~~(baseinfo.allPoints*baseinfo.toCashRate/100)">
+          
+        </div>
+      </div>
+        
+      </Col>
+    </Row>
   </div>
 
 </template>

@@ -23,9 +23,6 @@
         <div class="input_num">
           <input type="text" v-model="phone" placeholder="   *请输入您的手机号码（必填）" >
         </div>
-        <div class="input_email">
-          <input type="text" v-model="email" placeholder="   请输入您的邮箱号码" >
-        </div>
         <div class="body_check">
           <img :src="'/static/images/active/'+checkState+'.png'" v-if="isCheck">
           <span>{{msg}}</span>
@@ -182,16 +179,6 @@
           this.msg = "您输入的手机号码格式错误";
           return false;
         }
-
-        if(this.email != void 0 && this.email != "") {
-          var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-          if (!myreg.test(this.email)) {
-            this.isCheck = true;
-            this.checkState = "err";
-            this.msg = "您输入的邮箱号码格式错误";
-            return false;
-          }
-        }
         this.isCheck = true;
         this.checkState="right"
         this.msg = "验证成功"
@@ -243,10 +230,10 @@
       opacity 0.5
     .main_body
       width rrem(1000px)
-      height rrem(1000px)
+      height rrem(700px)
       z-index 1510
       position fixed
-      top rrem(350px)
+      top rrem(380px)
       left rrem(40px)
       background #fff
       .body_join
@@ -263,7 +250,7 @@
         top rrem(120px)
         left rrem(40px)
         width rrem(920px)
-        height rrem(680px)
+        height rrem(500px)
         input
           border 1px solid #aeaeae
           margin-bottom rrem(40px)

@@ -3134,16 +3134,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.msg = "您输入的手机号码格式错误";
         return false;
       }
-
-      if (this.email != void 0 && this.email != "") {
-        var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-        if (!myreg.test(this.email)) {
-          this.isCheck = true;
-          this.checkState = "err";
-          this.msg = "您输入的邮箱号码格式错误";
-          return false;
-        }
-      }
       this.isCheck = true;
       this.checkState = "right";
       this.msg = "验证成功";
@@ -5949,28 +5939,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "input_email"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.email),
-      expression: "email"
-    }],
-    attrs: {
-      "type": "text",
-      "placeholder": "   请输入您的邮箱号码"
-    },
-    domProps: {
-      "value": (_vm.email)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.email = $event.target.value
-      }
-    }
-  })]), _vm._v(" "), _c('div', {
     staticClass: "body_check"
   }, [(_vm.isCheck) ? _c('img', {
     attrs: {
@@ -6704,4 +6672,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[215]);
-//# sourceMappingURL=app.88a0ccbbb9b2ca228ac8.js.map
+//# sourceMappingURL=app.03847457bfb2ecf9f9c0.js.map
