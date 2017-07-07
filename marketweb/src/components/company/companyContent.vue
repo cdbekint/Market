@@ -214,6 +214,8 @@ export default {
       debugger
       //自助付款
       console.log("自助支付开始了")
+      if(this.customerpaying)return;
+      this.customerpaying=true
       this.http.post(this.$store.state.prefix + '/pay', param).then((res) => {
         if (res.error === false) {
           var row = res.result;
@@ -229,6 +231,7 @@ export default {
                   'paySign': row.sign
                 },
                 function (res) {
+                  _this.customerpaying=false
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
                     _this.$Message.success("自助付款成功");
                     _this.payMoney=0;
@@ -269,7 +272,6 @@ export default {
       if(this.isloading)return
       this.isloading = true
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
-        this.isloading = false
         if (res.error === false) {
           var row = res.result;
           if (this.currentGoods.goodsType === 2) {
@@ -288,6 +290,7 @@ export default {
                   'paySign': row.sign
                 },
                 function (res) {
+                this.isloading = false
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
                     _this.payState = true
                     _this.$Message.success("购买成功");
@@ -651,7 +654,8 @@ export default {
           off:'#434343'
         }
       ],
-      isloading:false
+      isloading:false,
+      customerpaying:false
     }
   }
 }

@@ -110,7 +110,6 @@
           return;
         this.isPaying = true;
         this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId, this.params).then((res) => {
-          this.isPaying = false;
           if (res.error === false) {
             var row = res.result;
             var onBridgeReady = () => {
@@ -125,6 +124,7 @@
                   'paySign': row.sign
                 },
                 function (res) {
+                  me.isPaying = false;
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
                     me.$Message.success("支付成功，您已成为会员。")
                     me.payState = true;

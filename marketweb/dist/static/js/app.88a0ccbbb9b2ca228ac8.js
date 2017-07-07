@@ -1426,6 +1426,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       debugger;
 
       console.log("自助支付开始了");
+      if (this.customerpaying) return;
+      this.customerpaying = true;
       this.http.post(this.$store.state.prefix + '/pay', param).then(function (res) {
         if (res.error === false) {
           var row = res.result;
@@ -1439,6 +1441,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               'signType': row.sign_type,
               'paySign': row.sign
             }, function (res) {
+              _this.customerpaying = false;
               if (res.err_msg === 'get_brand_wcpay_request:ok') {
                 _this.$Message.success("自助付款成功");
                 _this.payMoney = 0;
@@ -1477,7 +1480,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.isloading) return;
       this.isloading = true;
       this.http.post(this.$store.state.prefix + '/pay', this.params).then(function (res) {
-        _this3.isloading = false;
         if (res.error === false) {
           var row = res.result;
           if (_this3.currentGoods.goodsType === 2) {
@@ -1494,6 +1496,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'signType': row.sign_type,
                 'paySign': row.sign
               }, function (res) {
+                this.isloading = false;
                 if (res.err_msg === 'get_brand_wcpay_request:ok') {
                   _this.payState = true;
                   _this.$Message.success("购买成功");
@@ -1821,7 +1824,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         on: '#ff017e',
         off: '#434343'
       }],
-      isloading: false
+      isloading: false,
+      customerpaying: false
     };
   }
 });
@@ -3064,7 +3068,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.isPaying === true) return;
       this.isPaying = true;
       this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then(function (res) {
-        _this3.isPaying = false;
         if (res.error === false) {
           var row = res.result;
           var onBridgeReady = function onBridgeReady() {
@@ -3077,6 +3080,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               'signType': row.sign_type,
               'paySign': row.sign
             }, function (res) {
+              me.isPaying = false;
               if (res.err_msg === 'get_brand_wcpay_request:ok') {
                 me.$Message.success("支付成功，您已成为会员。");
                 me.payState = true;
@@ -6700,4 +6704,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[215]);
-//# sourceMappingURL=app.6a5b8f50020596166ac3.js.map
+//# sourceMappingURL=app.88a0ccbbb9b2ca228ac8.js.map

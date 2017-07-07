@@ -11,7 +11,7 @@
         <span>{{activity.viewNum}}</span>
       </div>
     </div>
-    <div class="main_rule">
+    <div class="main_rule" @click="showrule">
       <div class="return_bg"></div>
       <span>活动规则</span>
     </div>
@@ -26,6 +26,11 @@ export default {
   data () {
     return {
     }
+  },
+  methods:{
+      showrule(){
+        this.$emit('showRule')
+      }
   }
 }
 </script>

@@ -2,7 +2,8 @@
   <div class='activityMain2'>
     <music :url = 'music'></music>
     <companyHead :companyId="activity.companyId"></companyHead>
-    <mainImg :activity = "activity" ></mainImg>
+    <mainImg :activity = "activity" @showRule="showRuleNote"></mainImg>
+    <activityrule :activity = "activity"></activityrule>
     <timeAndPro :activity = "activity" ></timeAndPro>
     <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect"></goodsList>
     <joinPeople :activity = "activity" ></joinPeople>
@@ -47,6 +48,7 @@ import Money from './Moeny.vue'
 import Discount from './Discount.vue'
 import joinPeople from './joinPeople.vue'
 import goodsList from './goodsList.vue'
+import activityrule from './activityRule.vue'
 
 export default {
   name: 'Active',
@@ -113,7 +115,8 @@ export default {
         startDate: '',
         viewNum: 0,
         infos:[],
-        inviterId:''
+        inviterId:'',
+        showrule:false
       },
       music: '',
       weixinConfig: {},
@@ -121,7 +124,7 @@ export default {
       hasGroup:false
     }
   },
-  components: {mainImg, timeAndPro, Discount,companyHead, Gift, Group, Money, joinPeople,goodsList,register, music},
+  components: {mainImg, timeAndPro, Discount,companyHead, Gift, Group, Money, joinPeople,goodsList,register, music,activityrule},
   created () {
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
@@ -434,6 +437,11 @@ export default {
               this.$Message.error(res.msg)
             }
         })
+      },
+      showRuleNote(){
+        var activity=JSON.parse(JSON.stringify(this.activity))
+        activity.showrule=true
+        this.activity=activity
       }
   }
 }
