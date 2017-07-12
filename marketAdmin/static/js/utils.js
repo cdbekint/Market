@@ -148,7 +148,9 @@ export default {
       return M;
     } else if(b == 6) {
       return D
-    } else {
+    } else if(b==7){
+      return Y+'-'+M+'-01'
+    }else{
       return Y + "-" + M + "-" + D;
     }
 

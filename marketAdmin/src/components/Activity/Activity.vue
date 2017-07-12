@@ -100,7 +100,7 @@ export default {
             return '<i-button type="text" size="small" @click = "update(row.id)">修改</i-button>' +
               '<i-button type="text" size="small" @click="setdel(row.id)">删除</i-button>'+
               '<i-button type="text" size="small" @click="showteam(row.id)">团队</i-button>'+
-              '<i-button type="text" size="small">交易</i-button>'
+              '<i-button type="text" size="small" @click="showtrade(row.id)">交易</i-button>'
           }
         }
       ],
@@ -154,6 +154,9 @@ export default {
     showteam(id) {
       this.router.push({path: '/activity/team', query: {id: id}})
     },
+    showtrade(id){
+       this.router.push({path: '/activity/trade', query: {id: id}})
+    },
     del () {
       if (!this.willdelid) {
         return
@@ -184,6 +187,7 @@ export default {
     height 200px
     background red
     position absolute
+    z-index:1111
     top 0px
     left 0px
 .activitylisttable

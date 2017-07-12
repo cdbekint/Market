@@ -31,9 +31,11 @@ import ActivityAdd from '@/components/Activity/ActivityAdd'
 import ActivityEdit from '@/components/Activity/ActivityEdit'
 import ActivityTeam from '@/components/Activity/ActivityTeam'
 import ActivityTeamUser from '@/components/Activity/ActivityTeamUser'
+import ActivityTrade  from '@/components/Activity/ActivityTrade'
 
 import Trading from '@/components/Info/Trading'
 import Withdraw from '@/components/Info/Withdraw'
+import LargeWithdraw from '@/components/Info/LargeWithdraw'
 import Customer from '@/components/Info/Customer'
 import Resources from '@/components/Info/Resources'
 import AloneMember from '@/components/Info/AloneMember'
@@ -213,6 +215,13 @@ export default new Router({
       meta: {
         requireAuth: true
       }
+    },{
+      path: '/activity/trade',
+      name: 'ActivityTrade',
+      component: ActivityTrade,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/trading',
@@ -226,6 +235,14 @@ export default new Router({
       path: '/withdraw',
       name: 'Withdraw',
       component: Withdraw,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/largewithdraw',
+      name: 'LargeWithdraw',
+      component: LargeWithdraw,
       meta: {
         requireAuth: true
       }

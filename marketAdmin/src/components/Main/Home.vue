@@ -25,6 +25,9 @@
         <Form-item label="联系电话" class="text-left">
           <span v-text="companyinfo.companyTel"></span>
         </Form-item>
+        <Form-item label="短信开关" class="text-left">
+          <span v-text="companyinfo.openSms==1?'开通':'关闭'"></span>
+        </Form-item>
       <Form-item label="短信接收号码" class="text-left">
         <span v-text="companyinfo.smsTel"></span>
       </Form-item>
@@ -34,6 +37,9 @@
       <Form-item label="账户余额" class="text-left">
         <span v-text="companyinfo.balance+'元'"></span>
       </Form-item>
+      <Form-item label="用户提现限额" class="text-left">
+          <span v-text="companyinfo.withdrawLimit+'元'"></span>
+        </Form-item>
         <Form-item label="积分抵扣现金" class="text-left">
           <span v-text="companyinfo.toCashRate+'%'"></span>
         </Form-item>

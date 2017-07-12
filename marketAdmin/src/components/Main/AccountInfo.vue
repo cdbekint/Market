@@ -10,7 +10,7 @@
  	</div>
  	<div class="content">
     <Row>
-      <Col span="12" class="account-wrapper">
+      <Col span="10" class="account-wrapper">
         <div class="infoitems">
           <div class="infotitle">
             公司名称
@@ -67,7 +67,7 @@
            <Table border :columns="employeeColumn" :data="employeeData" class="employeetable"></Table>
         </div> -->
       </Col>
-      <Col span="12" class="withdrawlist">
+      <Col span="14" class="withdrawlist">
         当前申请提现
         <Table highlight-row border :columns="withdrawColumns" :data="withdrawlist"></Table>
       <div style="margin: 10px;overflow: hidden">
@@ -98,7 +98,7 @@
           </Row>
           <Row>
            <Col span="8" offset="8" style="font-size:1.5em">
-              <Input-number :max="2000" :min="1" v-model="withdrawMoney" style="width:100%" placeholder="输入提现金额" ></Input-number>
+              <Input-number :max="20000" :min="1" v-model="withdrawMoney" style="width:100%" placeholder="输入提现金额" ></Input-number>
           </Col>
           <Col span="4">
                <Button type="success" @click="withDraw()">立即提现</Button>
@@ -180,7 +180,6 @@ export default {
         companyId:this.util.getCookie("companyId"),
         withdrawType:'2',
         withdrawStatus:'2',
-        dealDate:this.util.getDate(),
         current:1,
         size:12,
         total:1
@@ -218,6 +217,16 @@ export default {
           title: '预结算',
           key: 'dealDate',
           sortable: true
+        },{
+        title:'状态',
+        key:'withdrawStatus',
+        render(row){
+          if(row.withdrawStatus==1){ 
+            return "完成"
+          }else {
+            return '申请中'
+          }
+        }
         }
       ],
       withdrawlist:[]

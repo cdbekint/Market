@@ -5,7 +5,8 @@
       	<span>用户提现</span>
       </div>
       <div class="titellink">
-
+         <Input v-model="querytext" placeholder="请输入关键字"  style="width:35%"></Input>
+        <Button type="primary" icon="ios-search" @click = "getwithdrawList(1)" >查询</Button>
       </div>
  	</div>
  	<div class="content">
@@ -35,8 +36,8 @@ export default {
           title: '用户名',
           key: 'realName',
           render(row){
-            if(row.realName == '')
-              return "<span>{{row.nickName}}</span>"
+            if(row.realName == ''
+)              return "<span>{{row.nickName}}</span>"
             else
               return "<span>{{row.realName}}</span>"
           }
@@ -89,7 +90,8 @@ export default {
         pages: 1,
         current:1,
         size:12
-      }
+      },
+      querytext:''
     }
   },
   created () {
@@ -97,7 +99,7 @@ export default {
   },
   methods: {
     getwithdrawList (pageNo) {
-      this.http.get(this.$store.state.prefix + '/withdraw/page/' + pageNo || 1).then(res => {
+      this.http.get(this.$store.state.prefix + '/withdraw/page/' + (pageNo || 1)+"?nameOrPhone="+this.querytext).then(res => {
         if (res.error === false) {
           this.pager = res.result
           this.listData = res.result.records

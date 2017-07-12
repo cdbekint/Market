@@ -38,6 +38,7 @@
         <dl class="menulist">
           <dt><i class="fa fa-money"></i>交易提现</dt>
           <router-link :to="{path:'/withdraw'}" tag="dd" active-class="active">用户提现</router-link>
+          <router-link :to="{path:'/largewithdraw'}" tag="dd" active-class="active">大额提现</router-link>
         </dl>
         <dl class="menulist">
           <dt><i class="fa fa-user"></i>客户管理</dt>

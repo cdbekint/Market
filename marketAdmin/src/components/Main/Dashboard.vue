@@ -210,11 +210,16 @@
         
       </Col>
     </Row>
+    <Row>
+      <div id="echartzone" class="echartwrapper" style="height:400px;width:100%">
+      </div>
+    </Row>
   </div>
 
 </template>
 
 <script type="text/ecmascript-6">
+
 export default {
   name: 'Dashboard',
   data () {
@@ -227,11 +232,21 @@ export default {
 				newCustomerNum:0,
 				newMemNum:0,
 				withDrawAmount:0
-    	}
+    	},
+      echarts:{},
+      myChart:{}
     }
   },
   created () {
   	this.getBaseInfo()
+    this.getPayTend()
+    
+  },
+  mounted(){
+  this.echarts = require('echarts');
+  this.myChart = this.echarts.init(document.getElementById('echartzone'));
+    console.log(this.echarts)
+    console.log(this.myChart)
   },
   methods:{
   	getBaseInfo(){
@@ -240,7 +255,80 @@ export default {
   				this.baseinfo=res.result
   			}
   		})
-  	}
+  	},
+    getPayTend(){
+      var param={
+        companyId:this.util.getCookie("companyId"),
+        startDate:this.util.getFormatDate(this.util.getDate(new Date())),
+        endDate:this.util.getFormatDate(),
+        // startDate:'2017-07-03 00:00:00',
+        // endDate:'2017-07-04 00:00:00',
+        payStatus:1,
+        queryType:1//1为小时，2为每天
+      }
+      this.http.get(this.$store.state.prefix+'/pay/getPayTend?a=1'+this.util.parseParam(param)).then(res=>{
+        if(res.error==false){
+          if(res.result.length==0){return}
+          var xData=[],yData=[]
+          for(var i in res.result){
+            xData.push(res.result[i].hour+'点')
+            yData.push(res.result[i].allAmount)
+          }
+          var option = {
+              title: {
+                  text: '今日收益走势图',
+                  subtext: '总收入'
+              },
+              tooltip: {
+                  trigger: 'axis'
+              },
+              toolbox: {
+                  show: true,
+                  feature: {
+                      dataView: {readOnly: false},
+                      magicType: {type: ['line', 'bar']},
+                      saveAsImage: {}
+                  }
+              },
+              xAxis:  {
+                  type: 'category',
+                  boundaryGap: false,
+                  data: xData,
+                  axisLabel: {
+                      formatter: '{value}'
+                  }
+              },
+              yAxis: {
+                  type: 'value',
+                  axisLabel: {
+                      formatter: '{value}元'
+                  }
+              },
+              series: [
+                  {
+                      name:'收益金额',
+                      type:'line',
+                      data:yData,
+                      markPoint: {
+                          data: [
+                              {type: 'max', name: '最大值'},
+                              {type: 'min', name: '最小值'}
+                          ]
+                      },
+                      markLine: {
+                          data: [
+                              {type: 'average', name: '平均值'}
+                          ]
+                      }
+                  }
+              ]
+          }
+          this.myChart.setOption(option)
+
+        }
+      })
+      console.log(param)
+    }
   }
 }
 </script>
@@ -273,8 +361,8 @@ export default {
 				line-height:80px
 				font-size:1.8em
 				font-weight: bolder
-
-
+.echartwrapper
+  height:200px
 .red
 	background:#EB8265
 .orange

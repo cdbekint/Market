@@ -100,6 +100,20 @@
   </li>
   <li class='companyitem'>
     <div class='itemname'>
+      短信通知
+    </div>
+    <div class='itemcontent'>
+      <Radio-group v-model="company.openSms">
+        <Radio label="1"><span>开通</span></Radio>
+        <Radio label="0"><span>关闭</span></Radio>
+    </Radio-group>
+    </div>
+    <div class='itemhepler'>
+      用户交易注册等将会有短信提醒到用户。
+    </div>
+  </li>
+  <li class='companyitem'>
+    <div class='itemname'>
       短信接收号码
     </div>
     <div class='itemcontent'>
@@ -120,6 +134,18 @@
     </div>
     <div class='itemhepler'>
       积分对应的兑换成现金的比例。
+    </div>
+  </li>
+  <li class='companyitem'>
+    <div class='itemname'>
+      用户提现限额
+    </div>
+    <div class='itemcontent'>
+      <Input type='number' min="0" v-model='company.withdrawLimit'>
+      </Input>
+    </div>
+    <div class='itemhepler'>
+      用户提现超出此金额需要验证授权划款。
     </div>
   </li>
   <li class='companyitem'>
@@ -277,6 +303,7 @@ export default {
         companyAddr:'',
         companyTel: '',
         companyLogo: '',
+        openSms:0,
         smsTel:'',
         toCashRate: 0,
         employeeRate: 0,
