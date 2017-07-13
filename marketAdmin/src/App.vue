@@ -18,7 +18,8 @@
           <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>主页</router-link>
           <router-link :to="{path:'/company'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
           <router-link :to="{path:'/accountinfo'}"  tag="dd" active-class="active" exact>账户信息</router-link>
-          <router-link :to="{path:'/authentic'}"  tag="dd" active-class="active" exact v-if="$store.state.authentic==2">企业认证</router-link>
+          <router-link :to="{path:'/authentic'}"  tag="dd" active-class="active" exact>企业认证</router-link>
+          <router-link :to="{path:'/union'}"  tag="dd" active-class="active" exact>商家联盟</router-link>
           
         </dl>
          
@@ -35,6 +36,11 @@
           <router-link :to="{path:'/goods'}"  tag="dd" active-class="active">商品管理</router-link>
           <router-link :to="{path:'/orders'}" tag="dd" active-class="active">订单管理</router-link>
 
+        </dl>
+        <dl class="menulist">
+          <dt><i class="fa fa-money"></i>财务管理</dt>
+          <router-link :to="{path:'/balancerecord'}" tag="dd" active-class="active">资金流水</router-link>
+          <router-link :to="{path:'/revenue'}" tag="dd" active-class="active">营收数据</router-link>
         </dl>
         <dl class="menulist">
           <dt><i class="fa fa-money"></i>交易提现</dt>

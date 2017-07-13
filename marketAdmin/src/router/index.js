@@ -11,6 +11,8 @@ import Company from '@/components/Info/Company'
 import Authentic from '@/components/Main/Authentic'
 import AccountInfo from '@/components/Main/AccountInfo'
 
+import BalanceRecord from '@/components/Balance/BalanceRecord'
+
 import Employee from '@/components/Employee/Employee'
 import EmployeeAdd from '@/components/Employee/EmployeeAdd'
 
@@ -298,6 +300,13 @@ export default new Router({
       path:'/',
       name:'Dashboard',
       component:Dashboard,
+      meta:{
+        requireAuth: true
+      }
+    },{
+      path:'/balancerecord',
+      name:'BalanceRecord',
+      component:BalanceRecord,
       meta:{
         requireAuth: true
       }

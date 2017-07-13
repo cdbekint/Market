@@ -16,7 +16,10 @@
             公司名称
           </div>
           <div class="infocontent">
+          <div class="iccontent">
             <span v-text="companyinfo.companyName"></span>
+          </div>
+            
           </div>
         </div>
         <div class="infoitems">
@@ -24,7 +27,11 @@
             账户有效期
           </div>
           <div class="infocontent">
-            <span v-text="companyinfo.expireDate + '(' + companyinfo.days +'天)'"></span>
+          <div class="iccontent" v-text="companyinfo.expireDate + '(' + companyinfo.days +'天)'">
+          </div>
+          <div class="icaction">
+            
+          </div>
           </div>
         </div>
         <div class="infoitems">
@@ -351,6 +358,13 @@ export default {
   .infocontent
     text-align:left
     flex:1
+    display:flex
+    .iccontent
+      flex:2
+      text-align:left
+    .icaction
+      flex:1
+      text-align:center
 .withdrawuser
   width:60px
   height:60px

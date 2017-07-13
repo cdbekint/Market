@@ -14,10 +14,16 @@
               <Form-item label="企业名称" class="text-left">
                 <span v-text="authenticInfo.companyName"></span>
               </Form-item>
+              <Form-item label="统一信用代码" class="text-left">
+                <span v-text="authenticInfo.creditCode"></span>
+              </Form-item>
               <Form-item label="联系人" class="text-left">
                 <span v-text="authenticInfo.linkman"></span>
               </Form-item>
-              <Form-item label="邮箱" class="text-left">
+              <Form-item label="联系电话" class="text-left">
+                <span v-text="authenticInfo.phone"></span>
+              </Form-item>
+              <Form-item label="电子邮箱" class="text-left">
                 <span v-text="authenticInfo.email"></span>
               </Form-item>
               <Form-item label="认证材料" class="text-left">
@@ -29,8 +35,11 @@
           </Form> 
           </Col>
           <Col span="12">
-            <h4>申请企业认证</h4>
+            
             <Form :model="inputauthentic" :label-width="100">
+              <Form-item>
+                <h2>申请企业认证</h2>
+              </Form-item>
               <Form-item label="企业名称">
                 <Input v-model="inputauthentic.companyName" placeholder="工商营业执照企业名称"></Input>
              </Form-item>
@@ -48,8 +57,9 @@
              </Form-item>
             <Form-item label="认证材料">
               <uploader :config="uploaderconfig"> </uploader>
+              <span style="color:red">工商营业执照副本（组织机构代码，税务登记证）</span>
             </Form-item>
-             <Form-item label="认证描述">
+             <Form-item label="认证补充">
                 <Input v-model="inputauthentic.authenticDesc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
              </Form-item>
               <Form-item label="">
