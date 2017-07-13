@@ -21,7 +21,9 @@ const store = new Vuex.Store({
   state: {
     token: util.getCookie('token') || '',
     companyId: util.getCookie('companyId') || '',
+    companyName:util.getCookie('companyName') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
+    authentic:util.getCookie('authentic')||'',
     prefix: '/api'
     // prefix: 'http://market.cdbeki.com'
   },

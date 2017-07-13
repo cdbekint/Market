@@ -8,6 +8,7 @@ import Header from '@/components/Main/Header'
 import Dashboard from '@/components/Main/Dashboard'
 import Home from '@/components/Main/Home'
 import Company from '@/components/Info/Company'
+import Authentic from '@/components/Main/Authentic'
 import AccountInfo from '@/components/Main/AccountInfo'
 
 import Employee from '@/components/Employee/Employee'
@@ -63,6 +64,14 @@ export default new Router({
       path: '/company/edit',
       name: 'Company',
       component: Company,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
+      path: '/authentic',
+      name: 'Authentic',
+      component: Authentic,
       meta: {
         requireAuth: true
       }

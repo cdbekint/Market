@@ -68,23 +68,19 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           const param = JSON.parse(JSON.stringify(this.formInline))
-          // this.jsonp(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?'),null,function(err,res){
-          //   if (err) {
-          //     console.error(err.message);
-          //   } else {
-          //     console.log(res);
-          //   }
-          // })
           this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
             console.log(res)
             if (res.error === false) {
               if (res.result.access_token) {
                 this.$store.state.token = res.result.access_token
                 this.$store.state.companyId = res.result.user.company.id
+                this.$store.state.authentic = res.result.user.company.authentic
+                this.$store.state.companName = res.result.user.company.companyName
               }
               this.util.setCookie('token', res.result.access_token)
               this.util.setCookie('companyId', res.result.user.company.id)
-              console.log(this.$router.query.redirect)
+              this.util.setCookie('companyName',res.result.user.company.companyName)
+              this.util.setCookie('authentic',res.result.user.company.authentic)
               if (this.$router.query.redirect !== undefined) {
                 if (this.$router.query.redirect.indexOf('/login') > -1) {
                   this.$router.push('/')
@@ -128,7 +124,6 @@ export default {
     
   },
   mounted (){
-  debugger
     var loginrow=document.documentElement.clientHeight-160
       document.getElementById("loginpanel").style.height=loginrow+"px"
   }

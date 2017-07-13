@@ -18,6 +18,7 @@
           <router-link :to="{path:'/'}"  tag="dd" active-class="active" exact>主页</router-link>
           <router-link :to="{path:'/company'}"  tag="dd" active-class="active" exact>公司基本信息</router-link>
           <router-link :to="{path:'/accountinfo'}"  tag="dd" active-class="active" exact>账户信息</router-link>
+          <router-link :to="{path:'/authentic'}"  tag="dd" active-class="active" exact v-if="$store.state.authentic==2">企业认证</router-link>
           
         </dl>
          
