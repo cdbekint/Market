@@ -10,6 +10,7 @@ import Home from '@/components/Main/Home'
 import Company from '@/components/Info/Company'
 import Authentic from '@/components/Main/Authentic'
 import AccountInfo from '@/components/Main/AccountInfo'
+import Union from '@/components/Main/Union'
 
 import BalanceRecord from '@/components/Balance/BalanceRecord'
 import Revenue from '@/components/Balance/Revenue'
@@ -315,6 +316,13 @@ export default new Router({
       path:'/revenue',
       name:'Revenue',
       component:Revenue,
+      meta:{
+        requireAuth: true
+      }
+    },{
+      path:'/union',
+      name:'Union',
+      component:Union,
       meta:{
         requireAuth: true
       }

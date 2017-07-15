@@ -25,8 +25,9 @@
         <Form-item label="联系电话" class="text-left">
           <span v-text="companyinfo.companyTel"></span>
         </Form-item>
-        <Form-item label="短信开关" class="text-left">
+        <Form-item label="短信通知" class="text-left">
           <span v-text="companyinfo.openSms==1?'开通':'关闭'"></span>
+          (包含:商品成交给客户通知，注册会员成功等)
         </Form-item>
       <Form-item label="短信接收号码" class="text-left">
         <span v-text="companyinfo.smsTel"></span>
