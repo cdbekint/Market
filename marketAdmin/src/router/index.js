@@ -4,7 +4,7 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 
 import Login from '@/Login.vue'
-import Header from '@/components/Main/Header'
+import Header from '@/components/Main/newHeader'
 import Dashboard from '@/components/Main/Dashboard'
 import Home from '@/components/Main/Home'
 import Company from '@/components/Info/Company'
