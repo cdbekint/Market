@@ -245,8 +245,6 @@ export default {
   mounted(){
   this.echarts = require('echarts');
   this.myChart = this.echarts.init(document.getElementById('echartzone'));
-    console.log(this.echarts)
-    console.log(this.myChart)
   },
   methods:{
   	getBaseInfo(){

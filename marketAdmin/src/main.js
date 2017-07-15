@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.prototype.http = axios
 Vue.prototype.router = router
-Vue.prototype.util = utilc
+Vue.prototype.util = util
 Vue.prototype.murl = 'https://m.market.cdbeki.com/'
 Vue.prototype.apiurl = 'http://market.cdbeki.com/'
 /* eslint-disable no-new */
