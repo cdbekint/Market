@@ -221,8 +221,8 @@ export default {
         payStatus:this.queryinfo.queryStatus,
         pageSize:10000
       }
-      if((new Date(param.endDate).getTime()-new Date(param.startDate).getTime())>30000*3600*24){
-        this.$Message.info("查询周期不能超过1个月")
+      if((new Date(param.endDate).getTime()-new Date(param.startDate).getTime())>31000*3600*24){
+        this.$Message.info("查询日期跨度不能超过1个月")
         return
       }
 
