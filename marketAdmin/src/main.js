@@ -14,7 +14,7 @@ Vue.use(Vuex)
 Vue.use(VeeValidate)
 Vue.prototype.http = axios
 Vue.prototype.router = router
-Vue.prototype.util = util
+Vue.prototype.util = utilc
 Vue.prototype.murl = 'https://m.market.cdbeki.com/'
 Vue.prototype.apiurl = 'http://market.cdbeki.com/'
 console.log(VeeValidate)
@@ -25,7 +25,8 @@ const store = new Vuex.Store({
     companyId: util.getCookie('companyId') || '',
     companyName:util.getCookie('companyName') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
-    authentic:util.getCookie('authentic')||'',
+    // authentic:util.getCookie('authentic')||'',
+    authentic:this.state,
     prefix: '/api'
     // prefix: 'http://market.cdbeki.com'
   },
@@ -35,7 +36,6 @@ const store = new Vuex.Store({
     }
   }
 })
-
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
@@ -106,6 +106,9 @@ new Vue({
   axios,
   template: '<App/>',
   components: { App },
+  data:{
+      state:0
+  },
   created () {
     if (!store.state.token) {
       if (this.util.isWeiXin()) {
@@ -114,6 +117,16 @@ new Vue({
         console.warn('会话过期')
       }
     }
+    this.http.get(this.$store.state.prefix + '/company/getAuthentic?companyId='+this.$store.state.companyId).then(res => {
+      console.log(res.error)
+      if(!res.error){
+        if(res.result.authenticStatus != undefined){
+          this.state = res.result.authenticStatus
+        }else{
+          console.log(this.state)
+        }
+      }
+    })
   }
 })
 

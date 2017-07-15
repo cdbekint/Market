@@ -64,6 +64,7 @@ export default {
       this.item.showProgress = true
     },
     uploadSuccess (res, file) {
+      // this.$emit('getImg',res.key)
       this.item.showProgress = false
       if (this.config.parent !== undefined && this.config.child !== undefined) {
         var _this = this

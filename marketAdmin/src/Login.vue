@@ -97,6 +97,7 @@ export default {
           // })
           this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
             if (res.error === false) {
+              console.log(res.result)
               if (res.result.access_token) {
                 this.$store.state.token = res.result.access_token
                 this.$store.state.companyId = res.result.user.company.id

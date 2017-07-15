@@ -9,7 +9,7 @@
     </div>
     <div class="content">
       <Row>
-        <Col span="12" v-if='$store.state.authentic===1' :data='$store.state.authentic===2'>
+        <Col span="12" v-if='$store.state.authentic===1 || 2'>
         <Form :model="authenticInfo" :label-width="100">
           <Form-item label="企业名称" class="text-left">
             <span v-text="authenticInfo.companyName"></span>
@@ -18,7 +18,7 @@
             <span v-text="authenticInfo.creditCode"></span>
           </Form-item>
           <Form-item label="联系人" class="text-left">
-            <span v-text="authenticInfo.linkman"></span>
+            <span v-text="authenticInfo.contacts"></span>
           </Form-item>
           <Form-item label="联系电话" class="text-left">
             <span v-text="authenticInfo.phone"></span>
@@ -33,8 +33,12 @@
             <span v-text="authenticInfo.authenticDesc"></span>
           </Form-item>
         </Form>
+        <!-- <div class='wait' v-if='1 === 1'>
+             <img src="../../../static/images/wait.png"> 
+        </div>  -->
         </Col>
-        <Col span="12" v-else>
+        
+        <Col span="12" v-if='$store.state.authentic===3 || 0'>
   
         <Form ref="inputauthentic" :model="inputauthentic" :rules="ruleValidate" :label-width="100">
           <Form-item>
@@ -56,10 +60,10 @@
             <Input v-model="inputauthentic.email" placeholder="请输入"></Input>
           </Form-item>
           <Form-item label="认证材料" prop="authenticPic">
-            <uploader :config="uploaderconfig"> </uploader>
+            <uploader :config="uploaderconfig" @getImg='getImgs'> </uploader>
             <span style="color:red">工商营业执照副本（组织机构代码，税务登记证）</span>
             <div>
-              <img :src="murl+img" v-for="(img,index) in inputauthentic.authenticPic.split(',')" v-if="img" style="width:100px;height:100px;margin-right:10px;" @click='delImg(index)'/>
+              <img :src="murl+img" v-for="(img,index) in inputauthentic.authenticPic.split(',')" v-if="img" style="width:100px;height:100px;margin-right:10px;" />
             </div>
           </Form-item>
           <Form-item label="认证补充" prop="authenticDesc">
@@ -89,7 +93,15 @@ export default {
         child: 'authenticPic',
         multiple: true
       },
-      authenticInfo: {},
+      authenticInfo: {
+        companyName: '',
+        creditCode: '',
+        contacts: '',
+        phone: '',
+        email: '',
+        authenticPic: '',
+        authenticDesc: ''
+      },
       // inputauthentic: {},
       inputauthentic: {
         companyId: this.$store.state.companyId,
@@ -98,10 +110,9 @@ export default {
         contacts: '',
         phone: '',
         email: '',
-        authenticPic: "",
+        authenticPic: '',
         authenticDesc: ''
       },
-      arrImg:this.inputauthentic.authenticPic.split(','),
       ruleValidate: {
         companyName: [
           { required: true, message: '公司名称不能为空', trigger: 'blur' }
@@ -137,32 +148,44 @@ export default {
         if (valid) {
           this.http.post(this.$store.state.prefix + '/company/saveOrUpdateAuthentic', this.inputauthentic).then(res => {
             console.log(res)
+            if(res.error==false){
+               this.$Message.success('提交成功!');
+            } else{
+              this.$Message.error(res.msg)
+            }           
           })
-          this.$Message.success('提交成功!');
         } else {
           this.$Message.error('表单验证失败!');
         }
       })
     },
-    delImg(index) {
-      console.log(this.uploaderconfig)
-      this.arrImg.splice(index,1)
-      console.log(this.arrImg)
-      console.log(index)
-    }
+    // delImg(index) {
+    //   this.inputauthentic.authenticPic.splice(index,1)
+    // },
+    // getImgs(data){
+    //   this.inputauthentic.authenticPic.push(data)
+    // }
   },
   created() {
     console.log(this.$store.state.authentic)
+    this.http.get(this.$store.state.prefix + '/company/getAuthentic?companyId='+this.$store.state.companyId).then(res => {
+      if(!res.error){
+        this.authenticInfo = res.result
+      }
+    })
   },
   watch: {
-    // authenticPic (val,oldVal) {
-    //     console.log(val,oldVal)
-    // }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='stylus' rel="stylesheet/stylus">
-
+  .wait
+    position :absolute
+    left:0
+    top:76px
+    width :200px
+    height:200px
+    font-size :0
 </style>
