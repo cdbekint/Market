@@ -7,17 +7,14 @@ import router from './router'
 import axios from 'axios'
 import qs from 'qs'
 import util from '../static/js/utils.js'
-import VeeValidate from 'vee-validate';
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
-Vue.use(VeeValidate)
 Vue.prototype.http = axios
 Vue.prototype.router = router
 Vue.prototype.util = utilc
 Vue.prototype.murl = 'https://m.market.cdbeki.com/'
 Vue.prototype.apiurl = 'http://market.cdbeki.com/'
-console.log(VeeValidate)
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
