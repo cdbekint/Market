@@ -183,13 +183,15 @@ body
 .loginmodal
   z-index:2000
   position :fixed
+  width:30%
+  margin:0 auto
   left:35%
-  top:150px 
+  top:100px 
 .registermodal
   z-index:2000
   position :fixed
-  left:21%
-  top:150px 
+  left:15%
+  top:50px 
 .modal
   width:100%
   height:3246px

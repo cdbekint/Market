@@ -1,5 +1,5 @@
 <template>
-  <div :class="$store.state.token ? 'header':'header loginrow'">
+  <div :class="$store.state.token ? 'header':'header loginrow'" id="mainheader">
     <div class="header-content"> 
       <Row>
         <Col span="8" class="syslogo">
@@ -45,6 +45,7 @@ export default {
       changePassword: false,
       oldPass: '',
       newPass: '',
+      topheight:70
     }
   },
   methods: {
@@ -81,6 +82,12 @@ export default {
     userInfo(val) {
       this.userInfo = val
     }
+  },
+  mounted(){
+    if(!this.$store.state.token){
+        this.topheight=(window.screen.width*780/1920)
+        document.getElementById("mainheader").style.height = this.topheight+"px"
+    }
   }
 }
 </script>
@@ -108,9 +115,8 @@ export default {
       height:40px
       .login
         width:120px
-        background-color:transparent
+        background-color:rgba(0,0,0,0.3)
         border:1px solid #fff
-        border-radius:5px
         float:left
         margin-right:17px
         cursor :pointer
@@ -124,5 +130,5 @@ export default {
 .loginrow
   width:100%
   background:url(/static/images/topBanner.png) no-repeat top
-  height:780px        
+  background-size:100% auto
 </style>

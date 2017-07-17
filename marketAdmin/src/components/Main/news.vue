@@ -12,6 +12,7 @@
                 </div>
             </li>
         </ul>
+        <div class="clearfix"></div>
     </div>
     <div class='news' v-else style='background:#f8f8f8'>
         <ul>
@@ -25,6 +26,7 @@
                 </div>
             </li>
         </ul>
+        <div class="clearfix"></div>
     </div>
 </div>
 </template>
@@ -41,34 +43,40 @@ export default {
 </script>
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
-    .news
-        width:1240px
-        height :580px
+.news
+  width:80%
+  min-width:1000px
+  max-width:1420px
+  height:auto
+  margin:0 auto
+  background-color :#fff
+  display:block
+  padding-bottom:10px
+  ul
+    padding-top :40px
+    li
+      float:left
+      width :30%
+      margin-right:3%
+      .pic
+        width 40%
+        height auto
+        font-size :0
         margin:0 auto
-        background-color :#fff
-        ul
-            padding-top :140px
-            li
-                float:left
-                width :320px
-                margin-right:140px
-                .pic
-                    width 166px
-                    height :140px
-                    font-size :0
-                    margin:0 auto
-                .content
-                    margin-top:48px
-                    font-family :"微软雅黑"
-                    h2
-                        color :#434343
-                        font-size 26px
-                        font-weight :bolder
-                    p
-                        line-height :30px
-                        font-size :20px
-                        color:#434343
-                        padding-top :10px    
-            li:last-of-type
-                margin-right:0       
+        img
+          width:100%
+      .content
+        margin-top:48px
+        font-family :"微软雅黑"
+        h2
+          color :#434343
+          font-size 20px
+          font-weight :bolder
+        p
+          line-height :30px
+          font-size :16px
+          color:#434343
+          padding-top :10px    
+    li:last-of-type
+        margin-right:0       
 </style>

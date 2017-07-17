@@ -2,7 +2,7 @@
   <div class="login">
     <Row class="loginrow" id="loginpanel">
   
-      <Col span="6">
+      <Col span="24">
       <Form ref="formInline" class="loginmainpanel" :model="formInline" :rules="ruleInline">
         <Form-item>
           <div class='log'>
@@ -15,16 +15,16 @@
           </div>
         </Form-item>
         <Form-item prop="user" style="margin-bottom:34px">
-          <!-- <Input type="text" v-model="formInline.username" placeholder="用户名" class="formitem">
+          <Input type="text" size="large" v-model="formInline.username" placeholder="用户名" class="formitem">
               <Icon type="ios-person-outline" slot="prepend"></Icon>
-             </Input> -->
-          <input type="text" v-model="formInline.username" placeholder="用户名" class="formitem">
+             </Input>
+          <!-- <input type="text" v-model="formInline.username" placeholder="用户名" class="formitem"> -->
         </Form-item>
         <Form-item prop="password" style="margin-bottom:0">
-          <!-- <Input type="password" v-model="formInline.password" placeholder="密码" class="formitem">
+          <Input type="password" size="large" v-model="formInline.password" placeholder="密码" class="formitem">
              <Icon type="ios-locked-outline" slot="prepend"></Icon> 
-            </Input> -->
-          <input type="password" v-model="formInline.password" placeholder="密码" class="formitem">
+            </Input>
+          <!-- <input type="password" v-model="formInline.password" placeholder="密码" class="formitem"> -->
         </Form-item>
         <Form-item style="margin-bottom:0">
           <div class="warn"></div>
@@ -164,35 +164,36 @@ export default {
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .loginmainpanel
-  width:570px
+  width:100%
   background:#fff
-  padding:36px 45px 55px 45px
-  border-radius:5px
+  padding:10px
   position :relative
   .formitem
-    width:100%
+    width:80%
+    margin:0 auto
     border:none
-    height:70px
-    line-height :70px
-    padding-left:32px
     color:#aeaeae
     font-size :22px
-    background-color :#f6f6f6
   .btn
     color:#fff
+    height:40px
+    line-height:40px
     font-family :"微软雅黑"
     background-color :#7454ff
-    font-size :26px
+    font-size :20px
     text-align :center  
     margin:0
     padding:0
   .log
-    width :80px
-    height:110px
+    width:50px
+    height auto
     margin:0 auto
-    margin-bottom :34px
+    margin-bottom :10px
+    img
+      width:100%
   .warn
-    width:100%
+    width:60%
+    margin:0 auto
     height:62px
     line-height :62px
     color:#aeaeae
@@ -203,7 +204,7 @@ export default {
     line-height 20px
     a
       color:#7454ff
-      font-size :20px
+      font-size :15px
   .close
     width:49px
     height:49px
