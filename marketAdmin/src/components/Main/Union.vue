@@ -15,7 +15,7 @@
         </div>
   
         <div class="union-content" style='padding-left:10px;'>
-          <div class="union-register" v-for='item in AllianceInfo' style='margin-right:10px;float:left;margin-bottom:10px'>   
+          <div class="union-register" v-for='item in aboutCompanys' style='margin-right:10px;float:left;margin-bottom:10px'>   
             <div class="uregitem">
               <div class="upper">
                 商家
@@ -63,12 +63,12 @@
         </div>
         <div class="union-content">
   
-          <Col span="4" class="recommanditem" v-for='(item,index) in AllianceInfo' :data="item.allianceCompanyId">
+          <Col span="4" class="recommanditem" v-for='(item,index) in AllianceInfo' >
           <div class="companyLogo" @click="removeUnionCompany(item.id,index)">
             <img src="https://m.market.cdbeki.com/FpEsQAJXA60fwlSDXbzc2C_SvdA5" alt="">
             <!-- <img :src=''> -->
           </div>
-          <div class="companyName" title="item.allianceCompanyInfo.companyName">
+          <div class="companyName" title="item.allianceCompanyInfo.companyName" @click="removeUnionCompany(item.id,index)">
             {{item.allianceCompanyInfo.companyName}}
           </div>
           </Col>
@@ -103,8 +103,10 @@ export default {
   data() {
     return {
       AllianceInfo: [],   //联盟商家
+      noAllianceInfo: [], //非商家联盟
       companyList: [],    //所有商家
       hotCompanyList: [],    //热推商家
+      aboutCompanys:[],
       showcompanylist: false,
       isGetting: false,
       queryinfo: {
@@ -140,11 +142,14 @@ export default {
       })
     },
     unionCompany(data) {
-      console.log(data)
       this.$Modal.confirm({
         title: '确定与该商家联盟?',
         onOk: () => {
           let arr = this.AllianceInfo
+          if(data.id == this.$store.state.companyId){
+              this.$Message.error('不能与自己联盟');
+              return
+          }
           for (var i = 0; i < arr.length; i++) {
             if (data.id == arr[i].allianceCompanyId) {
               this.$Message.error('已经与该商家联盟');
@@ -170,6 +175,7 @@ export default {
         }
       });
     },
+    //和商家联盟
     addCompany(data) {
       this.addCompanyInfo.allianceCompanyId = data.id
       this.addCompanyInfo.companyId = this.$store.state.companyId - 0
@@ -178,18 +184,21 @@ export default {
         if (!res.error) {
           this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId).then(res => {
             if (!res.error) {
-              console.log(res.result)
-              this.AllianceInfo = res.result
+              if(res.result){
+                this.AllianceInfo = res.result
+                this.aboutCompanys = [...this.AllianceInfo,...this.noAllianceInfo]
+              }
             }
           })
         }
       })
     },
+    //和商家解除联盟
     removeCompany(data, index) {
-      console.log(data)
       this.http.post(this.$store.state.prefix + '/alliance/deleteAlliance', { id: data }).then(res => {
         if (!res.error) {
           this.AllianceInfo.splice(index, 1)
+          this.aboutCompanys = [...this.AllianceInfo,...this.noAllianceInfo]
         }
       })
     }
@@ -197,15 +206,30 @@ export default {
   watch: {
   },
   created() {
+    //联盟商家
     this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId).then(res => {
       if (!res.error) {
-        console.log(res.result)
-        this.AllianceInfo = res.result
+        if(res.result){
+          this.AllianceInfo = res.result
+          this.aboutCompanys = [...this.AllianceInfo,...this.noAllianceInfo]
+        }
       }
     })
-    this.http.get(this.$store.state.prefix + '/company/getRecommendCompany?companyId=' + this.$store.state.companyId).then(res => {
+    //非联盟商家
+    this.http.get(this.$store.state.prefix + '/alliance/getNoAllianceInfo?companyId=' + this.$store.state.companyId).then(res => {
+      if(!res.error){
+        if(res.result){
+          this.noAllianceInfo = res.result 
+        }
+      }
+    })
+    //热推商家
+    this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', {companyId : this.$store.state.companyId}).then(res => {
+      //console.log(res)
       if (!res.error) {
-        this.hotCompanyList = res.result
+        if(res.result){
+          this.hotCompanyList = res.result
+        } 
       }
     })
   }
