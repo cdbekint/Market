@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.prototype.http = axios
 Vue.prototype.router = router
-Vue.prototype.util = utilc
+Vue.prototype.util = util
 Vue.prototype.murl = 'https://m.market.cdbeki.com/'
 Vue.prototype.apiurl = 'http://market.cdbeki.com/'
 /* eslint-disable no-new */
@@ -22,14 +22,17 @@ const store = new Vuex.Store({
     companyId: util.getCookie('companyId') || '',
     companyName:util.getCookie('companyName') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
-    // authentic:util.getCookie('authentic')||'',
-    authentic:this.state,
+    authentic:util.getCookie('authentic')||'',
+    // authentic:this.state,
     prefix: '/api'
     // prefix: 'http://market.cdbeki.com'
   },
   mutations: {
     updateToken (state) {
       state.token ++
+    },
+    upDataAuthentic (state,data) {
+      state.authentic = data
     }
   }
 })
@@ -114,16 +117,6 @@ new Vue({
         console.warn('会话过期')
       }
     }
-    this.http.get(this.$store.state.prefix + '/company/getAuthentic?companyId='+this.$store.state.companyId).then(res => {
-      console.log(res.error)
-      if(!res.error){
-        if(res.result.authenticStatus != undefined){
-          this.state = res.result.authenticStatus
-        }else{
-          console.log(this.state)
-        }
-      }
-    })
   }
 })
 
