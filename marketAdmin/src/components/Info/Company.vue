@@ -551,7 +551,7 @@ $content_height=70px
       .itemcontent
         position relative
       .itemcontent.ueditor-wrapper
-        width:60%
+        width:70%
       .itemname
         position absolute
         top 0px

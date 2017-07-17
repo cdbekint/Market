@@ -104,19 +104,21 @@ export default {
     .topR
       float:right
       color:#fff
-      line-height :90px
-      height:90px
+      line-height:40px
+      height:40px
       .login
         width:120px
-        background-color :#4862ff
+        background-color:transparent
+        border:1px solid #fff
+        border-radius:5px
         float:left
         margin-right:17px
         cursor :pointer
-        font-size:22px
+        font-size:1.8em
       .free
         width:120px
         float:left
-        background-color :#e13a96
+        background-color:rgba(0,0,0,0.3)
         cursor :pointer
         font-size:22px
 .loginrow

@@ -30,7 +30,7 @@
           <div class="iccontent" v-text="companyinfo.expireDate + '(' + companyinfo.days +'天)'">
           </div>
           <div class="icaction">
-            
+            <Button type="text" @click="renewModal=true">续期</Button>
           </div>
           </div>
         </div>
@@ -94,6 +94,14 @@
       </div>
   </Modal>
   <Modal
+      v-model="renewModal"
+      title="账户续期">
+      <renew :wrapper="'renewModal'" :company="companyinfo"></renew>
+       <div slot="footer" class="text-left">
+        <Icon type="ios-information-outline"></Icon>本平台通过微信支付
+      </div>
+  </Modal>
+  <Modal
       v-model="withdrawModal"
       title="账户提现">
       <div class="modal-content">
@@ -128,8 +136,9 @@
 
 <script type="text/ecmascript-6">
 import weixinPay from '../Util/WeixinPay'
+import renew from '../Util/Renew'
 export default {
-  components:{ weixinPay },
+  components:{ weixinPay, renew},
   name: 'AccountInfo',
   data () {
     return {
@@ -141,6 +150,7 @@ export default {
         openId: ''
       },
       Group: [],
+      renewModal:false,
       weixinpayModal: false,
       binduserModal:false,
       withdrawModal: false,
