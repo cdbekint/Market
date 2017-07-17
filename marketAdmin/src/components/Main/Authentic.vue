@@ -33,9 +33,12 @@
             <span v-text="authenticInfo.authenticDesc"></span>
           </Form-item>
         </Form>
-        <!-- <div class='wait' v-if='1 === 1'>
-             <img src="../../../static/images/wait.png"> 
-        </div>  -->
+        <div class='wait' v-if="$store.state.authentic==2">
+             <img src="/static/images/wait.png"> 
+        </div> 
+        <div class="wait" v-if="$store.state.authentic==3">
+            <img src="/static/images/passfalse.png"/>
+          </div>
         </Col>
         
         <Col span="12" v-if='$store.state.authentic===3 || 0'>
@@ -167,10 +170,16 @@ export default {
     // }
   },
   created() {
-    console.log(this.$store.state.authentic)
     this.http.get(this.$store.state.prefix + '/company/getAuthentic?companyId='+this.$store.state.companyId).then(res => {
       if(!res.error){
-        this.authenticInfo = res.result
+        if(res.result){
+          this.authenticInfo = res.result
+
+          //同时更新本地存储的状态
+          this.$store.state.authentic=res.result.authentic
+          this.util.setCookie("authentic",res.result.authentic)
+        }
+        
       }
     })
   },
@@ -183,9 +192,13 @@ export default {
 <style scoped lang='stylus' rel="stylesheet/stylus">
   .wait
     position :absolute
-    left:0
-    top:76px
-    width :200px
-    height:200px
+    right:30%
+    top:50%
+    width :100px
+    height:100px
     font-size :0
+    z-index:100
+    img
+      width:100%
+      height:100%
 </style>

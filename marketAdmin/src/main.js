@@ -22,8 +22,7 @@ const store = new Vuex.Store({
     companyId: util.getCookie('companyId') || '',
     companyName:util.getCookie('companyName') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
-    // authentic:util.getCookie('authentic')||'',
-    authentic:this.state,
+    authentic:util.getCookie('authentic')||'',
     prefix: '/api'
     // prefix: 'http://market.cdbeki.com'
   },
@@ -114,16 +113,6 @@ new Vue({
         console.warn('会话过期')
       }
     }
-    this.http.get(this.$store.state.prefix + '/company/getAuthentic?companyId='+this.$store.state.companyId).then(res => {
-      console.log(res.error)
-      if(!res.error){
-        if(res.result.authenticStatus != undefined){
-          this.state = res.result.authenticStatus
-        }else{
-          console.log(this.state)
-        }
-      }
-    })
   }
 })
 
@@ -132,7 +121,6 @@ router.beforeEach((to, from, next) => {
   //   to.meta.requireAuth = true
   // }
   if (to.meta.requireAuth === true) {
-    console.log(Boolean(store.state.token))
     if (store.state.token) {
       next()
     } else {

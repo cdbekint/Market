@@ -11,6 +11,7 @@
       <ul>
         <li>蜀IPC备14004122</li>
         <li>Copuright<span></span>©<span></span>2016-2017<span></span>BEIKEI<span></span>白起网络</li>
+
       </ul>
     </div>
 </template>
