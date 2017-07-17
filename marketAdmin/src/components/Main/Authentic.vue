@@ -9,7 +9,7 @@
     </div>
     <div class="content">
       <Row>
-        <Col span="12" v-if='$store.state.authentic===1 || 2'>
+        <Col span="12" v-if='$store.state.authentic== 1 || $store.state.authentic== 2' :data =' $store.state.authentic'>
         <Form :model="authenticInfo" :label-width="100">
           <Form-item label="企业名称" class="text-left">
             <span v-text="authenticInfo.companyName"></span>
@@ -40,8 +40,8 @@
             <img src="/static/images/passfalse.png"/>
           </div>
         </Col>
-        
-        <Col span="12" v-if='$store.state.authentic===3 || 0'>
+  
+        <Col span="12" v-if='$store.state.authentic===3 || $store.state.authentic===0' :data="$store.state.authentic">
   
         <Form ref="inputauthentic" :model="inputauthentic" :rules="ruleValidate" :label-width="100">
           <Form-item>
@@ -74,6 +74,7 @@
           </Form-item>
           <Form-item label="">
             <Button type="primary" @click="handleSubmit('inputauthentic')">提交认证</Button>
+            <span>正式会员方可提交认证</span>
           </Form-item>
         </Form>
         </Col>
@@ -84,6 +85,7 @@
 
 <script type="text/ecmascript-6">
 import uploader from '../Util/Uploader'
+import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'Authentic',
   data() {
@@ -125,11 +127,11 @@ export default {
         ],
         contacts: [
           { required: true, message: '联系人不能为空', trigger: 'blur' },
-          { type:'string',pattern:/[\u4e00-\u9fa5]/gm, message: '请输入准确的联系人', trigger: 'blur' }
+          { type: 'string', pattern: /[\u4e00-\u9fa5]/gm, message: '请输入准确的联系人', trigger: 'blur' }
         ],
         phone: [
           { required: true, message: '联系电话不能为空', trigger: 'blur' },
-          { type:'string',pattern:/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$/, message: '请输入正确的手机号', trigger: 'blur' }
+          { type: 'string', pattern: /^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$/, message: '请输入正确的手机号', trigger: 'blur' }
         ],
         authenticPic: [
           { required: true, message: '请上传认证材料', trigger: 'blur' }
@@ -146,22 +148,28 @@ export default {
   },
   components: { uploader },
   methods: {
+    ...mapMutations([
+      'upDataAuthentic'
+    ]),
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.http.post(this.$store.state.prefix + '/company/saveOrUpdateAuthentic', this.inputauthentic).then(res => {
             console.log(res)
-            if(res.error==false){
-               this.$Message.success('提交成功!');
-            } else{
+            if (res.error == false) {
+              this.$Message.success('提交成功!');
+            } else {
               this.$Message.error(res.msg)
-            }           
+            }
           })
         } else {
           this.$Message.error('表单验证失败!');
         }
       })
     },
+    changeDataAuthentic (data) {
+      this.upDataAuthentic(data)
+    }
     // delImg(index) {
     //   this.inputauthentic.authenticPic.splice(index,1)
     // },
@@ -179,12 +187,11 @@ export default {
           this.$store.state.authentic=res.result.authentic
           this.util.setCookie("authentic",res.result.authentic)
         }
-        
       }
     })
-  },
-  watch: {
-  }
+},
+watch: {
+}
 }
 </script>
 

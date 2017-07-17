@@ -29,6 +29,9 @@ const store = new Vuex.Store({
   mutations: {
     updateToken (state) {
       state.token ++
+    },
+    upDataAuthentic (state,data) {
+      state.authentic = data
     }
   }
 })
