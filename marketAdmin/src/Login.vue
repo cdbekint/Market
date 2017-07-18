@@ -102,11 +102,14 @@ export default {
                 this.$store.state.companyId = res.result.user.company.id
                 this.$store.state.authentic = res.result.user.company.authentic
                 this.$store.state.companName = res.result.user.company.companyName
+                this.$store.state.companyFlag = res.result.user.company.companyFlag
               }
               this.util.setCookie('token', res.result.access_token)
               this.util.setCookie('companyId', res.result.user.company.id)
               this.util.setCookie('companyName', res.result.user.company.companyName)
               this.util.setCookie('authentic', res.result.user.company.authentic)
+              this.util.setCookie('companyFlag', res.result.user.company.companyFlag)
+
               console.log(this.$router.query.redirect)
               if (this.$router.query.redirect !== undefined) {
                 if (this.$router.query.redirect.indexOf('/login') > -1) {

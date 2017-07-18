@@ -23,6 +23,7 @@ const store = new Vuex.Store({
     companyName:util.getCookie('companyName') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
     authentic:util.getCookie('authentic')||'',
+    companyFlag:util.getCookie('companyFlag')||'',
     prefix: '/api'
     // prefix: 'http://market.cdbeki.com'
   },

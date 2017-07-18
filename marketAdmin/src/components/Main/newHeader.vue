@@ -9,7 +9,9 @@
           <Menu mode="horizontal" :active-name="1" v-if="$store.state.token ">
             <Submenu name="1">
               <template slot="title">
-                <Icon type="stats-bars"></Icon>
+                <span class="memberstatus free">
+                  体验会员
+                </span>
                 {{$store.state.companyName || userInfo.company.companyName}}
               </template>
               <Menu-group title="账号管理">
@@ -87,6 +89,8 @@ export default {
     if(!this.$store.state.token){
         this.topheight=(window.screen.width*780/1920)
         document.getElementById("mainheader").style.height = this.topheight+"px"
+    }else{
+        document.getElementById("mainheader").style.height = "70px"
     }
   }
 }
@@ -131,4 +135,15 @@ export default {
   width:100%
   background:url(/static/images/topBanner.png) no-repeat top
   background-size:100% auto
+.memberstatus
+  height:20px
+  border-radius:3px
+  font-size:0.8em
+  padding:5px
+  margin-right:15px
+.free
+  background:#eee
+.member
+  background:#44b549
+  color:#fff
 </style>

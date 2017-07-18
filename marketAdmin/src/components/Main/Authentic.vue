@@ -9,7 +9,7 @@
     </div>
     <div class="content">
       <Row>
-        <Col span="12" v-if='$store.state.authentic== 1 || $store.state.authentic== 2' :data =' $store.state.authentic'>
+        <Col span="12" v-if='$store.state.authentic== 1 || $store.state.authentic== 2 || $store.state.authentic== 3' >
         <Form :model="authenticInfo" :label-width="100">
           <Form-item label="企业名称" class="text-left">
             <span v-text="authenticInfo.companyName"></span>
@@ -27,10 +27,19 @@
             <span v-text="authenticInfo.email"></span>
           </Form-item>
           <Form-item label="认证材料" class="text-left">
-            <span v-text="authenticInfo.authenticPic"></span>
+            <div class="authenticpic" v-for="ap in authenticInfo.authenticPic.split(',')">
+            <a :href="murl+ap" target="_blank" v-if="ap">
+              <img :src="murl+ap" alt=""></a>
+            </div>
           </Form-item>
           <Form-item label="认证补充" class="text-left">
             <span v-text="authenticInfo.authenticDesc"></span>
+          </Form-item>
+          <Form-item label="申请时间" class="text-left" v-if="$store.state.authentic>=2">
+            <span v-text="authenticInfo.createDate"></span>
+          </Form-item>
+          <Form-item label="拒绝理由" class="text-left" v-if="$store.state.authentic==3">
+            <span v-text="authenticInfo.remarks"></span>
           </Form-item>
         </Form>
         <div class='wait' v-if="$store.state.authentic==2">
@@ -41,7 +50,7 @@
           </div>
         </Col>
   
-        <Col span="12" v-if='$store.state.authentic===3 || $store.state.authentic===0' :data="$store.state.authentic">
+        <Col span="12" v-if='$store.state.authentic==3 || $store.state.authentic==0' :data="$store.state.authentic">
   
         <Form ref="inputauthentic" :model="inputauthentic" :rules="ruleValidate" :label-width="100">
           <Form-item>
@@ -63,7 +72,7 @@
             <Input v-model="inputauthentic.email" placeholder="请输入"></Input>
           </Form-item>
           <Form-item label="认证材料" prop="authenticPic">
-            <uploader :config="uploaderconfig" @getImg='getImgs'> </uploader>
+            <uploader :config="uploaderconfig"> </uploader>
             <span style="color:red">工商营业执照副本（组织机构代码，税务登记证）</span>
             <div>
               <img :src="murl+img" v-for="(img,index) in inputauthentic.authenticPic.split(',')" v-if="img" style="width:100px;height:100px;margin-right:10px;" />
@@ -73,8 +82,9 @@
             <Input v-model="inputauthentic.authenticDesc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入"></Input>
           </Form-item>
           <Form-item label="">
-            <Button type="primary" @click="handleSubmit('inputauthentic')">提交认证</Button>
-            <span>正式会员方可提交认证</span>
+            
+            <Button type="primary" disabled v-if="$store.state.companyFlag==0">正式会员方可提交认证</Button>
+            <Button type="primary" @click="handleSubmit('inputauthentic')" v-if="$store.state.companyFlag==1">提交认证</Button>
           </Form-item>
         </Form>
         </Col>
@@ -124,6 +134,9 @@ export default {
         ],
         creditCode: [
           { required: true, message: '统一信用代码不能为空', trigger: 'blur' },
+          { type:'string', patten: /^[A-Za-z0-9]+$/,message:'只能为15或18为数字字母组成',trigger:'blur'},
+          { type:'string', max:18,message:'长度不能超出18位',trigger:'blur'},
+          { type:'string', min:10,message:'长度不能小于10位',trigger:'blur'}
         ],
         contacts: [
           { required: true, message: '联系人不能为空', trigger: 'blur' },
@@ -157,7 +170,8 @@ export default {
           this.http.post(this.$store.state.prefix + '/company/saveOrUpdateAuthentic', this.inputauthentic).then(res => {
             console.log(res)
             if (res.error == false) {
-              this.$Message.success('提交成功!');
+              this.$Notice.success({title:'认证资料提交成功!'});
+              this.getAuthenticStatus()
             } else {
               this.$Message.error(res.msg)
             }
@@ -169,29 +183,27 @@ export default {
     },
     changeDataAuthentic (data) {
       this.upDataAuthentic(data)
+    },
+    getAuthenticStatus(){
+      this.http.get(this.$store.state.prefix + '/company/getAuthentic?companyId='+this.$store.state.companyId).then(res => {
+        if(!res.error){
+          if(res.result){
+            res.result.createDate=this.util.getFormatDate(res.result.createDate)
+            this.authenticInfo = res.result
+            if(res.result.authenticStatus==3){
+              this.inputauthentic=res.result
+            }
+            //同时更新本地存储的状态
+            this.$store.state.authentic=res.result.authenticStatus
+            this.util.setCookie("authentic",res.result.authenticStatus)
+          }
+        }
+      })
     }
-    // delImg(index) {
-    //   this.inputauthentic.authenticPic.splice(index,1)
-    // },
-    // getImgs(data){
-    //   this.inputauthentic.authenticPic.push(data)
-    // }
   },
   created() {
-    this.http.get(this.$store.state.prefix + '/company/getAuthentic?companyId='+this.$store.state.companyId).then(res => {
-      if(!res.error){
-        if(res.result){
-          this.authenticInfo = res.result
-
-          //同时更新本地存储的状态
-          this.$store.state.authentic=res.result.authentic
-          this.util.setCookie("authentic",res.result.authentic)
-        }
-      }
-    })
-},
-watch: {
-}
+    this.getAuthenticStatus()
+  }
 }
 </script>
 
@@ -200,7 +212,7 @@ watch: {
   .wait
     position :absolute
     right:30%
-    top:50%
+    top:40%
     width :100px
     height:100px
     font-size :0
@@ -208,4 +220,16 @@ watch: {
     img
       width:100%
       height:100%
+h2
+  font-size:1.5em
+  font-weight:bolder
+.authenticpic
+  width:100px
+  height:auto
+  float:left
+  max-height:200px
+  margin-right:10px
+  img
+    width:100%
+    height:auto
 </style>
