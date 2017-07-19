@@ -3,7 +3,7 @@
   	<Row>
   		
   		<Col span="6" class="infoitem">
-	  		<div class="realinfo red">
+	  		<div class="realinfo yellow">
 	  			<div class="contenttitle">
 	  				<div class="symbol">
 	  					<Icon type="cash"></Icon>
@@ -17,41 +17,6 @@
 	  				
 	  			</div>
 	  		</div>
-  		</Col>
-  		<Col span="6" class="infoitem">
-	  		<div class="realinfo orange">
-	  			<div class="contenttitle">
-	  				<div class="symbol">
-	  					<Icon type="cash"></Icon>
-	  				</div>
-	  				<div class="title">
-	  					<span>正在提现</span>
-	  				</div>
-	  			</div>
-	  			
-	  			<div class="contentval" v-text="Math.abs(baseinfo.withDrawAmount)">
-	  				
-	  			</div>
-	  		</div>
-  		</Col>
-  		
-  		
-  		<Col span="6" class="infoitem">
-  		<div class="realinfo thinred">
-  			<div class="contenttitle">
-  				<div class="symbol">
-            <Icon type="ios-pie-outline"></Icon>
-  				</div>
-  				<div class="title">
-  					<span>用户提现</span>
-  				</div>
-  			</div>
-  			
-  			<div class="contentval" v-text="baseinfo.userWithdraw">
-  				
-  			</div>
-  		</div>
-  			
   		</Col>
       <Col span="6" class="infoitem">
       <div class="realinfo yellow">
@@ -71,7 +36,43 @@
         
       </Col>
   		<Col span="6" class="infoitem">
-  		<div class="realinfo cyan">
+	  		<div class="realinfo orange">
+	  			<div class="contenttitle">
+	  				<div class="symbol">
+	  					<Icon type="cash"></Icon>
+	  				</div>
+	  				<div class="title">
+	  					<span>商家正在提现</span>
+	  				</div>
+	  			</div>
+	  			
+	  			<div class="contentval" v-text="Math.abs(baseinfo.withDrawAmount)">
+	  				
+	  			</div>
+	  		</div>
+  		</Col>
+  		
+  		
+  		<Col span="6" class="infoitem">
+  		<div class="realinfo orange">
+  			<div class="contenttitle">
+  				<div class="symbol">
+            <Icon type="ios-pie-outline"></Icon>
+  				</div>
+  				<div class="title">
+  					<span>会员已提现</span>
+  				</div>
+  			</div>
+  			
+  			<div class="contentval" v-text="baseinfo.userWithdraw">
+  				
+  			</div>
+  		</div>
+  			
+  		</Col>
+      
+  		<Col span="6" class="infoitem">
+  		<div class="realinfo thinred">
   			<div class="contenttitle">
   				<div class="symbol">
   					<Icon type="person"></Icon>
@@ -88,7 +89,7 @@
   			
   		</Col>
   		<Col span="6" class="infoitem">
-  		<div class="realinfo blue">
+  		<div class="realinfo thinred">
   			<div class="contenttitle">
   				<div class="symbol">
   				<Icon type="person-add"></Icon>
@@ -105,7 +106,7 @@
   			
   		</Col>
   		<Col span="6" class="infoitem">
-  		<div class="realinfo purple">
+  		<div class="realinfo green">
   			<div class="contenttitle">
   				<div class="symbol">
   					<Icon type="ios-person-outline"></Icon>
@@ -142,7 +143,7 @@
   	</Row>
     <Row>
       <Col span="6" class="infoitem">
-      <div class="realinfo green">
+      <div class="realinfo purple">
         <div class="contenttitle">
           <div class="symbol">
             <Icon type="ios-personadd-outline"></Icon>
@@ -159,7 +160,7 @@
         
       </Col>
       <Col span="6" class="infoitem">
-      <div class="realinfo green">
+      <div class="realinfo purple">
         <div class="contenttitle">
           <div class="symbol">
             <Icon type="ios-personadd-outline"></Icon>
@@ -176,7 +177,7 @@
         
       </Col>
       <Col span="6" class="infoitem">
-      <div class="realinfo green">
+      <div class="realinfo cyan">
         <div class="contenttitle">
           <div class="symbol">
             <Icon type="ios-personadd-outline"></Icon>
@@ -186,14 +187,14 @@
           </div>
         </div>
         
-        <div class="contentval" v-text="baseinfo.allPoints">
+        <div class="contentval" v-text="baseinfo.allPoints-baseinfo.allWithdrawPoints">
           
         </div>
       </div>
         
       </Col>
        <Col span="6" class="infoitem">
-      <div class="realinfo green">
+      <div class="realinfo cyan">
         <div class="contenttitle">
           <div class="symbol">
             <Icon type="ios-personadd-outline"></Icon>
@@ -203,7 +204,7 @@
           </div>
         </div>
         
-        <div class="contentval" v-text="~~(baseinfo.allPoints*baseinfo.toCashRate/100)">
+        <div class="contentval" v-text="~~((baseinfo.allPoints-baseinfo.allWithdrawPoints)*baseinfo.toCashRate/100)">
           
         </div>
       </div>
@@ -359,8 +360,10 @@ export default {
 				line-height:80px
 				font-size:1.8em
 				font-weight: bolder
+
 .echartwrapper
   height:200px
+
 .red
 	background:#EB8265
 .orange

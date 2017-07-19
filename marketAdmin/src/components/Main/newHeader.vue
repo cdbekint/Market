@@ -9,8 +9,7 @@
           <Menu mode="horizontal" :active-name="1" v-if="$store.state.token ">
             <Submenu name="1">
               <template slot="title">
-                <span class="memberstatus free">
-                  体验会员
+                <span class="memberstatus" :class="{'free':($store.state.companyFlag==0),'member':($store.state.companyFlag==1)}" v-text="$store.state.companyFlag==1?'正式会员':'体验会员'">
                 </span>
                 {{$store.state.companyName || userInfo.company.companyName}}
               </template>

@@ -1,96 +1,46 @@
 <template>
   <div class="Home">
-    <div class="content-title">
+   <!--  <div class="content-title">
       <div class="titlename">
         <span>系统首页</span>
       </div>
       <div class="titellink">
         <router-link :to="{path:'/company/edit'}">修改</router-link>
       </div>
-  </div>
+  </div> -->
   <div class="content">
-    <Form :model="companyinfo" :label-width="100" class="companyinfo">
-        <Form-item label="公司名称" class="text-left">
-          <span v-text="companyinfo.companyName"></span>
-        </Form-item>
-        <Form-item label="公司logo" class="text-left">
-          <img :src="murl+companyinfo.companyLogo" alt="" v-if="companyinfo.companyLogo" class="companyavater">
-        </Form-item>
-        <Form-item label="公司简介" class="text-left">
-          <span v-text="companyinfo.companyDesc"></span>
-        </Form-item>
-      <Form-item label="公司地址" class="text-left">
-        <span v-text="companyinfo.companyAddr"></span>
-      </Form-item>
-        <Form-item label="联系电话" class="text-left">
-          <span v-text="companyinfo.companyTel"></span>
-        </Form-item>
-        <Form-item label="短信通知" class="text-left">
-          <span v-text="companyinfo.openSms==1?'开通':'关闭'"></span>
-          (包含:商品成交给客户通知，注册会员成功等)
-        </Form-item>
-      <Form-item label="短信接收号码" class="text-left">
-        <span v-text="companyinfo.smsTel"></span>
-      </Form-item>
-       <Form-item label="账户过期时间" class="text-left">
-        <span v-text="companyinfo.expireDate"></span>
-      </Form-item>
-      <Form-item label="账户余额" class="text-left">
-        <span v-text="companyinfo.balance+'元'"></span>
-      </Form-item>
-      <Form-item label="用户提现限额" class="text-left">
-          <span v-text="companyinfo.withdrawLimit+'元'"></span>
-        </Form-item>
-        <Form-item label="积分抵扣现金" class="text-left">
-          <span v-text="companyinfo.toCashRate+'%'"></span>
-        </Form-item>
-        <Form-item label="员工提成比" class="text-left">
-          <Row v-for='(group,index) in Group' :key='group' :label='"项目" + (index + 1)' style='margin:7px;'>
-            <Col span='8'>
-            <Input type='text' v-model='group.mans' disabled>
-            <span slot="append" style="display: block;width:50px;">元</span>
-            </Input>
-            </Col>
-            <Col span='8' offset='2'>
-            <Input type='text' v-model='group.discount' disabled>
-              <span slot="append" style="display: block;width:50px;">%</span>
-            </Input>
-            </Col>
-          </Row>
-        </Form-item>
-        <Form-item label="转发积分" class="text-left">
-          <span v-text="companyinfo.sharePoints"></span>
-          (折算现金:<span v-text="companyinfo.sharePoints*companyinfo.toCashRate/100+'元'"></span>)
-
-        </Form-item>
-         <Form-item label="转发次数" class="text-left">
-          <span v-text="companyinfo.shareMax"></span>
-        </Form-item>
-      <Form-item label="注册金额" class="text-left">
-        <span v-text="companyinfo.registerMoney+'元'"></span>
-      </Form-item>
-
-      <Form-item label="注册返还积分" class="text-left">
-        <span v-text="companyinfo.registerPoints"></span>
-         (折算现金:<span v-text="companyinfo.registerPoints*companyinfo.toCashRate/100+'元'"></span>)
-      </Form-item>
-       <Form-item label="邀请注册返积分" class="text-left">
-        <span v-text="companyinfo.invitedPoints"></span>
-         (折算现金:<span v-text="companyinfo.invitedPoints*companyinfo.toCashRate/100+'元'"></span>)
-      </Form-item>
-      <Form-item label="自己消费返还积分比率" class="text-left">
-        <span v-text="companyinfo.selfReturn+'%'"></span>
-      </Form-item>
-      <Form-item label="一级邀请人返还积分比率" class="text-left">
-        <span v-text="companyinfo.oneReturn+'%'"></span>
-      </Form-item>
-      <Form-item label="二级邀请人返还积分比率" class="text-left">
-        <span v-text="companyinfo.secondReturn+'%'"></span>
-      </Form-item>
-      <Form-item label="公司宣传页面" class="text-left">
-        <div v-html="companyinfo.show" class="richtext"></div>
-      </Form-item>
-    </Form>
+    <Tabs value="basic">
+        <Tab-pane label="基础信息" name="basic">
+          
+          <Form :model="companyinfo" :label-width="100" class="companyinfo">
+            <Form-item label="公司名称" class="text-left">
+              <span v-text="companyinfo.companyName"></span>
+            </Form-item>
+            <Form-item label="公司logo" class="text-left">
+              <img :src="murl+companyinfo.companyLogo" alt="" v-if="companyinfo.companyLogo" class="companyavater">
+            </Form-item>
+            <Form-item label="公司简介" class="text-left">
+              <span v-text="companyinfo.companyDesc"></span>
+            </Form-item>
+          <Form-item label="公司地址" class="text-left">
+            <span v-text="companyinfo.companyAddr"></span>
+          </Form-item>
+            <Form-item label="联系电话" class="text-left">
+              <span v-text="companyinfo.companyTel"></span>
+            </Form-item>
+           <Form-item label="账户过期时间" class="text-left">
+            <span v-text="companyinfo.expireDate"></span>
+          </Form-item>
+          <Form-item label="公司宣传页面" class="text-left">
+            <div v-html="companyinfo.show" class="richtext"></div>
+          </Form-item>
+        </Form>
+        </Tab-pane>
+        <Tab-pane label="积分规则" name="pointrule">标签二的内容</Tab-pane>
+        <Tab-pane label="系统开关配置" name="sysgear">标签三的内容</Tab-pane>
+        <Tab-pane label="账户中心" name="account">标签四的内容</Tab-pane>
+    </Tabs>
+    
   </div>
 <!--  <Modal
         v-model="weixinpayModal"
