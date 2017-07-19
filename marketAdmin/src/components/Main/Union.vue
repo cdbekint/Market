@@ -15,19 +15,25 @@
         </div>
   
         <div class="union-content" style='padding-left:10px;'>
-          <div class="union-register" v-for='item in aboutCompanys' style='margin-right:10px;float:left;margin-bottom:10px'>   
+          <div class="union-register">
             <div class="uregitem">
               <div class="upper">
                 商家
               </div>
               <div class="middle">
-                引出注册 
+                引出注册
+                <Tooltip content="这里是提示文字" placement='right'>
+                  <div class='tishi'>?</div>
+                </Tooltip>
               </div>
               <div class="down">
                 导入注册
+                <Tooltip content="这里是提示文字" placement='right'>
+                  <div class='tishi'>?</div>
+                </Tooltip>
               </div>
             </div>
-            <div class="uregitem">
+            <div class="uregitem" v-for='item in aboutCompanys'>
               <div class="upper">
                 {{item.allianceCompanyInfo.companyName}}
               </div>
@@ -63,8 +69,8 @@
         </div>
         <div class="union-content">
   
-          <Col span="4" class="recommanditem" v-for='(item,index) in AllianceInfo' >
-          <div class="companyLogo" @click="removeUnionCompany(item.id,index)">
+          <Col span="4" class="recommanditem" v-for='(item,index) in AllianceInfo'>
+          <div class="companyLogo" @click="removeUnionCompany(item,index)">
             <img src="https://m.market.cdbeki.com/FpEsQAJXA60fwlSDXbzc2C_SvdA5" alt="">
             <!-- <img :src=''> -->
           </div>
@@ -82,12 +88,16 @@
           相关商家推荐
         </div>
         <div class="union-content">
-          <Col span="4" class="recommanditem">
-          <div class="companyLogo">
-            <img src="https://m.market.cdbeki.com/FpEsQAJXA60fwlSDXbzc2C_SvdA5" alt="">
+          <Col span="4" class="recommanditem" v-for="item in hotCompanyList">
+          <div class="companyLogo" @click='unionCompany(item)'>
+            <!-- <img src="https://m.market.cdbeki.com/FpEsQAJXA60fwlSDXbzc2C_SvdA5" alt=""> -->
+            <img :src='murl+item.companyLogo' v-if='item.companyLogo'>
           </div>
-          <div class="companyName" title="射洪巴黎春天婚纱摄影">
-            射洪巴黎春天婚纱摄影
+          <div class="companyName" title="item.companyName">
+            {{item.companyName}}
+          </div>
+          <div v-if='item.allianceImg == 1' class='alliance'>
+            <img src='../../../static/images/alin.png'>
           </div>
           </Col>
         </div>
@@ -106,7 +116,7 @@ export default {
       noAllianceInfo: [], //非商家联盟
       companyList: [],    //所有商家
       hotCompanyList: [],    //热推商家
-      aboutCompanys:[],
+      aboutCompanys: [],
       showcompanylist: false,
       isGetting: false,
       queryinfo: {
@@ -137,18 +147,20 @@ export default {
         if (res.error == false) {
           this.getcompanyloading = false
           this.isGetting = false
+          console.log(res.result)
           this.companyList = res.result
         }
       })
     },
+    //点击联盟
     unionCompany(data) {
       this.$Modal.confirm({
         title: '确定与该商家联盟?',
         onOk: () => {
           let arr = this.AllianceInfo
-          if(data.id == this.$store.state.companyId){
-              this.$Message.error('不能与自己联盟');
-              return
+          if (data.id == this.$store.state.companyId) {
+            this.$Message.error('不能与自己联盟');
+            return
           }
           for (var i = 0; i < arr.length; i++) {
             if (data.id == arr[i].allianceCompanyId) {
@@ -158,17 +170,28 @@ export default {
           }
           this.$Message.info('联盟成功');
           this.addCompany(data)
+          if (data.allianceImg) {
+            data.allianceImg = 1
+          }
         },
         onCancel: () => {
           this.$Message.info('点击了取消');
         }
       });
     },
+    //点击解除联盟   data  点击该商家的所有信息  index是排列在联盟的索引
     removeUnionCompany(data, index) {
       this.$Modal.confirm({
         title: '确定与该商家解除联盟?',
         onOk: () => {
-          this.removeCompany(data, index)
+          this.removeCompany(data.id, index)
+          this.hotCompanyList.forEach(item => {
+            if (data.allianceCompanyInfo.companyName == item.companyName) {
+              if (item.allianceImg) {
+                item.allianceImg = 2
+              }
+            }
+          })
         },
         onCancel: () => {
           this.$Message.info('点击了取消');
@@ -179,14 +202,13 @@ export default {
     addCompany(data) {
       this.addCompanyInfo.allianceCompanyId = data.id
       this.addCompanyInfo.companyId = this.$store.state.companyId - 0
-      // console.log(this.addCompanyInfo)
       this.http.post(this.$store.state.prefix + '/alliance/addAlliance', this.addCompanyInfo).then(res => {
         if (!res.error) {
           this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId).then(res => {
             if (!res.error) {
-              if(res.result){
+              if (res.result) {
                 this.AllianceInfo = res.result
-                this.aboutCompanys = [...this.AllianceInfo,...this.noAllianceInfo]
+                this.aboutCompanys = [...this.AllianceInfo, ...this.noAllianceInfo]
               }
             }
           })
@@ -198,7 +220,7 @@ export default {
       this.http.post(this.$store.state.prefix + '/alliance/deleteAlliance', { id: data }).then(res => {
         if (!res.error) {
           this.AllianceInfo.splice(index, 1)
-          this.aboutCompanys = [...this.AllianceInfo,...this.noAllianceInfo]
+          this.aboutCompanys = [...this.AllianceInfo, ...this.noAllianceInfo]
         }
       })
     }
@@ -209,35 +231,89 @@ export default {
     //联盟商家
     this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId).then(res => {
       if (!res.error) {
-        if(res.result){
+        if (res.result) {
           this.AllianceInfo = res.result
-          this.aboutCompanys = [...this.AllianceInfo,...this.noAllianceInfo]
+          this.aboutCompanys = [...this.AllianceInfo, ...this.noAllianceInfo]
+          console.log(this.hotCompanyList)
         }
       }
     })
     //非联盟商家
     this.http.get(this.$store.state.prefix + '/alliance/getNoAllianceInfo?companyId=' + this.$store.state.companyId).then(res => {
-      if(!res.error){
-        if(res.result){
-          this.noAllianceInfo = res.result 
+      if (!res.error) {
+        if (res.result) {
+          this.noAllianceInfo = res.result
         }
       }
     })
     //热推商家
-    this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', {companyId : this.$store.state.companyId}).then(res => {
-      //console.log(res)
+    this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', { companyId: this.$store.state.companyId }).then(res => {
+      console.log(res)
       if (!res.error) {
-        if(res.result){
+        if (res.result) {
           this.hotCompanyList = res.result
-        } 
+          const arr = this.hotCompanyList
+          const id = this.$store.state.companyId
+          arr.forEach(function (item, index) {
+            item = Object.assign(item,{allianceImg:2})
+            if (item.id == id) {
+              arr.splice(index, 1)
+            }
+            return
+          });
+
+        }
       }
     })
+    // function getUserAccount() {
+    //   return this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId);
+    // }
+
+    // function getUserPermissions() {
+    //   return this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', { companyId: this.$store.state.companyId });
+    // }
+
+    // this.http.all([this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId), this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', { companyId: this.$store.state.companyId })])
+    //   .then(this.http.spread(function (res, resTwo) {
+    //     console.log(this.AllianceInfo)
+    //     if (!res.error) {
+    //       if (res.result) {
+    //         this.AllianceInfo = res.result
+    //         this.aboutCompanys = [...this.AllianceInfo, ...this.noAllianceInfo]
+    //         console.log(this.AllianceInfo)
+    //       }
+    //     }
+        // if (!resTwo.error) {
+        //   if (resTwo.result) {
+        //     this.hotCompanyList = resTwo.result
+        //     const arr = this.hotCompanyList
+        //     const id = this.$store.state.companyId
+        //     arr.forEach(function (item, index) {
+        //       item = Object.assign(item, { allianceImg: 2 })
+        //       if (item.id == id) {
+        //         arr.splice(index, 1)
+        //       }
+        //       return
+        //     });
+
+        //   }
+        // }
+      // }));
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='stylus' rel="stylesheet/stylus">
+.tishi
+  width:15px
+  height:15px
+  background-color:#ffac38
+  border-radius:50%
+  color:#fff
+  line-height:15px
+  text-align:center
+  cursor pointer
 .unionitems
   border-radius:5px
   min-height:125px
@@ -288,6 +364,16 @@ export default {
     .recommanditem
       height:70px
       cursor:pointer
+      position relative
+      .alliance
+        opacity 0.8
+        width 50px
+        height 50px
+        position absolute
+        left 35px
+        top 3px
+        img
+          width 100%
       .companyLogo
         height:50px
         width:50px

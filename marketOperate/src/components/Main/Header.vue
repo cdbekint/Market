@@ -6,7 +6,7 @@
         <img src="/static/images/logo.png" alt="">
         </Col>
         <Col span="16" class="dropmenus">
-         <Menu mode="horizontal" :active-name="1" v-if="$store.state.token">
+         <Menu mode="horizontal" :active-name="1" v-if="$store.state.operatetoken">
            <Submenu name="1">
             <template slot="title">
                 <Icon type="stats-bars"></Icon>

@@ -71,9 +71,9 @@ export default {
           this.http.post(this.$store.state.prefix + '/account/sysLogin' ,param).then(res => {
             if (res.error === false) {
               if (res.result.access_token) {
-                this.$store.state.token = res.result.access_token
+                this.$store.state.operatetoken = res.result.access_token
               }
-              this.util.setCookie('token', res.result.access_token)
+              this.util.setCookie('operatetoken', res.result.access_token)
               this.util.setCookie('companyId', res.result.user.company.id)
               console.log(this.$router.query.redirect)
               if (this.$router.query.redirect !== undefined) {

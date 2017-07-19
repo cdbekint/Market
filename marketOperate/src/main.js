@@ -19,7 +19,7 @@ Vue.prototype.apiurl = 'http://market.cdbeki.com/'
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    token: util.getCookie('token') || '',
+    operatetoken: util.getCookie('operatetoken') || '',
     companyId: util.getCookie('companyId') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
     prefix: '/api'
@@ -37,15 +37,15 @@ axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
 axios.interceptors.request.use(function (config) {
   if (config.data) {
-    config.data.access_token = store.state.token
+    config.data.access_token = store.state.operatetoken
   } else {
     if (config.url.indexOf('login') > -1 || config.url.indexOf('register') > -1) {
       config.url += ''
     } else {
       if (config.url.indexOf('?') > 0) {
-        config.url += '&access_token=' + store.state.token
+        config.url += '&access_token=' + store.state.operatetoken
       } else {
-        config.url += '?access_token=' + store.state.token
+        config.url += '?access_token=' + store.state.operatetoken
       }
     }
   }
