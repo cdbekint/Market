@@ -109,8 +109,7 @@ export default {
               this.util.setCookie('companyName', res.result.user.company.companyName)
               this.util.setCookie('authentic', res.result.user.company.authentic)
               this.util.setCookie('companyFlag', res.result.user.company.companyFlag)
-
-              console.log(this.$router.query.redirect)
+              document.getElementById("mainheader").style.height = "70px"
               if (this.$router.query.redirect !== undefined) {
                 if (this.$router.query.redirect.indexOf('/login') > -1) {
                   this.$router.push('/')

@@ -156,11 +156,11 @@ export default {
       withdrawModal: false,
       rate:3.6,//提现手续费
       employeeColumn:[
-        // {
-        //    type: 'selection',
-        //    width: 60,
-        //    align: 'center'
-        // },
+        {
+           type: 'selection',
+           width: 60,
+           align: 'center'
+        },
         {
           title: '昵称',
           key: 'nickName',
@@ -200,7 +200,8 @@ export default {
         current:1,
         size:12,
         total:1
-      },withdrawColumns:[
+      },
+      withdrawColumns:[
         {
           title: '序号',
           type: 'index',

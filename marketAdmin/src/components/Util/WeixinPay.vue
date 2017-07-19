@@ -158,9 +158,9 @@ export default {
           }
     },
     checkStatus (out_trade_no) {
+        if(this.wrapper==false)return
         this.http.post(this.$store.state.prefix + '/pay/getByOutTradeNo', {outTradeNo: out_trade_no}).then(res => {
         if (res.error === false) {
-            debugger
             if(res.result.payStatus === 1){
               this.currentStep ++
               this.switchStep(true)

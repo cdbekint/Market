@@ -7,13 +7,13 @@
         <span>修改信息</span>
       </div>
       <div class='titellink'>
-      <router-link to='/company' class='innerbtnlink'>返回</router-link>
+      <router-link :to="{path:'/company',query:{name:parent}}" class='innerbtnlink'>返回</router-link>
       </div>
  </div>
  <div class='content'>
 
 
-<ul>
+<ul v-if="type==1">
   <li class='companyitem'>
     <div class='itemname'>
       企业名称
@@ -98,31 +98,17 @@
 
     </div>
   </li>
-  <li class='companyitem'>
-    <div class='itemname'>
-      短信通知
-    </div>
-    <div class='itemcontent'>
-      <Radio-group v-model="company.openSms">
-        <Radio label="1"><span>开通</span></Radio>
-        <Radio label="0"><span>关闭</span></Radio>
-    </Radio-group>
-    </div>
-    <div class='itemhepler'>
-      用户交易注册等将会有短信提醒到用户。
-    </div>
-  </li>
-  <li class='companyitem'>
-    <div class='itemname'>
-      短信接收号码
-    </div>
-    <div class='itemcontent'>
-      <input type='text' v-model='company.smsTel'>
+   <li class='companyitem'>
+    <div class='itemname'>公司宣传页面</div>
+    <div class='itemcontent ueditor-wrapper'>
+     <ueditor :value="defaultMSg" :config="Ueditorconfig" @input="Ueditorinput" v-on:ready="Ueditorready"></ueditor>
     </div>
     <div class='itemhepler'>
 
     </div>
   </li>
+  </ul>
+<ul v-if="type==2">
   <li class='companyitem'>
     <div class='itemname'>
       积分折现金比
@@ -135,48 +121,7 @@
     <div class='itemhepler'>
       积分对应的兑换成现金的比例。
     </div>
-  </li>
-  <li class='companyitem'>
-    <div class='itemname'>
-      用户提现限额
-    </div>
-    <div class='itemcontent'>
-      <Input type='number' min="0" v-model='company.withdrawLimit'>
-      </Input>
-    </div>
-    <div class='itemhepler'>
-      用户提现超出此金额需要验证授权划款。
-    </div>
-  </li>
-  <li class='companyitem'>
-    <div class='itemname'>
-      员工提成比
-    </div>
-    <div class='itemcontent' >
-      <Row v-for='(group,index) in Group' :key='group' :label='"项目" + (index + 1)' style='margin:7px;'>
-        <Col span='8'>
-          <Input type='text' v-model='group.mans' placeholder='总金额'>
-           <span slot="append" style="display: block;width:35px;">元</span>
-        </Input>
-        </Col>
-        <Col span='8' offset='2'>
-          <Input type='text' v-model='group.discount' placeholder='提成比率'>
-            <span slot="append" style="display: block;width:35px;">%</span>
-          </Input>
-        </Col>
-        <Col span='3' class='groupitemaction' v-if='Group.length!==1'>
-        <Button type='dashed' @click='minusGroup(index)' icon='minus-round'></Button>
-        </Col>
-        <Col span='3' class='groupitemaction' v-if='index==Group.length-1'>
-          <Button type='dashed' @click='addGroup(index)' icon='plus-round'></Button>
-        </Col>
-      </Row>
-    </div>
-    <div class='itemhepler'>
-
-    </div>
-  </li>
-  <li class='companyitem'>
+  </li><li class='companyitem'>
     <div class='itemname'>
       分享赠送积分
     </div>
@@ -264,16 +209,77 @@
 
     </div>
   </li>
+  </ul>
+  <ul v-if="type==3">
   <li class='companyitem'>
-    <div class='itemname'>公司宣传页面</div>
-    <div class='itemcontent ueditor-wrapper'>
-     <ueditor :value="defaultMSg" :config="Ueditorconfig" @input="Ueditorinput" v-on:ready="Ueditorready"></ueditor>
+    <div class='itemname'>
+      短信通知
+    </div>
+    <div class='itemcontent'>
+      <Radio-group v-model="company.openSms">
+        <Radio label="1"><span>开通</span></Radio>
+        <Radio label="0"><span>关闭</span></Radio>
+    </Radio-group>
+    </div>
+    <div class='itemhepler'>
+      用户交易注册等将会有短信提醒到用户。
+    </div>
+  </li> 
+  <li class='companyitem'>
+    <div class='itemname'>
+      短信接收号码
+    </div>
+    <div class='itemcontent'>
+      <input type='text' v-model='company.smsTel'>
     </div>
     <div class='itemhepler'>
 
     </div>
   </li>
+  
+  <li class='companyitem'>
+    <div class='itemname'>
+      用户提现限额
+    </div>
+    <div class='itemcontent'>
+      <Input type='number' min="0" v-model='company.withdrawLimit'>
+      </Input>
+    </div>
+    <div class='itemhepler'>
+      用户提现超出此金额需要验证授权划款。
+    </div>
+  </li>
+  <li class='companyitem'>
+    <div class='itemname'>
+      员工提成比
+    </div>
+    <div class='itemcontent' >
+      <Row v-for='(group,index) in Group' :key='group' :label='"项目" + (index + 1)' style='margin:7px;'>
+        <Col span='8'>
+          <Input type='text' v-model='group.mans' placeholder='总金额'>
+           <span slot="append" style="display: block;width:35px;">元</span>
+        </Input>
+        </Col>
+        <Col span='8' offset='2'>
+          <Input type='text' v-model='group.discount' placeholder='提成比率'>
+            <span slot="append" style="display: block;width:35px;">%</span>
+          </Input>
+        </Col>
+        <Col span='3' class='groupitemaction' v-if='Group.length!==1'>
+        <Button type='dashed' @click='minusGroup(index)' icon='minus-round'></Button>
+        </Col>
+        <Col span='3' class='groupitemaction' v-if='index==Group.length-1'>
+          <Button type='dashed' @click='addGroup(index)' icon='plus-round'></Button>
+        </Col>
+      </Row>
+    </div>
+    <div class='itemhepler'>
 
+    </div>
+  </li>
+ 
+ </ul>
+<ul>
 
   <li class='companyitem'>
     <div class='itemcontent'>
@@ -296,6 +302,8 @@ export default {
   data () {
     return {
       title: '公司信息设置',
+      type:1,
+      parent:'basic',
       company: {
         id: '',
         companyName: '',
@@ -385,7 +393,8 @@ export default {
       this.Group.splice(index, 1)
     },
     addGroup (index) {
-      if (this.Group[index].mans && this.Group[index].discount) {
+      debugger
+      if (this.Group[index].mans!=undefined && this.Group[index].mans!=="" && this.Group[index].discount!=="" && this.Group[index].discount!=undefined) {
         this.Group.push({mans: '', discount: ''})
       } else {
         this.$Notice.warning({title: '请先完善当前项内容'})
@@ -403,66 +412,73 @@ export default {
     },
     _checkParamAndExecute () {
       var ai = JSON.parse(JSON.stringify(this.company))
-      if (!ai.companyDesc) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写企业描述'})
-        return false
+      if(this.type==1){
+          if (!ai.companyDesc) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写企业描述'})
+            return false
+          }
+          if (!ai.companyAddr) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写公司地址'})
+            return false
+          }
+          if (!ai.companyTel) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写联系方式'})
+            return false
+          }
+          if (!ai.companyLogo) {
+            this.$Notice.info({title: '请完善信息', desc: '请上传公司logo'})
+            return false
+          }
+      }else if(this.type==2){
+        if (ai.toCashRate === '') {
+            this.$Notice.info({title: '请完善信息', desc: '请填写积分抵现金比例'})
+            return false
+          }
+          if (!ai.employeeRate) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写员工提成比率'})
+            return false
+          }
+          if (!ai.sharePoints) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写转发积分'})
+            return false
+          }
+          if (!ai.shareMax) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写最多转发次数'})
+            return false
+          }
+          if (!ai.registerMoney) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写注册金额'})
+            return false
+          }
+          if (this.util.isNull(ai.registerPoints)) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写注册返还积分'})
+            return false
+          }
+          if (!ai.selfReturn) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写自己消费返还积分比率'})
+            return false
+          }
+          if (this.util.isNull(ai.oneReturn)) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写一级邀请人返还积分比率'})
+            return false
+          }
+          if (!ai.secondReturn) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写二级邀请人返还积分比率'})
+            return false
+          }
+      }else if(this.type==3){
+        if (!ai.smsTel) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写短信接收号码'})
+            return false
+          }
       }
-      if (!ai.companyAddr) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写公司地址'})
-        return false
-      }
-      if (!ai.companyTel) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写联系方式'})
-        return false
-      }
-      if (!ai.smsTel) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写短信接受号码'})
-        return false
-      }
-      if (!ai.companyLogo) {
-        this.$Notice.info({title: '请完善信息', desc: '请上传公司logo'})
-        return false
-      }
-      if (ai.toCashRate === '') {
-        this.$Notice.info({title: '请完善信息', desc: '请填写积分抵现金比例'})
-        return false
-      }
-      if (!ai.employeeRate) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写员工提成比率'})
-        return false
-      }
-      if (!ai.sharePoints) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写转发积分'})
-        return false
-      }
-      if (!ai.shareMax) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写最多转发次数'})
-        return false
-      }
-      if (!ai.registerMoney) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写注册金额'})
-        return false
-      }
-      if (this.util.isNull(ai.registerPoints)) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写注册返还积分'})
-        return false
-      }
-      if (!ai.selfReturn) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写自己消费返还积分比率'})
-        return false
-      }
-      if (this.util.isNull(ai.oneReturn)) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写一级邀请人返还积分比率'})
-        return false
-      }
-      if (!ai.secondReturn) {
-        this.$Notice.info({title: '请完善信息', desc: '请填写二级邀请人返还积分比率'})
-        return false
-      }
+      
+      
+      
       this.http.put(this.$store.state.prefix + '/company', this.company).then(res => {
         if (res.error === false) {
           this.$Message.success('修改成功')
-          this.router.push('/company')
+          this.router.push('/company?name='+this.parent)
         }
       })
       return true;
@@ -504,6 +520,9 @@ export default {
     }
   },
   created () {
+    var query = this.util.getQuery(location.hash);
+    this.type=query.type
+    this.parent=query.name
     if (this.$store.state.companyId) {
       this.http.get(this.$store.state.prefix + '/company/' + this.$store.state.companyId).then(res => {
         if (res.error === false) {
@@ -516,7 +535,6 @@ export default {
             this.areaOne.id = areaIds[0];
             this.areaTwo.id = areaIds[1];
             this.areaThree.id = areaIds[2];
-            console.log(this.areasOne)
             this.Group = JSON.parse(this.company.employeeRate.replace(/&quot;/g,'"'));
           }
         }

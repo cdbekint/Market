@@ -329,4 +329,3 @@ export default new Router({
     }
   ]
 })
-
