@@ -109,13 +109,12 @@ new Vue({
   data:{
       state:0
   },
-  created () {
-    if (!store.state.token) {
-      if (this.util.isWeiXin()) {
-        location.replace('/login.html')
-      } else {
-        console.warn('会话过期')
-      }
+  mounted(){
+    if(!this.$store.state.token){
+        this.topheight=(window.screen.width*780/1920)
+        document.getElementById("mainheader").style.height = this.topheight+"px"
+    }else{
+        document.getElementById("mainheader").style.height = "70px"
     }
   }
 })

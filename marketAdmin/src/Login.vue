@@ -88,13 +88,6 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           const param = JSON.parse(JSON.stringify(this.formInline))
-          // this.jsonp(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?'),null,function(err,res){
-          //   if (err) {
-          //     console.error(err.message);
-          //   } else {
-          //     console.log(res);
-          //   }
-          // })
           this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
             if (res.error === false) {
               if (res.result.access_token) {
@@ -110,14 +103,6 @@ export default {
               this.util.setCookie('authentic', res.result.user.company.authentic)
               this.util.setCookie('companyFlag', res.result.user.company.companyFlag)
               document.getElementById("mainheader").style.height = "70px"
-              if (this.$router.query.redirect !== undefined) {
-                if (this.$router.query.redirect.indexOf('/login') > -1) {
-                  this.$router.push('/')
-                }
-                this.$router.push(this.$route.query.redirect)
-              } else {
-                this.$router.push('/')
-              }
             } else {
               this.$Message.error(res.msg)
             }
@@ -129,11 +114,6 @@ export default {
         }
       })
     },
-    // Register() {
-    //   this.http.post(this.$store.state.prefix + '/account/register', this.register).then(res => {
-    //     console.log(res)
-    //   })
-    // }
     handleClick(type, onOff) {
       this.$emit('close', false)
     }
@@ -164,7 +144,7 @@ export default {
 }
 </script>
 
-<style scoped lang='stylus' rel="stylesheet/stylus">
+<style scoped lang="stylus" rel="stylesheet/stylus">
 .loginmainpanel
   width:100%
   background:#fff

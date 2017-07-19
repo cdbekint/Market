@@ -4,14 +4,13 @@
       <!-- 脚部信息 -->
       <ul>
         <li>裂变式营销系统</li>
-        <li>联盟生态管理系统</li>
-        <li>接单宝</li>
+        <li><a href="http://ems.cdbeki.com" target="_blank">联盟生态管理系统</a></li>
+        <li><a href="https://jd.cdbeki.com" target="_blank">接单宝</a></li>
       </ul>
       <br>
       <ul>
-        <li>蜀IPC备14004122</li>
-        <li>Copuright<span></span>©<span></span>2016-2017<span></span>BEIKEI<span></span>白起网络</li>
-
+        <li>蜀ICP备15007695号-2</li>
+        <li>Copyright<span></span>©<span></span>2015-2017<span></span>CdBeki<span></span>成都白起网络科技有限公司</li>
       </ul>
     </div>
 </template>
