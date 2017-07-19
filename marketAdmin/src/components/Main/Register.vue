@@ -10,9 +10,9 @@
                     <img src='../../../static/images/LOGO2.png'>
                 </div>
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" id='item'>
-                  <Form-item class="items">
-                    <h1>注册账户</h1>
-                  </Form-item>
+                    <Form-item class="items">
+                        <h1>注册账户</h1>
+                    </Form-item>
                     <Form-item prop="username" class='items'>
                         <Input v-model="formValidate.username" placeholder="登录用户名(字母开头数字,无特殊符号)" class='item'></Input>
                     </Form-item>
@@ -23,31 +23,31 @@
                         <Input v-model="formValidate.companyName" placeholder="企业名称(允许使用简称)" class='item' type='text'></Input>
                     </Form-item>
                     <Row>
-                      <Col span="12">
-                          <Form-item prop="realName" class='items itemstwo'>
-                              <Input v-model="formValidate.realName" placeholder="联系人姓名" class='item' type='text'></Input>
-                          </Form-item>
-                      </Col>
-                      <Col span="12">
-                           <Form-item prop="phone" class='items'>
+                        <Col span="12">
+                        <Form-item prop="realName" class='items itemstwo'>
+                            <Input v-model="formValidate.realName" placeholder="联系人姓名" class='item' type='text'></Input>
+                        </Form-item>
+                        </Col>
+                        <Col span="12">
+                        <Form-item prop="phone" class='items'>
                             <Input v-model="formValidate.phone" placeholder="联系人手机号" class='item' type='text'></Input>
-                          </Form-item>
-                      </Col>
+                        </Form-item>
+                        </Col>
                     </Row>
-                   
-                   <Row>
-                      <Col span="12">
-                          <Form-item prop="email" class='items itemstwo'>
-                              <Input v-model="formValidate.email" placeholder="邮箱帐号" class='item' type='text'></Input>
-                          </Form-item>
-                      </Col>
-                      <Col span="12">
-                           <Form-item prop="invitationCode" class='items'>
+    
+                    <Row>
+                        <Col span="12">
+                        <Form-item prop="email" class='items itemstwo'>
+                            <Input v-model="formValidate.email" placeholder="邮箱帐号" class='item' type='text'></Input>
+                        </Form-item>
+                        </Col>
+                        <Col span="12">
+                        <Form-item prop="invitationCode" class='items'>
                             <Input v-model="formValidate.invitationCode" placeholder="邀请码" class='item' type='text'></Input>
-                          </Form-item>
-                      </Col>
+                        </Form-item>
+                        </Col>
                     </Row>
-                   
+    
                     <Form-item class='lastitem'>
                         <button type="primary" @click="handleSubmit('formValidate')">注册体验(30天)</button>
                     </Form-item>
@@ -71,7 +71,7 @@ export default {
                 realName: '',
                 phone: '',
                 email: '',
-                invitationCode:''
+                invitationCode: ''
             },
             errorMessage: '',
             ruleValidate: {
@@ -86,15 +86,18 @@ export default {
                 ],
                 realName: [
                     { required: true, message: '请输入联系人姓名', trigger: 'blur' },
-                    { type:'string',pattern:/[\u4e00-\u9fa5]/gm, message: '请输入准确的联系人姓名', trigger: 'blur' }
+                    { type: 'string', pattern: /[\u4e00-\u9fa5]/gm, message: '请输入准确的联系人姓名', trigger: 'blur' }
                 ],
                 phone: [
-                    { required: true,  message: '联系人手机号不能为空', trigger: 'blur' },
-                    {type:'string',pattern:/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$/, message: '输入正确手机', trigger: 'blur'}
+                    { required: true, message: '联系人手机号不能为空', trigger: 'blur' },
+                    { type: 'string', pattern: /^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$/, message: '输入正确手机', trigger: 'blur' }
                 ],
                 email: [
                     { required: true, message: '邮箱不能为空', trigger: 'blur' },
                     { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+                ],
+                invitationCode: [
+                    { type: 'string', min: 8, max: 8, message: '必须是8位数的邀请码', trigger: 'change' }
                 ]
             }
         }
@@ -107,17 +110,17 @@ export default {
             this.$refs[name].validate((valid) => {
                 if (valid) {
                     this.http.post(this.$store.state.prefix + '/pubInfo/createCompany', this.formValidate).then(res => {
-                if (res.error) {
-                    this.$Message.error(res.msg)
-                    this.errorMessage = res.msg
-                } else {
-                    this.$Notice.success({
-                        title: "恭喜您注册成功,请登录"
+                        if (res.error) {
+                            this.$Message.error(res.msg)
+                            this.errorMessage = res.msg
+                        } else {
+                            this.$Notice.success({
+                                title: "恭喜您注册成功,请登录"
+                            })
+                            this.$emit('close', this.close)
+                        }
+                        console.log(res)
                     })
-                    this.$emit('close', this.close)
-                }
-                console.log(res)
-            })
                 } else {
                     this.$Message.error('表单验证失败!');
                 }

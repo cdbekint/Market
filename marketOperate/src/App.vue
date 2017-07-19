@@ -4,7 +4,7 @@
     <vheader class="header-wrapper" :userInfo="userInfo">
         <!-- 头部内容 -->
     </vheader>
-    <div class="content-wrapper" v-if="$store.state.token">
+    <div class="content-wrapper" v-if="$store.state.operatetoken">
       <div class="menu-wrapper">
         <dl class="menulist">
           <dt>
@@ -26,7 +26,12 @@
           <router-link :to="{path:'/withdrawlist'}"  tag="dd" active-class="active">提现申请</router-link>
           <router-link :to="{path:'/waitaudit'}"  tag="dd" active-class="active">待审提现</router-link>
         </dl>
-
+        <dl class="menulist">
+          <dt>
+          <i class="fa fa-tags"></i>商家认证
+          </dt>
+          <router-link :to="{path:'/EnterPriseAuthentic'}"  tag="dd" active-class="active">商家待办认证</router-link>
+        </dl>
       </div>
       <div class="realcontent-wrapper">
         <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">

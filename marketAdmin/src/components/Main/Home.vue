@@ -132,7 +132,7 @@
                 <div class="accountcontent withdrawinfocontent">
                   <div class="flex2 currentwithdrawuser">
                       <div class="flex1">
-                        <img :src="companyinfo.account.headImg" class="withdrawuser" v-if="companyinfo.account.headImg">
+                        <img :src="companyinfo.account.headImg" class="withdrawuser" v-if="companyinfo.account&&companyinfo.account.headImg">
                       </div>
                       <div class="flex2">
                         <div class="currentinfo">
@@ -251,7 +251,7 @@
           </Row>
       </div>
        <div slot="footer" class="text-left">
-        <Icon type="ios-information-outline"></Icon>手续费为经过微信商户平台收取的手续费
+         <Icon type="ios-information-outline"></Icon>手续费为经过微信商户平台收取的手续费 
       </div>
   </Modal>
   </div>
@@ -273,6 +273,12 @@ export default {
       renewModal:false,
       rate:3.6,//提现手续费
       companyinfo: {
+        account:{
+          realName:'',
+          nickName:'',
+          headImg:'',
+          phone:''
+        },
         companyName: '',
         companyDesc: '',
         companyTel: '',
@@ -404,8 +410,17 @@ export default {
       this.http.get(this.$store.state.prefix + '/company/' + this.$store.state.companyId).then(res => {
         if (res.error === false) {
           if (res.result !== null) {
-            this.companyinfo = res.result
-            res.result.employeeRate=JSON.parse(res.result.employeeRate)
+
+            //判断是否具有提现账户信息，没有就设置account信息。
+            if(!res.result.account){
+              res.reuslt.account={
+                realName:'',
+                nickName:'',
+                headImg:'',
+                phone:''
+              }
+            }
+            res.result.employeeRate=res.result.employeeRate?JSON.parse(res.result.employeeRate):[]
             this.companyinfo = res.result
             this.companyinfo.expireDays=~~((this.companyinfo.expireDate-Date.now())/1000/3600/24)
             this.companyinfo.expireDate = this.util.getFormatDate(this.companyinfo.expireDate)

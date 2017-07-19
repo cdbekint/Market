@@ -11,6 +11,7 @@ import companyEdit from '@/components/Main/companyEdit'
 import WithDrawList from '@/components/Withdraw/WithDrawList'
 import WaitAudit from '@/components/Withdraw/WaitAudit'
 import customerList from '@/components/customer/customerList'
+import EnterPriseAuthentic from '@/components/Main/EnterPriseAuthentic'
 
 Vue.use(Router)
 Vue.use(iView)
@@ -51,6 +52,11 @@ export default new Router({
       path: '/waitaudit',
       name: 'WaitAudit',
       component: WaitAudit
+    },
+    {
+      path: '/EnterPriseAuthentic',
+      name: 'EnterPriseAuthentic',
+      component: EnterPriseAuthentic
     }
   ]
 })

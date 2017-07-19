@@ -193,6 +193,7 @@ export default {
           if(res.result){
             res.result.createDate=this.util.getFormatDate(res.result.createDate)
             this.authenticInfo = res.result
+            console.log(res.result)
             if(res.result.authenticStatus==3){
               this.inputauthentic=res.result
             }
