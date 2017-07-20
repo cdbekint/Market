@@ -36,7 +36,7 @@
             <span v-text="authenticInfo.authenticDesc"></span>
           </Form-item>
           <Form-item label="认证状态" class="text-left" v-if="$store.state.authentic==1">
-           <Icon type="ios-checkmark" color="#44b549" size="20"></Icon> <span>审核通过</span>
+           <Icon type="ios-checkmark" color="#44b549" size="20"></Icon> <span>认证通过</span>
           </Form-item>
           <Form-item label="申请时间" class="text-left" v-if="$store.state.authentic>=2">
             <span v-text="authenticInfo.createDate"></span>

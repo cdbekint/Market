@@ -9,7 +9,6 @@
  	</div>
  	<div class="content">
  			<Table highlight-row border :columns="balanceColumns" :data="balancelist"></Table>
-	   
  	</div>
   </div>
 
@@ -52,19 +51,26 @@ export default {
           }
         },
         {
-        	title:'积分',
+        	title:'会员积分和',
         	key:'allPoints'
         },
         {
-          title: '账户余额',
-          key: 'balance'
+          title:'会员准备金',
+          render(row){
+            return '<span v-text="Math.ceil(row.allPoints*row.toCashRate/100)" style="font-size:1.2em;color:red;font-weight:bolder"></span>'
+          }
         },
         {
-          title: '积分折现比例',
-          key: 'toCashRate'
+          title: '账户余额',
+          key: 'balance',
+          render(row){
+            return '<span v-text="row.balance" style="font-size:1.2em;color:red;font-weight:bolder"></span>'
+          }
         }
     	],
-    	balancelist:[]
+    	balancelist:[],
+      allPreMoney:0,
+      allBalance:0
     }
   },
   created () {
@@ -74,6 +80,11 @@ export default {
   	getWithDrawList(){
   		this.http.get(this.$store.state.prefix+"/operate/getAllCompanyBalanceInfo").then(res=>{
         if(res.error==false){
+
+          res.result.forEach((item)=>{
+            this.allPreMoney+=item.allPoints*item.toCashRate
+            this.allBalance+=item.balance
+          })
           this.balancelist=res.result
         }
   		})

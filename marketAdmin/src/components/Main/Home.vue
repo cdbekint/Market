@@ -88,6 +88,7 @@
              <Form :model="companyinfo" :label-width="100" class="companyinfo">
                 <Form-item label="短信通知" class="text-left">
                   <span v-text="(companyinfo.openSms==1?'已打开':'关闭')+'（客户注册，消费，一级二级积分返还的通知；不影响提现等必要通知）'"></span>
+                  <p>同一手机号码接收支持1条/分钟，5条/小时，10条/天</p>
                 </Form-item>
                 <Form-item label="短信通知号码" class="text-left">
                   <span v-text="companyinfo.smsTel"></span>
