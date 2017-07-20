@@ -117,7 +117,7 @@
                   <span v-text="companyinfo.balance+'元'"></span>
                 </Form-item>
                 <Form-item label="账户邀请码" class="text-left">
-                   <span v-text="companyinfo.selfInvitationCode" v-if="companyinfo.authentic==1"></span><span v-if="companyinfo.authentic!=1">通过企业认证获得邀请码</span>（邀请企业注册并认证成功即可获得30天账户有效期）
+                   <span v-text="companyinfo.selfInvitationCode" v-if="companyinfo.authentic==1" style="font-size:1.2em;font-weight:bolder;color:red"></span><span v-if="companyinfo.authentic!=1">通过企业认证获得邀请码</span>（邀请企业注册并认证成功即可获得30天账户有效期）
                 </Form-item>
                 <Form-item label="账户有效期" class="text-left">
                    <span v-text="companyinfo.expireDate+'('+companyinfo.expireDays+'天)'"></span>
@@ -477,6 +477,7 @@ export default {
             this.getCompanyinfo()
             this.withdrawModal=false
             this.withdrawMoney = 0
+            this.getWithDrawList()
           } else {
             this.$Message.error(res.msg)
           }
