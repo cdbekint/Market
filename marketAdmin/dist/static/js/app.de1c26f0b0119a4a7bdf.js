@@ -4074,23 +4074,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         size: 12
       },
       addPointmodal: false,
-      addPointmodalTwo: false,
       willaddPointUser: {},
       customerPoints: '',
       randomStr: '',
-      remarks: ''
+      remarks: '',
+
+      smscountdown: {
+        timer: localStorage.getItem('timeNum') || 0,
+        enable: localStorage.getItem('PointEnable') || true,
+        captcha: ''
+      }
     };
   },
   created: function created() {
     this.getList(1);
     this.getEmployeeList(1);
+    var timeNum = localStorage.getItem('timeNum');
+    var time = (Date.now() - localStorage.getItem('nowTime')) / 1000;
+
+    if (time <= timeNum) {
+      this.smscountdown.timer = Math.ceil(timeNum - time);
+      this.smscountdown.enable = localStorage.getItem('PointEnable');
+
+      this.interval();
+    }
   },
 
   methods: {
     sureAddPoints: function sureAddPoints() {
       var _this2 = this;
 
-      console.log(this.randomStr);
+      if (this.customerPoints <= 0 || '') {
+        this.$Message.error('请填正确的积分数');
+        return;
+      }
+      if (this.randomStr == '') {
+        this.$Message.error('请填验证码');
+        return;
+      } else if (this.randomStr.length != 6) {
+        this.$Message.error('请填6位数验证码');
+        return;
+      }
+      if (this.remarks == '') {
+        this.$Message.error('请填写加分说明');
+        return;
+      }
       this.http.put(this.$store.state.prefix + '/customer/updateUserPoints', {
         accountId: this.willaddPointUser.accountId,
         points: this.customerPoints,
@@ -4103,10 +4131,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.willaddPointUser.customerPoints = 0;
           _this2.addPointmodal = false;
           _this2.search();
+          clearInterval(_this2.smscountdown.interval);
+          _this2.randomStr = '';
+          _this2.remarks = '';
+          _this2.customerPoints = '';
+        } else {
+          _this2.$Message.error(res.msg);
         }
       });
     },
-    cancelAddPonints: function cancelAddPonints() {},
     changeEmployee: function changeEmployee(row) {
       var _this = this;
       var param = {
@@ -4225,27 +4258,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     addPoints: function addPoints(row, type) {
       if (type == 'addpoint') {
         this.addPointmodal = true;
+        this.willaddPointUser = row;
         return;
       }
+      this.addPointmodal = true;
       this.willaddPointUser = row;
-      console.log(this.customerPoints);
     },
     addPointToUser: function addPointToUser() {
+      var _this7 = this;
+
+      if (this.customerPoints <= 0 || '') {
+        this.$Message.error('请输入自定义加分分值');
+        return;
+      }
+      if (this.remarks == '') {
+        this.$Message.error('请填写加分说明');
+        return;
+      }
+
+      this.smscountdown.enable = false;
       this.customerPoints = ~~this.customerPoints;
-      var _this = this;
-      this.addPointmodalTwo = true;
+      this.http.post(this.$store.state.prefix + '/customer/sendAuthCode', { accountId: this.willaddPointUser.accountId, companyId: this.willaddPointUser.companyId, points: this.customerPoints }).then(function (res) {
+        if (!res.error) {
+          _this7.$Message.success('短信发送成功');
+          _this7.smscountdown.enable = false;
+          _this7.addPointBtn = true;
+          _this7.smscountdown.timer = 60;
+          _this7.smscountdown.interval = setInterval(function () {
+            _this7.smscountdown.timer--;
+            if (_this7.smscountdown.timer <= 0) {
+              _this7.smscountdown.enable = true;
+              localStorage.removeItem('PointEnable', _this7.smscountdown.enable);
+              localStorage.removeItem('timeNum', _this7.smscountdown.timer);
+              localStorage.removeItem('nowTime', Date.now());
+              console.log(_this7.smscountdown.timer);
+              clearInterval(_this7.smscountdown.interval);
+            } else {
+              _this7.smscountdown.enable = false;
+              localStorage.setItem('PointEnable', _this7.smscountdown.enable);
+              localStorage.setItem('timeNum', _this7.smscountdown.timer);
+              localStorage.setItem('nowTime', Date.now());
+            }
+          }, 1000);
+        } else {
+          _this7.$Message.error(res.msg);
+          _this7.smscountdown.enable = true;
+        }
+      });
+    },
+    interval: function interval() {
+      var _this8 = this;
+
+      var timer = setInterval(function () {
+        _this8.smscountdown.timer--;
+        if (_this8.smscountdown.timer <= 0) {
+          _this8.smscountdown.enable = true;
+          localStorage.removeItem('PointEnable', _this8.smscountdown.enable);
+          localStorage.removeItem('timeNum', _this8.smscountdown.timer);
+          localStorage.removeItem('nowTime', Date.now());
+          clearInterval(timer);
+        } else {
+          _this8.smscountdown.enable = false;
+          localStorage.setItem('PointEnable', _this8.smscountdown.enable);
+          localStorage.setItem('timeNum', _this8.smscountdown.timer);
+          localStorage.setItem('nowTime', Date.now());
+        }
+      }, 1000);
     },
     cancelAgent: function cancelAgent(row) {
-      var _this7 = this;
+      var _this9 = this;
 
       this.$Modal.confirm({
         title: '取消代理',
         content: '<p>确定取消' + (row.realName || row.nickName) + '的代理权限？</p>',
         onOk: function onOk() {
-          _this7.http.put(_this7.$store.state.prefix + "/customer/cancelAgent2Employee", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
+          _this9.http.put(_this9.$store.state.prefix + "/customer/cancelAgent2Employee", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
             if (res.error == false) {
-              _this7.$Notice.info({ title: "取消成功", desc: (row.realName || row.nickName) + '的代理权限取消成功，将不再享有提成分红' });
-              _this7.search();
+              _this9.$Notice.info({ title: "取消成功", desc: (row.realName || row.nickName) + '的代理权限取消成功，将不再享有提成分红' });
+              _this9.search();
             }
           });
         },
@@ -4253,16 +4343,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     setAgent: function setAgent(row) {
-      var _this8 = this;
+      var _this10 = this;
 
       console.log(row);
       this.$Modal.confirm({
         title: '设为代理',
         content: '<p>确定将' + (row.realName || row.nickName) + '设为公司代理？</p>',
         onOk: function onOk() {
-          _this8.http.put(_this8.$store.state.prefix + "/customer/updateEmployee2Agent", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
+          _this10.http.put(_this10.$store.state.prefix + "/customer/updateEmployee2Agent", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
             if (res.error == false) {
-              _this8.$Notice.info({ title: "设置成功", desc: (row.realName || row.nickName) + '的代理权限设置成功，将享有提成分红' });
+              _this10.$Notice.info({ title: "设置成功", desc: (row.realName || row.nickName) + '的代理权限设置成功，将享有提成分红' });
             }
           });
         },
@@ -4271,6 +4361,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     goToResource: function goToResource(row) {
       this.$router.push({ path: '/resource', query: { id: row.accountId, name: row.realName || row.nickName } });
+    },
+    judge: function judge() {
+      if (this.customerPoints <= 0) {
+        this.$Message.error("积分不能小于0");
+      }
     }
   }
 });
@@ -14159,10 +14254,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)])], 1), _vm._v(" "), _c('Modal', {
     attrs: {
-      "title": "自定义加分1"
-    },
-    on: {
-      "on-ok": _vm.addPointToUser
+      "title": "自定义加分"
     },
     model: {
       value: (_vm.addPointmodal),
@@ -14171,7 +14263,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "addPointmodal"
     }
+  }, [_c('Row', [_c('Col', {
+    attrs: {
+      "span": "20",
+      "offset": "2"
+    }
+  }, [_c('Form', {
+    attrs: {
+      "label-width": "100"
+    }
+  }, [_c('Form-item', {
+    attrs: {
+      "label": "自定义加分数值"
+    }
   }, [_c('Input', {
+    attrs: {
+      "placeholder": "请输入正整数的分值"
+    },
     model: {
       value: (_vm.customerPoints),
       callback: function($$v) {
@@ -14179,45 +14287,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "customerPoints"
     }
-  }), _vm._v(" "), _c('Icon', {
+  })], 1), _vm._v(" "), _c('Form-item', {
     attrs: {
-      "type": "information-circled"
+      "label": "加分备注"
     }
-  }), _vm._v("自定义积分请输入数字\n  ")], 1), _vm._v(" "), _c('Modal', {
+  }, [_c('Input', {
     attrs: {
-      "title": "确认加分"
-    },
-    on: {
-      "on-ok": _vm.sureAddPoints,
-      "on-cancel": _vm.cancelAddPonints
-    },
-    model: {
-      value: (_vm.addPointmodalTwo),
-      callback: function($$v) {
-        _vm.addPointmodalTwo = $$v
-      },
-      expression: "addPointmodalTwo"
-    }
-  }, [_c('p', [_vm._v("确定为" + _vm._s(this.willaddPointUser.realName || this.willaddPointUser.nickName) + " 自定义加分为:\n      "), _c('span', {
-    staticStyle: {
-      "color": "red",
-      "font-weight": "bold"
-    }
-  }, [_vm._v(" " + _vm._s(this.customerPoints) + _vm._s(this.customerPoints <=
-    0 ? '分,且不大于0' : '分') + " ")])]), _vm._v("\n    请输入验证码:\n    "), _c('Input', {
-    attrs: {
-      "placeholder": "请输入"
-    },
-    model: {
-      value: (_vm.randomStr),
-      callback: function($$v) {
-        _vm.randomStr = $$v
-      },
-      expression: "randomStr"
-    }
-  }), _vm._v("\n    加分原因:\n    "), _c('Input', {
-    attrs: {
-      "placeholder": "请输入"
+      "placeholder": "请输入备注",
+      "type": "textarea"
     },
     model: {
       value: (_vm.remarks),
@@ -14226,7 +14303,61 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "remarks"
     }
-  })], 1)], 1)
+  })], 1), _vm._v(" "), _c('Form-item', [_c('Col', {
+    attrs: {
+      "span": "12"
+    }
+  }, [_c('Input', {
+    attrs: {
+      "placeholder": "请输入验证码"
+    },
+    model: {
+      value: (_vm.randomStr),
+      callback: function($$v) {
+        _vm.randomStr = $$v
+      },
+      expression: "randomStr"
+    }
+  })], 1), _vm._v(" "), _c('Col', {
+    staticStyle: {
+      "text-align": "center"
+    },
+    attrs: {
+      "span": "12"
+    }
+  }, [(_vm.smscountdown.enable) ? _c('Button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.addPointToUser
+    }
+  }, [_vm._v(" 获取验证码")]) : _c('Button', {
+    attrs: {
+      "icon": "ios-clock-outline",
+      "disabled": ""
+    }
+  }, [_vm._v(_vm._s(_vm.smscountdown.timer) + "秒后发送")])], 1)], 1), _vm._v(" "), _c('Form-item', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_c('Button', {
+    attrs: {
+      "type": "error",
+      "size": "large"
+    },
+    on: {
+      "click": _vm.sureAddPoints
+    }
+  }, [_vm._v("确认加分")])], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
+    slot: "footer"
+  }, [(_vm.customerPoints != '') ? _c('p', [_vm._v("将为" + _vm._s(this.willaddPointUser.realName || this.willaddPointUser.nickName) + " 自定义加分:\n        "), _c('span', {
+    staticStyle: {
+      "color": "red",
+      "font-weight": "bold"
+    }
+  }, [_vm._v(" " + _vm._s(this.customerPoints) + _vm._s(this.customerPoints <=
+    0 ? '分,且不大于0' : '分') + " ")])]) : _vm._e()])], 1)], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "titlename"
@@ -47255,4 +47386,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[284]);
-//# sourceMappingURL=app.bc0c58630c7aeff8a1a5.js.map
+//# sourceMappingURL=app.de1c26f0b0119a4a7bdf.js.map
