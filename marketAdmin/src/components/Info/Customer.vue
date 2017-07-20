@@ -31,22 +31,42 @@
         </div>
       </div>
     </Modal>
-    <Modal v-model="addPointmodal" title="自定义加分1" @on-ok="addPointToUser">
-      <Input v-model="customerPoints"></Input>
-      <Icon type="information-circled"></Icon>自定义积分请输入数字
+    <Modal v-model="addPointmodal" title="自定义加分">
+      <Row>
+        <Col span="20" offset="2">
+        <Form label-width="100">
+          <Form-item label="自定义加分数值">
+            <Input v-model="customerPoints" placeholder="请输入正整数的分值"></Input>
+          </Form-item>
+          <Form-item label="加分备注">
+            <Input v-model="remarks" placeholder="请输入备注" type='textarea'></Input>
+          </Form-item>
+          <Form-item>
+            <Col span="12">
+            <Input v-model="randomStr" placeholder="请输入验证码"></Input>
+            </Col>
+            <Col span="12" style="text-align:center">
+            <Button type="primary" @click="addPointToUser" v-if="smscountdown.enable"> 获取验证码</Button>
+            <Button icon="ios-clock-outline" v-else disabled>{{smscountdown.timer}}秒后发送</Button>
+            </Col>
+          </Form-item>
+          <Form-item style="text-align:center">
+            <Button type="error" size="large" @click="sureAddPoints">确认加分</Button>
+          </Form-item>
+        </Form>
+        </Col>
+      </Row>
+      <div slot="footer">
+        <p v-if="customerPoints!=''">将为{{this.willaddPointUser.realName || this.willaddPointUser.nickName}} 自定义加分:
+          <span style="color:red;font-weight:bold"> {{this.customerPoints}}{{this.customerPoints
+            <=0 ? '分,且不大于0' : '分'}} </span>
+        </p>
+      </div>
     </Modal>
-    <Modal v-model="addPointmodalTwo" title="确认加分" @on-ok="sureAddPoints" @on-cancel="cancelAddPonints">
-      <p>确定为{{this.willaddPointUser.realName || this.willaddPointUser.nickName}} 自定义加分为:
-        <span style="color:red;font-weight:bold"> {{this.customerPoints}}{{this.customerPoints
-          <=0 ? '分,且不大于0' : '分'}} </span>
-      </p>
-      请输入验证码:
-      <Input v-model="randomStr" placeholder="请输入"></Input>
-      加分原因:
-      <Input v-model="remarks" placeholder="请输入"></Input>
-      <!-- <Input v-model="customerPoints"></Input> -->
-      <!-- <Icon type="information-circled"></Icon>自定义积分请输入数字 -->
-    </Modal>
+    <!-- <Modal v-model="addPointmodalTwo" title="确认加分" @on-ok="sureAddPoints" @on-cancel="cancelAddPonints"> -->
+    <!-- <Input v-model="customerPoints"></Input> -->
+    <!-- <Icon type="information-circled"></Icon>自定义积分请输入数字 -->
+    <!-- </Modal> -->
   </div>
 </template>
 
@@ -202,37 +222,71 @@ export default {
         size: 12
       },
       addPointmodal: false,
-      addPointmodalTwo: false,
       willaddPointUser: {},
       customerPoints: '',
       randomStr: '',
-      remarks:''
+      remarks: '',
+      //短信时间判断
+      smscountdown: {
+        timer: localStorage.getItem('timeNum') || 0,
+        enable: localStorage.getItem('PointEnable') || true,
+        captcha: ''
+      },
     }
   },
   created() {
     this.getList(1)
     this.getEmployeeList(1)
+    let timeNum = localStorage.getItem('timeNum')
+    let time = (Date.now() - localStorage.getItem('nowTime')) / 1000
+    // console.log(time)
+    if (time <= timeNum) {
+      this.smscountdown.timer = Math.ceil(timeNum - time)
+      this.smscountdown.enable = localStorage.getItem('PointEnable')
+      // this.interval()
+      this.interval()
+      // console.log(this.smscountdown.timer)
+    }
   },
   methods: {
+    //最后一步的加积分
     sureAddPoints() {
-      console.log(this.randomStr)
+      if (this.customerPoints <= 0 || '') {
+        this.$Message.error('请填正确的积分数')
+        return
+      }
+      if (this.randomStr == '') {
+        this.$Message.error('请填验证码')
+        return
+      } else if (this.randomStr.length != 6) {
+        this.$Message.error('请填6位数验证码')
+        return
+      }
+      if (this.remarks == '') {
+        this.$Message.error('请填写加分说明')
+        return
+      }
       this.http.put(this.$store.state.prefix + '/customer/updateUserPoints', {
         accountId: this.willaddPointUser.accountId,
         points: this.customerPoints,
         companyId: this.willaddPointUser.companyId,
         randomStr: this.randomStr,
-        remarks:this.remarks
+        remarks: this.remarks
       }).then(res => {
+        // console.log(res)
         if (res.error === false) {
           this.$Message.success('自定义积分添加成功!')
           this.willaddPointUser.customerPoints = 0
           this.addPointmodal = false
           this.search()
+          clearInterval(this.smscountdown.interval)
+          this.randomStr = ''
+          this.remarks = ''
+          this.customerPoints = ''
+        } else {
+          this.$Message.error(res.msg)
         }
       })
-    },
-    cancelAddPonints() {
-
     },
     changeEmployee(row) {
       var _this = this
@@ -343,43 +397,80 @@ export default {
         }
       })
     },
-    addPoints(row,type) {
-      if(type == 'addpoint'){
+    //第一步的加积分
+    addPoints(row, type) {
+      if (type == 'addpoint') {
         this.addPointmodal = true
+        this.willaddPointUser = row
         return
       }
+      this.addPointmodal = true
       this.willaddPointUser = row
-      console.log(this.customerPoints)
-      // console.log(this.willaddPointUser)
-      // this.http.post(this.$store.state.prefix + '/customer/sendAuthCode',{accountId:this.willaddPointUser.accountId,companyId:this.willaddPointUser.companyId,points:this.customerPoints}).then(res => {
+      // this.http.post(this.$store.state.prefix + '/customer/sendAuthCode', { accountId: this.willaddPointUser.accountId, companyId: this.willaddPointUser.companyId, points: this.customerPoints }).then(res => {
       //   console.log(res)
       // })
     },
     addPointToUser() {
+
+      if (this.customerPoints <= 0 || '') {
+        this.$Message.error('请输入自定义加分分值')
+        return
+      }
+      if (this.remarks == '') {
+        this.$Message.error('请填写加分说明')
+        return
+      }
+
+      this.smscountdown.enable = false
       this.customerPoints = ~~this.customerPoints
-      var _this = this
-      this.addPointmodalTwo = true
-      // this.$Modal.confirm({
-      // title: '自定义加分',
-      // content: '<p>确定为' + (this.willaddPointUser.realName || this.willaddPointUser.nickName) + '自定义加分为:<span style="color:red;font-weight:bold">' + this.customerPoints + (this.customerPoints <= 0 ? '分,且不大于0' : '分') + '</span></p>请输入验证码:<input v-model="randomStr" placeholder="请输入" :data="randomStr">',
-      // onOk: () => {
-      // console.log(this.randomStr)
-      // _this.http.put(_this.$store.state.prefix + '/customer/updateUserPoints',{accountId:this.willaddPointUser.accountId,
-      // points:this.customerPoints,
-      // companyId:this.willaddPointUser.companyId,
-      // randomStr:''
-      // }).then(res => {
-      //   if (res.error === false) {
-      //     _this.$Message.success('自定义积分添加成功!')
-      //     this.willaddPointUser.customerPoints=0
-      //     this.addPointmodal=false
-      //     this.search()
-      //   }
-      // })
-      // },
-      // onCancel: () => {
-      // }
-      // })
+      this.http.post(this.$store.state.prefix + '/customer/sendAuthCode', { accountId: this.willaddPointUser.accountId, companyId: this.willaddPointUser.companyId, points: this.customerPoints }).then(res => {
+        if (!res.error) {
+          this.$Message.success('短信发送成功')
+          this.smscountdown.enable = false
+          this.addPointBtn = true
+          this.smscountdown.timer = 60
+          this.smscountdown.interval = setInterval(() => {
+            this.smscountdown.timer--
+            if (this.smscountdown.timer <= 0) {
+              this.smscountdown.enable = true
+              localStorage.removeItem('PointEnable', this.smscountdown.enable)
+              localStorage.removeItem('timeNum', this.smscountdown.timer)
+              localStorage.removeItem('nowTime', Date.now())
+              console.log(this.smscountdown.timer)
+              clearInterval(this.smscountdown.interval)
+            } else {
+              this.smscountdown.enable = false
+              localStorage.setItem('PointEnable', this.smscountdown.enable)
+              localStorage.setItem('timeNum', this.smscountdown.timer)
+              localStorage.setItem('nowTime', Date.now())
+            }
+            // console.log(localStorage.getItem('timeNum'))
+            // console.log(localStorage.getItem('nowTime'))
+          }, 1000)
+        } else {
+          this.$Message.error(res.msg)
+          this.smscountdown.enable = true
+        }
+      })
+    },
+    interval() {
+      let timer = setInterval(() => {
+        this.smscountdown.timer--
+        if (this.smscountdown.timer <= 0) {
+          this.smscountdown.enable = true
+          localStorage.removeItem('PointEnable', this.smscountdown.enable)
+          localStorage.removeItem('timeNum', this.smscountdown.timer)
+          localStorage.removeItem('nowTime', Date.now())
+          clearInterval(timer)
+        } else {
+          this.smscountdown.enable = false
+          localStorage.setItem('PointEnable', this.smscountdown.enable)
+          localStorage.setItem('timeNum', this.smscountdown.timer)
+          localStorage.setItem('nowTime', Date.now())
+        }
+        // console.log(localStorage.getItem('timeNum'))
+        // console.log(localStorage.getItem('nowTime'))
+      }, 1000)
     },
     cancelAgent(row) {
       this.$Modal.confirm({
@@ -417,6 +508,11 @@ export default {
     },
     goToResource(row) {
       this.$router.push({ path: '/resource', query: { id: row.accountId, name: row.realName || row.nickName } })
+    },
+    judge() {
+      if (this.customerPoints <= 0) {
+        this.$Message.error("积分不能小于0")
+      }
     }
   }
 }
