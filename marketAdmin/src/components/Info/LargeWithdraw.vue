@@ -106,8 +106,8 @@ export default {
       querytext:'',
       inputcaptcha:false,
       smscountdown:{
-        timer:0,
-        enable:true,
+        timer:localStorage.getItem('timer')||0,
+        enable:localStorage.getItem('enable')||true,
         captcha:''
       },
       currentWithdraw:{}//当前提现信息
@@ -115,6 +115,31 @@ export default {
   },
   created () {
     this.getwithdrawList(1)
+    debugger
+    if((Date.now()-localStorage.getItem("now"))/1000>localStorage.getItem("timer")){
+      this.smscountdown.enable=true
+      this.smscountdown.timer=0
+      localStorage.setItem('timer',0)
+      localStorage.setItem('enable',true)
+    }else{
+      var _this=this
+      this.smscountdown.enable=false
+      this.smscountdown.timer=~~localStorage.getItem("timer")
+      this.smscountdown.interval=setInterval(function(){
+          if(_this.smscountdown.timer>0){
+            _this.smscountdown.timer--
+            localStorage.setItem('timer',_this.smscountdown.timer)
+            localStorage.setItem('now',Date.now())
+          }else{
+            clearInterval(_this.smscountdown.interval)
+            _this.smscountdown.enable=true
+            _this.smscountdown.timer=0
+
+            localStorage.setItem('timer',0)
+            localStorage.setItem('enable',true)
+          }
+      },1000)
+    }
   },
   methods: {
     getwithdrawList (pageNo) {
@@ -141,20 +166,29 @@ export default {
             this.$Message.success("验证码发送成功")
             this.smscountdown.enable=false
             this.smscountdown.timer=60
+            localStorage.setItem('timer',60)
+            localStorage.setItem('enable',false)
             var _this=this
             this.smscountdown.interval=setInterval(function(){
                 if(_this.smscountdown.timer>0){
                   _this.smscountdown.timer--
+                  localStorage.setItem('timer',_this.smscountdown.timer)
+                  localStorage.setItem('now',Date.now())
                 }else{
                   clearInterval(_this.smscountdown.interval)
                   _this.smscountdown.enable=true
                   _this.smscountdown.timer=0
+
+                  localStorage.setItem('timer',0)
+                  localStorage.setItem('enable',true)
                 }
             },1000)
           }else{
             this.$Message.error(res.msg)
           }
         })
+      }else{
+        this.$Message.info("请查看手机输入验证码")
       }
       
     },
@@ -179,6 +213,9 @@ export default {
           clearInterval(_this.smscountdown.interval)
           this.smscountdown.enable=true
           this.smscountdown.timer=0
+
+          localStorage.setItem('timer',0)
+          localStorage.setItem('enable',true)
           this.smscountdown.captcha=''
           this.getwithdrawList(1)
         }else{

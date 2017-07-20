@@ -74,10 +74,10 @@
   
           <Col span="4" class="recommanditem" v-for='(item,index) in AllianceInfo' :key="item">
           <div class="companyLogo" @click="removeUnionCompany(item,index)">
-            <img src="https://m.market.cdbeki.com/FpEsQAJXA60fwlSDXbzc2C_SvdA5" alt="">
+            <img :src="murl+item.allianceCompanyInfo.companyLogo" alt="" v-if="item.allianceCompanyInfo.companyLogo">
             <!-- <img :src=''> -->
           </div>
-          <div class="companyName" title="item.allianceCompanyInfo.companyName" @click="removeUnionCompany(item.id,index)">
+          <div class="companyName" title="item.allianceCompanyInfo.companyName" @click="removeUnionCompany(item,index)">
             {{item.allianceCompanyInfo.companyName}}
           </div>
           </Col>
@@ -158,21 +158,21 @@ export default {
     },
     //点击联盟
     unionCompany(data) {
-      this.$Modal.confirm({
-        title: '确定与该商家联盟?',
-        onOk: () => {
-          let arr = this.AllianceInfo
-          if (data.id == this.$store.state.companyId) {
-            this.$Message.error('不能与自己联盟');
+        let arr = this.AllianceInfo
+        if (data.id == this.$store.state.companyId) {
+          this.$Message.error('不能与自己联盟');
             return
           }
-          for (var i = 0; i < arr.length; i++) {
+        for (var i = 0; i < arr.length; i++) {
             if (data.id == arr[i].allianceCompanyId) {
               this.$Message.error('已经与该商家联盟');
               return
             }
           }
-          this.$Message.info('联盟成功');
+      this.$Modal.confirm({
+        title: '确定联盟?',
+        content:'<p>确定与商家:<span style="color:red;font-size:1.2em;font-weight:bolder">'+data.companyName+'</span>,形成联盟?</p>',
+        onOk: () => {
           this.addCompany(data)
           if (data.allianceImg) {
             data.allianceImg = 1
@@ -184,8 +184,10 @@ export default {
     },
     //点击解除联盟   data  点击该商家的所有信息  index是排列在联盟的索引
     removeUnionCompany(data, index) {
+      console.log(data)
       this.$Modal.confirm({
-        title: '确定与该商家解除联盟?',
+        title: '确定解除联盟?',
+        content:'<p>确定与商家:<span style="color:red;font-size:1.2em;font-weight:bolder">'+data.allianceCompanyInfo.companyName+'</span>,解除联盟?</p>',
         onOk: () => {
           this.removeCompany(data.id, index)
           this.hotCompanyList.forEach(item => {
@@ -197,7 +199,6 @@ export default {
           })
         },
         onCancel: () => {
-          this.$Message.info('点击了取消');
         }
       });
     },
@@ -212,6 +213,7 @@ export default {
               if (res.result) {
                 this.AllianceInfo = res.result
                 this.aboutCompanys = [...this.AllianceInfo, ...this.noAllianceInfo]
+                this.$Message.info('联盟成功');
               }
             }
           })
@@ -346,11 +348,11 @@ export default {
       position relative
       .alliance
         opacity 0.8
-        width 50px
-        height 50px
+        width 20px
+        height 20px
         position absolute
-        left 35px
-        top 3px
+        right 0px
+        top 0px
         img
           width 100%
       .companyLogo

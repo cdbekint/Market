@@ -10,7 +10,7 @@
       <br>
       <ul>
         <li>蜀ICP备15007695号-2</li>
-        <li>Copyright<span></span>©<span></span>2015-2017<span></span>CdBeki<span></span>成都白起网络科技有限公司</li>
+        <li>Copyright<span></span>©<span></span>2015-{{util.getDate(Date.now(),1)}}<span></span>CdBeki<span></span>成都白起网络科技有限公司</li>
       </ul>
     </div>
 </template>
