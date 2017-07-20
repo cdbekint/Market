@@ -147,7 +147,6 @@ export default {
         if (res.error == false) {
           this.getcompanyloading = false
           this.isGetting = false
-          console.log(res.result)
           this.companyList = res.result
         }
       })
@@ -228,77 +227,53 @@ export default {
   watch: {
   },
   created() {
-    //联盟商家
-    this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId).then(res => {
-      if (!res.error) {
-        if (res.result) {
-          this.AllianceInfo = res.result
-          this.aboutCompanys = [...this.AllianceInfo, ...this.noAllianceInfo]
-          console.log(this.hotCompanyList)
-        }
-      }
-    })
-    //非联盟商家
-    this.http.get(this.$store.state.prefix + '/alliance/getNoAllianceInfo?companyId=' + this.$store.state.companyId).then(res => {
-      if (!res.error) {
-        if (res.result) {
-          this.noAllianceInfo = res.result
-        }
-      }
-    })
-    //热推商家
-    this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', { companyId: this.$store.state.companyId }).then(res => {
-      console.log(res)
-      if (!res.error) {
-        if (res.result) {
-          this.hotCompanyList = res.result
-          const arr = this.hotCompanyList
-          const id = this.$store.state.companyId
-          arr.forEach(function (item, index) {
-            item = Object.assign(item,{allianceImg:2})
-            if (item.id == id) {
-              arr.splice(index, 1)
+    if (this.$store.state.token) {
+      this.http.all([this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId),
+      this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', { companyId: this.$store.state.companyId }),
+      this.http.get(this.$store.state.prefix + '/alliance/getNoAllianceInfo?companyId=' + this.$store.state.companyId)
+      ])
+        .then(this.http.spread(function (res, resTwo, resThree) {
+          //联盟商家
+          if (!res.error) {
+            if (res.result) {
+              this.AllianceInfo = res.result
+              this.aboutCompanys = [...this.AllianceInfo, ...this.noAllianceInfo]
             }
-            return
-          });
+          }
+          //热推商家
+          if (!resTwo.error) {
+            if (resTwo.result) {
+              this.hotCompanyList = resTwo.result
+              const arr = this.hotCompanyList
+              const id = this.$store.state.companyId
+              const AlliancCompanys = this.AllianceInfo
+              arr.forEach(function (item, index) {
+                item = Object.assign(item, { allianceImg: 2 })
+                if (AlliancCompanys) {
+                  AlliancCompanys.forEach(list => {
+                    if (item.id == list.allianceCompanyInfo.id) {
+                      item.allianceImg = 1
+                      return
+                    } else {
+                      item.allianceImg = 2
+                    }
+                  })
+                }
+                if (item.id == id) {
+                  arr.splice(index, 1)
+                }
+              });
 
-        }
-      }
-    })
-    // function getUserAccount() {
-    //   return this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId);
-    // }
-
-    // function getUserPermissions() {
-    //   return this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', { companyId: this.$store.state.companyId });
-    // }
-
-    // this.http.all([this.http.get(this.$store.state.prefix + '/alliance/getAllianceInfo?companyId=' + this.$store.state.companyId), this.http.post(this.$store.state.prefix + '/company/getRecommendCompany?', { companyId: this.$store.state.companyId })])
-    //   .then(this.http.spread(function (res, resTwo) {
-    //     console.log(this.AllianceInfo)
-    //     if (!res.error) {
-    //       if (res.result) {
-    //         this.AllianceInfo = res.result
-    //         this.aboutCompanys = [...this.AllianceInfo, ...this.noAllianceInfo]
-    //         console.log(this.AllianceInfo)
-    //       }
-    //     }
-        // if (!resTwo.error) {
-        //   if (resTwo.result) {
-        //     this.hotCompanyList = resTwo.result
-        //     const arr = this.hotCompanyList
-        //     const id = this.$store.state.companyId
-        //     arr.forEach(function (item, index) {
-        //       item = Object.assign(item, { allianceImg: 2 })
-        //       if (item.id == id) {
-        //         arr.splice(index, 1)
-        //       }
-        //       return
-        //     });
-
-        //   }
-        // }
-      // }));
+            }
+          }
+          //非联盟商家
+          if (!res.error) {
+            if (res.result) {
+              this.noAllianceInfo = res.result
+            }
+          }
+        }.bind(this)));
+    }
   }
 }
 </script>
