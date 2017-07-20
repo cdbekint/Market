@@ -1,7 +1,7 @@
 <template>
   <div class="personPage">
     <headTitle @headCompany="getCompanyId" :companyId="currentCompanyId" :companyInfo="personInfo.company"></headTitle>
-    <headMoney :Person="personInfo"></headMoney>
+    <headMoney :Person="personInfo" @freshHead="getCompanyId"></headMoney>
     <infos :datas="datas"></infos>
   </div>
 </template>

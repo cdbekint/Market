@@ -22,23 +22,23 @@ export default new Router({
     //   name: 'Activity',
     //   component: Activity
     // },
-    // {
-    //   path: '/home',
-    //   name: 'home',
-    //   requireAuth:true,
-    //   component: Person
-    // },
+    {
+      path: '/home',
+      name: 'home',
+      requireAuth:true,
+      component: Person
+    },
     {
       path: '/',
       name: 'ActivityInfo',
       component: ActivityInfo
     },
-    {
-      path: '/home',
-      name: 'home',
-      requireAuth:true,
-      component: homePage
-    },
+    // {
+    //   path: '/home',
+    //   name: 'home',
+    //   requireAuth:true,
+    //   component: homePage
+    // },
 
     {
       path: '/company',

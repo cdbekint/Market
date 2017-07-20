@@ -243,6 +243,7 @@
       background #fff
       margin auto
       margin-top rrem(14px)
+      min-height rrem(800px)
       .info_isNull
         width rrem(1000px)
         height rrem(340px)

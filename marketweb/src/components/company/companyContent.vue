@@ -37,7 +37,12 @@
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
       <img src="/static/images/company/fanhui.png" @click="returnGoodsList" class="detail_return">
       <div class="detail_bg" >
-        <swiper v-ref:swiper
+       <Carousel autoplay>
+          <Carousel-item class="swiperItem" v-for="slide,index in currentGoods.images" :key="index">
+              <div class="carouselitem"><img :src="murl+slide" alt=""></div>
+          </Carousel-item>
+      </Carousel>
+       <!--  <swiper v-ref:swiper
           direction="horizontal"
           :mousewheel-control="true"
           :performance-mode="false"
@@ -48,7 +53,7 @@
           <div class="swiperItem" v-for="slide,index in currentGoods.images" :key="index">
             <img :src="murl+slide" alt="">
           </div>
-        </swiper>
+        </swiper> -->
       </div>
 
       <div class="detail_text">
@@ -123,17 +128,20 @@
           <div class="list_img">
             <img :src="x.img" alt="">
           </div>
+          <div class="list_name">
+              <span v-text="x.name"></span>
+          </div>
           <div class="list_jifen">
             <img src="/static/images/company/jifen.png">
-            <p>余{{x.surplus}}分</p>
+            <p>{{x.surplus}}分</p>
           </div>
           <div class="list_total">
             <img src="/static/images/company/total.png">
-            <p>共{{x.total}}分</p>
+            <p>{{x.total}}分</p>
           </div>
           <div class="list_people">
             <img src="/static/images/company/people.png">
-            <p>邀{{x.people}}人</p>
+            <p>{{x.people}}人</p>
           </div>
         </div>
       </div>
@@ -408,10 +416,16 @@ export default {
           var row = res.result;
           row.forEach(item=>{
             var obj = {
+              name:item.realName||item.nickName,
               img:item.headImg,
               surplus:item.points,
               total:item.allPoints,
               people:item.invitedMems
+            }
+            if(obj.name.length>2){
+                obj.name=obj.name.substring(0,1)+"*"+obj.name.substr(obj.name.length-1,1)
+            }else if(obj.name.length==2){
+               obj.name=obj.name.substring(0,1)+"*"
             }
             this.member.push(obj)
           })
@@ -523,11 +537,17 @@ export default {
         var row = res.result;
         row.forEach(item=>{
           var obj = {
+            name:item.realName||item.nickName,
             img:item.headImg,
             surplus:item.points,
             total:item.allPoints,
             people:item.invitedMems
           }
+           if(obj.name.length>2){
+                obj.name=obj.name.substring(0,1)+"*"+obj.name.substr(obj.name.length-1,1)
+            }else if(obj.name.length==2){
+               obj.name=obj.name.substring(0,1)+"*"
+            }
           this.member.push(obj)
         })
         if(this.member.length == 0)
@@ -673,7 +693,7 @@ export default {
     height rrem(1640px)
     .info_isNull
       width rrem(1000px)
-      height rrem(340px)
+      height rrem(1300px)
       background #fff
       text-align center
       img
@@ -851,7 +871,7 @@ export default {
           line-height rrem(100px)
           text-align center
         .hr_1
-          flex 4
+          flex 5
         .hr_2
           flex 3
         .hr_3
@@ -883,8 +903,10 @@ export default {
               height 100%
               line-height 700%
           .list_sort
-            flex 2
+            flex 1
             font-size:rrem(42px);
+          .list_name
+            flex:2
           .list_img
             flex 2
             position relative
@@ -912,11 +934,12 @@ export default {
     .main_company
       width 100%
       margin-top rrem(40px)
-      padding-top rrem(40px)
-      height rrem(1600px)
+      padding: rrem(40px) 0px
+      min-height rrem(1500px)
       margin-bottom rrem(60px)
       background #fff
       text-align center
+      display:block
     .main_detail
       width 100%
       height rrem(970px)
@@ -927,10 +950,12 @@ export default {
         width 100%
         .swiperItem
           width:100%
-          height rrem(600px)
-          overflow-y:hidden
-          img
-            width:100%
+          .carouselitem
+            height rrem(600px)
+            overflow-y:hidden
+            img
+              height:auto
+              width:100%
       .detail_return
         position absolute
         top rrem(35px)

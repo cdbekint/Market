@@ -18,6 +18,7 @@
           <router-link :to="{path:'/companylist'}" tag="dd" active-class="active">公司列表</router-link>
           <router-link :to="{path:'/companyAdd'}" tag="dd" active-class="active">新增公司</router-link>
           <router-link :to="{path:'/customerList'}" tag="dd" active-class="active">客户系统</router-link>
+          <router-link :to="{path:'/companybalance'}" tag="dd" active-class="active">商家资金</router-link>
         </dl>
         <dl class="menulist">
           <dt>

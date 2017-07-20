@@ -53,7 +53,6 @@ export default {
         setTimeout(()=>{
               //获取enddate与当前时间差
           var countTime = ~~((val-Date.now())/1000);
-          debugger
           if (countTime <= 0) {
              _this.countDownData.over = true
             clearInterval(_this.interval)

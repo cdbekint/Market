@@ -10,8 +10,8 @@
     </Form-item>
     <Form-item label="是否可用" prop="useable">
       <Select v-model="company.useable" placeholder="请选择是否可用">
-        <Option value="0">可用</Option>
-        <Option value="1">不可用</Option>
+        <Option value="0">不可用</Option>
+        <Option value="1">可用</Option>
       </Select>
     </Form-item>
     <Form-item>
@@ -29,7 +29,7 @@
           id:'',
           companyName:'',
           expireDate:'',
-          useable:0
+          useable:"0"
         },
         ruleValidate: {
           useable:[
@@ -50,7 +50,7 @@
         if (res.error === false) {
           this.company = res.result;
           this.company.expireDate = this.util.getFormatDate(this.company.expireDate)
-          console.log(this.company.expireDate)
+          this.company.useable=String(this.company.useable)
         }
       })
     },

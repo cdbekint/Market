@@ -26,18 +26,19 @@ export default {
         {
           type: 'index',
           title: '排名',
-          align: 'center'
+          align: 'center',
+          width: '50'
         },
-//        {
-//          title: '姓名',
-//          key: 'realName',
-//          render(row){
-//            if(row.realName != '')
-//              return '<span>{{row.realName}}</span>'
-//            else
-//              return '<span>{{row.nickName}}</span>'
-//          }
-//        },
+       {
+         title: '姓名',
+         key: 'realName',
+         render(row){
+           if(row.realName != '')
+             return '<span>{{row.realName}}</span>'
+           else
+             return '<span>{{row.nickName}}</span>'
+         }
+       },
         {
           title: '头像',
           key: 'headImg',
@@ -47,7 +48,8 @@ export default {
         },
         {
           title: '积分',
-          key: 'returnPoints'
+          key: 'returnPoints',
+          width:'70'
         },
         {
           title: '时间',

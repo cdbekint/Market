@@ -11,7 +11,7 @@
          		<ul>
          			<li v-for="cl in companyList" @click="setCompany(cl)">
          				<div class="companylogo">
-         					<img :src="murl+cl.companyLogo" alt="">
+         					<img :src="murl+cl.companyLogo" alt="" v-if="cl.companyLogo">
          				</div>
          				<div class="companyname" v-text="cl.companyName"></div>
          			</li>

@@ -115,7 +115,6 @@ export default {
   },
   created () {
     this.getwithdrawList(1)
-    debugger
     if((Date.now()-localStorage.getItem("now"))/1000>localStorage.getItem("timer")){
       this.smscountdown.enable=true
       this.smscountdown.timer=0

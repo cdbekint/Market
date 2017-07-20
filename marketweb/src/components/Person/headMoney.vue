@@ -17,7 +17,7 @@
             <span v-text="'累计积分：'+Person.totalPoint"></span>
             <span v-text="'可用积分：'+Person.points"></span>
             <span v-text="'已换现金：'+Person.usedCash"></span>
-            <span v-text="'可换现金：'+Person.cashs"></span>
+            <span v-text="'可换现金：'+~~Person.cashs"></span>
           </div>
         </div>
       </div>
@@ -37,16 +37,18 @@
 
       <Row style="text-align:left;padding-left:40px;font-size:1.3em;color:#AEAEAE">
       <div>
-        <span>可提积分 {{Person.points}}({{Person.cashs}} 元)</span>
+        <span>可提积分 {{Person.points}}({{~~Person.cashs}} 元)</span>
         <br>
-        <p>当前提现金额: <span style="color:#131313;font-weight:bolder">{{parseFloat(Person.toCashRate/100*(withdrawPoint>Person.points?Person.points:withdrawPoint)).toFixed(2)}}元</span></p>
+        <!-- <p>当前提现金额: <span style="color:#131313;font-weight:bolder">{{parseFloat(Person.toCashRate/100*(withdrawPoint>Person.points?Person.points:withdrawPoint)).toFixed(2)}}元</span></p> -->
       </div>
       </Row>
       <Row style="text-align:center;padding-left:40px;">
-        <Input v-model="withdrawPoint" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5"></Input>
+        <Input v-model="withdrawAmount" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5" placeholder="直接输入提现金额">
+          <span slot="append">={{Math.ceil(~~withdrawAmount/(Person.toCashRate/100))}}分</span>
+        </Input>
       </Row>
       <Row style="text-align:center;font-size:0.8em;padding:10px">
-          提现金额不能低于1元
+          提现金额不能低于1元，到账金额以提现的积分折现为准
       </Row>
 
     </Modal>
@@ -70,17 +72,19 @@ export default {
       usedCash:0,
       cashs:0,
       isWithdraw:false,
-      withdrawPoint:0
+      withdrawPoint:0,
+      withdrawAmount:""
     }
   },
   methods:{
     ok(){
+      this.withdrawPoint=Math.ceil(Number(this.withdrawAmount)/this.Person.toCashRate*100)
       if(this.withdrawPoint === 0){
           this.$Message.error("提现积分必须大于0");
           return
       }
       if(this.withdrawPoint*this.Person.toCashRate<1){
-         this.$Message.error("提现积分必须大于0")
+         this.$Message.error("提现金额必须大于1元")
           return
       }
       this.http.post(this.$store.state.prefix + "/withdraw",{
@@ -88,10 +92,10 @@ export default {
         withdrawPoints:this.withdrawPoint,
         companyId:this.Person.companyId
       }).then(res=> {
-        debugger
         if(res.error == false){
           this.$Message.success("恭喜你提现成功");
-          location.reload();
+          
+          this.$emit('freshHead',this.Person.companyId)
         }
         else{
           this.$Message.error(res.msg);
@@ -109,6 +113,11 @@ export default {
         handler(val){
           console.log(val)
         },deep:true
+      },
+      withdrawAmount(nval,oval){
+        if(~~nval>this.Person.cashs){
+          this.withdrawAmount=~~this.Person.cashs
+        }
       }
     }
 }

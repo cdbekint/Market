@@ -9,6 +9,7 @@ import companyAdd from '@/components/Main/companyAdd'
 import companyEdit from '@/components/Main/companyEdit'
 
 import WithDrawList from '@/components/Withdraw/WithDrawList'
+import CompanyBalance from '@/components/Main/CompanyBalance'
 import WaitAudit from '@/components/Withdraw/WaitAudit'
 import customerList from '@/components/customer/customerList'
 import EnterPriseAuthentic from '@/components/Main/EnterPriseAuthentic'
@@ -57,6 +58,11 @@ export default new Router({
       path: '/EnterPriseAuthentic',
       name: 'EnterPriseAuthentic',
       component: EnterPriseAuthentic
+    },
+    {
+      path: '/companybalance',
+      name: 'CompanyBalance',
+      component: CompanyBalance
     }
   ]
 })
