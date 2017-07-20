@@ -53,6 +53,7 @@
           <dt>
             <i class="fa fa-user"></i>客户管理</dt>
           <router-link :to="{path:'/customer'}" tag="dd" active-class="active">客户管理</router-link>
+          <router-link :to="{path:'/inviterinfo'}" tag="dd" active-class="active">邀请排行</router-link>
           <router-link :to="{path:'/alonemenber'}" tag="dd" active-class="active">孤单会员</router-link>
           <router-link :to="{path:'/point'}" tag="dd" active-class="active">积分查询</router-link>
         </dl>

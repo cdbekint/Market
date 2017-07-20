@@ -42,6 +42,7 @@ import Trading from '@/components/Info/Trading'
 import Withdraw from '@/components/Info/Withdraw'
 import LargeWithdraw from '@/components/Info/LargeWithdraw'
 import Customer from '@/components/Info/Customer'
+import InviterInfo from '@/components/Info/InviterInfo'
 import Resources from '@/components/Info/Resources'
 import AloneMember from '@/components/Info/AloneMember'
 import Point from '@/components/Info/Point'
@@ -264,6 +265,13 @@ export default new Router({
       path: '/customer',
       name: 'Customer',
       component: Customer,
+      meta: {
+        requireAuth: true
+      }
+    },{
+      path: '/inviterinfo',
+      name: 'InviterInfo',
+      component: InviterInfo,
       meta: {
         requireAuth: true
       }

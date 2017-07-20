@@ -77,6 +77,9 @@ axios.interceptors.response.use(
         // 登录过期
         store.state.token = ''
         util.delCookie('token')
+        //将顶部的高度重新设置
+         this.topheight=(window.screen.width*780/1920)
+        document.getElementById("mainheader").style.height = this.topheight+"px"
       }
     }
     return res

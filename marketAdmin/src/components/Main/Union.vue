@@ -22,13 +22,13 @@
               </div>
               <div class="middle">
                 引出注册
-                <Tooltip content="这里是提示文字" placement='right'>
+                <Tooltip content="为联盟商家带去的注册量（今日引出/累计引出）" placement='right'>
                   <div class='tishi'>?</div>
                 </Tooltip>
               </div>
               <div class="down">
-                导入注册
-                <Tooltip content="这里是提示文字" placement='right'>
+                引入注册
+                <Tooltip content="联盟商家为我带来的注册量（今日引入/累计引入）" placement='right'>
                   <div class='tishi'>?</div>
                 </Tooltip>
               </div>
@@ -43,6 +43,9 @@
               <div class="down">
                 10/900
               </div>
+            </div>
+            <div class="uregitem" style="padding:0px 10px;line-height:90px;border-left:0px" v-if="aboutCompanys.length==0">
+              暂无任何数据
             </div>
           </div>
         </div>
@@ -69,7 +72,7 @@
         </div>
         <div class="union-content">
   
-          <Col span="4" class="recommanditem" v-for='(item,index) in AllianceInfo'>
+          <Col span="4" class="recommanditem" v-for='(item,index) in AllianceInfo' :key="item">
           <div class="companyLogo" @click="removeUnionCompany(item,index)">
             <img src="https://m.market.cdbeki.com/FpEsQAJXA60fwlSDXbzc2C_SvdA5" alt="">
             <!-- <img :src=''> -->
@@ -77,6 +80,9 @@
           <div class="companyName" title="item.allianceCompanyInfo.companyName" @click="removeUnionCompany(item.id,index)">
             {{item.allianceCompanyInfo.companyName}}
           </div>
+          </Col>
+          <Col class="recommanditem" style="line-height:70px" v-if="AllianceInfo.length==0">
+            暂无已联盟商家
           </Col>
   
         </div>
@@ -88,16 +94,15 @@
           相关商家推荐
         </div>
         <div class="union-content">
-          <Col span="4" class="recommanditem" v-for="item in hotCompanyList">
+          <Col span="4" class="recommanditem" v-for="item in hotCompanyList" :key="item">
           <div class="companyLogo" @click='unionCompany(item)'>
-            <!-- <img src="https://m.market.cdbeki.com/FpEsQAJXA60fwlSDXbzc2C_SvdA5" alt=""> -->
             <img :src='murl+item.companyLogo' v-if='item.companyLogo'>
           </div>
           <div class="companyName" title="item.companyName">
             {{item.companyName}}
           </div>
           <div v-if='item.allianceImg == 1' class='alliance'>
-            <img src='../../../static/images/alin.png'>
+            <img src='/static/images/alin.png'>
           </div>
           </Col>
         </div>
@@ -175,7 +180,6 @@ export default {
           }
         },
         onCancel: () => {
-          this.$Message.info('点击了取消');
         }
       });
     },

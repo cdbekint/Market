@@ -110,7 +110,7 @@ export default {
             this.$Message.error('登录失败，请重试')
           })
         } else {
-          this.$Message.error('表单验证失败!')
+          this.$Message.error('登录信息未完善!')
         }
       })
     },
@@ -136,6 +136,7 @@ export default {
 
   },
   mounted() {
+
     // debugger
     // var loginrow = document.documentElement.clientHeight - 160
     // document.getElementById("loginpanel").style.height = loginrow + "px"
