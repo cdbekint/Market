@@ -31,13 +31,21 @@
         </div>
       </div>
     </Modal>
-    <Modal v-model="addPointmodal" title="自定义加分" @on-ok="addPointToUser">
+    <Modal v-model="addPointmodal" title="自定义加分1" @on-ok="addPointToUser">
       <Input v-model="customerPoints"></Input>
       <Icon type="information-circled"></Icon>自定义积分请输入数字
     </Modal>
-    <Modal v-model="addPointmodalTwo" title="确认加分" @on-ok="ok" @on-cancel="cancel">
-      <Input v-model="customerPoints"></Input>
-      <Icon type="information-circled"></Icon>自定义积分请输入数字
+    <Modal v-model="addPointmodalTwo" title="确认加分" @on-ok="sureAddPoints" @on-cancel="cancelAddPonints">
+      <p>确定为{{this.willaddPointUser.realName || this.willaddPointUser.nickName}} 自定义加分为:
+        <span style="color:red;font-weight:bold"> {{this.customerPoints}}{{this.customerPoints
+          <=0 ? '分,且不大于0' : '分'}} </span>
+      </p>
+      请输入验证码:
+      <Input v-model="randomStr" placeholder="请输入"></Input>
+      加分原因:
+      <Input v-model="remarks" placeholder="请输入"></Input>
+      <!-- <Input v-model="customerPoints"></Input> -->
+      <!-- <Icon type="information-circled"></Icon>自定义积分请输入数字 -->
     </Modal>
   </div>
 </template>
@@ -144,7 +152,7 @@ export default {
                 action = '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
               } else {
                 action = '<i-button type="text" size="small" @click="changeCustomer(row)">客资转换</i-button>' +
-                  '<i-button type="text" size="small" @click="addPoints(row)">自定义加分</i-button>'
+                  '<i-button type="text" size="small" @click="addPoints(row,`addpoint`)">自定义加分</i-button>'
               }
               action += '<i-button type="text" size="small" @click="goToResource(row)">客资</i-button>'
               return action
@@ -194,9 +202,11 @@ export default {
         size: 12
       },
       addPointmodal: false,
+      addPointmodalTwo: false,
       willaddPointUser: {},
-      customerPoints: 0,
+      customerPoints: '',
       randomStr: '',
+      remarks:''
     }
   },
   created() {
@@ -204,6 +214,26 @@ export default {
     this.getEmployeeList(1)
   },
   methods: {
+    sureAddPoints() {
+      console.log(this.randomStr)
+      this.http.put(this.$store.state.prefix + '/customer/updateUserPoints', {
+        accountId: this.willaddPointUser.accountId,
+        points: this.customerPoints,
+        companyId: this.willaddPointUser.companyId,
+        randomStr: this.randomStr,
+        remarks:this.remarks
+      }).then(res => {
+        if (res.error === false) {
+          this.$Message.success('自定义积分添加成功!')
+          this.willaddPointUser.customerPoints = 0
+          this.addPointmodal = false
+          this.search()
+        }
+      })
+    },
+    cancelAddPonints() {
+
+    },
     changeEmployee(row) {
       var _this = this
       var param = {
@@ -313,10 +343,14 @@ export default {
         }
       })
     },
-    addPoints(row) {
-      this.addPointmodal = true
+    addPoints(row,type) {
+      if(type == 'addpoint'){
+        this.addPointmodal = true
+        return
+      }
       this.willaddPointUser = row
-      console.log(this.willaddPointUser)
+      console.log(this.customerPoints)
+      // console.log(this.willaddPointUser)
       // this.http.post(this.$store.state.prefix + '/customer/sendAuthCode',{accountId:this.willaddPointUser.accountId,companyId:this.willaddPointUser.companyId,points:this.customerPoints}).then(res => {
       //   console.log(res)
       // })
@@ -324,27 +358,28 @@ export default {
     addPointToUser() {
       this.customerPoints = ~~this.customerPoints
       var _this = this
-      this.$Modal.confirm({
-        title: '自定义加分',
-        content: '<p>确定为' + (this.willaddPointUser.realName || this.willaddPointUser.nickName) + '自定义加分为:<span style="color:red;font-weight:bold">' + this.customerPoints + (this.customerPoints <= 0 ? '分,且不大于0' : '分') + '</span></p>请输入验证码:<input v-model="randomStr" placeholder="请输入" :data="randomStr">',
-        onOk: () => {
-          console.log(this.randomStr)
-          // _this.http.put(_this.$store.state.prefix + '/customer/updateUserPoints',{accountId:this.willaddPointUser.accountId,
-          // points:this.customerPoints,
-          // companyId:this.willaddPointUser.companyId,
-          // randomStr:''
-          // }).then(res => {
-          //   if (res.error === false) {
-          //     _this.$Message.success('自定义积分添加成功!')
-          //     this.willaddPointUser.customerPoints=0
-          //     this.addPointmodal=false
-          //     this.search()
-          //   }
-          // })
-        },
-        onCancel: () => {
-        }
-      })
+      this.addPointmodalTwo = true
+      // this.$Modal.confirm({
+      // title: '自定义加分',
+      // content: '<p>确定为' + (this.willaddPointUser.realName || this.willaddPointUser.nickName) + '自定义加分为:<span style="color:red;font-weight:bold">' + this.customerPoints + (this.customerPoints <= 0 ? '分,且不大于0' : '分') + '</span></p>请输入验证码:<input v-model="randomStr" placeholder="请输入" :data="randomStr">',
+      // onOk: () => {
+      // console.log(this.randomStr)
+      // _this.http.put(_this.$store.state.prefix + '/customer/updateUserPoints',{accountId:this.willaddPointUser.accountId,
+      // points:this.customerPoints,
+      // companyId:this.willaddPointUser.companyId,
+      // randomStr:''
+      // }).then(res => {
+      //   if (res.error === false) {
+      //     _this.$Message.success('自定义积分添加成功!')
+      //     this.willaddPointUser.customerPoints=0
+      //     this.addPointmodal=false
+      //     this.search()
+      //   }
+      // })
+      // },
+      // onCancel: () => {
+      // }
+      // })
     },
     cancelAgent(row) {
       this.$Modal.confirm({

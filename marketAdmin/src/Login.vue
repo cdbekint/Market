@@ -16,14 +16,14 @@
         </Form-item>
         <Form-item prop="user" style="margin-bottom:34px">
           <Input type="text" size="large" v-model="formInline.username" placeholder="用户名" class="formitem">
-              <Icon type="ios-person-outline" slot="prepend"></Icon>
-             </Input>
+          <Icon type="ios-person-outline" slot="prepend"></Icon>
+          </Input>
           <!-- <input type="text" v-model="formInline.username" placeholder="用户名" class="formitem"> -->
         </Form-item>
         <Form-item prop="password" style="margin-bottom:0">
           <Input type="password" size="large" v-model="formInline.password" placeholder="密码" class="formitem">
-             <Icon type="ios-locked-outline" slot="prepend"></Icon> 
-            </Input>
+          <Icon type="ios-locked-outline" slot="prepend"></Icon>
+          </Input>
           <!-- <input type="password" v-model="formInline.password" placeholder="密码" class="formitem"> -->
         </Form-item>
         <Form-item style="margin-bottom:0">
@@ -35,8 +35,8 @@
         <Form-item style="margin-bottom:0">
           <Row class="bottom">
             <!-- <Col span="8">
-              <a href="javascript:;" @click="Register()">注册账户</a>
-              </Col> -->
+                <a href="javascript:;" @click="Register()">注册账户</a>
+                </Col> -->
             <Col span="12" style='text-align:right;padding-right:10px'>
             <a href="javascript:;">忘记密码</a>
             </Col>
@@ -59,8 +59,8 @@
 export default {
   name: 'Login',
   data() {
-    onOFF:false
     return {
+      onOFF: false,
       formInline: {
         username: '',
         password: '',

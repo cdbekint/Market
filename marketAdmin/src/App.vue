@@ -163,7 +163,11 @@ export default {
 
   created() {
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
-      this.userInfo = res.result
+      if(!res.error){
+        if(res.result){
+          this.userInfo = res.result
+        }
+      }
     })
   }
 }
