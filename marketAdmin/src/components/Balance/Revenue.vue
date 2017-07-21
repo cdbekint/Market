@@ -12,12 +12,12 @@
           <Col span="6">
             <Date-picker v-model="queryinfo.date" type="daterange" format="yyyy-MM-dd" placeholder="选择查询周期(小于一个月)" style="width: 100%"></Date-picker>
           </Col>
-          <Col span="4">
+       <!--    <Col span="4">
              <Radio-group v-model="queryinfo.queryType" type="button">
                 <Radio label="1"><span>支出</span></Radio>
                 <Radio label="2"><span>收入</span></Radio>
             </Radio-group>
-          </Col>
+          </Col> -->
           <Col span="4">
              <Radio-group  v-model="queryinfo.queryStatus" type="button">
                 <Radio label="1"><span>成功</span></Radio>
@@ -240,6 +240,13 @@ export default {
       this.http.get(this.$store.state.prefix+'/pay/page/1?a=1'+this.util.parseParam(param)).then(res=>{
 
         if(res.error==false){
+            this.payData.activity.allAmount=0
+            this.payData.goods.allAmount=0
+            this.payData.account.allAmount=0
+            this.payData.charge.allAmount=0
+            this.payData.member.allAmount=0
+            this.payData.customer.allAmount=0
+
           res.result.records.forEach((item)=>{
             switch(item.payType){
               case 1:
@@ -265,7 +272,7 @@ export default {
                 this.payData.member.allAmount+=item.payAmount
 
                 break;
-              case 5:
+              case 6:
                 this.payData.customer.list.push(item)
                 this.payData.customer.allAmount+=item.payAmount
                 break;
@@ -360,6 +367,8 @@ export default {
           this.payData.activity.yData=this.payData.activity.yData.map((item)=>{return parseInt(item)})
           this.payData.charge.yData=this.payData.charge.yData.map((item)=>{return parseInt(item)})
           this.payData.account.yData=this.payData.account.yData.map((item)=>{return parseInt(item)})
+
+          //需要判断数据条数大于0才进行图标渲染
           var option = {
               title: {
                   text: '收益趋势',

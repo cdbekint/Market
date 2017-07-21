@@ -69,7 +69,7 @@ export default {
           key: 'remarks'
         },
         {
-          title: '提现比率',
+          title: '提现比率(%)',
           key: 'toCashRate'
         },
         {
@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     getwithdrawList (pageNo) {
-      this.http.get(this.$store.state.prefix + '/withdraw/page/' + (pageNo || 1)+"?withdrawStatus=2&nameOrPhone="+this.querytext).then(res => {
+      this.http.get(this.$store.state.prefix + '/withdraw/page/' + (pageNo || 1)+"?withdrawStatus=2&withdrawType=1&nameOrPhone="+this.querytext).then(res => {
         if (res.error === false) {
           this.pager = res.result
           this.listData = res.result.records

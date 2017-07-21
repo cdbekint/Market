@@ -2618,6 +2618,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.http.get(this.$store.state.prefix + '/pay/page/1?a=1' + this.util.parseParam(param)).then(function (res) {
 
         if (res.error == false) {
+          _this.payData.activity.allAmount = 0;
+          _this.payData.goods.allAmount = 0;
+          _this.payData.account.allAmount = 0;
+          _this.payData.charge.allAmount = 0;
+          _this.payData.member.allAmount = 0;
+          _this.payData.customer.allAmount = 0;
+
           res.result.records.forEach(function (item) {
             switch (item.payType) {
               case 1:
@@ -2643,7 +2650,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.payData.member.allAmount += item.payAmount;
 
                 break;
-              case 5:
+              case 6:
                 _this.payData.customer.list.push(item);
                 _this.payData.customer.allAmount += item.payAmount;
                 break;
@@ -2750,6 +2757,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.payData.account.yData = _this.payData.account.yData.map(function (item) {
             return parseInt(item);
           });
+
           var option = {
             title: {
               text: '收益趋势',
@@ -4421,7 +4429,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '总积分',
         key: 'allPoints'
       }, {
-        title: '积分',
+        title: '剩余积分',
         key: 'points'
       }, {
         title: '会员',
@@ -4498,7 +4506,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '提现内容',
         key: 'remarks'
       }, {
-        title: '提现比率',
+        title: '提现比率(%)',
         key: 'toCashRate'
       }, {
         title: '提现金额',
@@ -4567,7 +4575,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getwithdrawList: function getwithdrawList(pageNo) {
       var _this2 = this;
 
-      this.http.get(this.$store.state.prefix + '/withdraw/page/' + (pageNo || 1) + "?withdrawStatus=2&nameOrPhone=" + this.querytext).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/withdraw/page/' + (pageNo || 1) + "?withdrawStatus=2&withdrawType=1&nameOrPhone=" + this.querytext).then(function (res) {
         if (res.error === false) {
           _this2.pager = res.result;
           _this2.listData = res.result.records;
@@ -4688,10 +4696,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return '<img :src="row.account.headImg" style="width:40px;height:40px;" v-if="row.account&&row.account.headImg"/>';
         }
       }, {
-        title: '折扣',
+        title: '折扣（%）',
         key: 'discount',
         render: function render(row) {
-          return '<span>{{row.discount}}</span>';
+          if (row.payType == 2) {
+            return ~~10 * row.discount;
+          } else {
+            return row.discount;
+          }
         }
       }, {
         title: '支付金额',
@@ -5013,7 +5025,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '提现内容',
         key: 'remarks'
       }, {
-        title: '提现比率',
+        title: '提现比率(%)',
         key: 'toCashRate'
       }, {
         title: '提现金额',
@@ -5056,7 +5068,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getwithdrawList: function getwithdrawList(pageNo) {
       var _this = this;
 
-      this.http.get(this.$store.state.prefix + '/withdraw/page/' + (pageNo || 1) + "?nameOrPhone=" + this.querytext).then(function (res) {
+      this.http.get(this.$store.state.prefix + '/withdraw/page/' + (pageNo || 1) + "?withdrawType=1&nameOrPhone=" + this.querytext).then(function (res) {
         if (res.error === false) {
           _this.pager = res.result;
           _this.listData = res.result.records;
@@ -12957,6 +12969,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "lists": _vm.lists
     }
   }), _vm._v(" "), _c('news', {
+    staticClass: "news",
     staticStyle: {
       "background": "#f8f8f8"
     },
@@ -12967,7 +12980,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "register": _vm.show
     }
-  }), _vm._v(" "), _c('system')], 1), _vm._v(" "), _c('vfooter')], 1)
+  })], 1), _vm._v(" "), _c('vfooter')], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('dt', [_c('i', {
     staticClass: "fa fa-th"
@@ -16258,29 +16271,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "queryinfo.date"
     }
   })], 1), _vm._v(" "), _c('Col', {
-    attrs: {
-      "span": "4"
-    }
-  }, [_c('Radio-group', {
-    attrs: {
-      "type": "button"
-    },
-    model: {
-      value: (_vm.queryinfo.queryType),
-      callback: function($$v) {
-        _vm.queryinfo.queryType = $$v
-      },
-      expression: "queryinfo.queryType"
-    }
-  }, [_c('Radio', {
-    attrs: {
-      "label": "1"
-    }
-  }, [_c('span', [_vm._v("支出")])]), _vm._v(" "), _c('Radio', {
-    attrs: {
-      "label": "2"
-    }
-  }, [_c('span', [_vm._v("收入")])])], 1)], 1), _vm._v(" "), _c('Col', {
     attrs: {
       "span": "4"
     }
@@ -47386,4 +47376,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[284]);
-//# sourceMappingURL=app.de1c26f0b0119a4a7bdf.js.map
+//# sourceMappingURL=app.c59ec128a6b539329b8c.js.map

@@ -34,11 +34,14 @@
     watch: {
       activity: function (val, oldVal) {
         this.value.name = val.companyName
-        this.http.get(this.$store.state.prefix + '/gift/getByIds/' + val.giftIds).then(res => {
-          if(res.error === false){
-              this.giftlist = res.result
-          }
-        })
+        if(val.giftIds){
+            this.http.post(this.$store.state.prefix + '/gift/getByIds' ,{giftIds:val.giftIds} ).then(res => {
+              if(res.error === false){
+                  this.giftlist = res.result
+              }
+            })
+        }
+        
       }
     },
     data () {

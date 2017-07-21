@@ -71,7 +71,7 @@ export default {
           key: 'allPoints'
         },
         {
-          title: '积分',
+          title: '剩余积分',
           key: 'points'
         },
         {

@@ -71,10 +71,10 @@
       </login>
       <register v-if='registermodal' class='registermodal' @close='hide'></register>
       <news class="news" :lists='lists'></news>
-      <news :listsTwo='listsTwo' style='background:#f8f8f8'></news>
+      <news class="news" :listsTwo='listsTwo' style='background:#f8f8f8'></news>
       <!-- <news class="news" :lists='lists'></news> -->
       <free @register='show'></free>
-      <system></system>
+      <!-- <system></system> -->
     </div>
     <vfooter></vfooter>
   </div>

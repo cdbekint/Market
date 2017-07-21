@@ -68,10 +68,14 @@ export default {
           }
         },
         {
-          title: '折扣',
+          title: '折扣（%）',
           key: 'discount',
           render (row) {
-            return '<span>{{row.discount}}</span>'
+            if(row.payType==2){
+              return (~~10*row.discount)
+            }else{
+              return row.discount
+            }
           }
         },
         {
