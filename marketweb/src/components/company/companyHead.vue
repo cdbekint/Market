@@ -5,7 +5,7 @@
     </div>
     <div class="head_txt">
       <p>{{info.companyName}}</p>
-      <span>会员：{{info.memberNum}}</span>
+      <!-- <span>会员：{{info.memberNum}}</span> -->
       <span>客户：{{info.customerNum}}</span>
       <span>浏览：{{info.allViewNum}}</span>
       <span>分享：{{info.allShareNum}}</span>

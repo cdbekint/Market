@@ -44,7 +44,7 @@
       </Row>
       <Row style="text-align:center;padding-left:40px;">
         <Input v-model="withdrawAmount" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5" placeholder="直接输入提现金额">
-          <span slot="append">={{Math.ceil(~~withdrawAmount/(Person.toCashRate/100))}}分</span>
+          <span slot="append">={{Person.toCashRate==0?0:Math.ceil(~~withdrawAmount/(Person.toCashRate/100))}}分</span>
         </Input>
       </Row>
       <Row style="text-align:center;font-size:0.8em;padding:10px">
@@ -78,7 +78,7 @@ export default {
   },
   methods:{
     ok(){
-      this.withdrawPoint=Math.ceil(Number(this.withdrawAmount)/this.Person.toCashRate*100)
+      this.withdrawPoint=this.Person.toCashRate==0?0:Math.ceil(Number(this.withdrawAmount)/this.Person.toCashRate*100)
       if(this.withdrawPoint === 0){
           this.$Message.error("提现积分必须大于0");
           return

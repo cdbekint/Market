@@ -241,14 +241,14 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_2_ivi
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
   routes: [{
-    path: '/',
-    name: 'ActivityInfo',
-    component: __WEBPACK_IMPORTED_MODULE_4__components_main_ActivityInfo___default.a
-  }, {
     path: '/home',
     name: 'home',
     requireAuth: true,
-    component: __WEBPACK_IMPORTED_MODULE_6__components_home_homePage___default.a
+    component: __WEBPACK_IMPORTED_MODULE_7__components_Person_person___default.a
+  }, {
+    path: '/',
+    name: 'ActivityInfo',
+    component: __WEBPACK_IMPORTED_MODULE_4__components_main_ActivityInfo___default.a
   }, {
     path: '/company',
     name: 'company',
@@ -668,7 +668,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       usedCash: 0,
       cashs: 0,
       isWithdraw: false,
-      withdrawPoint: 0
+      withdrawPoint: 0,
+      withdrawAmount: ""
     };
   },
 
@@ -676,12 +677,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ok: function ok() {
       var _this = this;
 
+      this.withdrawPoint = this.Person.toCashRate == 0 ? 0 : Math.ceil(Number(this.withdrawAmount) / this.Person.toCashRate * 100);
       if (this.withdrawPoint === 0) {
         this.$Message.error("提现积分必须大于0");
         return;
       }
       if (this.withdrawPoint * this.Person.toCashRate < 1) {
-        this.$Message.error("提现积分必须大于0");
+        this.$Message.error("提现金额必须大于1元");
         return;
       }
       this.http.post(this.$store.state.prefix + "/withdraw", {
@@ -689,10 +691,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         withdrawPoints: this.withdrawPoint,
         companyId: this.Person.companyId
       }).then(function (res) {
-        debugger;
         if (res.error == false) {
           _this.$Message.success("恭喜你提现成功");
-          location.reload();
+
+          _this.$emit('freshHead', _this.Person.companyId);
         } else {
           _this.$Message.error(res.msg);
         }
@@ -710,6 +712,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log(val);
       },
       deep: true
+    },
+    withdrawAmount: function withdrawAmount(nval, oval) {
+      if (~~nval > this.Person.cashs) {
+        this.withdrawAmount = ~~this.Person.cashs;
+      }
     }
   }
 });
@@ -1272,7 +1279,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
       setTimeout(function () {
         var countTime = ~~((val - Date.now()) / 1000);
-        debugger;
         if (countTime <= 0) {
           _this.countDownData.over = true;
           clearInterval(_this.interval);
@@ -1612,11 +1618,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           var row = res.result;
           row.forEach(function (item) {
             var obj = {
+              name: item.realName || item.nickName,
               img: item.headImg,
               surplus: item.points,
               total: item.allPoints,
               people: item.invitedMems
             };
+            if (obj.name.length > 2) {
+              obj.name = obj.name.substring(0, 1) + "*" + obj.name.substr(obj.name.length - 1, 1);
+            } else if (obj.name.length == 2) {
+              obj.name = obj.name.substring(0, 1) + "*";
+            }
             _this5.member.push(obj);
           });
           if (_this5.member.length == 0) _this5.showMember = false;else _this5.showMember = true;
@@ -1716,11 +1728,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var row = res.result;
         row.forEach(function (item) {
           var obj = {
+            name: item.realName || item.nickName,
             img: item.headImg,
             surplus: item.points,
             total: item.allPoints,
             people: item.invitedMems
           };
+          if (obj.name.length > 2) {
+            obj.name = obj.name.substring(0, 1) + "*" + obj.name.substr(obj.name.length - 1, 1);
+          } else if (obj.name.length == 2) {
+            obj.name = obj.name.substring(0, 1) + "*";
+          }
           _this7.member.push(obj);
         });
         if (_this7.member.length == 0) _this7.showMember = false;else _this7.showMember = true;
@@ -2860,11 +2878,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.value.name = val.companyName;
-      this.http.get(this.$store.state.prefix + '/gift/getByIds/' + val.giftIds).then(function (res) {
-        if (res.error === false) {
-          _this.giftlist = res.result;
-        }
-      });
+      if (val.giftIds) {
+        this.http.post(this.$store.state.prefix + '/gift/getByIds', { giftIds: val.giftIds }).then(function (res) {
+          if (res.error === false) {
+            _this.giftlist = res.result;
+          }
+        });
+      }
     }
   },
   data: function data() {
@@ -2957,7 +2977,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       col: [{
         type: 'index',
         title: '排名',
-        align: 'center'
+        align: 'center',
+        width: '50'
+      }, {
+        title: '姓名',
+        key: 'realName',
+        render: function render(row) {
+          if (row.realName != '') return '<span>{{row.realName}}</span>';else return '<span>{{row.nickName}}</span>';
+        }
       }, {
         title: '头像',
         key: 'headImg',
@@ -2966,7 +2993,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       }, {
         title: '积分',
-        key: 'returnPoints'
+        key: 'returnPoints',
+        width: '70'
       }, {
         title: '时间',
         key: 'createDate'
@@ -3065,6 +3093,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this3 = this;
 
       if (!this._checkInfo()) return;
+      this.http.put(this.$store.state.prefix + '/customer', {
+        realName: this.name,
+        phone: this.phone,
+        email: this.email
+      }).then(function (res) {
+        if (res.error === false) {} else {
+          _this3.$Message.error(res.msg);
+        }
+      });
       if (this.isPaying === true) return;
       this.isPaying = true;
       this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then(function (res) {
@@ -3085,17 +3122,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 me.$Message.success("支付成功，您已成为会员。");
                 me.payState = true;
                 me.$store.state.isMember = 1;
-                me.http.put(me.$store.state.prefix + '/customer', {
-                  realName: me.name,
-                  phone: me.phone,
-                  email: me.email
-                }).then(function (res) {
-                  if (res.error === false) {
-                    me.$Message.success('数据录入成功.');
-                  } else {
-                    me.$Message.error("数据录入失败.");
-                  }
-                });
               } else {
                 me.$Message.success("支付失败。");
               }
@@ -5467,6 +5493,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('headMoney', {
     attrs: {
       "Person": _vm.personInfo
+    },
+    on: {
+      "freshHead": _vm.getCompanyId
     }
   }), _vm._v(" "), _c('infos', {
     attrs: {
@@ -5995,7 +6024,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "head_txt"
-  }, [_c('p', [_vm._v(_vm._s(_vm.info.companyName))]), _vm._v(" "), _c('span', [_vm._v("会员：" + _vm._s(_vm.info.memberNum))]), _vm._v(" "), _c('span', [_vm._v("客户：" + _vm._s(_vm.info.customerNum))]), _vm._v(" "), _c('span', [_vm._v("浏览：" + _vm._s(_vm.info.allViewNum))]), _vm._v(" "), _c('span', [_vm._v("分享：" + _vm._s(_vm.info.allShareNum))])])])
+  }, [_c('p', [_vm._v(_vm._s(_vm.info.companyName))]), _vm._v(" "), _c('span', [_vm._v("客户：" + _vm._s(_vm.info.customerNum))]), _vm._v(" "), _c('span', [_vm._v("浏览：" + _vm._s(_vm.info.allViewNum))]), _vm._v(" "), _c('span', [_vm._v("分享：" + _vm._s(_vm.info.allShareNum))])])])
 },staticRenderFns: []}
 
 /***/ }),
@@ -6224,31 +6253,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "detail_bg"
-  }, [_c('swiper', {
-    directives: [{
-      name: "ref",
-      rawName: "v-ref:swiper",
-      arg: "swiper"
-    }],
+  }, [_c('Carousel', {
     attrs: {
-      "direction": "horizontal",
-      "mousewheel-control": true,
-      "performance-mode": false,
-      "pagination-visible": true,
-      "pagination-clickable": true,
-      "loop": true,
-      "autoplay": true
+      "autoplay": ""
     }
   }, _vm._l((_vm.currentGoods.images), function(slide, index) {
-    return _c('div', {
+    return _c('Carousel-item', {
       key: index,
       staticClass: "swiperItem"
+    }, [_c('div', {
+      staticClass: "carouselitem"
     }, [_c('img', {
       attrs: {
         "src": _vm.murl + slide,
         "alt": ""
       }
-    })])
+    })])])
   }))], 1), _vm._v(" "), _c('div', {
     staticClass: "detail_text"
   }, [_c('div', {
@@ -6382,24 +6402,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "alt": ""
       }
     })]), _vm._v(" "), _c('div', {
+      staticClass: "list_name"
+    }, [_c('span', {
+      domProps: {
+        "textContent": _vm._s(x.name)
+      }
+    })]), _vm._v(" "), _c('div', {
       staticClass: "list_jifen"
     }, [_c('img', {
       attrs: {
         "src": "/static/images/company/jifen.png"
       }
-    }), _vm._v(" "), _c('p', [_vm._v("余" + _vm._s(x.surplus) + "分")])]), _vm._v(" "), _c('div', {
+    }), _vm._v(" "), _c('p', [_vm._v(_vm._s(x.surplus) + "分")])]), _vm._v(" "), _c('div', {
       staticClass: "list_total"
     }, [_c('img', {
       attrs: {
         "src": "/static/images/company/total.png"
       }
-    }), _vm._v(" "), _c('p', [_vm._v("共" + _vm._s(x.total) + "分")])]), _vm._v(" "), _c('div', {
+    }), _vm._v(" "), _c('p', [_vm._v(_vm._s(x.total) + "分")])]), _vm._v(" "), _c('div', {
       staticClass: "list_people"
     }, [_c('img', {
       attrs: {
         "src": "/static/images/company/people.png"
       }
-    }), _vm._v(" "), _c('p', [_vm._v("邀" + _vm._s(x.people) + "人")])])])
+    }), _vm._v(" "), _c('p', [_vm._v(_vm._s(x.people) + "人")])])])
   })) : _vm._e(), _vm._v(" "), (!_vm.showMember) ? _c('div', {
     staticClass: "info_isNull"
   }, [_c('img', {
@@ -6589,7 +6615,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('span', {
     domProps: {
-      "textContent": _vm._s('可换现金：' + _vm.Person.cashs)
+      "textContent": _vm._s('可换现金：' + ~~_vm.Person.cashs)
     }
   })])])]), _vm._v(" "), _c('img', {
     staticClass: "main_jifen",
@@ -6637,12 +6663,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "1.3em",
       "color": "#AEAEAE"
     }
-  }, [_c('div', [_c('span', [_vm._v("可提积分 " + _vm._s(_vm.Person.points) + "(" + _vm._s(_vm.Person.cashs) + " 元)")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("当前提现金额: "), _c('span', {
-    staticStyle: {
-      "color": "#131313",
-      "font-weight": "bolder"
-    }
-  }, [_vm._v(_vm._s(parseFloat(_vm.Person.toCashRate / 100 * (_vm.withdrawPoint > _vm.Person.points ? _vm.Person.points : _vm.withdrawPoint)).toFixed(2)) + "元")])])])]), _vm._v(" "), _c('Row', {
+  }, [_c('div', [_c('span', [_vm._v("可提积分 " + _vm._s(_vm.Person.points) + "(" + _vm._s(~~_vm.Person.cashs) + " 元)")]), _vm._v(" "), _c('br')])]), _vm._v(" "), _c('Row', {
     staticStyle: {
       "text-align": "center",
       "padding-left": "40px"
@@ -6654,22 +6675,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-size": "1.2em",
       "color": "#B5B5B5"
     },
+    attrs: {
+      "placeholder": "直接输入提现金额"
+    },
     model: {
-      value: (_vm.withdrawPoint),
+      value: (_vm.withdrawAmount),
       callback: function($$v) {
-        _vm.withdrawPoint = $$v
+        _vm.withdrawAmount = $$v
       },
-      expression: "withdrawPoint"
+      expression: "withdrawAmount"
     }
-  })], 1), _vm._v(" "), _c('Row', {
+  }, [_c('span', {
+    slot: "append"
+  }, [_vm._v("=" + _vm._s(_vm.Person.toCashRate == 0 ? 0 : Math.ceil(~~_vm.withdrawAmount / (_vm.Person.toCashRate / 100))) + "分")])])], 1), _vm._v(" "), _c('Row', {
     staticStyle: {
       "text-align": "center",
       "font-size": "0.8em",
       "padding": "10px"
     }
-  }, [_vm._v("\n        提现金额不能低于1元\n    ")])], 1)], 1)
+  }, [_vm._v("\n        提现金额不能低于1元，到账金额以提现的积分折现为准\n    ")])], 1)], 1)
 },staticRenderFns: []}
 
 /***/ })
 ],[215]);
-//# sourceMappingURL=app.03847457bfb2ecf9f9c0.js.map
+//# sourceMappingURL=app.fe7e81dd6b4ff4d81f4f.js.map
