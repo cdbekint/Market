@@ -73,6 +73,8 @@ export default {
     loginOut() {
       this.$Notice.info({ title: '提醒', desc: '退出登录成功' })
       this.$store.state.token = ""
+      this.util.delCookie("companyName")
+      this.util.delCookie("companyId")
       this.util.delCookie("token")
       this.topheight=(window.screen.width*780/1920)
       document.getElementById("mainheader").style.height = this.topheight+"px"

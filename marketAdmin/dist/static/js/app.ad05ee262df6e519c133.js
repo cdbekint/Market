@@ -5495,9 +5495,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var param = {
                 companyId: this.util.getCookie("companyId"),
-                startDate: this.util.getFormatDate(this.util.getDate(new Date())),
+                startDate: this.util.getFormatDate(this.util.getDate(new Date()) + ' 00:00:00'),
                 endDate: this.util.getFormatDate(),
-
                 payStatus: 1,
                 queryType: 1 };
             this.http.get(this.$store.state.prefix + '/pay/getPayTend?a=1' + this.util.parseParam(param)).then(function (res) {
@@ -6229,6 +6228,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     loginOut: function loginOut() {
       this.$Notice.info({ title: '提醒', desc: '退出登录成功' });
       this.$store.state.token = "";
+      this.util.delCookie("companyName");
+      this.util.delCookie("companyId");
       this.util.delCookie("token");
       this.topheight = window.screen.width * 780 / 1920;
       document.getElementById("mainheader").style.height = this.topheight + "px";
@@ -47376,4 +47377,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[284]);
-//# sourceMappingURL=app.c59ec128a6b539329b8c.js.map
+//# sourceMappingURL=app.ad05ee262df6e519c133.js.map

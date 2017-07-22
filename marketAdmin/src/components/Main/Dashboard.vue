@@ -258,10 +258,8 @@ export default {
     getPayTend(){
       var param={
         companyId:this.util.getCookie("companyId"),
-        startDate:this.util.getFormatDate(this.util.getDate(new Date())),
+        startDate:this.util.getFormatDate(this.util.getDate(new Date())+' 00:00:00'),
         endDate:this.util.getFormatDate(),
-        // startDate:'2017-07-03 00:00:00',
-        // endDate:'2017-07-04 00:00:00',
         payStatus:1,
         queryType:1//1为小时，2为每天
       }
