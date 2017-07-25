@@ -285,6 +285,7 @@ export default {
         } else {
           this.$Message.error(res.msg)
           this.smscountdown.enable = true
+          localStorage.removeItem('PointEnable', this.smscountdown.enable)
         }
       })
     },
@@ -321,12 +322,15 @@ export default {
           this.search()
           this.smscountdown.enable = true
           this.smscountdown.sureAble = true
+          localStorage.removeItem('sureAble', this.smscountdown.sureAble)
           this.smscountdown.timer = 0
           clearInterval(this.smscountdown.interval)
           this.randomStr = ''
           this.remarks = ''
           this.customerPoints = ''
         } else {
+          this.smscountdown.sureAble = true
+           localStorage.removeItem('sureAble', this.smscountdown.sureAble)
           this.$Message.error(res.msg)
         }
       })
