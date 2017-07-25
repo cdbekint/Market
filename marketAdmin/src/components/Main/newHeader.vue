@@ -11,7 +11,7 @@
               <template slot="title">
                 <span class="memberstatus" :class="{'free':($store.state.companyFlag==0),'member':($store.state.companyFlag==1)}" v-text="$store.state.companyFlag==1?'正式会员':'体验会员'">
                 </span>
-                {{$store.state.companyName || userInfo.company.companyName}}
+                {{$store.state.companyName || util.getCookie("companyName")}}
               </template>
               <Menu-group title="账号管理">
                 <div style="margin:10px 0px;">
@@ -73,6 +73,7 @@ export default {
     loginOut() {
       this.$Notice.info({ title: '提醒', desc: '退出登录成功' })
       this.$store.state.token = ""
+      this.$store.state.companyName=""
       this.util.delCookie("companyName")
       this.util.delCookie("companyId")
       this.util.delCookie("token")

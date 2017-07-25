@@ -99,7 +99,8 @@ export default {
       userInfo: {
         account: {},
         company: {
-          companyName: ''
+          companyName: '',
+          companyFlag:0
         },
         customer: {},
         employee: {}

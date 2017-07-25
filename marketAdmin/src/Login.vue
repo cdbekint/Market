@@ -99,6 +99,7 @@ export default {
               }
               this.util.setCookie('token', res.result.access_token)
               this.util.setCookie('companyId', res.result.user.company.id)
+              debugger
               this.util.setCookie('companyName', res.result.user.company.companyName)
               this.util.setCookie('authentic', res.result.user.company.authentic)
               this.util.setCookie('companyFlag', res.result.user.company.companyFlag)

@@ -247,11 +247,19 @@ export default {
             this.payData.member.allAmount=0
             this.payData.customer.allAmount=0
 
+            this.payData.activity.list=[]
+            this.payData.goods.list=[]
+            this.payData.account.list=[]
+            this.payData.charge.list=[]
+            this.payData.member.list=[]
+            this.payData.customer.list=[]
+
           res.result.records.forEach((item)=>{
             switch(item.payType){
               case 1:
                 this.payData.activity.list.push(item)
                 this.payData.activity.allAmount+=item.payAmount
+                debugger
                 break;
               case 2:
                 this.payData.goods.list.push(item)
@@ -260,17 +268,14 @@ export default {
               case 3:
                 this.payData.account.list.push(item)
                 this.payData.account.allAmount+=item.payAmount
-
                 break;
               case 4:
                 this.payData.charge.list.push(item)
                 this.payData.charge.allAmount+=item.payAmount
-
                 break;
               case 5:
                 this.payData.member.list.push(item)
                 this.payData.member.allAmount+=item.payAmount
-
                 break;
               case 6:
                 this.payData.customer.list.push(item)
@@ -369,6 +374,7 @@ export default {
           this.payData.account.yData=this.payData.account.yData.map((item)=>{return parseInt(item)})
 
           //需要判断数据条数大于0才进行图标渲染
+          if(res.result.records.length==0)return
           var option = {
               title: {
                   text: '收益趋势',

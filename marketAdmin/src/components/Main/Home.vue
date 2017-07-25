@@ -413,7 +413,7 @@ export default {
           if (res.result !== null) {
 
             //判断是否具有提现账户信息，没有就设置account信息。
-            if(!res.result.account){
+            if(res.result.account==undefined){
               res.reuslt.account={
                 realName:'',
                 nickName:'',
