@@ -9,7 +9,7 @@
           <span v-text="Person.realName||Person.nickName"></span>
         </div>
         <p class="phone" v-text="'电话：'+Person.phone"></p>
-        <p class="email" v-text="'邮箱：'+Person.email" ></p>
+        <p class="email" v-text="'邮箱：'+Person.email"></p>
       </div>
       <div class="main_money">
         <div class="money_info">
@@ -24,33 +24,29 @@
       <img src="/static/images/person/jifen.png" class="main_jifen" @click="goToCompany">
       <img src="/static/images/person/tixian.png" class="main_jifen main_tixian" @click="isWithdraw=true">
     </div>
-    <Modal
-      v-model="isWithdraw"
-      @on-ok="ok"
-      @on-cancel="cancel"
-      ok-text="即刻提现"
-      :closable="false"
-      title="积分提现"
-      style="position: relative;padding:0px 15%"
-      >
-
-
+    <Modal v-model="isWithdraw" @on-ok="ok" @on-cancel="cancel" ok-text="即刻提现" :closable="false" title="积分提现" style="position: relative;padding:0px 15%">
+  
       <Row style="text-align:left;padding-left:40px;font-size:1.3em;color:#AEAEAE">
-      <div>
-        <span>可提积分 {{Person.points}}({{~~Person.cashs}} 元)</span>
-        <br>
-        <!-- <p>当前提现金额: <span style="color:#131313;font-weight:bolder">{{parseFloat(Person.toCashRate/100*(withdrawPoint>Person.points?Person.points:withdrawPoint)).toFixed(2)}}元</span></p> -->
-      </div>
+        <div>
+          <span>可提积分 {{Person.points}}({{~~Person.cashs}} 元)</span>
+          <br>
+          <!-- <p>当前提现金额: <span style="color:#131313;font-weight:bolder">{{parseFloat(Person.toCashRate/100*(withdrawPoint>Person.points?Person.points:withdrawPoint)).toFixed(2)}}元</span></p> -->
+        </div>
       </Row>
       <Row style="text-align:center;padding-left:40px;">
         <Input v-model="withdrawAmount" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5" placeholder="直接输入提现金额">
+<<<<<<< Updated upstream
           <span slot="append">={{Person.toCashRate==0?0:Math.ceil(~~withdrawAmount/(Person.toCashRate/100))}}分</span>
+=======
+        <!-- <span slot="append">={{Math.ceil(~~withdrawAmount/(Person.toCashRate/100))}}分</span> -->
+        <span slot="append">={{Math.ceil(~~withdrawAmount/(Person.toCashRate/100))}}分</span>
+>>>>>>> Stashed changes
         </Input>
       </Row>
       <Row style="text-align:center;font-size:0.8em;padding:10px">
-          提现金额不能低于1元，到账金额以提现的积分折现为准
+        提现金额不能低于1元，到账金额以提现的积分折现为准
       </Row>
-
+  
     </Modal>
   </div>
 </template>
@@ -58,68 +54,87 @@
 <script type="text/ecmascript-6">
 export default {
   name: 'headMoney',
-  props:["Person"],
-  created(){
+  props: ["Person"],
+  created() {
+
   },
-  data () {
+  data() {
     return {
-      info:{
-        name:'巴黎春天',
-        logo:'/static/images/a1.png'
+      info: {
+        name: '巴黎春天',
+        logo: '/static/images/a1.png'
       },
-      totalPoint:0,
-      points:0,
-      usedCash:0,
-      cashs:0,
-      isWithdraw:false,
-      withdrawPoint:0,
-      withdrawAmount:""
+      totalPoint: 0,
+      points: 0,
+      usedCash: 0,
+      cashs: 0,
+      isWithdraw: false,
+      withdrawPoint: 0,
+      withdrawAmount: 0
     }
   },
+<<<<<<< Updated upstream
   methods:{
     ok(){
       this.withdrawPoint=this.Person.toCashRate==0?0:Math.ceil(Number(this.withdrawAmount)/this.Person.toCashRate*100)
       if(this.withdrawPoint === 0){
           this.$Message.error("提现积分必须大于0");
           return
+=======
+  methods: {
+    ok() {
+      this.withdrawPoint = Math.ceil(this.withdrawAmount / this.Person.toCashRate * 100)
+      if (this.Person.toCashRate == 0) {
+        this.$Message.error('该公司所设置的积分兑换率为0，无法进行对换')
+>>>>>>> Stashed changes
       }
-      if(this.withdrawPoint*this.Person.toCashRate<1){
-         this.$Message.error("提现金额必须大于1元")
-          return
+      if (this.withdrawPoint === 0) {
+        this.$Message.error("提现积分必须大于0");
+        return
       }
-      this.http.post(this.$store.state.prefix + "/withdraw",{
-        withdrawType:1,
-        withdrawPoints:this.withdrawPoint,
-        companyId:this.Person.companyId
-      }).then(res=> {
-        if(res.error == false){
-          this.$Message.success("恭喜你提现成功");
-          
-          this.$emit('freshHead',this.Person.companyId)
+      if (this.withdrawPoint * this.Person.toCashRate < 1) {
+        this.$Message.error("提现金额必须大于1元")
+        return
+      }
+      this.http.post(this.$store.state.prefix + "/withdraw", {
+        withdrawType: 1,
+        withdrawPoints: this.withdrawPoint,
+        companyId: this.Person.companyId
+      }).then(res => {
+        if (res.error == false) {
+          // this.$Message.success("恭喜你提现成功");
+          this.$emit('freshHead', this.Person.companyId)
+          this.$Modal.success({
+            title: "恭喜你提现成功",
+            content: "恭喜你提现成功"
+          });
         }
-        else{
-          this.$Message.error(res.msg);
+        else {
+          this.$Modal.error({
+            title: res.msg,
+            content: res.msg
+          });
         }
       })
     },
-    cancel(){
+    cancel() {
       this.isWithdraw = false;
     },
-    goToCompany(){
-      this.$router.push({path:'/company',query:{companyId:this.Person.companyId}})
+    goToCompany() {
+      this.$router.push({ path: '/company', query: { companyId: this.Person.companyId } })
     }
-  },watch:{
-      Person:{
-        handler(val){
-          console.log(val)
-        },deep:true
-      },
-      withdrawAmount(nval,oval){
-        if(~~nval>this.Person.cashs){
-          this.withdrawAmount=~~this.Person.cashs
-        }
+  }, watch: {
+    Person: {
+      handler(val) {
+        console.log(val)
+      }, deep: true
+    },
+    withdrawAmount(nval, oval) {
+      if (~~nval > this.Person.cashs) {
+        this.withdrawAmount = ~~this.Person.cashs
       }
     }
+  }
 }
 </script>
 

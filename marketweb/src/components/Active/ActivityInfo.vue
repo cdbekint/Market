@@ -439,6 +439,7 @@ export default {
         })
       },
       showRuleNote(){
+        console.log(JSON.parse(JSON.stringify(this.activity)))
         var activity=JSON.parse(JSON.stringify(this.activity))
         activity.showrule=true
         this.activity=activity

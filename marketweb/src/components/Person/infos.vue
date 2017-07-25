@@ -2,18 +2,18 @@
   <div class="person_infos">
     <div class="main_companyInfo">
       <div class="company_info" v-for="x,index in menuList" :class="x.active" @click="changeCompany(index)">
-        <img :src="'/static/images/person/'+x.img" >
+        <img :src="'/static/images/person/'+x.img">
         <span>{{x.name}}</span>
       </div>
     </div>
-
+  
     <!--参加的活动-->
     <div class="info_active" v-if="index==0">
-      <div class="active_item" v-for="x in activityInfo.info" @click="goToActive(x.id)">
+      <div class="active_item" v-for="x in doneLoad.activity" @click="goToActive(x.id)">
         <div class="item_img">
           <img :src="murl+x.img" v-if="x.img">
           <div class="img_down">
-            <countdown :endDate="x.date" ></countdown>
+            <countdown :endDate="x.date"></countdown>
           </div>
         </div>
         <span class="item_name" v-text="x.name" @click="goToActive(x.id)"></span>
@@ -32,16 +32,28 @@
           </div>
         </div>
       </div>
-
+      <Row>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.activityOk && activityInfo.info">
+        <div @click='doneLoadMore(addNum,activityInfo.info,"activityPage")'>
+          <Spin fix>点击加载更多</Spin>
+        </div>
+        </Col>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.activityOk && activityInfo.info">
+        <div>
+          <Spin fix>以加载完!</Spin>
+        </div>
+        </Col>
+      </Row>
+      <!-- <Button @click='doneLoadMore(2,activityInfo.info,"activityPage")'>点击加载更多</Button> -->
       <div class="info_isNull" v-if="activityInfo.info.length==0">
         <img src="/static/images/shop.png">
         <p>暂未参加此商家任何活动</p>
       </div>
     </div>
-
+  
     <!--我的邀请-->
     <div class="info_active info_inviter" v-if="index==1">
-      <div class="active_item" v-for="x,index in memberInfo.info">
+      <div class="active_item" v-for="x,index in doneLoad.member">
         <div class="inviter_no">{{index+1}}</div>
         <img :src="x.img" class="inviter_head" v-if="x.img">
         <span class="item_name inviter_name" v-text="x.name"></span>
@@ -56,16 +68,28 @@
           </div>
         </div>
       </div>
-
+      <!-- <Button @click='doneLoadMore(2,memberInfo.info,"memberPage")'>点击加载更多</Button> -->
+      <Row>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.memberOk && memberInfo.info">
+        <div @click='doneLoadMore(addNum,memberInfo.info,"memberPage")'>
+          <Spin fix>点击加载更多</Spin>
+        </div>
+        </Col>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.memberfoOk && memberInfo.info">
+        <div>
+          <Spin fix>以加载完!</Spin>
+        </div>
+        </Col>
+      </Row>
       <div class="info_isNull" v-if="memberInfo.info.length==0">
         <img src="/static/images/shop.png">
         <p>暂无邀请任何人员</p>
       </div>
     </div>
-
+  
     <!--消费记录-->
     <div class="info_active info_consume" v-if="index==2">
-      <div class="active_item consume_item" v-for="x in consumeInfo.info">
+      <div class="active_item consume_item" v-for="x in doneLoad.consumeInfo">
         <img src="/static/images/person/success.png" class="item_state" v-if="x.payStatus==1">
         <img src="/static/images/person/err.png" class="item_state" v-else>
         <span class="item_name consume_name" v-text="x.content"></span>
@@ -81,21 +105,45 @@
           </div>
         </div>
       </div>
-
+      <!-- <Button @click='doneLoadMore(2,consumeInfo.info,"consumeInfoPage")'>点击加载更多</Button> -->
+      <Row>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if='doneLoad.consumeInfoOk && consumeInfo.info'>
+        <div @click='doneLoadMore(addNum,consumeInfo.info,"consumeInfoPage")'>
+          <Spin fix>点击加载更多</Spin>
+        </div>
+        </Col>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.consumeInfoOk && consumeInfo.info">
+        <div>
+          <Spin fix>以加载完!</Spin>
+        </div>
+        </Col>
+      </Row>
       <div class="info_isNull" v-if="consumeInfo.info.length==0">
         <img src="/static/images/shop.png">
         <p>暂无任何消费记录</p>
       </div>
     </div>
-
+  
     <!--积分记录-->
     <div class="info_active info_point" v-if="index==3">
-      <div class="active_item" v-for="x in jifenInfo.info">
+      <div class="active_item" v-for="x in doneLoad.jifen">
         <p class="item_state" v-text="x.jifen"></p>
         <span class="item_nameInfo" v-text="x.content"></span>
         <span class="item_date" v-text="x.time"></span>
       </div>
-
+      <Row>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.jifenOk && jifenInfo.info">
+        <div @click='doneLoadMore(addNum,jifenInfo.info,"jifenPage")'>
+          <Spin fix>点击加载更多</Spin>
+        </div>
+        </Col>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.jifenOk && jifenInfo.info">
+        <div>
+          <Spin fix>以加载完!</Spin>
+        </div>
+        </Col>
+      </Row>
+      <!-- <Button @click='doneLoadMore(2,jifenInfo.info,"jifenPage")'>点击加载更多</Button> -->
       <div class="info_isNull" v-if="consumeInfo.info.length==0">
         <img src="/static/images/shop.png">
         <p>暂无任何积分记录</p>
@@ -105,107 +153,195 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import countdown from '../Utils/activeCount.vue'
-  export default {
-    name: 'infos',
-    props: ['datas'],
-    components: { countdown },
-    methods:{
-      goToActive(id){
-        var oldUrl = location.href;
-        var index = oldUrl.indexOf("?");
-        var state = this.util.getURLParam('state').split(",")
+import countdown from '../Utils/activeCount.vue'
+export default {
+  name: 'infos',
+  props: ['datas'],
+  components: { countdown },
+  methods: {
+    goToActive(id) {
+      var oldUrl = location.href;
+      var index = oldUrl.indexOf("?");
+      var state = this.util.getURLParam('state').split(",")
 
-        var preUrl = oldUrl.slice(0,index+1);
-        var state = "state=" + id + "," + window.localStorage["ownId"];
+      var preUrl = oldUrl.slice(0, index + 1);
+      var state = "state=" + id + "," + window.localStorage["ownId"];
 
-        var url = preUrl + state;
-        location.href = url;
-      },
-      changeCompany (val) {
-        this.index = val
-//        var currentPage = this.infoArr[val];
-//        if(this[currentPage].info.length >= 12 && (this[currentPage].total > this[currentPage].page)){
-//          this.currentPageLimit = false;
-//        }
-//        else{
-//          this.currentPageLimit = true;
-//        }
-        this.menuList.forEach((item,index)=>{
-          if(index == val){
-            item.img = this.on;
-            item.active = this.active;
-          }
-          else{
-            item.img = this.off;
-            item.active = this.noactive;
-          }
-        })
-      },
-      requestInfoByScroll(){
-        if( !this.currentPageLimit){
-          var currentTitle = this.infoArr[this.index];
-          var page = this[currentTitle].page+1;
-          this.$emit("getMoreInfoByScroll",this.index,page);
+      var url = preUrl + state;
+      location.href = url;
+    },
+    changeCompany(val) {
+      this.index = val
+      //        var currentPage = this.infoArr[val];
+      //        if(this[currentPage].info.length >= 12 && (this[currentPage].total > this[currentPage].page)){
+      //          this.currentPageLimit = false;
+      //        }
+      //        else{
+      //          this.currentPageLimit = true;
+      //        }
+      this.menuList.forEach((item, index) => {
+        if (index == val) {
+          item.img = this.on;
+          item.active = this.active;
         }
+        else {
+          item.img = this.off;
+          item.active = this.noactive;
+        }
+      })
+    },
+    requestInfoByScroll() {
+      if (!this.currentPageLimit) {
+        var currentTitle = this.infoArr[this.index];
+        var page = this[currentTitle].page + 1;
+        this.$emit("getMoreInfoByScroll", this.index, page);
       }
     },
-    created(){
-      this.menu.forEach((item,index)=>{
-        var obj;
-        if(index == 0){
-          obj = {
-            name:item,
-            img:this.on,
-            active:this.active
+    // num 加的个数 data 那组的数据 type 那组的数据名
+    doneLoadMore(num, data, type) {
+      switch (type) {
+        case 'activityPage':
+          this.donePage.activityPage += num
+          if (this.donePage.activityPage >= data.length) {
+            this.donePage.activityPage = data.length
+            this.doneLoad.activityOk = false
           }
-        }
-        else{
-          obj = {
-            name:item,
-            img:this.off,
-            active:this.noactive
+          this.doneLoadData(this.donePage.activityPage, this.donePage.activityPage + num, data, type)
+          break
+        case 'memberPage':
+          this.donePage.memberPage += num
+          if (this.donePage.memberPage >= data.length) {
+            this.donePage.memberPage = data.length
+            this.doneLoad.memberOk = false
           }
-        }
-        this.menuList.push(obj)
-      });
-    },
-    watch: {
-      datas:{
-        handler(val){
-          this.activityInfo = val.activityInfo;
-          this.memberInfo = val.memberInfo;
-          this.jifenInfo = val.jifenInfo;
-          this.consumeInfo = val.consumeInfo;
-
-          if(this.activityInfo.info.length >= 12 && (this.activityInfo.total > this.activityInfo.page)){
-            this.currentPageLimit = false;
+          this.doneLoadData(this.donePage.memberPage, this.donePage.memberPage + num, data, type)
+          break
+        case 'jifenPage':
+          this.donePage.jifenPage += num
+          if (this.donePage.jifenPage >= data.length) {
+            this.donePage.jifenPage = data.length
+            this.doneLoad.jifenOk = false
           }
-          else{
-            this.currentPageLimit = true;
+          this.doneLoadData(this.donePage.jifenPage, this.donePage.jifenPage + num, data, type)
+          break
+        case 'consumeInfoPage':
+          this.donePage.consumeInfoPage += num
+          if (this.donePage.consumeInfoPage >= data.length) {
+            this.donePage.consumeInfoPage = data.length
+            this.doneLoad.consumeInfoOk = false
           }
-        },
-        deep:true
+          this.doneLoadData(this.donePage.consumeInfoPage, this.donePage.consumeInfoPage + num, data, type)
+          break
       }
     },
-    data () {
-      return {
-        currentPageLimit:true,
-        index:0,
-        on:"red.png",
-        off:"black.png",
-        active:"active",
-        noactive:"",
-        menuList:[],
-        menu:['参加活动','我的邀请','消费记录','积分记录'],
-        infoArr:["activityInfo","memberInfo","consumeInfo","jifenInfo"],
-        activityInfo:[],
-        memberInfo:[],
-        jifenInfo:[],
-        consumeInfo:[]
+    //page 当前数  num 加的个数 data 那组的数据 type 那组的数据名
+    doneLoadData(page, num, data, type) {
+      let arr = []
+      switch (type) {
+        case 'activityPage':
+          arr = data.slice(page, num)
+          this.doneLoad.activity = [...new Set([...this.doneLoad.activity, ...arr])]
+          break
+        case 'memberPage':
+          arr = data.slice(page, num)
+          this.doneLoad.member = [...new Set([...this.doneLoad.member, ...arr])]
+          break
+        case 'jifenPage':
+          arr = data.slice(page, num)
+          this.doneLoad.jifen = [...new Set([...this.doneLoad.jifen, ...arr])]
+          break
+        case 'consumeInfoPage':
+          arr = data.slice(page, num)
+          this.doneLoad.consumeInfo = [...new Set([...this.doneLoad.consumeInfo, ...arr])]
+          break
+      }
+    }
+  },
+  created() {
+
+    this.menu.forEach((item, index) => {
+      var obj;
+      if (index == 0) {
+        obj = {
+          name: item,
+          img: this.on,
+          active: this.active
+        }
+      }
+      else {
+        obj = {
+          name: item,
+          img: this.off,
+          active: this.noactive
+        }
+      }
+      this.menuList.push(obj)
+    });
+  },
+  // mounted () {
+  //   let doc = document
+  //   let h = document.body.scrollTop
+  //   window.addEventListener('scroll',function () {
+  //       console.log(h)
+  //   })
+  // },
+  watch: {
+    datas: {
+      handler(val) {
+        this.activityInfo = val.activityInfo;
+        this.memberInfo = val.memberInfo;
+        this.jifenInfo = val.jifenInfo;
+        this.consumeInfo = val.consumeInfo;
+        // console.log(this.consumeInfo.info)
+        this.doneLoadData(0, this.addNum, this.activityInfo.info, 'activityPage')
+        this.doneLoadData(0, this.addNum, this.memberInfo.info, 'memberPage')
+        this.doneLoadData(0, this.addNum, this.jifenInfo.info, 'jifenPage')
+        this.doneLoadData(0, this.addNum, this.consumeInfo.info, 'consumeInfoPage')
+        if (this.activityInfo.info.length >= 12 && (this.activityInfo.total > this.activityInfo.page)) {
+          this.currentPageLimit = false;
+        }
+        else {
+          this.currentPageLimit = true;
+        }
+      },
+      deep: true
+    }
+  },
+  data() {
+    return {
+      currentPageLimit: true,
+      index: 0,
+      on: "red.png",
+      off: "black.png",
+      active: "active",
+      noactive: "",
+      menuList: [],
+      menu: ['参加活动', '我的邀请', '消费记录', '积分记录'],
+      infoArr: ["activityInfo", "memberInfo", "consumeInfo", "jifenInfo"],
+      activityInfo: [],
+      memberInfo: [],
+      jifenInfo: [],
+      consumeInfo: [],
+      doneLoad: {
+        activity: [],
+        member: [],
+        jifen: [],
+        consumeInfo: [],
+        activityOk: true,
+        memberOk: true,
+        consumeInfoOk: true,
+        jifenOk: true,
+      },
+      addNum: 2, //每次加载多少
+      donePage: { //当前页数
+        activityPage: 0,
+        memberPage: 0,
+        jifenPage: 0,
+        consumeInfoPage: 0
       }
     }
   }
+}
 </script>
 <style scoped lang='stylus' rel="stylesheet/stylus">
   rrem(val){

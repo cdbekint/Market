@@ -1,27 +1,27 @@
 <template>
-  <div class = "register" v-if="state">
+  <div class="register" v-if="state">
     <div class="main_bg" @click="changeState"></div>
-
+  
     <div class="main_body" v-if="!payState">
       <div class="body_join">
         <img src="/static/images/active/member.png" alt="">
       </div>
-      <div class="body_input" >
-      <div class="inviterinfo">
-        <div class="inviteravater">
+      <div class="body_input">
+        <div class="inviterinfo">
+          <div class="inviteravater">
             <img :src="Inviter.headImg" alt="">
           </div>
           <div class="inviternote">
-             {{Inviter.realName}}正在邀请你成为会员
+            {{Inviter.realName}}正在邀请你成为会员
           </div>
-         
-      </div>
-          
+  
+        </div>
+  
         <div class="input_name">
           <input type="text" v-model="name" placeholder="   *请输入您的真实姓名（必填）">
         </div>
         <div class="input_num">
-          <input type="text" v-model="phone" placeholder="   *请输入您的手机号码（必填）" >
+          <input type="text" v-model="phone" placeholder="   *请输入您的手机号码（必填）">
         </div>
         <div class="body_check">
           <img :src="'/static/images/active/'+checkState+'.png'" v-if="isCheck">
@@ -30,74 +30,57 @@
       </div>
       <div class="body_pay" @click="pay">支付{{money}}元成为会员</div>
     </div>
-
+  
     <div class="main_body payed_body" v-if="payState">
       <div class="body_join">
         <img src="/static/images/active/joinsuccess.png" alt="">
       </div>
-      <div class="body_info" >
+      <div class="body_info">
         <span>恭喜您成为{{company}}会员，众多精彩活动、优质商品在等你喔！</span>
       </div>
       <div class="body_pay payed_pay" @click="changeState">返回当前页面</div>
     </div>
-
+  
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'register',
-    props:["datas","state"],
-    created(){
-      this.name = ''
-      this.phone = ''
-      this.email = ''
-      var state = this.util.getURLParam('state').split(",")
-      this.realInviterId=~~(state[2]===undefined?(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]):state[2])
-    },
-    watch: {
-      datas: {
-        handler (val) {
-          this.company = val.companyName;
-          this.params = {
-            inviterId: ~~(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]),//邀请人信息
-            activityId:val.id,//活动id
-            companyId: val.companyId//公司id
-          }
-          if(!this.params.inviterId){
-            this.Inviter.realName = this.company
-            this.Inviter.headImg = "http://m.market.cdbeki.com/"+val.companyLogoImg
-          }else{
-            this.getInviterInfo()
-          }
-          this.params.inviterId=~~this.params.inviterId
-          setTimeout(()=>{
-            this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
-              if(res.error == false){
-                this.money = res.result.registerMoney;
-                this.params.payAmount = this.money;
-              }
-              else{
-                this.$Message.error(res.msg)
-              }
-            })
-          },200)
+export default {
+  name: 'register',
+  props: ["datas", "state"],
+  created() {
+    this.name = ''
+    this.phone = ''
+    this.email = ''
+    var state = this.util.getURLParam('state').split(",")
+    this.realInviterId = ~~(state[2] === undefined ? (this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]) : state[2])
+  },
+  watch: {
+    datas: {
+      handler(val) {
+        this.company = val.companyName;
+        this.params = {
+          inviterId: ~~(this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]),//邀请人信息
+          activityId: val.id,//活动id
+          companyId: val.companyId//公司id
         }
-      },
-      deep:true
-    },
-    methods:{
-      changeState(){
-        this.$emit("childClick",false)
-      },
-      getInviterInfo(){
-        this.http.get(this.$store.state.prefix +'/pubInfo/account?accountId='+ this.realInviterId).then(res=>{
-          if(res.error === false)
-            {
-              this.Inviter=res.result
-            }else{
+        if (!this.params.inviterId) {
+          this.Inviter.realName = this.company
+          this.Inviter.headImg = "http://m.market.cdbeki.com/" + val.companyLogoImg
+        } else {
+          this.getInviterInfo()
+        }
+        this.params.inviterId = ~~this.params.inviterId
+        setTimeout(() => {
+          this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyRegisterIno/' + val.companyId).then((res) => {
+            if (res.error == false) {
+              this.money = res.result.registerMoney;
+              this.params.payAmount = this.money;
+            }
+            else {
               this.$Message.error(res.msg)
             }
+<<<<<<< Updated upstream
         })
       },
       pay(){
@@ -141,74 +124,145 @@
                   }else{
                     me.$Message.success("支付失败。")
                   }
-                }
-              )
-            }
-            if (typeof WeixinJSBridge === 'undefined') {
-              if (document.addEventListener) {
-                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
-              } else if (document.attachEvent) {
-                document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
-                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
-              }
-            } else {
-              onBridgeReady()
-            }
-          }else {
-            this.$Message.error(res.msg)
-          }
-        })
-      },
-      _checkInfo(){
-        if(this.name == ''){
-          this.isCheck = true;
-          this.checkState = "err";
-          this.msg = "请输入真实姓名";
-          return false;
-        }
-        if(this.phone == ''){
-          this.isCheck = true;
-          this.checkState = "err";
-          this.msg = "请输入手机号码";
-          return false;
-        }
-        else if(!(/^1[34578]\d{9}$/.test(this.phone))){
-          this.isCheck = true;
-          this.checkState = "err";
-          this.msg = "您输入的手机号码格式错误";
-          return false;
-        }
-        this.isCheck = true;
-        this.checkState="right"
-        this.msg = "验证成功"
-        return true
+=======
+          })
+        }, 200)
       }
     },
-    data () {
-      return {
-        isPaying:false,
-        payState:false,
-        company:"",
-        name:'',
-        phone:'',
-        email:'',
-        params: {
-          inviterId: ~~(this.util.getCookie("realInviterId")||window.localStorage["realInviterId"]),//邀请人信息
-          activityId:0,//活动id
-          companyId: 0//公司id
-        },
-        isCheck:false,
-        showPage:true,
-        msg:"请准确输入以上信息",
-        money:0,
-        checkState:'err',
-        Inviter:{
-          realName:'',
-          headImg:''
+    deep: true
+  },
+  methods: {
+    changeState() {
+      this.$emit("childClick", false)
+    },
+    getInviterInfo() {
+      this.http.get(this.$store.state.prefix + '/pubInfo/account?accountId=' + this.realInviterId).then(res => {
+        if (res.error === false) {
+          this.Inviter = res.result
+        } else {
+          this.$Message.error(res.msg)
         }
+      })
+    },
+    pay() {
+      if (!this._checkInfo())
+        return;
+      if (this.isPaying === true)
+        return;
+      this.isPaying = true;
+      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then((res) => {
+        if (res.error === false) {
+          var row = res.result;
+          var onBridgeReady = () => {
+            var me = this;
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                'appId': row.appid,
+                'timeStamp': row.timeStamp,
+                'nonceStr': row.nonce_str,
+                'package': row.prepay_id,
+                'signType': row.sign_type,
+                'paySign': row.sign
+              },
+              function (res) {
+                //在发起支付调起微信支付的窗口后进行状态恢复
+                me.isPaying = false;
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  // me.$Message.success("支付成功，您已成为会员。")
+                  this.$Modal.success({
+                    title: "支付成功",
+                    content: "支付成功，您已成为会员。"
+                  });
+                  me.payState = true;
+                  me.$store.state.isMember = 1;
+                  me.http.put(me.$store.state.prefix + '/customer', {
+                    realName: me.name,
+                    phone: me.phone,
+                    email: me.email
+                  }).then(res => {
+                    if (res.error === false) {
+                      me.$Message.success('数据录入成功.')
+                    }
+                    else {
+                      me.$Message.error("数据录入失败.")
+                    }
+                  })
+                } else {
+                  // me.$Message.success("支付失败。")
+                  this.$Modal.error({
+                    title: "支付失败",
+                    content: "支付失败。"
+                  });
+>>>>>>> Stashed changes
+                }
+              }
+            )
+          }
+          if (typeof WeixinJSBridge === 'undefined') {
+            if (document.addEventListener) {
+              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+            } else if (document.attachEvent) {
+              document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+            }
+          } else {
+            onBridgeReady()
+          }
+        } else {
+          this.$Message.error(res.msg)
+        }
+      })
+    },
+    _checkInfo() {
+      if (this.name == '') {
+        this.isCheck = true;
+        this.checkState = "err";
+        this.msg = "请输入真实姓名";
+        return false;
+      }
+      if (this.phone == '') {
+        this.isCheck = true;
+        this.checkState = "err";
+        this.msg = "请输入手机号码";
+        return false;
+      }
+      else if (!(/^1[34578]\d{9}$/.test(this.phone))) {
+        this.isCheck = true;
+        this.checkState = "err";
+        this.msg = "您输入的手机号码格式错误";
+        return false;
+      }
+      this.isCheck = true;
+      this.checkState = "right"
+      this.msg = "验证成功"
+      return true
+    }
+  },
+  data() {
+    return {
+      isPaying: false,
+      payState: false,
+      company: "",
+      name: '',
+      phone: '',
+      email: '',
+      params: {
+        inviterId: ~~(this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]),//邀请人信息
+        activityId: 0,//活动id
+        companyId: 0//公司id
+      },
+      isCheck: false,
+      showPage: true,
+      msg: "请准确输入以上信息",
+      money: 0,
+      checkState: 'err',
+      Inviter: {
+        realName: '',
+        headImg: ''
       }
     }
   }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

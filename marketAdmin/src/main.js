@@ -24,8 +24,8 @@ const store = new Vuex.Store({
     qiniutoken: util.getCookie('qiniutoken') || '',
     authentic:util.getCookie('authentic')||'',
     companyFlag:util.getCookie('companyFlag')||'',
-    // prefix: '/api'
-    prefix: 'http://market.cdbeki.com'
+    prefix: '/api'
+    // prefix: 'http://market.cdbeki.com'
   },
   mutations: {
     updateToken (state) {

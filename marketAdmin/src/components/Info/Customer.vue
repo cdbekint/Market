@@ -51,7 +51,8 @@
             </Col>
           </Form-item>
           <Form-item style="text-align:center">
-            <Button type="error" size="large" @click="sureAddPoints">确认加分</Button>
+            <Button type="error" size="large" @click="sureAddPoints" v-if="smscountdown.sureAble">确认加分</Button>
+            <Button disabled v-else>确认加分</Button>
           </Form-item>
         </Form>
         </Col>
@@ -228,27 +229,65 @@ export default {
       remarks: '',
       //短信时间判断
       smscountdown: {
-        timer: localStorage.getItem('timeNum') || 0,
-        enable: localStorage.getItem('PointEnable') || true,
+        timer: localStorage.getItem('timeNum') || 0, // 计时器时间
+        enable: localStorage.getItem('PointEnable') || true, //短信开关
+        sureAble: localStorage.getItem('sureAble') || true, // 确认加积分开关
         captcha: ''
       },
     }
   },
   created() {
+    console.log(this.smscountdown.sureAble)
     this.getList(1)
     this.getEmployeeList(1)
     let timeNum = localStorage.getItem('timeNum')
     let time = (Date.now() - localStorage.getItem('nowTime')) / 1000
-    // console.log(time)
     if (time <= timeNum) {
       this.smscountdown.timer = Math.ceil(timeNum - time)
       this.smscountdown.enable = localStorage.getItem('PointEnable')
-      // this.interval()
       this.interval()
-      // console.log(this.smscountdown.timer)
     }
   },
   methods: {
+    //第一步的加积分
+    addPointToUser() {
+      if (this.customerPoints <= 0 || '') {
+        this.$Message.error('请输入自定义加分分值')
+        return
+      }
+      if (this.remarks == '') {
+        this.$Message.error('请填写加分说明')
+        return
+      }
+      this.smscountdown.enable = false
+      this.customerPoints = ~~this.customerPoints
+      this.http.post(this.$store.state.prefix + '/customer/sendAuthCode', { accountId: this.willaddPointUser.accountId, companyId: this.willaddPointUser.companyId, points: this.customerPoints }).then(res => {
+        if (!res.error) {
+          this.$Message.success('短信发送成功')
+          this.smscountdown.enable = false
+          this.addPointBtn = true
+          this.smscountdown.timer = 60
+          this.smscountdown.interval = setInterval(() => {
+            this.smscountdown.timer--
+            if (this.smscountdown.timer <= 0) {
+              this.smscountdown.enable = true
+              localStorage.removeItem('PointEnable', this.smscountdown.enable)
+              localStorage.removeItem('timeNum', this.smscountdown.timer)
+              localStorage.removeItem('nowTime', Date.now())
+              clearInterval(this.smscountdown.interval)
+            } else {
+              this.smscountdown.enable = false
+              localStorage.setItem('PointEnable', this.smscountdown.enable)
+              localStorage.setItem('timeNum', this.smscountdown.timer)
+              localStorage.setItem('nowTime', Date.now())
+            }
+          }, 1000)
+        } else {
+          this.$Message.error(res.msg)
+          this.smscountdown.enable = true
+        }
+      })
+    },
     //最后一步的加积分
     sureAddPoints() {
       if (this.customerPoints <= 0 || '') {
@@ -266,6 +305,8 @@ export default {
         this.$Message.error('请填写加分说明')
         return
       }
+      this.smscountdown.sureAble = false
+      localStorage.setItem('sureAble', this.smscountdown.sureAble)
       this.http.put(this.$store.state.prefix + '/customer/updateUserPoints', {
         accountId: this.willaddPointUser.accountId,
         points: this.customerPoints,
@@ -273,12 +314,14 @@ export default {
         randomStr: this.randomStr,
         remarks: this.remarks
       }).then(res => {
-        // console.log(res)
         if (res.error === false) {
           this.$Message.success('自定义积分添加成功!')
           this.willaddPointUser.customerPoints = 0
           this.addPointmodal = false
           this.search()
+          this.smscountdown.enable = true
+          this.smscountdown.sureAble = true
+          this.smscountdown.timer = 0
           clearInterval(this.smscountdown.interval)
           this.randomStr = ''
           this.remarks = ''
@@ -370,7 +413,7 @@ export default {
       if (this.searchVal == 1) {
         url = '/customer/getCompanyUserInfo/1?member=1&employee=0&nameOrPhone=' + this.nameOrPhone
       } else if (this.searchVal == 2) {
-        url = '/customer/getCompanyUserInfo/1?member=0&employee=1&nameOrPhone=' + this.nameOrPhone
+        url = '/customer/getCompanyUserInfo/1?member=1&employee=1&nameOrPhone=' + this.nameOrPhone
       } else {
         url = '/customer/getCompanyUserInfo/1?nameOrPhone=' + this.nameOrPhone
       }
@@ -386,7 +429,7 @@ export default {
       if (this.searchVal == 1) {
         url = '/customer/getCompanyUserInfo/' + e + '?member=1&employee=0'
       } else if (this.searchVal == 2) {
-        url = '/customer/getCompanyUserInfo/' + e + '?member=0&employee=1'
+        url = '/customer/getCompanyUserInfo/' + e + '?member=1&employee=1'
       } else {
         url = '/customer/getCompanyUserInfo/' + e
       }
@@ -397,7 +440,6 @@ export default {
         }
       })
     },
-    //第一步的加积分
     addPoints(row, type) {
       if (type == 'addpoint') {
         this.addPointmodal = true
@@ -409,68 +451,6 @@ export default {
       // this.http.post(this.$store.state.prefix + '/customer/sendAuthCode', { accountId: this.willaddPointUser.accountId, companyId: this.willaddPointUser.companyId, points: this.customerPoints }).then(res => {
       //   console.log(res)
       // })
-    },
-    addPointToUser() {
-
-      if (this.customerPoints <= 0 || '') {
-        this.$Message.error('请输入自定义加分分值')
-        return
-      }
-      if (this.remarks == '') {
-        this.$Message.error('请填写加分说明')
-        return
-      }
-
-      this.smscountdown.enable = false
-      this.customerPoints = ~~this.customerPoints
-      this.http.post(this.$store.state.prefix + '/customer/sendAuthCode', { accountId: this.willaddPointUser.accountId, companyId: this.willaddPointUser.companyId, points: this.customerPoints }).then(res => {
-        if (!res.error) {
-          this.$Message.success('短信发送成功')
-          this.smscountdown.enable = false
-          this.addPointBtn = true
-          this.smscountdown.timer = 60
-          this.smscountdown.interval = setInterval(() => {
-            this.smscountdown.timer--
-            if (this.smscountdown.timer <= 0) {
-              this.smscountdown.enable = true
-              localStorage.removeItem('PointEnable', this.smscountdown.enable)
-              localStorage.removeItem('timeNum', this.smscountdown.timer)
-              localStorage.removeItem('nowTime', Date.now())
-              console.log(this.smscountdown.timer)
-              clearInterval(this.smscountdown.interval)
-            } else {
-              this.smscountdown.enable = false
-              localStorage.setItem('PointEnable', this.smscountdown.enable)
-              localStorage.setItem('timeNum', this.smscountdown.timer)
-              localStorage.setItem('nowTime', Date.now())
-            }
-            // console.log(localStorage.getItem('timeNum'))
-            // console.log(localStorage.getItem('nowTime'))
-          }, 1000)
-        } else {
-          this.$Message.error(res.msg)
-          this.smscountdown.enable = true
-        }
-      })
-    },
-    interval() {
-      let timer = setInterval(() => {
-        this.smscountdown.timer--
-        if (this.smscountdown.timer <= 0) {
-          this.smscountdown.enable = true
-          localStorage.removeItem('PointEnable', this.smscountdown.enable)
-          localStorage.removeItem('timeNum', this.smscountdown.timer)
-          localStorage.removeItem('nowTime', Date.now())
-          clearInterval(timer)
-        } else {
-          this.smscountdown.enable = false
-          localStorage.setItem('PointEnable', this.smscountdown.enable)
-          localStorage.setItem('timeNum', this.smscountdown.timer)
-          localStorage.setItem('nowTime', Date.now())
-        }
-        // console.log(localStorage.getItem('timeNum'))
-        // console.log(localStorage.getItem('nowTime'))
-      }, 1000)
     },
     cancelAgent(row) {
       this.$Modal.confirm({
@@ -513,6 +493,23 @@ export default {
       if (this.customerPoints <= 0) {
         this.$Message.error("积分不能小于0")
       }
+    },
+     interval() {
+      let timer = setInterval(() => {
+        this.smscountdown.timer--
+        if (this.smscountdown.timer <= 0) {
+          this.smscountdown.enable = true
+          localStorage.removeItem('PointEnable', this.smscountdown.enable)
+          localStorage.removeItem('timeNum', this.smscountdown.timer)
+          localStorage.removeItem('nowTime', Date.now())
+          clearInterval(timer)
+        } else {
+          this.smscountdown.enable = false
+          localStorage.setItem('PointEnable', this.smscountdown.enable)
+          localStorage.setItem('timeNum', this.smscountdown.timer)
+          localStorage.setItem('nowTime', Date.now())
+        }
+      }, 1000)
     }
   }
 }
