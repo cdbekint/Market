@@ -49,7 +49,9 @@
                     </Row>
     
                     <Form-item class='lastitem'>
-                        <button type="primary" @click="handleSubmit('formValidate')">注册体验(30天)</button>
+                        <!-- <button type="primary" @click="handleSubmit('formValidate')">注册体验(30天)</button> -->
+                        <button type="primary" disabled="disabled">敬请期待</button>
+
                     </Form-item>
                 </Form>
                 <div class="clearfix"></div>

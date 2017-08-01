@@ -1,12 +1,12 @@
 <template>
-  <div :class="$store.state.token ? 'header':'header loginrow'" id="mainheader">
-    <div class="header-content"> 
+  <div :class="$store.state.yxtoken ? 'header':'header loginrow'" id="mainheader">
+    <div class="header-content">
       <Row>
         <Col span="8" class="syslogo">
         <img src="/static/images/logo.png" alt="">
         </Col>
         <Col span="16" class="dropmenus">
-          <Menu mode="horizontal" :active-name="1" v-if="$store.state.token ">
+          <Menu mode="horizontal" :active-name="1" v-if="$store.state.yxtoken ">
             <Submenu name="1">
               <template slot="title">
                 <span class="memberstatus" :class="{'free':($store.state.companyFlag==0),'member':($store.state.companyFlag==1)}" v-text="$store.state.companyFlag==1?'正式会员':'体验会员'">
@@ -72,11 +72,11 @@ export default {
     },
     loginOut() {
       this.$Notice.info({ title: '提醒', desc: '退出登录成功' })
-      this.$store.state.token = ""
+      this.$store.state.yxtoken = ""
       this.$store.state.companyName=""
       this.util.delCookie("companyName")
       this.util.delCookie("companyId")
-      this.util.delCookie("token")
+      this.util.delCookie("yxtoken")
       this.topheight=(window.screen.width*780/1920)
       document.getElementById("mainheader").style.height = this.topheight+"px"
     },
@@ -90,7 +90,7 @@ export default {
     }
   },
   mounted(){
-    if(!this.$store.state.token){
+    if(!this.$store.state.yxtoken){
         this.topheight=(window.screen.width*780/1920)
         document.getElementById("mainheader").style.height = this.topheight+"px"
     }else{

@@ -358,13 +358,12 @@ export default {
             var thisDate=this.util.getDate(item.payDate)
             for(var j in this.payData.chartXdata)
             {
-              if(this.payData.chartXdata==thisDate){
+              if(this.payData.chartXdata[j]==thisDate){
                 paydata.customer.yData[j]+=item.payAmount
                 break
               }
             }
           })
-
           this.payData=paydata
           this.payData.goods.yData=this.payData.goods.yData.map((item)=>{return parseInt(item)})
           this.payData.customer.yData=this.payData.customer.yData.map((item)=>{return parseInt(item)})

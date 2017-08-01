@@ -9,7 +9,7 @@
 
     <div class="main_class" v-if="currentPage==0 && notDetail">
       <div class="class_txt">
-        <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
+        <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)" v-if="!x.system||(x.system&&ids.companyId==3)">{{x.txt}}</span>
       </div>
       <div class="class_goods" v-if="showGoods">
         <div class="goods_info" v-for="x in goods" @click="showDetail(x.id,2)">
@@ -659,19 +659,29 @@ export default {
           txt:"现金商品",
           state:1,
           on:'#ff017e',
-          off:'#434343'
+          off:'#434343',
+          system:false
         },
         {
           txt:"积分商品",
           state:0,
           on:'#ff017e',
-          off:'#434343'
+          off:'#434343',
+          system:false
         },
         {
           txt:"现金+积分",
           state:0,
           on:'#ff017e',
-          off:'#434343'
+          off:'#434343',
+          system:false
+        },
+        {
+          txt:"系统",
+          state:0,
+          on:'#ff017e',
+          off:'#434343',
+          system:true
         }
       ],
       isloading:false,
