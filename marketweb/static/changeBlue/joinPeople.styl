@@ -1,0 +1,49 @@
+rrem(val){
+    return (val/108px)rem
+  }
+  .joinPeople2
+    width 100%
+    background #fff
+    position relative
+    overflow hidden
+    box-shadow 0px 3px 35px -1px rgba(0,0,0,.2) inset
+    .main_bg
+      position absolute
+      width 100%
+      z-index 1
+      top 0px
+    .people_main
+      z-index 100
+      position relative
+      margin auto
+      width rrem(1002px)
+      .main_title
+        display inline-block
+        height rrem(76px)
+        line-height rrem(76px)
+        text-align center
+        width 100%
+        color #fff
+        font-size rrem(30px)
+        font-weight bold
+        background #0089da
+      .main_parent
+        border 1px solid #ccc
+        min-height rrem(256px)
+        display flex
+        flex-wrap wrap
+        background #fff
+        width 100%
+        .parent_item
+          height rrem(256px)
+          width rrem(166px)
+          text-align center
+          img
+            margin-top rrem(55px)
+            border-radius 100%
+            height rrem(120px)
+            width rrem(120px)
+          span
+            font-size rrem(36px)
+            margin-top rrem(35px)
+            display block

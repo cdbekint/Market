@@ -1,0 +1,64 @@
+  rrem(val){
+    return (val/108px)rem
+  }
+  .gray {
+    filter: grayscale(80%);
+    filter: gray;
+  }
+  .groupUsers
+    width 100%
+    background #fff
+    overflow hidden
+    position relative
+    .main_bg
+      position absolute
+      width 100%
+      z-index 1
+      top 0px
+    .people_main
+      z-index 100
+      position relative
+      margin auto
+      width rrem(1000px)
+      .main_title
+        display inline-block
+        height rrem(76px)
+        line-height rrem(76px)
+        text-align center
+        width 100%
+        color #434343
+        font-size rrem(30px)
+        font-weight bold
+        background linear-gradient(to right,#f2e0b2 50%, #d3bc89);
+      .main_parent
+        min-height rrem(150px)
+        width 100%
+        border 1px solid #ccc
+        background #fff
+        .parent_item
+          display flex
+          height rrem(150px)
+          position relative
+          font-size rrem(36px)
+          border-bottom rrem(3px) solid #aeaeae
+          &:first-child
+            .groupName
+              &:before
+                content: '[团长] '
+                color:red
+          img
+            margin-top rrem(15px)
+            margin-left rrem(30px)
+            border-radius 100%
+            width rrem(120px)
+            height rrem(120px)
+          span
+            display block
+            margin-left rrem(30px)
+            height rrem(150px)
+            line-height rrem(150px)
+          .item_date
+            position absolute
+            right rrem(30px)
+            height rrem(150px)
+            line-height rrem(150px)

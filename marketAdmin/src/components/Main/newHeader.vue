@@ -85,6 +85,7 @@ export default {
   },
   watch: {
     userInfo(val) {
+      console.log(val)
       this.userInfo = val
     }
   },
@@ -95,6 +96,9 @@ export default {
     }else{
         document.getElementById("mainheader").style.height = "70px"
     }
+  },
+  created () {
+    console.log(this.$store.state.companyName)
   }
 }
 </script>

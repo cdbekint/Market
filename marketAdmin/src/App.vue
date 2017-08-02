@@ -67,7 +67,7 @@
       <div class="clearfix"></div>
     </div>
     <div v-else>
-      <login v-if="modal" class='loginmodal' @close='hide'>
+      <login v-if="modal" class='loginmodal' @close='hide' @>
       </login>
       <register v-if='registermodal' class='registermodal' @close='hide'></register>
       <news class="news" :lists='lists'></news>
@@ -163,6 +163,7 @@ export default {
 
   created() {
     this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
+      console.log(res)
       if(!res.error){
         if(res.result){
           this.userInfo = res.result

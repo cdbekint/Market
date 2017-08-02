@@ -50,7 +50,7 @@ export default {
   .activeHead
     width 100%
     height rrem(125px)
-    background #434343
+    background #343539
     position relative
     top 0px
     .head_img

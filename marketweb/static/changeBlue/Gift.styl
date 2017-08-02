@@ -1,0 +1,41 @@
+  rrem(val){
+    return (val/108px)rem
+  }
+  .gift2
+    width:100%
+    height auto
+    position relative
+    background #fff
+    overflow hidden
+    .main_bg
+      position absolute
+      width 100%
+      z-index 1
+      top 0px
+    .people_main
+      z-index 100
+      position relative
+      margin auto
+      width rrem(1000px)
+      .main_title
+        display inline-block
+        height rrem(76px)
+        line-height rrem(76px)
+        text-align center
+        width 100%
+        color #fff
+        font-size rrem(30px)
+        font-weight bold
+        background #0089da
+      .main_parent
+        width 100%
+        border 1px solid #ccc
+        .parent_desc
+          text-align center
+          padding-top rrem(10px)
+          width 100%
+          background #fff
+          height rrem(100px)
+          line-height rrem(40px)
+        img
+          width 100%

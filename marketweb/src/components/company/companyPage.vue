@@ -1,6 +1,6 @@
 <template>
   <div class="companyPage">
-    <img src="/static/images/company/bg.png" class="page_img">
+    <!-- <img src="/static/images/company/bg.png" class="page_img">  -->
     <div class="page_bg"></div>
     <companyHead :companyId="companyId"></companyHead>
     <companyContent :ids="params"></companyContent>
@@ -48,15 +48,17 @@ export default {
   }
   .companyPage
     width 100%
-    height auto
-    margin-bottom 20px
+    // height auto
+    // margin-bottom 20px
     position relative
-    .page_img
-      width 100%
-      position fixed
-      top 0px;
+    padding-bottom rrem(100px)
+    // .page_img
+    //   width 100%
+    //   position fixed
+    //   top 0px;
     .page_bg
-      background #ef0075
+      background url('../../../static/images/company/bg1.png') 100% repeat
+      background-size rrem(1080px)
       z-index -4
       top 0px
       width 100%

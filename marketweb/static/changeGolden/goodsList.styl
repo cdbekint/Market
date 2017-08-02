@@ -1,0 +1,63 @@
+ rrem(val){
+    return (val/108px)rem
+  }
+  .goodsList2
+    height rrem(555px)
+    background #434343
+    width 100%
+    padding-top rrem(40px)
+    position relative
+    overflow scroll
+    .payTimeText
+      position absolute
+      width 100%
+      text-align center
+      top rrem(520px)
+      left:0px
+    .list_parent
+      position absolute
+      overflow-x auto
+      height rrem(440px)
+      display flex
+      padding-left rrem(40px)
+      .list_item
+        margin-right rrem(40px)
+        position relative
+        height 100%
+        width rrem(720px)
+        img
+          height rrem(326px)
+          width 100%
+        .item_txt
+          height rrem(114px)
+          background #fff
+          display flex
+          width 100%
+          border-bottom 1px solid #ccc
+          .txt_name
+            height rrem(50px)
+            line-height rrem(50px)
+            width rrem(438px)
+            font-size rrem(30px)
+            padding-left rrem(20px)
+            .name_title
+              margin-top rrem(10px)
+              display block
+              color #434343
+            .name_old
+              display inline-block
+              color #aeaeae
+              margin-right rrem(15px)
+              text-decoration line-through
+            .name_new
+              display inline-block
+              color #ff007e
+          .txt_btn
+            background #ff007e
+            text-align center
+            height rrem(114px)
+            line-height rrem(114px)
+            color #fff
+            font-weight bold
+            font-size rrem(34px)
+            width rrem(282px)

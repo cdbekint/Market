@@ -1,5 +1,5 @@
 <template>
-  <div class = "goodsList2">
+  <div :class="[changeSkin.activeClass]">
     <div class="list_parent">
       <div class="list_item" v-for="x in goodsList">
         <img :src="murl + x.img" @click="showGoodsDirect(x.id)">
@@ -22,111 +22,127 @@
 <script>
 export default {
   name: 'goodsList',
-  props: ['activity'],
-  methods:{
-    showGoodsDetail(id){
-      if(this.payTime === 1) {
-        this.$emit("goodsClick",id);
-      }else if(this.payTime === 0){
+  props: ['activity','skinState'],
+  methods: {
+    showGoodsDetail(id) {
+      if (this.payTime === 1) {
+        this.$emit("goodsClick", id);
+      } else if (this.payTime === 0) {
         this.$Message.info("支付时间未到");
-      } else{
+      } else {
         this.$Message.info("支付时间已结束");
       }
 
     },
     showGoodsDirect(id) {
-       this.$emit("goodImgClick",id);
+      this.$emit("goodImgClick", id);
     }
   },
   watch: {
-    activity:{
-      handler(val){
+    activity: {
+      handler(val) {
         var showDiscount = val.discount;
         var discount = val.discount;
-        discount = discount == 0?1:discount/10;
-        showDiscount = showDiscount == 0?10:showDiscount;
-        this.http.get(this.$store.state.prefix + '/goods/getGoodsByIds?goodsIds='+val.goodsIds).then(res => {
+        discount = discount == 0 ? 1 : discount / 10;
+        showDiscount = showDiscount == 0 ? 10 : showDiscount;
+        this.http.get(this.$store.state.prefix + '/goods/getGoodsByIds?goodsIds=' + val.goodsIds).then(res => {
           this.goodsList = [];
-          if(res.error == false){
-            this.payInfo.payStartDate = this.util.getFormatDate (val.payStartDate,1)
-            this.payInfo.payEndDate = this.util.getFormatDate(val.payEndDate,1)
-            res.result.forEach(item=>{
+          if (res.error == false) {
+            this.payInfo.payStartDate = this.util.getFormatDate(val.payStartDate, 1)
+            this.payInfo.payEndDate = this.util.getFormatDate(val.payEndDate, 1)
+            res.result.forEach(item => {
               var obj = {
-                name:item.goodsName,
-                img:item.goodsImg,
-                price:0,
-                newPrice:0,
-                state:0,
-                btnTxt:'',
-                id:item.id
+                name: item.goodsName,
+                img: item.goodsImg,
+                price: 0,
+                newPrice: 0,
+                state: 0,
+                btnTxt: '',
+                id: item.id
               };
-              if(item.goodsType == 1){
+              if (item.goodsType == 1) {
                 obj.price = item.goodsPrice + "元"
                 obj.newPrice = (item.goodsPrice * discount) + "元"
               }
-              else if(item.goodsType == 2){
+              else if (item.goodsType == 2) {
                 obj.price = item.maxPoints + "积分"
                 obj.newPrice = (item.maxPoints * discount) + "分"
               }
-              else if(item.goodsType == 3){
-                obj.price = item.goodsPrice + "元 + "+item.maxPoints+"积分"
-                obj.newPrice = (item.goodsPrice *discount)+ "元 + " + (item.maxPoints * discount)+ "积分"
+              else if (item.goodsType == 3) {
+                obj.price = item.goodsPrice + "元 + " + item.maxPoints + "积分"
+                obj.newPrice = (item.goodsPrice * discount) + "元 + " + (item.maxPoints * discount) + "积分"
               }
 
 
               var date = Date.now();
-              if(date >= val.startDate && date <= val.endDate) {
+              if (date >= val.startDate && date <= val.endDate) {
 
                 obj.state = 1;
-                if(date >= val.payStartDate && date <= val.payEndDate){
+                if (date >= val.payStartDate && date <= val.payEndDate) {
                   this.payTime = 1;
-                  obj.btnTxt = (showDiscount+"折购买")
-                } else if(date < val.payStartDate){
+                  obj.btnTxt = (showDiscount + "折购买")
+                } else if (date < val.payStartDate) {
                   this.payTime = 0;
                   obj.btnTxt = ("等待开始支付")
-                }else {
+                } else {
                   this.payTime = 2;
                   obj.btnTxt = ("已截止支付")
                 }
-              }else if(date <= val.startDate) {
+              } else if (date <= val.startDate) {
 
                 obj.state = 0;
                 obj.btnTxt = "活动即将开始"
-              }else if(date >= val.endDate) {
+              } else if (date >= val.endDate) {
                 obj.state = 2;
                 this.payTime = 2;
                 obj.btnTxt = "活动已结束"
               }
               this.goodsList.push(obj)
             })
-          }else{
+          } else {
             this.$Message.error(res.msg);
           }
         });
       },
-      deep:true
+      deep: true
     }
   },
-  data () {
+  data() {
     return {
-      goodsList:[],
-      stateColor:[
+      goodsList: [],
+      stateColor: [
         "#1fe3a5",
         "#ff017e",
         "#aeaeae",
       ],
-      payTime:0, //0即将开始，1可以支付，2支付时间结束
-      payInfo:{
-        payStartDate:this.util.getFormatDate(Date.now()),
-        payEndDate:this.util.getFormatDate(Date.now())
-      }
+      payTime: 0, //0即将开始，1可以支付，2支付时间结束
+      payInfo: {
+        payStartDate: this.util.getFormatDate(Date.now()),
+        payEndDate: this.util.getFormatDate(Date.now())
+      },
+      skin: 4,
+      changeSkin: {
+        activeClass: '',
+      },
+      changeStyle: {
+        Money: 'goodsList2',
+        Moneycolor: 'goodsList2 goodsListcolor',
+      },
+    }
+  },
+  created() {
+    this.skin = this.skinState
+    if (this.skin == 2 || this.skin == 3 || this.skin == 5) {
+      this.changeSkin.activeClass = this.changeStyle.Moneycolor
+    } else {
+      this.changeSkin.activeClass = this.changeStyle.Money
     }
   }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  rrem(val){
+ rrem(val){
     return (val/108px)rem
   }
   .goodsList2
@@ -188,5 +204,11 @@ export default {
             font-weight bold
             font-size rrem(34px)
             width rrem(282px)
-
+  .goodsListcolor
+    height rrem(555px)
+    background #fff
+    width 100%
+    padding-top rrem(40px)
+    position relative
+    overflow scroll
 </style>

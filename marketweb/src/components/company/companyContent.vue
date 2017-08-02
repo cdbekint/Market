@@ -1,12 +1,12 @@
 <template>
   <div class="companyContent">
-
+  
     <div class="main_title">
       <div v-for="x,index in titleImgs" @click="changeTitle(index)">
         <img :src="x.static==1?x.on:x.off">
       </div>
     </div>
-
+  
     <div class="main_class" v-if="currentPage==0 && notDetail">
       <div class="class_txt">
         <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
@@ -17,7 +17,7 @@
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
-
+  
           </div>
         </div>
       </div>
@@ -26,61 +26,54 @@
         <p>这里暂时没有商品喔</p>
       </div>
       <!--<div class="class_pull">-->
-        <!--<img src="/static/images/company/pull.png" alt="">-->
+      <!--<img src="/static/images/company/pull.png" alt="">-->
       <!--</div>-->
       <div style="position:fixed;right:1em;bottom:6.5em;height:52px;width:52px;border-radius:50%;border:1px solid #FE54A8">
-          <img src="/static/images/fuqian.png" @click.stop="isWithdraw=true" style="width:100%;height:100%">
+        <img src="/static/images/fuqian.png" @click.stop="isWithdraw=true" style="width:100%;height:100%">
       </div>
-
+  
     </div>
-
+  
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
-      <img src="/static/images/company/fanhui.png" @click="returnGoodsList" class="detail_return">
-      <div class="detail_bg" >
-       <Carousel autoplay>
-          <Carousel-item class="swiperItem" v-for="slide,index in currentGoods.images" :key="index">
-              <div class="carouselitem"><img :src="murl+slide" alt=""></div>
-          </Carousel-item>
-      </Carousel>
-       <!--  <swiper v-ref:swiper
-          direction="horizontal"
-          :mousewheel-control="true"
-          :performance-mode="false"
-          :pagination-visible="true"
-          :pagination-clickable="true"
-          :loop="true"
-          :autoplay="true">
-          <div class="swiperItem" v-for="slide,index in currentGoods.images" :key="index">
-            <img :src="murl+slide" alt="">
-          </div>
-        </swiper> -->
-      </div>
-
-      <div class="detail_text">
-        <div class="text_main">
-          <span class="main_title">{{currentGoods.name}}</span>
-          <div class="main_coll">
-            <span>已售{{currentGoods.saleNum}}件</span>
-            <span>库存{{currentGoods.storageNum}}件</span>
+      <div class="main_detail_buy">
+        <img src="/static/images/back.png" @click="returnGoodsList" class="detail_return">
+        <div class="detail_bg">
+          <div class="carouselitem">
+            <img :src="murl+currentGoods.images[0]" alt="">
           </div>
         </div>
-        <div class="text_jifen">
-          <img src="/static/images/jifen2.png">
-           <span>{{currentGoods.price}}</span>
+  
+        <div class="detail_text">
+          <div class="text_main">
+            <span class="main_title_other">{{currentGoods.name}}</span>
+            <div class="main_coll">
+              <span>已售{{currentGoods.saleNum}}件</span>
+              <span>库存{{currentGoods.storageNum}}件</span>
+            </div>
+          </div>
+          <div class="text_jifen">
+            <img src="/static/images/jifen2.png">
+            <span>{{currentGoods.price}}</span>
+          </div>
+        </div>
+        <div class="detail_btn" @click="payGoods">
+          <span v-if="!payState">{{ids.discount?ids.discount+'折':''}}立即购买</span>
+          <span v-else>
+            <Icon type="ios-checkmark-outline" size="23" style="margin-right:10px"></Icon>购买成功</span>
         </div>
       </div>
-      <div class="detail_btn" @click="payGoods">
-        <span v-if="!payState">{{ids.discount?ids.discount+'折':''}}立即购买</span>
-        <span v-else><Icon type="ios-checkmark-outline" size="23" style="margin-right:10px"></Icon>购买成功</span>
-      </div>
+  
       <div class="detail_html">
-        <div class="bg"></div>
+        <!-- <div class="bg"></div> -->
         <div class="txt good_details" v-html="currentGoods.desc"></div>
       </div>
+      <div class="back_to_top" v-if="backToTop" @click="handleBackTop">
+        <img src="/static/images/backTop.png">
+      </div>
     </div>
-
+  
     <!-- 优惠活动 -->
-    <div class="main_discount" v-if="currentPage==1" >
+    <div class="main_discount" v-if="currentPage==1">
       <div class="discount_goods">
         <div class="goods_info" v-for="x in active" @click="goToActive(x.id)">
           <img :src="stateImgArr[x.state]" class="info_state">
@@ -110,26 +103,26 @@
           </div>
         </div>
         <!--<div class="discount_pull">-->
-          <!--<img src="/static/images/company/pull.png" alt="">-->
+        <!--<img src="/static/images/company/pull.png" alt="">-->
         <!--</div>-->
       </div>
     </div>
-
+  
     <!-- 会员排行 -->
     <div class="main_member" v-if="currentPage==2">
       <div class="member_hr">
         <div class="hr_1"></div>
-        <div v-for="x,index in jifenCategory" :class="'hr_'+x.num"
-             @click="changeJifen(index)" :style="x.state==1?{color:x.on}:{color:x.off}">{{x.txt}}</div>
+        <div v-for="x,index in jifenCategory" :class="'hr_'+x.num" @click="changeJifen(index)" :style="x.state==1?{color:x.on}:{color:x.off}">{{x.txt}}</div>
       </div>
       <div class="member_list" v-if="showMember">
         <div class="member_content" v-for="x,index in member">
-          <div class="list_sort" style="color:#ff017e;font-weight:bold;">{{index+1}}</div>
+          <div class="list_sort" style="color:#ff017e;font-weight:bold;" v-if="index <= 2">NO.{{index+1}}</div>
+          <div class="list_sort" style="color:#ff017e;font-weight:bold;" v-else>{{index+1}}</div>
           <div class="list_img">
             <img :src="x.img" alt="">
           </div>
           <div class="list_name">
-              <span v-text="x.name"></span>
+            <span v-text="x.name"></span>
           </div>
           <div class="list_jifen">
             <img src="/static/images/company/jifen.png">
@@ -150,24 +143,15 @@
         <p>这里暂时没有数据喔</p>
       </div>
     </div>
-
+  
     <div class="main_company" v-if="currentPage==3" v-html="showInfo">
       <div class="info_isNull" v-if="!showHtml">
         <img src="/static/images/shop.png">
         <p>这里暂时没有数据喔</p>
       </div>
     </div>
-
-    <Modal
-      v-model="isWithdraw"
-      @on-ok="customerPay"
-      @on-cancel="cancel"
-      ok-text="付款"
-      :closable="false"
-      title="自助付款"
-      style="position: relative;padding:0px 15%"
-    >
-
+  
+    <Modal v-model="isWithdraw" @on-ok="customerPay" @on-cancel="cancel" ok-text="付款" :closable="false" title="自助付款" style="position: relative;padding:0px 15%">
       <Row style="text-align:left;padding-left:40px;font-size:1.3em;color:#AEAEAE">
         <div>
           <span>请输入付款金额(元)</span>
@@ -184,11 +168,20 @@
         </div>
       </Row>
       <Row style="text-align:center;padding-left:40px;">
-         <Input  v-model="payRemarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="商品名称与数量"></Input>
+        <Input v-model="payRemarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="商品名称与数量"></Input>
       </Row>
-
     </Modal>
-
+    <Modal v-model="paySuccess" :closable="false" width="1000">
+      <p class="modelTitle">
+        <img src='/static/images/company/messages.png'>
+      </p>
+      <p class="modelPic">
+        <img src="/static/images/company/success.png">
+      </p>
+      <p class="modelSuccess">支付成功</p>
+      <p class="modelTishi">商家客户会尽快联系你，请保持手机畅通</p>
+      <p slot="footer" class="modelBack" @click="paySuccess=false">返回当前页面</p>
+    </Modal>
   </div>
 </template>
 
@@ -196,88 +189,107 @@
 import swiper from 'vue-swiper'
 export default {
   name: 'companyContent',
-  props:["ids"],
-  components:{swiper},
-  methods:{
-    customerPay(){
-      if(isNaN(this.payMoney)){
+  props: ["ids"],
+  components: { swiper },
+  methods: {
+    handleScroll() {
+      if (window.scrollY > 0) {
+        this.backToTop = true
+      } else if (window.scrollY == 0) {
+        this.backToTop = false
+      }
+    },
+    handleBackTop() {
+      let timer = setInterval(() => {
+        this.animation.totalNum+=this.animation.speed
+        document.documentElement.scrollTop = document.body.scrollTop = window.scrollY-this.animation.totalNum
+        if(window.scrollY-this.animation.speed<=0){
+          document.documentElement.scrollTop = document.body.scrollTop = 0;
+          this.animation.totalNum = 0
+          clearInterval(timer)
+        }
+      },this.animation.time)
+      this.backToTop = false
+    },
+    customerPay() {
+      if (isNaN(this.payMoney)) {
         this.$Message.error("付款金额必须为数字");
         return
       }
-      if(Number(this.payMoney) <= 0){
+      if (Number(this.payMoney) <= 0) {
         this.$Message.error("付款金额必须大于0");
         return
       }
-      if(!this.payRemarks){
+      if (!this.payRemarks) {
         this.$Message.error("商品名称必填");
         return
       }
       debugger
-      var param={
-        payAmount:this.payMoney,
-        remarks:"自助购买"+this.payRemarks,
-        companyId:this.ids.companyId,
-        payType:6
+      var param = {
+        payAmount: this.payMoney,
+        remarks: "自助购买" + this.payRemarks,
+        companyId: this.ids.companyId,
+        payType: 6
       }
       debugger
       //自助付款
       console.log("自助支付开始了")
-      if(this.customerpaying)return;
-      this.customerpaying=true
+      if (this.customerpaying) return;
+      this.customerpaying = true
       this.http.post(this.$store.state.prefix + '/pay', param).then((res) => {
         if (res.error === false) {
           var row = res.result;
-            var onBridgeReady = () => {
-              var _this=this
-              WeixinJSBridge.invoke(
-                'getBrandWCPayRequest', {
-                  'appId': row.appid,
-                  'timeStamp': row.timeStamp,
-                  'nonceStr': row.nonce_str,
-                  'package': row.prepay_id,
-                  'signType': row.sign_type,
-                  'paySign': row.sign
-                },
-                function (res) {
-                  _this.customerpaying=false
-                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                    _this.$Message.success("自助付款成功");
-                    _this.payMoney=0;
-                    _this.payRemarks="";
-                  }
-                  else if(res.err_msg != 'get_brand_wcpay_request:cancel'){
-                    _this.$Message.error("取消支付");
-                  } else {
-                    _this.$Message.error("购买失败");
-                  }
+          var onBridgeReady = () => {
+            var _this = this
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest', {
+                'appId': row.appid,
+                'timeStamp': row.timeStamp,
+                'nonceStr': row.nonce_str,
+                'package': row.prepay_id,
+                'signType': row.sign_type,
+                'paySign': row.sign
+              },
+              function (res) {
+                _this.customerpaying = false
+                if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                  _this.$Message.success("自助付款成功");
+                  _this.payMoney = 0;
+                  _this.payRemarks = "";
                 }
-              )
-            }
-            if (typeof WeixinJSBridge === 'undefined') {
-              if (document.addEventListener) {
-                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
-              } else if (document.attachEvent) {
-                document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
-                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+                else if (res.err_msg != 'get_brand_wcpay_request:cancel') {
+                  _this.$Message.error("取消支付");
+                } else {
+                  _this.$Message.error("购买失败");
+                }
               }
-            } else {
-              onBridgeReady()
+            )
+          }
+          if (typeof WeixinJSBridge === 'undefined') {
+            if (document.addEventListener) {
+              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+            } else if (document.attachEvent) {
+              document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
+              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
             }
-        }else{
+          } else {
+            onBridgeReady()
+          }
+        } else {
           this.$Message.error(res.msg)
         }
       })
 
 
     },
-    cancel(){
+    cancel() {
       this.isWithdraw = false;
     },
-    returnGoodsList(){
+    returnGoodsList() {
       this.notDetail = true;
     },
-    payGoods(){
-      if(this.isloading)return
+    payGoods() {
+      if (this.isloading) return
       this.isloading = true
       this.http.post(this.$store.state.prefix + '/pay', this.params).then((res) => {
         if (res.error === false) {
@@ -287,7 +299,7 @@ export default {
             this.$Message.success("购买成功");
           } else {
             var onBridgeReady = () => {
-              var _this=this
+              var _this = this
               WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
                   'appId': row.appid,
@@ -298,12 +310,13 @@ export default {
                   'paySign': row.sign
                 },
                 function (res) {
-                this.isloading = false
+                  this.isloading = false
                   if (res.err_msg === 'get_brand_wcpay_request:ok') {
                     _this.payState = true
-                    _this.$Message.success("购买成功");
+                    // _this.$Message.success("购买成功");
+                    _this.paySuccess = true
                   }
-                  else if(res.err_msg != 'get_brand_wcpay_request:cancel'){
+                  else if (res.err_msg != 'get_brand_wcpay_request:cancel') {
                     _this.$Message.error("取消支付");
                   } else {
                     _this.$Message.error("购买失败");
@@ -325,36 +338,36 @@ export default {
         }
       })
     },
-    showDetail(id,state){
-      this.http.get(this.$store.state.prefix + '/goods/'+id).then((res) => {
-        if(res.error == false){
+    showDetail(id, state) {
+      this.http.get(this.$store.state.prefix + '/goods/' + id).then((res) => {
+        if (res.error == false) {
           var row = res.result;
           this.currentGoods = {
-            saleNum : row.saleNum,
-            storageNum : row.storageNum,
-            name:row.goodsName,
-            price:row.goodsPrice,
-            img:row.goodsImg,
-            images:row.goodsImg.split(","),
-            desc:this.util.escapeToHtml(row.goodsDesc),
-            goodsType:row.goodsType
+            saleNum: row.saleNum,
+            storageNum: row.storageNum,
+            name: row.goodsName,
+            price: row.goodsPrice,
+            img: row.goodsImg,
+            images: row.goodsImg.split(","),
+            desc: this.util.escapeToHtml(row.goodsDesc),
+            goodsType: row.goodsType
           }
-          if(this.ids.discount){
+          if (this.ids.discount) {
             console.log(this.ids.discount)
             console.log(this.currentGoods.price)
 
-            this.currentGoods.price =Number(this.currentGoods.price)*Number(this.ids.discount)/10
+            this.currentGoods.price = Number(this.currentGoods.price) * Number(this.ids.discount) / 10
 
             console.log(this.currentGoods.price)
           }
-          if(state == 1){
-          //判断是否是从活动中带过来支付
+          if (state == 1) {
+            //判断是否是从活动中带过来支付
             this.params = {
               businessId: this.ids.activeId,
               payType: 2,
               payAmount: 0,
               companyId: row.companyId,
-              goodsId:row.id
+              goodsId: row.id
             }
           }
           else {
@@ -363,167 +376,169 @@ export default {
               payType: 2,
               payAmount: 0,
               companyId: row.companyId,
-              goodsId:row.id
+              goodsId: row.id
             }
           }
 
-          if(row.goodsType == 1){
+          if (row.goodsType == 1) {
             this.currentGoods.price = this.currentGoods.price + "元"
           }
-          else if(row.goodsType == 2){
+          else if (row.goodsType == 2) {
             this.currentGoods.price = row.maxPoints + "积分"
           }
-          else if(row.goodsType == 3){
-            this.currentGoods.price = this.currentGoods.price + "元 + "+row.maxPoints+"积分"
+          else if (row.goodsType == 3) {
+            this.currentGoods.price = this.currentGoods.price + "元 + " + row.maxPoints + "积分"
           }
 
           this.notDetail = false;
         }
       });
     },
-    goToActive(id){
+    goToActive(id) {
       var oldUrl = location.href;
       var index = oldUrl.indexOf("?");
       var state = this.util.getURLParam('state').split(",")
 
-      var preUrl = oldUrl.slice(0,index+1);
+      var preUrl = oldUrl.slice(0, index + 1);
       var state = "state=" + id + "," + window.localStorage["ownId"];
 
       var url = preUrl + state;
       location.href = url;
     },
-    changeTitle(index){
+    changeTitle(index) {
       this.currentPage = index;
-      this.titleImgs.forEach((item,i) => {
+      this.titleImgs.forEach((item, i) => {
         item.static = 0;
-        if(index == i){
+        if (index == i) {
           item.static = 1;
         }
       })
     },
-    changeJifen(index){
-     this.jifenCategory.forEach((item,i) => {
-       item.state = 0;
-       if(index == i){
-         item.state = 1;
-       }
-     });
+    changeJifen(index) {
+      this.jifenCategory.forEach((item, i) => {
+        item.state = 0;
+        if (index == i) {
+          item.state = 1;
+        }
+      });
 
-      var url = this.url == ''?"?orderType="+(index+1) : this.url + "&orderType=" + (index+1)
-      this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" + url).then(res=> {
-        if(res.error == false){
+      var url = this.url == '' ? "?orderType=" + (index + 1) : this.url + "&orderType=" + (index + 1)
+      this.http.get(this.$store.state.prefix + "/shop/getMemsInfo" + url).then(res => {
+        if (res.error == false) {
           this.member = [];
           var row = res.result;
-          row.forEach(item=>{
+          row.forEach(item => {
             var obj = {
-              name:item.realName||item.nickName,
-              img:item.headImg,
-              surplus:item.points,
-              total:item.allPoints,
-              people:item.invitedMems
+              name: item.realName || item.nickName,
+              img: item.headImg,
+              surplus: item.points,
+              total: item.allPoints,
+              people: item.invitedMems
             }
-            if(obj.name.length>2){
-                obj.name=obj.name.substring(0,1)+"*"+obj.name.substr(obj.name.length-1,1)
-            }else if(obj.name.length==2){
-               obj.name=obj.name.substring(0,1)+"*"
+            if (obj.name.length > 2) {
+              obj.name = obj.name.substring(0, 1) + "*" + obj.name.substr(obj.name.length - 1, 1)
+            } else if (obj.name.length == 2) {
+              obj.name = obj.name.substring(0, 1) + "*"
             }
             this.member.push(obj)
           })
-          if(this.member.length == 0)
+          if (this.member.length == 0)
             this.showMember = false;
           else
             this.showMember = true;
         }
       })
     },
-    changeTxt(index){
-      this.category.forEach((item,i) => {
+    changeTxt(index) {
+      this.category.forEach((item, i) => {
         item.state = 0;
-        if((index-1) == i){
+        if ((index - 1) == i) {
           item.state = 1;
         }
       });
       this.goods = [];
       this.getGoodsByType(index);
     },
-    getGoodsByType(id){
-      this.http.get( this.$store.state.prefix + "/shop/getGoodsInfo/"+ id + this.url).then(res=>{
-        if(res.error == false){
-          res.result.forEach(item=>{
+    getGoodsByType(id) {
+      this.http.get(this.$store.state.prefix + "/shop/getGoodsInfo/" + id + this.url).then(res => {
+        if (res.error == false) {
+          res.result.forEach(item => {
             var obj = null;
-            if(id == 1) {
+            if (id == 1) {
               obj = {
-                id:item.id,
+                id: item.id,
                 img: item.goodsImg.split(",")[0],
                 title: item.goodsName,
                 price: item.goodsPrice + "元"
               }
             }
-            else if(id == 2){
+            else if (id == 2) {
               obj = {
-                id:item.id,
+                id: item.id,
                 img: item.goodsImg.split(",")[0],
                 title: item.goodsName,
                 price: item.maxPoints + "积分"
               }
             }
-            else if(id == 3){
+            else if (id == 3) {
               obj = {
-                id:item.id,
+                id: item.id,
                 img: item.goodsImg.split(",")[0],
                 title: item.goodsName,
-                price: item.goodsPrice + "元 + "+item.maxPoints+"积分"
+                price: item.goodsPrice + "元 + " + item.maxPoints + "积分"
               }
             }
 
             this.goods.push(obj)
           })
-          if(this.goods.length == 0)
+          if (this.goods.length == 0)
             this.showGoods = false;
           else
             this.showGoods = true;
         }
       })
     },
-    onSlideChangeStart (currentPage) {
+    onSlideChangeStart(currentPage) {
       console.log('onSlideChangeStart', currentPage);
     },
-    onSlideChangeEnd (currentPage) {
+    onSlideChangeEnd(currentPage) {
       console.log('onSlideChangeEnd', currentPage);
     }
-
   },
-  created(){
-    if(this.ids.id != void 0){
-      this.showDetail(this.ids.id,1);
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  created() {
+    if (this.ids.id != void 0) {
+      this.showDetail(this.ids.id, 1);
     };
 
-    if(this.ids.companyId != void 0){
+    if (this.ids.companyId != void 0) {
       this.url = '?companyId=' + this.ids.companyId
     }
 
     this.getGoodsByType(1);
-    this.http.get( this.$store.state.prefix + "/shop/getActivities" + this.url).then(res=>{
-      if(res.error == false){
+    this.http.get(this.$store.state.prefix + "/shop/getActivities" + this.url).then(res => {
+      if (res.error == false) {
         var row = res.result;
-        row.forEach(item=>{
+        row.forEach(item => {
           var obj = {
-            id:item.id,
-            img:item.activityImg,
-            phoneImg:item.phoneImg,
-            title:item.activityName,
-            view:item.viewNum,
-            share:item.shareNum,
-            people:item.joinNum,
-            team:item.groupNum,
-            state:0,
+            id: item.id,
+            img: item.activityImg,
+            phoneImg: item.phoneImg,
+            title: item.activityName,
+            view: item.viewNum,
+            share: item.shareNum,
+            people: item.joinNum,
+            team: item.groupNum,
+            state: 0,
           }
           var date = Date.now();
-          if(date >= item.startDate && date <= item.endDate)
+          if (date >= item.startDate && date <= item.endDate)
             obj.state = 1;
-          else if(date <= item.startDate)
+          else if (date <= item.startDate)
             obj.state = 0;
-          else if(date >= item.endDate)
+          else if (date >= item.endDate)
             obj.state = 2;
 
           this.active.push(obj)
@@ -532,165 +547,215 @@ export default {
     })
 
 
-    this.http.get( this.$store.state.prefix + "/shop/getMemsInfo" + this.url).then(res=>{
-      if(res.error == false){
+    this.http.get(this.$store.state.prefix + "/shop/getMemsInfo" + this.url).then(res => {
+      if (res.error == false) {
         var row = res.result;
-        row.forEach(item=>{
+        row.forEach(item => {
           var obj = {
-            name:item.realName||item.nickName,
-            img:item.headImg,
-            surplus:item.points,
-            total:item.allPoints,
-            people:item.invitedMems
+            name: item.realName || item.nickName,
+            img: item.headImg,
+            surplus: item.points,
+            total: item.allPoints,
+            people: item.invitedMems
           }
-           if(obj.name.length>2){
-                obj.name=obj.name.substring(0,1)+"*"+obj.name.substr(obj.name.length-1,1)
-            }else if(obj.name.length==2){
-               obj.name=obj.name.substring(0,1)+"*"
-            }
+          if (obj.name.length > 2) {
+            obj.name = obj.name.substring(0, 1) + "*" + obj.name.substr(obj.name.length - 1, 1)
+          } else if (obj.name.length == 2) {
+            obj.name = obj.name.substring(0, 1) + "*"
+          }
           this.member.push(obj)
         })
-        if(this.member.length == 0)
+        if (this.member.length == 0)
           this.showMember = false;
         else
           this.showMember = true;
       }
     })
 
-    this.http.get( this.$store.state.prefix + "/shop/getCompanyShow" + this.url).then(res=>{
-      if(res.error == false){
+    this.http.get(this.$store.state.prefix + "/shop/getCompanyShow" + this.url).then(res => {
+      if (res.error == false) {
         this.showInfo = this.util.escapeToHtml(res.result.show);
-        if(this.showInfo == void 0 || this.showInfo == '')
+        if (this.showInfo == void 0 || this.showInfo == '')
           this.showHtml = false;
         else
           this.showHtml = true;
       }
     })
   },
-  data () {
+  data() {
     return {
-      payMoney:0,
-      payRemarks:"",
-      isWithdraw:false,
-      showGoods:true,
-      showHtml:true,
-      showMember:true,
-      url:'',
-      swiperOption:{
+      backToTop: false,
+      payMoney: 0,
+      payRemarks: "",
+      isWithdraw: false,
+      showGoods: true,
+      showHtml: true,
+      showMember: true,
+      url: '',
+      animation:{
+        speed:7,
+        time:20,
+        totalNum:0,
+      },
+      swiperOption: {
         autoplay: 3500,
-        setWrapperSize :true,
-        pagination : '.swiper-pagination',
-        paginationClickable :true,
-        mousewheelControl : true,
-        observeParents:true,
+        setWrapperSize: true,
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        mousewheelControl: true,
+        observeParents: true,
       },
-      currentGoods:{
-        saleNum:0,
-        storageNum:0,
-        images:[]
+      currentGoods: {
+        saleNum: 0,
+        storageNum: 0,
+        images: []
       },
-      selectGoodsId:0,
+      selectGoodsId: 0,
       params: {
         businessId: 0,
         payType: 2,
         payAmount: 0,
         companyId: 0,
-        goodsId:0
+        goodsId: 0
       },
-      notDetail:true,
-      currentPage:0,
-      showInfo:'',
-      stateImgArr:[
+      notDetail: true,
+      currentPage: 0,
+      showInfo: '',
+      stateImgArr: [
         "/static/images/company/start.png",
         "/static/images/company/ing.png",
         "/static/images/company/end.png"
       ],
-      active:[],
-      member:[],
-      goods:[],
-      titleImgs:[
+      active: [],
+      member: [],
+      goods: [],
+      titleImgs: [
         {
-          on:"/static/images/company/titleOn/1.png",
-          off:"/static/images/company/titleOff/1.png",
-          static:1
+          on: "/static/images/company/titleOn/1.png",
+          off: "/static/images/company/titleOff/1.png",
+          static: 1
         },
         {
-          on:"/static/images/company/titleOn/2.png",
-          off:"/static/images/company/titleOff/2.png",
-          static:0
+          on: "/static/images/company/titleOn/2.png",
+          off: "/static/images/company/titleOff/2.png",
+          static: 0
         },
         {
-          on:"/static/images/company/titleOn/3.png",
-          off:"/static/images/company/titleOff/3.png",
-          static:0
+          on: "/static/images/company/titleOn/3.png",
+          off: "/static/images/company/titleOff/3.png",
+          static: 0
         },
         {
-          on:"/static/images/company/titleOn/4.png",
-          off:"/static/images/company/titleOff/4.png",
-          static:0
+          on: "/static/images/company/titleOn/4.png",
+          off: "/static/images/company/titleOff/4.png",
+          static: 0
         }
       ],
-      payState:false,
-      jifenCategory:[
+      payState: false,
+      jifenCategory: [
         {
-          txt:"剩余积分",
-          state:1,
-          num:2,
-          on:'#ff017e',
-          off:'#434343'
+          txt: "剩余积分",
+          state: 1,
+          num: 2,
+          on: '#ff017e',
+          off: '#434343'
         },
         {
-          txt:"累计积分",
-          state:0,
-          num:3,
-          on:'#ff017e',
-          off:'#434343'
+          txt: "累计积分",
+          state: 0,
+          num: 3,
+          on: '#ff017e',
+          off: '#434343'
         },
         {
-          txt:"邀请人数",
-          state:0,
-          num:4,
-          on:'#ff017e',
-          off:'#434343'
+          txt: "邀请人数",
+          state: 0,
+          num: 4,
+          on: '#ff017e',
+          off: '#434343'
         }
       ],
-      category:[
+      category: [
         {
-          txt:"现金商品",
-          state:1,
-          on:'#ff017e',
-          off:'#434343'
+          txt: "现金商品",
+          state: 1,
+          on: '#ff017e',
+          off: '#434343'
         },
         {
-          txt:"积分商品",
-          state:0,
-          on:'#ff017e',
-          off:'#434343'
+          txt: "积分商品",
+          state: 0,
+          on: '#ff017e',
+          off: '#434343'
         },
         {
-          txt:"现金+积分",
-          state:0,
-          on:'#ff017e',
-          off:'#434343'
+          txt: "现金+积分",
+          state: 0,
+          on: '#ff017e',
+          off: '#434343'
         }
       ],
-      isloading:false,
-      customerpaying:false
+      isloading: false,
+      customerpaying: false,
+      paySuccess: false
     }
   }
 }
 </script>
 <style  lang='stylus' rel="stylesheet/stylus">
+  .ivu-modal-footer
+    border-top none 
   rrem(val){
     return (val/108px)rem
   }
+  .ivu-modal-body
+    padding 0  
+    padding-top rrem(132px)
+  .modelTitle
+     width rrem(436px)
+     height rrem(140px)
+     position absolute
+     left rrem(295px) 
+     top rrem(-70px)
+     img
+      width 100%
+  .modelPic
+    width rrem(110px)
+    height rrem(110px)
+    margin 0 auto
+    // margin-top rrem(132px)
+    img
+      width 100%
+  .modelSuccess
+    height rrem(101px)
+    line-height rrem(101px)
+    font-size rrem(44px)
+    color #ff017e
+    font-weight 600
+    text-align center
+  .modelTishi
+    height rrem(94px)
+    line-height rrem(94px)
+    color #999999
+    font-size rrem(28px)
+    text-align center 
+  .modelBack
+    width rrem(920px)
+    height rrem(125px)
+    line-height rrem(125px)
+    background #ff017e
+    text-align center  
+    color #fff
+    font-size rrem(50px)
+    font-weight 600
+    margin-bottom rrem(29px)
   .companyContent
     position relative
     top rrem(50px)
     width 92.6%
     margin auto
-    margin-bottom rrem(100px)
-    height rrem(1640px)
+    // margin-bottom rrem(100px)
+    // height rrem(1640px)
     .info_isNull
       width rrem(1000px)
       height rrem(1300px)
@@ -704,9 +769,10 @@ export default {
         margin-top rrem(25px)
         font-size rrem(28px)
     .main_title
-      height rrem(80px)
+      height rrem(88px)
       display flex
       width 100%
+      border-bottom 4px solid #ff017e
       div
         flex 1
         height rrem(80px)
@@ -716,6 +782,7 @@ export default {
     .main_class
       width 100%
       background #fff
+      box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
       margin-top rrem(8px)
       height rrem(80px)
       .class_txt
@@ -736,21 +803,27 @@ export default {
         flex-wrap wrap
         justify-content space-between
         .goods_info
-          width rrem(490px)
-          height rrem(645px)
-          margin-top rrem(32px)
+          width rrem(480px)
+          height rrem(652px)
+          margin-top rrem(40px)
+          box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
+          position relative
           img
             width 100%
-            height rrem(525px)
+            // height rrem(525px)
+            height 100%
           .info_text
-            background #fff
-            height rrem(128px)
+            background rgba(0,0,0,.33)
+            height rrem(110px)
             width 100%
-            position relative
+            position absolute
+            left 0
+            bottom 0
             span
               width 100%
               display block
               position absolute
+              color #eee
             img
               position absolute
               width rrem(90px)
@@ -759,13 +832,13 @@ export default {
               top rrem(20px)
             .text_title
               font-size rrem(35px)
-              color #000
+              color #fff
               left rrem(20px)
-              top rrem(50px)
+              top rrem(35px)
             .text_price
               left rrem(20px)
-              top rrem(95px)
-              color #ff017e
+              top rrem(80px)
+              color #fff
               font-size rrem(32px)
       .class_pull
         width 100%
@@ -779,12 +852,14 @@ export default {
 
     .main_discount
       width 100%
-      height rrem(1500px)
+      .goods_info:first-of-type
+        margin-top 0
       .goods_info
         width 100%
         height rrem(440px)
-        margin-top rrem(30px)
+        margin-top rrem(40px)
         position relative
+        box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
         .info_state
           position absolute
           width rrem(170px)
@@ -807,7 +882,7 @@ export default {
             position absolute
             top rrem(57px)
           .txt_title
-            flex 3
+            flex 5
             p
               margin-left rrem(30px)
               height 100%
@@ -858,20 +933,21 @@ export default {
 
     .main_member
       width 100%
-      margin-top rrem(16px)
+      // margin-top rrem(16px)
       margin-bottom rrem(60px)
+      box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
       .member_hr
         height rrem(100px)
         display flex
         background #fff
+        justify-content:center
+        padding 0 rrem(200px)
         div
           height rrem(100px)
           font-weight bold
           font-size rrem(26px)
           line-height rrem(100px)
           text-align center
-        .hr_1
-          flex 5
         .hr_2
           flex 3
         .hr_3
@@ -903,8 +979,8 @@ export default {
               height 100%
               line-height 700%
           .list_sort
-            flex 1
-            font-size:rrem(42px);
+            flex 2
+            font-size:rrem(24px);
           .list_name
             flex:2
           .list_img
@@ -933,93 +1009,105 @@ export default {
 
     .main_company
       width 100%
-      margin-top rrem(40px)
       padding: rrem(40px) 0px
       min-height rrem(1500px)
       margin-bottom rrem(60px)
       background #fff
       text-align center
       display:block
+      box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
     .main_detail
       width 100%
-      height rrem(970px)
-      background #fff;
+      // height rrem(970px)
+      // background #fff;
       position relative
-      .detail_bg
-        height rrem(600px)
-        width 100%
-        .swiperItem
-          width:100%
+      .main_detail_buy
+        padding-bottom rrem(43px)
+        margin-bottom rrem(20px)
+        background #fff
+        box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
+        .detail_bg
+          // height rrem(600px)
+          width 100%
           .carouselitem
-            height rrem(600px)
+            width:100%
+            height rrem(1357px)
             overflow-y:hidden
+            border 1px solid #ccc
             img
-              height:auto
               width:100%
-      .detail_return
-        position absolute
-        top rrem(35px)
-        left rrem(35px)
-        width rrem(100px)
-        height rrem(100px)
-        z-index:2
-      .detail_text
-        width 93%
-        height rrem(100px)
-        margin rrem(40px) auto
-        display flex
-        .text_main
-          flex 4
-          span
-            font-size rrem(40px)
-            color #434343
-            height rrem(50px)
-            line-height rrem(50px)
-          .main_coll
-            width 100%
-            height rrem(50px)
-            span
-              font-size rrem(30px)
-              color #aeaeae
-        .text_jifen
-          border 2px solid #ff007e
-          height rrem(80px)
-          margin-top rrem(10px)
-          flex 2
-          border-radius 20px
+              height 100%
+        .detail_return
+          position absolute
+          top rrem(35px)
+          left rrem(35px)
+          width rrem(110px)
+          height rrem(110px)
+          box-shadow 0 2px 20px 0px rgba(0,0,0,.2)  
+          z-index:2
+          border-radius 50%
+        .detail_text
+          width 93%
+          height rrem(100px)
+          margin rrem(40px) auto
           display flex
-          justify-content center
-          align-items center
-          img
-            width rrem(55px)
-            height rrem(55px)
-            margin-right rrem(10px)
-          span
-            color #ff007e
-            font-weight bold
-            font-size rrem(30px)
-            line-height rrem(55px)
-            height rrem(55px)
-      .detail_btn
-        width 93%
-        height rrem(130px)
-        line-height rrem(130px)
-        text-align center
-        font-weight bold
-        color #fff
-        margin auto
-        font-size rrem(54px)
-        background #ff007e
+          .text_main
+            flex 4
+            .main_title_other
+              color #000
+              font-weight 400
+            span
+              font-size rrem(40px)
+              color #434343
+              height rrem(50px)
+              line-height rrem(50px)
+              margin-right rrem(30px)
+            .main_coll
+              width 100%
+              height rrem(50px)
+              span
+                font-size rrem(30px)
+                color #aeaeae
+          .text_jifen
+            border 2px solid #ff007e
+            height rrem(80px)
+            // margin-top rrem(10px)
+            flex 2
+            border-radius 20px
+            display flex
+            justify-content center
+            align-items center
+            img
+              width rrem(55px)
+              height rrem(55px)
+              margin-right rrem(10px)
+            span
+              color #ff007e
+              font-weight bold
+              font-size rrem(30px)
+              line-height rrem(55px)
+              height rrem(55px)
+        .detail_btn
+          width 93%
+          height rrem(130px)
+          line-height rrem(130px)
+          text-align center
+          font-weight bold
+          color #fff
+          margin auto
+          font-size rrem(54px)
+          background #ff007e
       .detail_html
-        margin-top rrem(60px)
         color #fff
         width 100%
         overflow-x:hidden
         text-align center
-        min-height rrem(640px)
+        // min-height rrem(640px)
         height:auto
-        padding-top rrem(20px)
+        padding rrem(40px)
         position relative
+        background #fff
+        box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
         .bg
           z-index -1
           width 100%
@@ -1031,16 +1119,26 @@ export default {
           background #000
         .txt
           width 100%
-          padding:5px
+          // padding:5px
           text-align:left
-          min-height rrem(640px)
-          padding-left rrem(20px)
-          padding-top rrem(20px)
+          // min-height rrem(640px)
+          // padding-left rrem(20px)
+          // padding-top rrem(20px)
           background:#fff
           p
             color:#000
-            line-height:1em
+            line-height:2em
             img
               width:100%
               margin-top rrem(20px)
+      .back_to_top
+        width rrem(110px)
+        height rrem(110px)
+        position fixed
+        border-radius 50%
+        left 46%
+        bottom rrem(45px)     
+        box-shadow 0 2px 20px 0px rgba(0,0,0,.2)   
+        img 
+          width 100%
 </style>

@@ -1,19 +1,19 @@
 <template>
-  <div class='activityMain2'>
-    <music :url = 'music'></music>
+  <div :class='[changeSkin.activeClass]'>
+    <music :url = 'music' :skinState='skin'></music>
     <companyHead :companyId="activity.companyId"></companyHead>
     <mainImg :activity = "activity" @showRule="showRuleNote"></mainImg>
     <activityrule :activity = "activity"></activityrule>
-    <timeAndPro :activity = "activity" ></timeAndPro>
-    <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect"></goodsList>
-    <joinPeople :activity = "activity" ></joinPeople>
-    <Gift :activity = "activity"></Gift>
-    <Group :activity = "activity" v-if="isGroup"></Group>
-    <Discount :activity="activity"></Discount>
-    <Money :activity="activity"></Money>
+    <timeAndPro :activity = "activity" :skinState='skin'></timeAndPro>
+    <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect" :skinState='skin'></goodsList>
+    <joinPeople :activity = "activity" :skinState='skin'></joinPeople>
+    <Gift :activity = "activity" :skinState='skin'></Gift>
+    <Group :activity = "activity" v-if="isGroup" :skinState='skin'></Group>
+    <Discount :activity="activity" :skinState='skin'></Discount>
+    <Money :activity="activity" :skinState='skin'></Money>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
     <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 1000;">
-      <img src="/static/images/bg.png">
+      <img :src="changeSkin.realValue">
       <div class="team_peopleInfo">
         <img :src="currentGroup.img">
       </div>
@@ -22,8 +22,8 @@
         <p>正在邀请你</p>
         <p>已有 {{currentGroup.peopleNum}} 人加入</p>
       </div>
-      <img src="/static/images/startTeam.png" class="team_startTeam" @click="newTeam"  v-if="activity.activityType==2">
-      <img src="/static/images/joinTeam.png" class="team_joinTeam" @click="joinTeam">
+      <img :src="changeSkin.realBgUrl.topBtn" class="team_startTeam" @click="newTeam"  v-if="activity.activityType==2">
+      <img :src="changeSkin.realBgUrl.botBtn" class="team_joinTeam" @click="joinTeam">
     </div>
     <div class="homeCompany_body" style="z-index:2000;" v-if="!currentState">
       <div class="body_company" @click="goCompany">
@@ -33,6 +33,36 @@
         <img :src="'/static/images/active/'+homeState+'.png'" alt="">
       </div>
     </div>
+    <Modal v-model="LoginSuccess" :closable="false" width="1000">
+      <p class="modelTitleone">
+        <img src='/static/images/company/jifenTishi.png'>
+      </p>
+      <p class="modelPicone">
+        <img src="/static/images/company/jifenTwo.png">
+        <span>昨日收益积分</span>
+        <span class="model_money">(3.1元)</span>
+      </p>
+      <div class="modelTableone">
+        <ul>
+          <li>邀请好友注册会员</li>
+          <li>50分/人</li>
+          <li>400分</li>
+          <li>转发有效活动链接</li>
+          <li>
+            <span>5分/人</span>
+            <span>3次/日</span>
+          </li>
+          <li>10分</li>
+          <li>下次消费提成</li>
+          <li>
+            <span>一级/5%</span>
+            <span>二级/3%</span>
+          </li>
+          <li>200分</li>
+        </ul>
+      </div>
+      <p slot="footer" class="modelBackone" @click="LoginSuccess=false">我知道了</p>
+    </Modal>
   </div>
 </template>
 
@@ -54,6 +84,46 @@ export default {
   name: 'Active',
   data () {
     return {
+      LoginSuccess:false,
+      imgUrl:{
+        img:require('../../../static/images/bg.png'),
+        imgColor:require('../../../static/images/bg01.png'),
+        imgBlue:require('../../../static/images/bg02.png'),
+        imgGolden:require('../../../static/images/bg03.png'),
+        imgPink:require('../../../static/images/bg04.png')
+      },
+      btnUrl:{
+        btn:{
+          topBtn:require('../../../static/images/startTeam.png'),
+          botBtn:require('../../../static/images/joinTeam.png'),
+        },
+        btnColor:{
+          topBtn:require('../../../static/images/startTeam1.png'),
+          botBtn:require('../../../static/images/joinTeam1.png'),
+        },
+        btnPink:{
+          topBtn:require('../../../static/images/startTeam2.png'),
+          botBtn:require('../../../static/images/joinTeam2.png'),
+        },
+        btnGolden:{
+          topBtn:require('../../../static/images/startTeam3.png'),
+          botBtn:require('../../../static/images/joinTeam3.png'),
+        },
+        btnBlue:{
+          topBtn:require('../../../static/images/startTeam4.png'),
+          botBtn:require('../../../static/images/joinTeam4.png'),
+        }
+      },
+      changeSkin: {
+        activeClass:'',
+        realValue: {},
+        realBgUrl:{}
+      },
+      changeStyle: {
+        activityMain: 'activityMain2',
+        activityMainColor: 'activityMain2 activityMaincolor',
+      },
+      skin:4,
       isLoading:false,
       comState:"com",
       homeState:"home",
@@ -126,6 +196,31 @@ export default {
   },
   components: {mainImg, timeAndPro, Discount,companyHead, Gift, Group, Money, joinPeople,goodsList,register, music,activityrule},
   created () {
+     if (this.skin == 1) {
+      this.changeSkin.activeClass = this.changeStyle.activityMain
+      this.changeSkin.realValue = this.imgUrl.img
+      this.changeSkin.realBgUrl = this.btnUrl.btn
+    } else if (this.skin == 2) {
+      this.changeSkin.activeClass = this.changeStyle.activityMainColor
+      this.changeSkin.realValue = this.imgUrl.imgColor
+      this.changeSkin.realBgUrl = this.btnUrl.btnColor
+    } else if (this.skin == 3) {
+      this.changeSkin.activeClass = this.changeStyle.activityMainColor
+      this.changeSkin.realValue = this.imgUrl.imgPink
+      this.changeSkin.realBgUrl = this.btnUrl.btnPink
+    } else if (this.skin == 4) {
+      this.changeSkin.activeClass = this.changeStyle.activityMainColor
+      this.changeSkin.realValue = this.imgUrl.imgGolden
+      this.changeSkin.realBgUrl = this.btnUrl.btnGolden
+    } else if (this.skin == 5) {
+      this.changeSkin.activeClass = this.changeStyle.activityMainColor
+      this.changeSkin.realValue = this.imgUrl.imgBlue
+      this.changeSkin.realBgUrl = this.btnUrl.btnBlue
+    } else {
+      this.changeSkin.activeClass = this.changeStyle.activityMain
+      this.changeSkin.realValue = this.imgUrl.img
+      this.changeSkin.realBgUrl = this.btnUrl.btn
+    }
     var state = this.util.getURLParam('state').split(",")
     var activityId = state[0];
     var inviterId = ~~((state[1] == void 0 )? 0 : state[1]);
@@ -151,6 +246,7 @@ export default {
     this.http.get(this.$store.state.prefix + '/pubInfo/user?activityId='+this.activityId).then(res => {
       if (res.error === false) {
         this.userInfo = res.result;
+        this.LoginSuccess = true
         if(this.userInfo.customer.member == 1){
           this.$store.state.isMember = 1;
           this.currentState = false;
@@ -448,77 +544,68 @@ export default {
 }
 </script>
 <style lang='stylus' rel='stylesheet/stylus'>
+  .ivu-modal-footer
+    border-top none 
   rrem(val){
     return (val/108px)rem
   }
-  html,body
-    margin 0px
-    padding 0px
-    line-height 0
-  .activityMain2
-    background #d8006b
-    padding-bottom rrem(180px)
-  .activeInfo_team
-    position fixed
-    width rrem(590px)
-    height rrem(200px)
-    bottom rrem(46px)
-    left rrem(0px)
-    img
-      position absolute
+  .ivu-modal-body
+    padding 0  
+    padding-top rrem(132px)
+  .modelTitleone
+     width rrem(436px)
+     height rrem(140px)
+     position absolute
+     left rrem(295px) 
+     top rrem(-70px)
+     img
       width 100%
+  .modelPicone
+    height rrem(80px)
+    line-height rrem(80px)
+    width rrem(920px)
+    margin 0 auto
+    text-align center
+    margin-bottom rrem(43px)
+    img
+      width rrem(60px)
+      height rrem(60px)
+      vertical-align top
+    color #ff017e
+    font-size rrem(48px)  
+    .model_money
+      font-size rrem(30px)
+      color #999999
+
+  .modelTableone
+    width rrem(920px)
+    height rrem(300px)
+    line-height rrem(99px)
+    color #999999
+    font-size rrem(34px)
+    margin 0 auto
+    ul
       height 100%
-    .team_peopleInfo
-      position absolute
-      top rrem(38px)
-      left rrem(22px)
-      border-radius 100%
-      width rrem(110px)
-      height rrem(110px)
-      border rrem(7px) solid #fff
-      img
-        border-radius 100%
-        width 100%
-        height 100%
-    .team_startTeam,.team_joinTeam
-      position absolute
-      right rrem(31px)
-      top rrem(24px)
-      width rrem(158px)
-      height rrem(58px)
-    .team_joinTeam
-      right rrem(44px)
-      top rrem(105px)
-    .team_peopleName
-      position absolute
-      width rrem(238px)
-      height 100%
-      left rrem(140px)
-      padding-top rrem(40px)
-      color #fff
-      font-size rrem(28px)
-      .peopleName
-        margin-bottom rrem(10px)
-        font-weight bold
-        font-size rrem(30px)
-      p
-        height rrem(33px)
-        line-height rrem(33px)
-  .homeCompany_body
-    position fixed
-    bottom rrem(50px)
-    right rrem(40px)
-    width rrem(330px)
-    height rrem(150px)
-    display flex
-    justify-content space-between
-    div
-      width rrem(150px)
-      height rrem(150px)
-      border-radius 100%
-      border 1px solid #ff017e
-      img
-        width 100%
-        height 100%
+      width 100%
+      border 1px solid #ccc
+      border-right none
+      li
+        width 33.33333333%
+        float left
+        border-right 1px solid #ccc
+        border-bottom 1px solid #ccc
+        text-align center
+
+  .modelBackone
+    width rrem(920px)
+    height rrem(125px)
+    line-height rrem(125px)
+    background #ff017e
+    text-align center  
+    color #fff
+    font-size rrem(50px)
+    font-weight 600
+    margin-bottom rrem(29px)
+  @import '../../../static/css/ActivityInfo'
 
 </style>
