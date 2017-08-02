@@ -855,11 +855,11 @@ module.exports = Component.exports
     if (b ==1 ){
     currentdate = month + seperator1 + strDate +
           " " + Hours + seperator2 + Minut +
-          seperator2 + Hours;
+          seperator2 + Second;
     }else{
     currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
           " " + Hours + seperator2 + Minut +
-          seperator2 + Hours;
+          seperator2 + Second;
     }
     
     return currentdate;
@@ -958,7 +958,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       userInfo: {
         account: {},
         company: {
-          companyName: ''
+          companyName: '',
+          companyFlag: 0
         },
         customer: {},
         employee: {}
@@ -1070,14 +1071,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.http.get(_this2.$store.state.prefix + '/account/login' + _this2.util.parseParam(param).replace('&', '?')).then(function (res) {
             if (res.error === false) {
               if (res.result.access_token) {
-                _this2.$store.state.token = res.result.access_token;
+                _this2.$store.state.yxtoken = res.result.access_token;
                 _this2.$store.state.companyId = res.result.user.company.id;
                 _this2.$store.state.authentic = res.result.user.company.authentic;
                 _this2.$store.state.companName = res.result.user.company.companyName;
                 _this2.$store.state.companyFlag = res.result.user.company.companyFlag;
               }
-              _this2.util.setCookie('token', res.result.access_token);
+              _this2.util.setCookie('yxtoken', res.result.access_token);
               _this2.util.setCookie('companyId', res.result.user.company.id);
+              debugger;
               _this2.util.setCookie('companyName', res.result.user.company.companyName);
               _this2.util.setCookie('authentic', res.result.user.company.authentic);
               _this2.util.setCookie('companyFlag', res.result.user.company.companyFlag);
@@ -1098,7 +1100,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   created: function created() {
-    this.util.delCookie('token');
+    this.util.delCookie('yxtoken');
     this.util.delCookie('companyId');
     var _this = this;
 
@@ -2625,11 +2627,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.payData.member.allAmount = 0;
           _this.payData.customer.allAmount = 0;
 
+          _this.payData.activity.list = [];
+          _this.payData.goods.list = [];
+          _this.payData.account.list = [];
+          _this.payData.charge.list = [];
+          _this.payData.member.list = [];
+          _this.payData.customer.list = [];
+
           res.result.records.forEach(function (item) {
             switch (item.payType) {
               case 1:
                 _this.payData.activity.list.push(item);
                 _this.payData.activity.allAmount += item.payAmount;
+                debugger;
                 break;
               case 2:
                 _this.payData.goods.list.push(item);
@@ -2638,17 +2648,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               case 3:
                 _this.payData.account.list.push(item);
                 _this.payData.account.allAmount += item.payAmount;
-
                 break;
               case 4:
                 _this.payData.charge.list.push(item);
                 _this.payData.charge.allAmount += item.payAmount;
-
                 break;
               case 5:
                 _this.payData.member.list.push(item);
                 _this.payData.member.allAmount += item.payAmount;
-
                 break;
               case 6:
                 _this.payData.customer.list.push(item);
@@ -2731,13 +2738,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           paydata.customer.list.forEach(function (item) {
             var thisDate = _this.util.getDate(item.payDate);
             for (var j in _this.payData.chartXdata) {
-              if (_this.payData.chartXdata == thisDate) {
+              if (_this.payData.chartXdata[j] == thisDate) {
                 paydata.customer.yData[j] += item.payAmount;
                 break;
               }
             }
           });
-
           _this.payData = paydata;
           _this.payData.goods.yData = _this.payData.goods.yData.map(function (item) {
             return parseInt(item);
@@ -2758,6 +2764,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return parseInt(item);
           });
 
+          if (res.result.records.length == 0) return;
           var option = {
             title: {
               text: '收益趋势',
@@ -3841,10 +3848,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           this.$Notice.info({ title: '请完善信息', desc: '请填写积分抵现金比例' });
           return false;
         }
-        if (!ai.employeeRate) {
-          this.$Notice.info({ title: '请完善信息', desc: '请填写员工提成比率' });
-          return false;
-        }
+
         if (!ai.sharePoints) {
           this.$Notice.info({ title: '请完善信息', desc: '请填写转发积分' });
           return false;
@@ -3876,6 +3880,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else if (this.type == 3) {
         if (!ai.smsTel) {
           this.$Notice.info({ title: '请完善信息', desc: '请填写短信接收号码' });
+          return false;
+        }
+        if (!ai.employeeRate) {
+          this.$Notice.info({ title: '请完善信息', desc: '请填写员工提成比率' });
           return false;
         }
       }
@@ -4090,27 +4098,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       smscountdown: {
         timer: localStorage.getItem('timeNum') || 0,
         enable: localStorage.getItem('PointEnable') || true,
+        sureAble: localStorage.getItem('sureAble') || true,
         captcha: ''
       }
     };
   },
   created: function created() {
+    console.log(this.smscountdown.sureAble);
     this.getList(1);
     this.getEmployeeList(1);
     var timeNum = localStorage.getItem('timeNum');
     var time = (Date.now() - localStorage.getItem('nowTime')) / 1000;
-
     if (time <= timeNum) {
       this.smscountdown.timer = Math.ceil(timeNum - time);
       this.smscountdown.enable = localStorage.getItem('PointEnable');
-
       this.interval();
     }
   },
 
   methods: {
-    sureAddPoints: function sureAddPoints() {
+    addPointToUser: function addPointToUser() {
       var _this2 = this;
+
+      if (this.customerPoints <= 0 || '') {
+        this.$Message.error('请输入自定义加分分值');
+        return;
+      }
+      if (this.remarks == '') {
+        this.$Message.error('请填写加分说明');
+        return;
+      }
+      this.smscountdown.enable = false;
+      this.customerPoints = ~~this.customerPoints;
+      this.http.post(this.$store.state.prefix + '/customer/sendAuthCode', { accountId: this.willaddPointUser.accountId, companyId: this.willaddPointUser.companyId, points: this.customerPoints }).then(function (res) {
+        if (!res.error) {
+          _this2.$Message.success('短信发送成功');
+          _this2.smscountdown.enable = false;
+          _this2.addPointBtn = true;
+          _this2.smscountdown.timer = 60;
+          _this2.smscountdown.interval = setInterval(function () {
+            _this2.smscountdown.timer--;
+            if (_this2.smscountdown.timer <= 0) {
+              _this2.smscountdown.enable = true;
+              localStorage.removeItem('PointEnable', _this2.smscountdown.enable);
+              localStorage.removeItem('timeNum', _this2.smscountdown.timer);
+              localStorage.removeItem('nowTime', Date.now());
+              clearInterval(_this2.smscountdown.interval);
+            } else {
+              _this2.smscountdown.enable = false;
+              localStorage.setItem('PointEnable', _this2.smscountdown.enable);
+              localStorage.setItem('timeNum', _this2.smscountdown.timer);
+              localStorage.setItem('nowTime', Date.now());
+            }
+          }, 1000);
+        } else {
+          _this2.$Message.error(res.msg);
+          _this2.smscountdown.enable = true;
+          localStorage.removeItem('PointEnable', _this2.smscountdown.enable);
+        }
+      });
+    },
+    sureAddPoints: function sureAddPoints() {
+      var _this3 = this;
 
       if (this.customerPoints <= 0 || '') {
         this.$Message.error('请填正确的积分数');
@@ -4127,6 +4176,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$Message.error('请填写加分说明');
         return;
       }
+      this.smscountdown.sureAble = false;
+      localStorage.setItem('sureAble', this.smscountdown.sureAble);
       this.http.put(this.$store.state.prefix + '/customer/updateUserPoints', {
         accountId: this.willaddPointUser.accountId,
         points: this.customerPoints,
@@ -4135,16 +4186,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         remarks: this.remarks
       }).then(function (res) {
         if (res.error === false) {
-          _this2.$Message.success('自定义积分添加成功!');
-          _this2.willaddPointUser.customerPoints = 0;
-          _this2.addPointmodal = false;
-          _this2.search();
-          clearInterval(_this2.smscountdown.interval);
-          _this2.randomStr = '';
-          _this2.remarks = '';
-          _this2.customerPoints = '';
+          _this3.$Message.success('自定义积分添加成功!');
+          _this3.willaddPointUser.customerPoints = 0;
+          _this3.addPointmodal = false;
+          _this3.search();
+          _this3.smscountdown.enable = true;
+          _this3.smscountdown.sureAble = true;
+          localStorage.removeItem('sureAble', _this3.smscountdown.sureAble);
+          _this3.smscountdown.timer = 0;
+          clearInterval(_this3.smscountdown.interval);
+          _this3.randomStr = '';
+          _this3.remarks = '';
+          _this3.customerPoints = '';
         } else {
-          _this2.$Message.error(res.msg);
+          _this3.smscountdown.sureAble = true;
+          localStorage.removeItem('sureAble', _this3.smscountdown.sureAble);
+          _this3.$Message.error(res.msg);
         }
       });
     },
@@ -4174,14 +4231,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     getEmployeeList: function getEmployeeList(pageno) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + (pageno || 1) + "?employee=1").then(function (res) {
         if (res.error === false) {
-          _this3.employeepager = res.result;
-          _this3.employee = res.result.records;
+          _this4.employeepager = res.result;
+          _this4.employee = res.result.records;
         } else {
-          _this3.$Message.error(res.msg);
+          _this4.$Message.error(res.msg);
         }
       });
     },
@@ -4206,7 +4263,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.currentEmployee = employee;
     },
     getList: function getList(pageNo) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.companyData = [];
       this.pager = {
@@ -4216,13 +4273,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
       this.http.get(this.$store.state.prefix + '/customer/getCompanyUserInfo/' + pageNo || 1).then(function (res) {
         if (res.error === false) {
-          _this4.companyData = res.result.records;
-          _this4.pager = res.result;
+          _this5.companyData = res.result.records;
+          _this5.pager = res.result;
         }
       });
     },
     search: function search() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.companyData = [];
       this.pager = {
@@ -4234,32 +4291,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.searchVal == 1) {
         url = '/customer/getCompanyUserInfo/1?member=1&employee=0&nameOrPhone=' + this.nameOrPhone;
       } else if (this.searchVal == 2) {
-        url = '/customer/getCompanyUserInfo/1?member=0&employee=1&nameOrPhone=' + this.nameOrPhone;
+        url = '/customer/getCompanyUserInfo/1?member=1&employee=1&nameOrPhone=' + this.nameOrPhone;
       } else {
         url = '/customer/getCompanyUserInfo/1?nameOrPhone=' + this.nameOrPhone;
       }
       this.http.get(this.$store.state.prefix + url).then(function (res) {
         if (res.error === false) {
-          _this5.companyData = res.result.records;
-          _this5.pager = res.result;
+          _this6.companyData = res.result.records;
+          _this6.pager = res.result;
         }
       });
     },
     changePage: function changePage(e) {
-      var _this6 = this;
+      var _this7 = this;
 
       var url = "";
       if (this.searchVal == 1) {
         url = '/customer/getCompanyUserInfo/' + e + '?member=1&employee=0';
       } else if (this.searchVal == 2) {
-        url = '/customer/getCompanyUserInfo/' + e + '?member=0&employee=1';
+        url = '/customer/getCompanyUserInfo/' + e + '?member=1&employee=1';
       } else {
         url = '/customer/getCompanyUserInfo/' + e;
       }
       this.http.get(this.$store.state.prefix + url).then(function (res) {
         if (res.error === false) {
-          _this6.companyData = res.result.records;
-          _this6.pager = res.result;
+          _this7.companyData = res.result.records;
+          _this7.pager = res.result;
         }
       });
     },
@@ -4272,78 +4329,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.addPointmodal = true;
       this.willaddPointUser = row;
     },
-    addPointToUser: function addPointToUser() {
-      var _this7 = this;
-
-      if (this.customerPoints <= 0 || '') {
-        this.$Message.error('请输入自定义加分分值');
-        return;
-      }
-      if (this.remarks == '') {
-        this.$Message.error('请填写加分说明');
-        return;
-      }
-
-      this.smscountdown.enable = false;
-      this.customerPoints = ~~this.customerPoints;
-      this.http.post(this.$store.state.prefix + '/customer/sendAuthCode', { accountId: this.willaddPointUser.accountId, companyId: this.willaddPointUser.companyId, points: this.customerPoints }).then(function (res) {
-        if (!res.error) {
-          _this7.$Message.success('短信发送成功');
-          _this7.smscountdown.enable = false;
-          _this7.addPointBtn = true;
-          _this7.smscountdown.timer = 60;
-          _this7.smscountdown.interval = setInterval(function () {
-            _this7.smscountdown.timer--;
-            if (_this7.smscountdown.timer <= 0) {
-              _this7.smscountdown.enable = true;
-              localStorage.removeItem('PointEnable', _this7.smscountdown.enable);
-              localStorage.removeItem('timeNum', _this7.smscountdown.timer);
-              localStorage.removeItem('nowTime', Date.now());
-              console.log(_this7.smscountdown.timer);
-              clearInterval(_this7.smscountdown.interval);
-            } else {
-              _this7.smscountdown.enable = false;
-              localStorage.setItem('PointEnable', _this7.smscountdown.enable);
-              localStorage.setItem('timeNum', _this7.smscountdown.timer);
-              localStorage.setItem('nowTime', Date.now());
-            }
-          }, 1000);
-        } else {
-          _this7.$Message.error(res.msg);
-          _this7.smscountdown.enable = true;
-        }
-      });
-    },
-    interval: function interval() {
-      var _this8 = this;
-
-      var timer = setInterval(function () {
-        _this8.smscountdown.timer--;
-        if (_this8.smscountdown.timer <= 0) {
-          _this8.smscountdown.enable = true;
-          localStorage.removeItem('PointEnable', _this8.smscountdown.enable);
-          localStorage.removeItem('timeNum', _this8.smscountdown.timer);
-          localStorage.removeItem('nowTime', Date.now());
-          clearInterval(timer);
-        } else {
-          _this8.smscountdown.enable = false;
-          localStorage.setItem('PointEnable', _this8.smscountdown.enable);
-          localStorage.setItem('timeNum', _this8.smscountdown.timer);
-          localStorage.setItem('nowTime', Date.now());
-        }
-      }, 1000);
-    },
     cancelAgent: function cancelAgent(row) {
-      var _this9 = this;
+      var _this8 = this;
 
       this.$Modal.confirm({
         title: '取消代理',
         content: '<p>确定取消' + (row.realName || row.nickName) + '的代理权限？</p>',
         onOk: function onOk() {
-          _this9.http.put(_this9.$store.state.prefix + "/customer/cancelAgent2Employee", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
+          _this8.http.put(_this8.$store.state.prefix + "/customer/cancelAgent2Employee", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
             if (res.error == false) {
-              _this9.$Notice.info({ title: "取消成功", desc: (row.realName || row.nickName) + '的代理权限取消成功，将不再享有提成分红' });
-              _this9.search();
+              _this8.$Notice.info({ title: "取消成功", desc: (row.realName || row.nickName) + '的代理权限取消成功，将不再享有提成分红' });
+              _this8.search();
             }
           });
         },
@@ -4351,16 +4347,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     setAgent: function setAgent(row) {
-      var _this10 = this;
+      var _this9 = this;
 
       console.log(row);
       this.$Modal.confirm({
         title: '设为代理',
         content: '<p>确定将' + (row.realName || row.nickName) + '设为公司代理？</p>',
         onOk: function onOk() {
-          _this10.http.put(_this10.$store.state.prefix + "/customer/updateEmployee2Agent", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
+          _this9.http.put(_this9.$store.state.prefix + "/customer/updateEmployee2Agent", { companyId: row.companyId, accountId: row.accountId }).then(function (res) {
             if (res.error == false) {
-              _this10.$Notice.info({ title: "设置成功", desc: (row.realName || row.nickName) + '的代理权限设置成功，将享有提成分红' });
+              _this9.$Notice.info({ title: "设置成功", desc: (row.realName || row.nickName) + '的代理权限设置成功，将享有提成分红' });
             }
           });
         },
@@ -4374,6 +4370,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.customerPoints <= 0) {
         this.$Message.error("积分不能小于0");
       }
+    },
+    interval: function interval() {
+      var _this10 = this;
+
+      var timer = setInterval(function () {
+        _this10.smscountdown.timer--;
+        if (_this10.smscountdown.timer <= 0) {
+          _this10.smscountdown.enable = true;
+          localStorage.removeItem('PointEnable', _this10.smscountdown.enable);
+          localStorage.removeItem('timeNum', _this10.smscountdown.timer);
+          localStorage.removeItem('nowTime', Date.now());
+          clearInterval(timer);
+        } else {
+          _this10.smscountdown.enable = false;
+          localStorage.setItem('PointEnable', _this10.smscountdown.enable);
+          localStorage.setItem('timeNum', _this10.smscountdown.timer);
+          localStorage.setItem('nowTime', Date.now());
+        }
+      }, 1000);
     }
   }
 });
@@ -4524,7 +4539,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '操作',
         key: 'withdrawStatus',
         render: function render(row) {
-          return '<i-button type="text" size="small" @click="getCaptcha(row)">确定放款</i-button>';
+          return '<i-button type="text" size="small" @click="getCaptcha(row)">确定放款</i-button>' + '<i-button type="text" size="small" >拒绝</i-button>';
         }
       }],
       listData: [],
@@ -4819,7 +4834,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.pointpager = res.result;
           _this.listData = res.result.records;
           _this.listData.forEach(function (item) {
-            item.createDate = _this.util.getFormatDate(item.createDate);
+            console.log(item.createDate);
+            item.createDate = _this.util.getFormatDate(new Date(item.createDate));
+            console.log(item.createDate);
+
             item.name = item.account.realName == '' ? item.account.nickName : item.account.realName;
             item.headImg = item.account.headImg;
             item.phone = item.account.phone;
@@ -5785,7 +5803,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.http.get(this.$store.state.prefix + '/company/' + this.$store.state.companyId).then(function (res) {
         if (res.error === false) {
           if (res.result !== null) {
-            if (!res.result.account) {
+            if (res.result.account == undefined) {
               res.reuslt.account = {
                 realName: '',
                 nickName: '',
@@ -6227,10 +6245,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     loginOut: function loginOut() {
       this.$Notice.info({ title: '提醒', desc: '退出登录成功' });
-      this.$store.state.token = "";
+      this.$store.state.yxtoken = "";
+      this.$store.state.companyName = "";
       this.util.delCookie("companyName");
       this.util.delCookie("companyId");
-      this.util.delCookie("token");
+      this.util.delCookie("yxtoken");
       this.topheight = window.screen.width * 780 / 1920;
       document.getElementById("mainheader").style.height = this.topheight + "px";
     },
@@ -6244,7 +6263,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   mounted: function mounted() {
-    if (!this.$store.state.token) {
+    if (!this.$store.state.yxtoken) {
       this.topheight = window.screen.width * 780 / 1920;
       document.getElementById("mainheader").style.height = this.topheight + "px";
     } else {
@@ -7020,7 +7039,7 @@ __WEBPACK_IMPORTED_MODULE_1_vue__["default"].prototype.apiurl = 'http://market.c
 
 var store = new __WEBPACK_IMPORTED_MODULE_2_vuex__["a" /* default */].Store({
   state: {
-    token: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('token') || '',
+    yxtoken: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('yxtoken') || '',
     companyId: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('companyId') || '',
     companyName: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('companyName') || '',
     qiniutoken: __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].getCookie('qiniutoken') || '',
@@ -7031,7 +7050,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_2_vuex__["a" /* default */].Store({
   },
   mutations: {
     updateToken: function updateToken(state) {
-      state.token++;
+      state.yxtoken++;
     },
     upDataAuthentic: function upDataAuthentic(state, data) {
       state.authentic = data;
@@ -7043,15 +7062,15 @@ __WEBPACK_IMPORTED_MODULE_5_axios___default.a.defaults.headers['Content-Type'] =
 
 __WEBPACK_IMPORTED_MODULE_5_axios___default.a.interceptors.request.use(function (config) {
   if (config.data) {
-    config.data.access_token = store.state.token;
+    config.data.access_token = store.state.yxtoken;
   } else {
     if (config.url.indexOf('login') > -1 || config.url.indexOf('register') > -1) {
       config.url += '';
     } else {
       if (config.url.indexOf('?') > 0) {
-        config.url += '&access_token=' + store.state.token;
+        config.url += '&access_token=' + store.state.yxtoken;
       } else {
-        config.url += '?access_token=' + store.state.token;
+        config.url += '?access_token=' + store.state.yxtoken;
       }
     }
   }
@@ -7075,8 +7094,8 @@ __WEBPACK_IMPORTED_MODULE_5_axios___default.a.interceptors.response.use(function
     res.result = data.result;
     res.msg = data.errorMessage;
     if (data.errorCode === 401) {
-      store.state.token = '';
-      __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].delCookie('token');
+      store.state.yxtoken = '';
+      __WEBPACK_IMPORTED_MODULE_7__static_js_utils_js__["a" /* default */].delCookie('yxtoken');
 
       _this.topheight = window.screen.width * 780 / 1920;
       document.getElementById("mainheader").style.height = _this.topheight + "px";
@@ -7111,7 +7130,7 @@ new __WEBPACK_IMPORTED_MODULE_1_vue__["default"]({
     state: 0
   },
   mounted: function mounted() {
-    if (!this.$store.state.token) {
+    if (!this.$store.state.yxtoken) {
       this.topheight = window.screen.width * 780 / 1920;
       document.getElementById("mainheader").style.height = this.topheight + "px";
     } else {
@@ -7122,7 +7141,7 @@ new __WEBPACK_IMPORTED_MODULE_1_vue__["default"]({
 
 __WEBPACK_IMPORTED_MODULE_4__router__["a" /* default */].beforeEach(function (to, from, next) {
   if (to.meta.requireAuth === true) {
-    if (store.state.token) {
+    if (store.state.yxtoken) {
       next();
     } else {
       next({
@@ -9387,7 +9406,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     domProps: {
-      "textContent": _vm._s(_vm.companyinfo.registerPoints + '分（折算人民币:' + (_vm.companyinfo.toCashRate ? (_vm.companyinfo.registerPoints / _vm.companyinfo.toCashRate / 100) : '0') + '元）')
+      "textContent": _vm._s(_vm.companyinfo.registerPoints + '分（折算人民币:' + (_vm.companyinfo.toCashRate ? (_vm.companyinfo.registerPoints * _vm.companyinfo.toCashRate / 100) : '0') + '元）')
     }
   })]), _vm._v(" "), _c('Form-item', {
     staticClass: "text-left",
@@ -9396,7 +9415,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     domProps: {
-      "textContent": _vm._s(_vm.companyinfo.invitedPoints + '分（折算人民币:' + (_vm.companyinfo.toCashRate ? (_vm.companyinfo.invitedPoints / _vm.companyinfo.toCashRate / 100) : '0') + '元）')
+      "textContent": _vm._s(_vm.companyinfo.invitedPoints + '分（折算人民币:' + (_vm.companyinfo.toCashRate ? (_vm.companyinfo.invitedPoints * _vm.companyinfo.toCashRate / 100) : '0') + '元）')
     }
   })]), _vm._v(" "), _c('Form-item', {
     staticClass: "text-left",
@@ -9974,7 +9993,85 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "dashboard"
-  }, [_c('Row', [_c('Col', {
+  }, [_c('Row', {
+    staticClass: "infos"
+  }, [_c('Col', {
+    attrs: {
+      "span": "12"
+    }
+  }, [_c('div', {
+    staticClass: "infocontanier"
+  }, [_c('div', {
+    staticClass: "infoleft"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "inforight cyan"
+  }, [_c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n        \t今日收入:3384元（30笔）\n\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("累计收入：9999999元")])])])]), _vm._v(" "), _c('Col', {
+    attrs: {
+      "span": "12"
+    }
+  }, [_c('div', {
+    staticClass: "infocontanier"
+  }, [_c('div', {
+    staticClass: "inforight cyan"
+  }, [_c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t代收余额:2308元\n          \t"), _c('Tooltip', {
+    attrs: {
+      "placement": "top",
+      "content": "未通过自有微信商户中心的营收款项"
+    }
+  }, [_c('Icon', {
+    attrs: {
+      "type": "ios-help-outline",
+      "size": "20"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t提现\n          ")])]), _vm._v(" "), _c('div', {
+    staticClass: "infoleft"
+  })])]), _vm._v(" "), _c('Col', {
+    attrs: {
+      "span": "24"
+    }
+  }, [_c('div', {
+    staticClass: "infocontanier"
+  }, [_c('div', {
+    staticClass: "infoleft"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "inforight cyan"
+  }, [_c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t账户余额：3240元\n          ")]), _vm._v(" "), _c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t今日提现:2340元\n          ")]), _vm._v(" "), _c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t今日注册:10人\n          ")]), _vm._v(" "), _c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t充值  提现\n          ")])])])]), _vm._v(" "), _c('Col', {
+    attrs: {
+      "span": "24"
+    }
+  }, [_c('div', {
+    staticClass: "infocontanier"
+  }, [_c('div', {
+    staticClass: "infoleft"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "inforight thinred"
+  }, [_c('div', {
+    staticClass: "flex3"
+  }, [_vm._v("\n          \t帐户有效期:2017-07-29 15:37:42(134天)\n          ")]), _vm._v(" "), _c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t正式会员\n          ")]), _vm._v(" "), _c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t未企业认证\n          ")]), _vm._v(" "), _c('div', {
+    staticClass: "flex1"
+  }, [_vm._v("\n          \t续费\n          ")])])])])], 1), _vm._v(" "), _c('Row', {
+    staticClass: "datas"
+  }, [_c('Col', {
     staticClass: "infoitem",
     attrs: {
       "span": "6"
@@ -10150,7 +10247,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.baseinfo.newMemNum)
     }
-  })])])], 1), _vm._v(" "), _c('Row', [_c('Col', {
+  })])])], 1), _vm._v(" "), _c('Row', {
+    staticClass: "datas"
+  }, [_c('Col', {
     staticClass: "infoitem",
     attrs: {
       "span": "6"
@@ -10578,14 +10677,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "lastitem"
   }, [_c('button', {
     attrs: {
-      "type": "primary"
-    },
-    on: {
-      "click": function($event) {
-        _vm.handleSubmit('formValidate')
-      }
+      "type": "primary",
+      "disabled": "disabled"
     }
-  }, [_vm._v("注册体验(30天)")])])], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("敬请期待")])])], 1), _vm._v(" "), _c('div', {
     staticClass: "clearfix"
   })], 1)])], 1)], 1)
 },staticRenderFns: []}
@@ -12789,7 +12884,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "loginShow": _vm.show
     }
-  }), _vm._v(" "), (_vm.$store.state.token) ? _c('div', {
+  }), _vm._v(" "), (_vm.$store.state.yxtoken) ? _c('div', {
     staticClass: "content-wrapper"
   }, [_c('div', {
     staticClass: "menu-wrapper"
@@ -14284,7 +14379,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('Form', {
     attrs: {
-      "label-width": "100"
+      "label-width": 100
     }
   }, [_c('Form-item', {
     attrs: {
@@ -14355,13 +14450,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_c('Button', {
+  }, [(_vm.smscountdown.sureAble) ? _c('Button', {
     attrs: {
       "type": "error",
       "size": "large"
     },
     on: {
       "click": _vm.sureAddPoints
+    }
+  }, [_vm._v("确认加分")]) : _c('Button', {
+    attrs: {
+      "disabled": ""
     }
   }, [_vm._v("确认加分")])], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
     slot: "footer"
@@ -15662,7 +15761,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    class: _vm.$store.state.token ? 'header' : 'header loginrow',
+    class: _vm.$store.state.yxtoken ? 'header' : 'header loginrow',
     attrs: {
       "id": "mainheader"
     }
@@ -15683,7 +15782,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "span": "16"
     }
-  }, [(_vm.$store.state.token) ? _c('Menu', {
+  }, [(_vm.$store.state.yxtoken) ? _c('Menu', {
     attrs: {
       "mode": "horizontal",
       "active-name": 1
@@ -15702,7 +15801,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.$store.state.companyFlag == 1 ? '正式会员' : '体验会员')
     }
-  }), _vm._v("\n              " + _vm._s(_vm.$store.state.companyName || _vm.userInfo.company.companyName) + "\n            ")]), _vm._v(" "), _c('Menu-group', {
+  }), _vm._v("\n              " + _vm._s(_vm.$store.state.companyName || _vm.util.getCookie("companyName")) + "\n            ")]), _vm._v(" "), _c('Menu-group', {
     attrs: {
       "title": "账号管理"
     }
@@ -47377,4 +47476,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[284]);
-//# sourceMappingURL=app.ad05ee262df6e519c133.js.map
+//# sourceMappingURL=app.8ff61dc81792112aa787.js.map

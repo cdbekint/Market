@@ -75,6 +75,7 @@ axios.interceptors.response.use(
         // 登录过期
         store.state.token = ''
         util.delCookie('token')
+        this.router.push("/")
         window.localStorage.removeItem("token")
       }
     }

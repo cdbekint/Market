@@ -4,7 +4,7 @@
         <ul>
             <li v-for="item in lists">
                 <div class='pic'>
-                     <img :src='item.imgUrl'> 
+                     <img :src='item.imgUrl'>
                 </div>
                 <div class="content">
                     <h2>{{item.title}}</h2>
@@ -18,7 +18,7 @@
         <ul>
             <li v-for="item in listsTwo">
                 <div class='pic'>
-                     <img :src='item.imgUrl'> 
+                     <img :src='item.imgUrl'>
                 </div>
                 <div class="content">
                     <h2>{{item.title}}</h2>
@@ -44,15 +44,16 @@ export default {
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .news
-  width:80%
-  min-width:1000px
-  max-width:1420px
+  width:100%
+  padding:0px 10%
   height:auto
   margin:0 auto
   background-color :#fff
   display:block
   padding-bottom:10px
   ul
+    min-width:1000px
+    max-width:1420px
     padding-top :40px
     li
       float:left
@@ -76,7 +77,7 @@ export default {
           line-height :30px
           font-size :16px
           color:#434343
-          padding-top :10px    
+          padding-top :10px
     li:last-of-type
-        margin-right:0       
+        margin-right:0
 </style>

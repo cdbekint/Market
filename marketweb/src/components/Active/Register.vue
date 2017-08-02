@@ -99,57 +99,48 @@ export default {
         }
       })
     },
-    pay() {
-      if (!this._checkInfo())
-        return;
-      if (this.isPaying === true)
-        return;
-      this.isPaying = true;
-      this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then((res) => {
-        if (res.error === false) {
-          var row = res.result;
-          var onBridgeReady = () => {
-            var me = this;
-            WeixinJSBridge.invoke(
-              'getBrandWCPayRequest', {
-                'appId': row.appid,
-                'timeStamp': row.timeStamp,
-                'nonceStr': row.nonce_str,
-                'package': row.prepay_id,
-                'signType': row.sign_type,
-                'paySign': row.sign
-              },
-              function (res) {
-                //在发起支付调起微信支付的窗口后进行状态恢复
-                me.isPaying = false;
-                if (res.err_msg === 'get_brand_wcpay_request:ok') {
-                  // me.$Message.success("支付成功，您已成为会员。")
-                  this.$Modal.success({
-                    title: "支付成功",
-                    content: "支付成功，您已成为会员。"
-                  });
-                  me.payState = true;
-                  me.$store.state.isMember = 1;
-                  me.http.put(me.$store.state.prefix + '/customer', {
-                    realName: me.name,
-                    phone: me.phone,
-                    email: me.email
-                  }).then(res => {
-                    if (res.error === false) {
-                      me.$Message.success('数据录入成功.')
-                    }
-                    else {
-                      me.$Message.error("数据录入失败.")
-                    }
-                  })
-                } else {
-                  // me.$Message.success("支付失败。")
-                  this.$Modal.error({
-                    title: "支付失败",
-                    content: "支付失败。"
-                  });
+      pay(){
+        if(!this._checkInfo())
+          return;
+        this.http.put(this.$store.state.prefix + '/customer',{
+            realName:this.name,
+            phone:this.phone,
+            email:this.email
+          }).then(res => {
+            if (res.error === false) {
+            }else{
+              this.$Message.error(res.msg)
+            }
+          })
+        if (this.isPaying === true)
+          return;
+        this.isPaying = true;
+        this.http.post(this.$store.state.prefix + '/pay/payMember/'+this.params.companyId+'/'+this.params.activityId+'/'+this.realInviterId, this.params).then((res) => {
+          if (res.error === false) {
+            var row = res.result;
+            var onBridgeReady = () => {
+              var me = this;
+              WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',{
+                  'appId': row.appid,
+                  'timeStamp': row.timeStamp,
+                  'nonceStr': row.nonce_str,
+                  'package':  row.prepay_id,
+                  'signType': row.sign_type,
+                  'paySign': row.sign
+                },
+                function (res) {
+                  //在发起支付调起微信支付的窗口后进行状态恢复
+                  me.isPaying = false;
+                  if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                    me.$Message.success("支付成功，您已成为会员。")
+                    me.payState = true;
+                    me.$store.state.isMember = 1;
+                    
+                  }else{
+                    me.$Message.success("支付失败。")
+                  }
                 }
-              }
             )
           }
           if (typeof WeixinJSBridge === 'undefined') {

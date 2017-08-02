@@ -18,18 +18,18 @@ Vue.prototype.apiurl = 'http://market.cdbeki.com/'
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
-    token: util.getCookie('token') || '',
+    yxtoken: util.getCookie('yxtoken') || '',
     companyId: util.getCookie('companyId') || '',
     companyName:util.getCookie('companyName') || '',
     qiniutoken: util.getCookie('qiniutoken') || '',
     authentic:util.getCookie('authentic')||'',
     companyFlag:util.getCookie('companyFlag')||'',
-    prefix: '/api'
-    // prefix: 'http://market.cdbeki.com'
+    // prefix: '/api'
+    prefix: 'http://market.cdbeki.com'
   },
   mutations: {
     updateToken (state) {
-      state.token ++
+      state.yxtoken ++
     },
     upDataAuthentic (state,data) {
       state.authentic = data
@@ -41,15 +41,15 @@ axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
 axios.interceptors.request.use(function (config) {
   if (config.data) {
-    config.data.access_token = store.state.token
+    config.data.access_token = store.state.yxtoken
   } else {
     if (config.url.indexOf('login') > -1 || config.url.indexOf('register') > -1) {
       config.url += ''
     } else {
       if (config.url.indexOf('?') > 0) {
-        config.url += '&access_token=' + store.state.token
+        config.url += '&access_token=' + store.state.yxtoken
       } else {
-        config.url += '?access_token=' + store.state.token
+        config.url += '?access_token=' + store.state.yxtoken
       }
     }
   }
@@ -75,8 +75,8 @@ axios.interceptors.response.use(
       res.msg = data.errorMessage
       if (data.errorCode === 401) {
         // 登录过期
-        store.state.token = ''
-        util.delCookie('token')
+        store.state.yxtoken = ''
+        util.delCookie('yxtoken')
         //将顶部的高度重新设置
          this.topheight=(window.screen.width*780/1920)
         document.getElementById("mainheader").style.height = this.topheight+"px"
@@ -113,7 +113,7 @@ new Vue({
       state:0
   },
   mounted(){
-    if(!this.$store.state.token){
+    if(!this.$store.state.yxtoken){
         this.topheight=(window.screen.width*780/1920)
         document.getElementById("mainheader").style.height = this.topheight+"px"
     }else{
@@ -127,7 +127,7 @@ router.beforeEach((to, from, next) => {
   //   to.meta.requireAuth = true
   // }
   if (to.meta.requireAuth === true) {
-    if (store.state.token) {
+    if (store.state.yxtoken) {
       next()
     } else {
       next({

@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <Row class="loginrow" id="loginpanel">
-  
+
       <Col span="24">
       <Form ref="formInline" class="loginmainpanel" :model="formInline" :rules="ruleInline">
         <Form-item>
@@ -45,13 +45,13 @@
             </Col>
           </Row>
         </Form-item>
-  
+
       </Form>
-  
+
       </Col>
-  
+
     </Row>
-  
+
   </div>
 </template>
 
@@ -91,14 +91,15 @@ export default {
           this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
             if (res.error === false) {
               if (res.result.access_token) {
-                this.$store.state.token = res.result.access_token
+                this.$store.state.yxtoken = res.result.access_token
                 this.$store.state.companyId = res.result.user.company.id
                 this.$store.state.authentic = res.result.user.company.authentic
                 this.$store.state.companName = res.result.user.company.companyName
                 this.$store.state.companyFlag = res.result.user.company.companyFlag
               }
-              this.util.setCookie('token', res.result.access_token)
+              this.util.setCookie('yxtoken', res.result.access_token)
               this.util.setCookie('companyId', res.result.user.company.id)
+              debugger
               this.util.setCookie('companyName', res.result.user.company.companyName)
               this.util.setCookie('authentic', res.result.user.company.authentic)
               this.util.setCookie('companyFlag', res.result.user.company.companyFlag)
@@ -119,7 +120,7 @@ export default {
     }
   },
   created() {
-    this.util.delCookie('token')
+    this.util.delCookie('yxtoken')
     this.util.delCookie('companyId')
     var _this = this
 
@@ -164,7 +165,7 @@ export default {
     font-family :"微软雅黑"
     background-color :#7454ff
     font-size :20px
-    text-align :center  
+    text-align :center
     margin:0
     padding:0
   .log
@@ -194,5 +195,5 @@ export default {
     position :absolute
     right:0
     top:0
-    cursor :pointer    
+    cursor :pointer
 </style>

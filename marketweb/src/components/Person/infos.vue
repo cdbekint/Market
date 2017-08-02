@@ -40,7 +40,7 @@
         </Col>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.activityOk && activityInfo.info.length>0">
         <div>
-          <Spin fix>以加载完!</Spin>
+          <Spin fix>已加载完!</Spin>
         </div>
         </Col>
       </Row>
@@ -77,7 +77,7 @@
         </Col>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.memberfoOk && memberInfo.info.length>0">
         <div>
-          <Spin fix>以加载完!</Spin>
+          <Spin fix>已加载完!</Spin>
         </div>
         </Col>
       </Row>
@@ -114,7 +114,7 @@
         </Col>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.consumeInfoOk && consumeInfo.info.length>0">
         <div>
-          <Spin fix>以加载完!</Spin>
+          <Spin fix>已加载完!</Spin>
         </div>
         </Col>
       </Row>
@@ -139,7 +139,7 @@
         </Col>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.jifenOk && jifenInfo.info.length>0">
         <div>
-          <Spin fix>以加载完!</Spin>
+          <Spin fix>已加载完!</Spin>
         </div>
         </Col>
       </Row>

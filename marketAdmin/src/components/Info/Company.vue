@@ -434,10 +434,7 @@ export default {
             this.$Notice.info({title: '请完善信息', desc: '请填写积分抵现金比例'})
             return false
           }
-          if (!ai.employeeRate) {
-            this.$Notice.info({title: '请完善信息', desc: '请填写员工提成比率'})
-            return false
-          }
+          
           if (!ai.sharePoints) {
             this.$Notice.info({title: '请完善信息', desc: '请填写转发积分'})
             return false
@@ -469,6 +466,10 @@ export default {
       }else if(this.type==3){
         if (!ai.smsTel) {
             this.$Notice.info({title: '请完善信息', desc: '请填写短信接收号码'})
+            return false
+          }
+          if (!ai.employeeRate) {
+            this.$Notice.info({title: '请完善信息', desc: '请填写员工提成比率'})
             return false
           }
       }

@@ -29,6 +29,7 @@ export default {
     var query = this.util.getQuery();
     if(query != void 0){
       this.params = query;
+      console.log(query)
     }
     if(query.companyId != void 0){
       this.companyId = query.companyId

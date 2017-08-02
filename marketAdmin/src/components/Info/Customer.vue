@@ -34,7 +34,7 @@
     <Modal v-model="addPointmodal" title="自定义加分">
       <Row>
         <Col span="20" offset="2">
-        <Form label-width="100">
+        <Form :label-width="100">
           <Form-item label="自定义加分数值">
             <Input v-model="customerPoints" placeholder="请输入正整数的分值"></Input>
           </Form-item>

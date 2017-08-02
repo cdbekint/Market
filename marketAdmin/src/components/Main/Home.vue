@@ -62,10 +62,10 @@
                   <span v-text="companyinfo.registerMoney+'元'"></span>
                 </Form-item>
                 <Form-item label="注册返还积分" class="text-left">
-                  <span v-text="companyinfo.registerPoints+'分（折算人民币:'+(companyinfo.toCashRate?(companyinfo.registerPoints/companyinfo.toCashRate/100):'0')+'元）'"></span>
+                  <span v-text="companyinfo.registerPoints+'分（折算人民币:'+(companyinfo.toCashRate?(companyinfo.registerPoints*companyinfo.toCashRate/100):'0')+'元）'"></span>
                 </Form-item>
                <Form-item label="邀请注册返积分" class="text-left">
-                <span v-text="companyinfo.invitedPoints + '分（折算人民币:'+(companyinfo.toCashRate?(companyinfo.invitedPoints/companyinfo.toCashRate/100):'0')+'元）'"></span>
+                <span v-text="companyinfo.invitedPoints + '分（折算人民币:'+(companyinfo.toCashRate?(companyinfo.invitedPoints*companyinfo.toCashRate/100):'0')+'元）'"></span>
                 </Form-item>
                  <Form-item label="自己消费积分返还比率" class="text-left">
                   <span v-text="companyinfo.selfReturn +'%（客户自己消费100元，返还'+companyinfo.selfReturn+'分）'"></span>
@@ -413,7 +413,7 @@ export default {
           if (res.result !== null) {
 
             //判断是否具有提现账户信息，没有就设置account信息。
-            if(!res.result.account){
+            if(res.result.account==undefined){
               res.reuslt.account={
                 realName:'',
                 nickName:'',

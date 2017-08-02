@@ -114,11 +114,11 @@ export default {
     if (b ==1 ){
     currentdate = month + seperator1 + strDate +
           " " + Hours + seperator2 + Minut +
-          seperator2 + Hours;
+          seperator2 + Second;
     }else{
     currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
           " " + Hours + seperator2 + Minut +
-          seperator2 + Hours;
+          seperator2 + Second;
     }
     
     return currentdate;

@@ -4,7 +4,7 @@
     <newheader class="header-wrapper" :userInfo="userInfo" @loginShow='show'>
       <!-- 头部内容 -->
     </newheader>
-    <div class="content-wrapper" v-if="$store.state.token">
+    <div class="content-wrapper" v-if="$store.state.yxtoken">
       <div class="menu-wrapper">
         <!-- 菜单区域 -->
         <!-- <dl class="menulist" v-for="(m,index) in menu">
@@ -19,9 +19,9 @@
           <router-link :to="{path:'/company'}" tag="dd" active-class="active" exact>公司基本信息</router-link>
           <router-link :to="{path:'/authentic'}" tag="dd" active-class="active" exact>企业认证</router-link>
           <router-link :to="{path:'/union'}" tag="dd" active-class="active" exact>商家联盟</router-link>
-  
+
         </dl>
-  
+
         <dl class="menulist">
           <dt>
             <i class="fa fa-area-chart"></i>活动管理</dt>
@@ -35,7 +35,7 @@
           </dt>
           <router-link :to="{path:'/goods'}" tag="dd" active-class="active">商品管理</router-link>
           <router-link :to="{path:'/orders'}" tag="dd" active-class="active">订单管理</router-link>
-  
+
         </dl>
         <dl class="menulist">
           <dt>
@@ -57,7 +57,7 @@
           <router-link :to="{path:'/alonemenber'}" tag="dd" active-class="active">孤单会员</router-link>
           <router-link :to="{path:'/point'}" tag="dd" active-class="active">积分查询</router-link>
         </dl>
-  
+
       </div>
       <div class="realcontent-wrapper">
         <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
@@ -99,7 +99,8 @@ export default {
       userInfo: {
         account: {},
         company: {
-          companyName: ''
+          companyName: '',
+          companyFlag:0
         },
         customer: {},
         employee: {}
@@ -191,12 +192,12 @@ body
   width:30%
   margin:0 auto
   left:35%
-  top:100px 
+  top:100px
 .registermodal
   z-index:2000
   position :fixed
   left:15%
-  top:50px 
+  top:50px
 .modal
   width:100%
   height:3246px

@@ -7,17 +7,25 @@
       </div>
     </div>
   
-    <div class="main_class" v-if="currentPage==0 && notDetail">
+    <div class="main_class" v-if="currentPage==0 && notDetail && !showSystem">
       <div class="class_txt">
-        <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)">{{x.txt}}</span>
+        <span v-for="x,index in category" :style="x.state==1?{color:x.on}:{color:x.off}" @click="changeTxt(index+1)" v-if="!x.system||(x.system&&ids.companyId==3)">{{x.txt}}</span>
       </div>
       <div class="class_goods" v-if="showGoods">
-        <div class="goods_info" v-for="x in goods" @click="showDetail(x.id,2)">
+        <div class="goods_info" v-for="x in goods" @click="showDetail(x.id,2)" v-if="currentIndex!=4">
           <img :src="murl + x.img" class="info_img" @click="showDetail(x.id,2)">
           <div class="info_text">
             <span class="text_title">{{x.title}}</span>
             <span class="text_price">{{x.price}}</span>
   
+          </div>
+        </div>
+        <!-- 判断是否是系统商品 currentIndex==4则为系统商品 -->
+        <div class="goods_info" v-for="x in goods" v-if="currentIndex==4" @click="showSystemGood(x)">
+          <img :src="murl + x.img" class="info_img" @click="showSystemGood(x)">
+          <div class="info_text">
+            <span class="text_title">{{x.title}}</span>
+            <span class="text_price">{{x.price+'分'}}</span>
           </div>
         </div>
       </div>
@@ -35,25 +43,23 @@
     </div>
   
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
-      <div class="main_detail_buy">
-        <img src="/static/images/back.png" @click="returnGoodsList" class="detail_return">
-        <div class="detail_bg">
-          <div class="carouselitem">
-            <img :src="murl+currentGoods.images[0]" alt="">
-          </div>
-        </div>
-  
-        <div class="detail_text">
-          <div class="text_main">
-            <span class="main_title_other">{{currentGoods.name}}</span>
-            <div class="main_coll">
-              <span>已售{{currentGoods.saleNum}}件</span>
-              <span>库存{{currentGoods.storageNum}}件</span>
+      <img src="/static/images/company/fanhui.png" @click="returnGoodsList" class="detail_return">
+      <div class="detail_bg">
+        <Carousel autoplay>
+          <Carousel-item class="swiperItem" v-for="slide,index in currentGoods.images" :key="index">
+            <div class="carouselitem">
+              <img :src="murl+slide" alt="">
             </div>
-          </div>
-          <div class="text_jifen">
-            <img src="/static/images/jifen2.png">
-            <span>{{currentGoods.price}}</span>
+          </Carousel-item>
+        </Carousel>
+      </div>
+  
+      <div class="detail_text">
+        <div class="text_main">
+          <span class="main_title">{{currentGoods.name}}</span>
+          <div class="main_coll">
+            <span>已售{{currentGoods.saleNum}}件</span>
+            <span>库存{{currentGoods.storageNum}}件</span>
           </div>
         </div>
         <div class="detail_btn" @click="payGoods">
@@ -69,6 +75,58 @@
       </div>
       <div class="back_to_top" v-if="backToTop" @click="handleBackTop">
         <img src="/static/images/backTop.png">
+      </div>
+    </div>
+    <div class="main_system" v-if="currentPage==0 && showSystem">
+      <img src="/static/images/company/fanhui.png" @click="showSystem=false" class="detail_return">
+      <div class="system_content">
+        <div class="createMarket" v-if="currentRenew.renewType==2">
+          <div class="markettitle" v-text="currentRenew.title">
+  
+          </div>
+          <Form :label-width="70" class="marketform">
+            <Form-item label="企业名称">
+              <Input placeholder="请输入企业名称" v-model="createAccount.companyName"></Input>
+            </Form-item>
+            <Form-item label="登录账户">
+              <Input placeholder="请输入登录账户名(字母+数字)" v-model="createAccount.username"></Input>
+              <!-- <span class="help">密码默认为123456，注册成功后请立即修改</span> -->
+            </Form-item>
+            <Form-item label="手机号码">
+              <Input placeholder="" v-model="createAccount.phone"></Input>
+            </Form-item>
+            <Form-item label="邮箱">
+              <Input placeholder="请输入邮箱" v-model="createAccount.email"></Input>
+            </Form-item>
+            <Form-item label="">
+              <Checkbox-group v-model="createAccount.protocol">
+                <Checkbox label="true">已阅读并同意
+                  <a href="javascript:;">《裂变营销系统使用协议》</a>
+                </Checkbox>
+              </Checkbox-group>
+            </Form-item>
+            <div class="errorInfo text-left" v-text="createAccount.errormsg" v-if="createAccount.errormsg">
+            </div>
+            <div>
+              <Button type="primary" v-text="'支付'+(currentRenew.point||0)+'分并注册'" @click="createMarketAccount()"></Button>
+            </div>
+            <div class="mention">
+              <ul>
+                <li>1.默认密码为：123456,注册成功请尽快修改</li>
+                <li>2.请认证阅读使用协议</li>
+                <li>3.后台登录地址：http://yx.cdbeki.com</li>
+              </ul>
+            </div>
+          </Form>
+        </div>
+        <div class="renewMarket" v-if="currentRenew.renewType==1">
+          <div class="renewtitle">
+            续费一个月
+          </div>
+          <div class="renewform">
+  
+          </div>
+        </div>
       </div>
     </div>
   
@@ -201,14 +259,14 @@ export default {
     },
     handleBackTop() {
       let timer = setInterval(() => {
-        this.animation.totalNum+=this.animation.speed
-        document.documentElement.scrollTop = document.body.scrollTop = window.scrollY-this.animation.totalNum
-        if(window.scrollY-this.animation.speed<=0){
+        this.animation.totalNum += this.animation.speed
+        document.documentElement.scrollTop = document.body.scrollTop = window.scrollY - this.animation.totalNum
+        if (window.scrollY - this.animation.speed <= 0) {
           document.documentElement.scrollTop = document.body.scrollTop = 0;
           this.animation.totalNum = 0
           clearInterval(timer)
         }
-      },this.animation.time)
+      }, this.animation.time)
       this.backToTop = false
     },
     customerPay() {
@@ -338,6 +396,11 @@ export default {
         }
       })
     },
+    showSystemGood(renew) {
+      this.showSystem = true
+      this.currentRenew = renew;
+      console.log(this.currentRenew)
+    },
     showDetail(id, state) {
       this.http.get(this.$store.state.prefix + '/goods/' + id).then((res) => {
         if (res.error == false) {
@@ -450,6 +513,7 @@ export default {
       })
     },
     changeTxt(index) {
+      this.currentIndex = index
       this.category.forEach((item, i) => {
         item.state = 0;
         if ((index - 1) == i) {
@@ -457,7 +521,38 @@ export default {
         }
       });
       this.goods = [];
-      this.getGoodsByType(index);
+      if (index < 4) {
+        this.getGoodsByType(index);
+      } else {
+        this.getSystemGoods();
+      }
+
+    },
+    getSystemGoods() {
+      this.http.post(this.$store.state.prefix + "/pubInfo/getSystemRenewInfo", { chargeType: 2 }).then(res => {
+        if (res.error == false) {
+          res.result.forEach(item => {
+            var obj = null;
+            obj = {
+              id: item.id,
+              img: item.renewPic,
+              title: item.renewName,
+              price: item.points,
+              chargeType: item.chargeType,
+              renewType: item.renewType,
+              month: item.month
+            }
+
+            this.goods.push(obj)
+          })
+
+          if (this.goods.length == 0)
+            this.showGoods = false;
+          else
+            this.showGoods = true;
+
+        }
+      })
     },
     getGoodsByType(id) {
       this.http.get(this.$store.state.prefix + "/shop/getGoodsInfo/" + id + this.url).then(res => {
@@ -503,6 +598,63 @@ export default {
     },
     onSlideChangeEnd(currentPage) {
       console.log('onSlideChangeEnd', currentPage);
+    },
+    createMarketAccount() {
+      var param = JSON.parse(JSON.stringify(this.createAccount))
+      if (!/(\w*[\u4e00-\u9fa5]+)+/.test(param.companyName)) {
+        this.createAccount.errormsg = "企业名称不能为空,且必须包含中文"
+        return
+      } else {
+        this.createAccount.errormsg = ""
+      }
+      if (!/^[a-zA-z]\w{3,15}$/.test(param.username)) {
+        this.createAccount.errormsg = "登录账户名只能为数字加字母"
+        return
+      } else {
+        this.createAccount.errormsg = ""
+      }
+      if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(param.email)) {
+        this.createAccount.errormsg = "邮箱格式不正确"
+        return
+      } else {
+        this.createAccount.errormsg = ""
+      }
+      if (param.protocol.length == 0) {
+        this.createAccount.errormsg = "请仔细阅读裂变营销系统使用协议"
+        return
+      } else if (param.protocol[0] == "true") {
+        this.createAccount.errormsg = ""
+      }
+
+      //获取到当前进行的续费或则充值商品信息
+      var renewinfo = JSON.parse(JSON.stringify(this.currentRenew))
+
+      console.log(this.$store.state.companyId)
+      this.http.post(this.$store.state.prefix + "/pay", { businessId: renewinfo.id, payType: 8, payAmount: renewinfo.points, companyId: this.ids.companyId, remarks: '用户' + this.util.getCookie("ownId") + renewinfo.title }).then(res => {
+        if (res.error == false) {
+          this.createAccount.errormsg = ""
+          param.renewId = renewinfo.id
+          this.http.post(this.$store.state.prefix + '/pubInfo/createCompany', param).then(res => {
+            if (res.error == false) {
+              this.createAccount.errormsg = ""
+              this.createAccount.companyName = ""
+              this.createAccount.username = ""
+              this.createAccount.email = ""
+              this.createAccount.protocol = []
+              this.createAccount.errormsg = ""
+              this.$Message.success("注册成功")
+              this.showSystem = false
+            } else {
+              this.createAccount.errormsg = res.msg
+            }
+          })
+
+        } else {
+          this.createAccount.errormsg = res.msg
+        }
+      })
+
+
     }
   },
   mounted() {
@@ -585,122 +737,172 @@ export default {
   data() {
     return {
       backToTop: false,
-      payMoney: 0,
-      payRemarks: "",
-      isWithdraw: false,
-      showGoods: true,
-      showHtml: true,
-      showMember: true,
       url: '',
-      animation:{
-        speed:7,
-        time:20,
-        totalNum:0,
+      animation: {
+        speed: 7,
+        time: 20,
+        totalNum: 0,
       },
       swiperOption: {
-        autoplay: 3500,
-        setWrapperSize: true,
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        mousewheelControl: true,
-        observeParents: true,
-      },
-      currentGoods: {
-        saleNum: 0,
-        storageNum: 0,
-        images: []
-      },
-      selectGoodsId: 0,
-      params: {
-        businessId: 0,
-        payType: 2,
-        payAmount: 0,
-        companyId: 0,
-        goodsId: 0
-      },
-      notDetail: true,
-      currentPage: 0,
-      showInfo: '',
-      stateImgArr: [
-        "/static/images/company/start.png",
-        "/static/images/company/ing.png",
-        "/static/images/company/end.png"
-      ],
-      active: [],
-      member: [],
-      goods: [],
-      titleImgs: [
-        {
-          on: "/static/images/company/titleOn/1.png",
-          off: "/static/images/company/titleOff/1.png",
-          static: 1
+        currentIndex: 1,
+        payMoney: 0,
+        payRemarks: "",
+        isWithdraw: false,
+        showGoods: true,
+        showHtml: true,
+        showMember: true,
+        showSystem: false,//显示系统页面
+        currentRenew: {
+          img: "",
+          title: 1,
+          price: '0积分',
+          chargeType: 1,
+          renewType: 2,
+          month: 1
+        },
+        createAccount: {
+          companyName: '',
+          username: '',
+          password: '123456',
+          accountId: this.util.getCookie("ownId"),
+          companyFlag: 0,
+          protocol: [],
+          errormsg: ''
+        },
+        url: '',
+        swiperOption: {
+          autoplay: 3500,
+          setWrapperSize: true,
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          mousewheelControl: true,
+          observeParents: true,
+        },
+        currentGoods: {
+          saleNum: 0,
+          storageNum: 0,
+          images: []
+        },
+        selectGoodsId: 0,
+        params: {
+          businessId: 0,
+          payType: 2,
+          payAmount: 0,
+          companyId: 0,
+          goodsId: 0
+        },
+        notDetail: true,
+        currentPage: 0,
+        showInfo: '',
+        stateImgArr: [
+          "/static/images/company/start.png",
+          "/static/images/company/ing.png",
+          "/static/images/company/end.png"
+        ],
+        active: [],
+        member: [],
+        goods: [],
+        titleImgs: [
+          {
+            on: "/static/images/company/titleOn/1.png",
+            off: "/static/images/company/titleOff/1.png",
+            static: 1
+          },
+          {
+            on: "/static/images/company/titleOn/2.png",
+            off: "/static/images/company/titleOff/2.png",
+            static: 0
+          },
+          {
+            on: "/static/images/company/titleOn/3.png",
+            off: "/static/images/company/titleOff/3.png",
+            static: 0
+          },
+          {
+            on: "/static/images/company/titleOn/4.png",
+            off: "/static/images/company/titleOff/4.png",
+            static: 0
+          }
+        ],
+        payState: false,
+        jifenCategory: [
+          {
+            txt: "剩余积分",
+            state: 1,
+            num: 2,
+            on: '#ff017e',
+            off: '#434343'
+          },
+          {
+            txt: "累计积分",
+            state: 0,
+            num: 3,
+            on: '#ff017e',
+            off: '#434343'
+          },
+          {
+            txt: "邀请人数",
+            state: 0,
+            num: 4,
+            on: '#ff017e',
+            off: '#434343'
+          }
+        ],
+        category: [
+          {
+<<<<<<< HEAD
+            txt: "现金商品",
+            state: 1,
+            on: '#ff017e',
+            off: '#434343'
+          },
+          {
+            txt: "积分商品",
+            state: 0,
+            on: '#ff017e',
+            off: '#434343'
+          },
+          {
+            txt: "现金+积分",
+            state: 0,
+            on: '#ff017e',
+            off: '#434343'
+=======
+          txt:"现金商品",
+          state:1,
+          on:'#ff017e',
+          off:'#434343',
+          system:false
         },
         {
-          on: "/static/images/company/titleOn/2.png",
-          off: "/static/images/company/titleOff/2.png",
-          static: 0
+          txt:"积分商品",
+          state:0,
+          on:'#ff017e',
+          off:'#434343',
+          system:false
         },
         {
-          on: "/static/images/company/titleOn/3.png",
-          off: "/static/images/company/titleOff/3.png",
-          static: 0
+          txt:"现金+积分",
+          state:0,
+          on:'#ff017e',
+          off:'#434343',
+          system:false
         },
         {
-          on: "/static/images/company/titleOn/4.png",
-          off: "/static/images/company/titleOff/4.png",
-          static: 0
-        }
-      ],
-      payState: false,
-      jifenCategory: [
-        {
-          txt: "剩余积分",
-          state: 1,
-          num: 2,
-          on: '#ff017e',
-          off: '#434343'
-        },
-        {
-          txt: "累计积分",
-          state: 0,
-          num: 3,
-          on: '#ff017e',
-          off: '#434343'
-        },
-        {
-          txt: "邀请人数",
-          state: 0,
-          num: 4,
-          on: '#ff017e',
-          off: '#434343'
-        }
-      ],
-      category: [
-        {
-          txt: "现金商品",
-          state: 1,
-          on: '#ff017e',
-          off: '#434343'
-        },
-        {
-          txt: "积分商品",
-          state: 0,
-          on: '#ff017e',
-          off: '#434343'
-        },
-        {
-          txt: "现金+积分",
-          state: 0,
-          on: '#ff017e',
-          off: '#434343'
-        }
-      ],
-      isloading: false,
-      customerpaying: false,
-      paySuccess: false
+          txt:"系统商品",
+          state:0,
+          on:'#ff017e',
+          off:'#434343',
+          system:true
+>>>>>>> 4ff35ba943fee4ce7ebea52b6c376f8bb506cf84
+          }
+        ],
+        isloading: false,
+        customerpaying: false,
+        paySuccess: false
+      }
     }
   }
-}
 </script>
 <style  lang='stylus' rel="stylesheet/stylus">
   .ivu-modal-footer
@@ -786,7 +988,8 @@ export default {
       margin-top rrem(8px)
       height rrem(80px)
       .class_txt
-        width 56%
+        max-width 68%
+        min-width 56%
         margin auto
         display flex
         span
@@ -1015,7 +1218,61 @@ export default {
       background #fff
       text-align center
       display:block
+<<<<<<< HEAD
       box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
+=======
+    .main_system
+      width:100%
+      height rrem(1470px)
+      background#fff
+      position relative
+      .detail_return
+        position absolute
+        top rrem(35px)
+        left rrem(35px)
+        width rrem(100px)
+        height rrem(100px)
+        z-index:2
+      .system_content
+        width 100%
+        overflow-x:hidden
+        text-align center
+        min-height rrem(1440px)
+        height:auto
+        position relative
+        .createMarket
+          padding-top rrem(200px)
+          .markettitle
+            height rrem(80px)
+            line-height rrem(80px)
+            font-size rrem(40px)
+            font-weight:bolder
+          .marketform
+            width:90%
+            margin:0 auto
+            .errorInfo
+              text-align:center
+              display:block
+              padding-left:rrem(80px)
+              color:red
+              margin-bottom:rrem(80px)
+            .help
+              font-size:0.9em
+            .mention
+              width:100%
+              border-top:1px solid #ccc
+              padding-top rrem(40px)
+              margin-top rrem(40px)
+              color:rgba(0,0,0,0.6)
+              ul
+                padding:0px
+                li
+                  width:100%
+                  height rrem(60px)
+                  display:block
+                  text-align:left
+
+>>>>>>> 4ff35ba943fee4ce7ebea52b6c376f8bb506cf84
     .main_detail
       width 100%
       // height rrem(970px)
