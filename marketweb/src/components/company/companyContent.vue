@@ -61,7 +61,7 @@
             </div>
             <div class="text_jifen">
               <img src="/static/images/company/jifenTwo.png">
-              <span>2000积分</span>
+              <span>{{currentGoods.price }}</span>
             </div>
           </div>
           <div class="detail_btn" @click="payGoods">
@@ -448,6 +448,7 @@ export default {
             desc: this.util.escapeToHtml(row.goodsDesc),
             goodsType: row.goodsType
           }
+          console.log(this.currentGoods)
           if (this.ids.discount) {
             console.log(this.ids.discount)
             console.log(this.currentGoods.price)
