@@ -1,83 +1,73 @@
 <template>
-<div style='width:100%'>
-    <div class='news' v-if="lists">
-        <ul>
-            <li v-for="item in lists">
-                <div class='pic'>
-                     <img :src='item.imgUrl'>
-                </div>
-                <div class="content">
-                    <h2>{{item.title}}</h2>
-                    <p>{{item.text}}</p>
-                </div>
-            </li>
-        </ul>
-        <div class="clearfix"></div>
-    </div>
-    <div class='news' v-else style='background:#f8f8f8'>
-        <ul>
-            <li v-for="item in listsTwo">
-                <div class='pic'>
-                     <img :src='item.imgUrl'>
-                </div>
-                <div class="content">
-                    <h2>{{item.title}}</h2>
-                    <p>{{item.text}}</p>
-                </div>
-            </li>
-        </ul>
-        <div class="clearfix"></div>
-    </div>
-</div>
+  <div class="new_content">
+    <ul>
+      <li v-for="(item,index) in news">
+        <div class="new_index">0{{index+1}}</div>
+        <div class="new_main">
+          <div class="new_title">{{item.title}}</div>
+          <div class="new_text">{{item.text}}</div>
+        </div>
+        <div></div>
+      </li>
+      <div class="clear"></div>
+    </ul>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-    props:['lists','listsTwo'],
-    data () {
-        return {
+  props: ['news'],
+  data() {
+    return {
 
-        }
     }
+  }
 }
 </script>
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
-.news
-  width:100%
-  padding:0px 10%
-  height:auto
-  margin:0 auto
-  background-color :#fff
-  display:block
-  padding-bottom:10px
-  ul
-    min-width:1000px
-    max-width:1420px
-    padding-top :40px
-    li
-      float:left
-      width :30%
-      margin-right:3%
-      .pic
-        width 40%
-        height auto
-        font-size :0
-        margin:0 auto
-        img
-          width:100%
-      .content
-        margin-top:48px
-        font-family :"微软雅黑"
-        h2
-          color :#434343
-          font-size 20px
-          font-weight :bolder
-        p
-          line-height :30px
-          font-size :16px
-          color:#434343
-          padding-top :10px
-    li:last-of-type
-        margin-right:0
+.new_content
+    width 1240px
+    margin 0 auto
+    font-family "微软雅黑"
+    margin-bottom 110px
+    ul
+      li:nth-of-type(2n+1):after
+        content ''
+        position absolute
+        right -50px
+        top 0
+        border-left 1px solid #ededed
+        height 227px
+      li
+        float left
+        width 520px
+        height 220px
+        margin 50px
+        position relative
+        .new_index
+          color #1dc6ff
+          font-size 70px
+          float left
+          font-weight bold
+          position absolute
+          left 0
+          top -20px
+        .new_main
+          float left
+          width 420px
+          margin-left 104px
+          .new_title
+            font-size 24px
+            color #434343
+            font-weight 800 
+            text-align left
+          .new_text
+            font-size 18px
+            line-height 38px
+            color #838383  
+            text-align left
+            margin-top 10px   
+      .clear
+        clear both    
 </style>
