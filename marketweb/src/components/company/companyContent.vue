@@ -87,27 +87,26 @@
            </Form-item>
            <Form-item label="登录账户">
               <Input placeholder="请输入登录账户名(字母+数字)" v-model="createAccount.username"></Input>
-              <!-- <span class="help">密码默认为123456，注册成功后请立即修改</span> -->
            </Form-item>
            <Form-item label="手机号码">
-              <Input placeholder="" v-model="createAccount.phone"></Input>
+              <Input placeholder="请输入11位手机号码" v-model="createAccount.phone"></Input>
            </Form-item>
            <Form-item label="邮箱">
               <Input placeholder="请输入邮箱" v-model="createAccount.email"></Input>
            </Form-item>
            <Form-item label="">
                <Checkbox-group v-model="createAccount.protocol">
-                <Checkbox label="true">已阅读并同意<a href="javascript:;">《裂变营销系统使用协议》</a></Checkbox>
+                <Checkbox label="true">已阅读并同意<a href="javascript:;" @click="serviceprotocol=true">《裂变营销系统使用协议》</a></Checkbox>
               </Checkbox-group>
            </Form-item>
            <div class="errorInfo text-left" v-text="createAccount.errormsg" v-if="createAccount.errormsg">
            </div>
            <div>
-             <Button type="primary" v-text="'支付'+(currentRenew.point||0)+'分并注册'" @click="createMarketAccount()"></Button>
+             <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'分并注册'" @click="createMarketAccount()"></Button>
            </div>
            <div class="mention">
              <ul>
-               <li>1.默认密码为：123456,注册成功请尽快修改</li>
+               <li>1.默认密码为手机号后六位,注册成功请尽快修改</li>
                <li>2.请认证阅读使用协议</li>
                <li>3.后台登录地址：http://yx.cdbeki.com</li>
              </ul>
@@ -234,6 +233,16 @@
       </Row>
 
     </Modal>
+    <Modal
+        v-model="serviceprotocol"
+        title="裂变营销系统使用协议"
+        @on-ok="ok"
+        ok-text="我已阅读并同意"
+        cancel-text="取消"
+        @on-cancel="cancel">
+        解放拉萨飞
+    </Modal>
+
 
   </div>
 </template>
@@ -583,7 +592,13 @@ export default {
           this.createAccount.errormsg=""
        }
        if(!/^[a-zA-z]\w{3,15}$/.test(param.username)){
-          this.createAccount.errormsg="登录账户名只能为数字加字母"
+          this.createAccount.errormsg="登录账户名只能为数字加字母（4-16位）"
+          return
+       }else{
+          this.createAccount.errormsg=""
+       }
+       if(!/^1[34578]\d{9}$/.test(param.phone)){
+          this.createAccount.errormsg="手机号码不正确"
           return
        }else{
           this.createAccount.errormsg=""
@@ -609,12 +624,15 @@ export default {
           if(res.error==false){
              this.createAccount.errormsg=""
              param.renewId=renewinfo.id
+             delete param.protocol
+             delete param.errormsg
              this.http.post(this.$store.state.prefix+'/pubInfo/createCompany',param).then(res=>{
                 if(res.error==false){
                   this.createAccount.errormsg=""
                   this.createAccount.companyName=""
                   this.createAccount.username=""
-                  this.createAccount.email=""
+                  this.createAccount.phone=this.$store.state.account.phone||""
+                  this.createAccount.email=this.$store.state.account.email||""
                   this.createAccount.protocol=[]
                   this.createAccount.errormsg=""
                   this.$Message.success("注册成功")
@@ -623,7 +641,6 @@ export default {
                   this.createAccount.errormsg=res.msg
                 }
              })
-
            }else{
             this.createAccount.errormsg=res.msg
            }
@@ -717,6 +734,7 @@ export default {
       showHtml:true,
       showMember:true,
       showSystem:false,//显示系统页面
+      serviceprotocol:false,//服务协议modal
       currentRenew:{
         img:"",
         title:1,
@@ -728,8 +746,9 @@ export default {
       createAccount:{
         companyName:'',
         username:'',
-        password:'123456',
+        phone:this.$store.state.account.phone||"",
         accountId:this.util.getCookie("ownId"),
+        email:this.$store.state.account.email||"",
         companyFlag:0,
         protocol:[],
         errormsg:''
@@ -1130,7 +1149,7 @@ export default {
         height:auto
         position relative
         .createMarket
-          padding-top rrem(200px)
+          padding-top rrem(100px)
           .markettitle
             height rrem(80px)
             line-height rrem(80px)

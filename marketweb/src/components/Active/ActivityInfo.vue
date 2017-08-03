@@ -151,6 +151,7 @@ export default {
     this.http.get(this.$store.state.prefix + '/pubInfo/user?activityId='+this.activityId).then(res => {
       if (res.error === false) {
         this.userInfo = res.result;
+        this.$store.state.account=res.result.account
         if(this.userInfo.customer.member == 1){
           this.$store.state.isMember = 1;
           this.currentState = false;
