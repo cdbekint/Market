@@ -33,12 +33,12 @@
         </div>
       </div>
       <Row>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.activityOk && activityInfo.info">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.activityOk && activityInfo.info.length>0">
         <div @click='doneLoadMore(addNum,activityInfo.info,"activityPage")'>
           <Spin fix>点击加载更多</Spin>
         </div>
         </Col>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.activityOk && activityInfo.info">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.activityOk && activityInfo.info.length>0">
         <div>
           <Spin fix>已加载完!</Spin>
         </div>
@@ -70,12 +70,12 @@
       </div>
       <!-- <Button @click='doneLoadMore(2,memberInfo.info,"memberPage")'>点击加载更多</Button> -->
       <Row>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.memberOk && memberInfo.info">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.memberOk && memberInfo.info.length>0">
         <div @click='doneLoadMore(addNum,memberInfo.info,"memberPage")'>
           <Spin fix>点击加载更多</Spin>
         </div>
         </Col>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.memberfoOk && memberInfo.info">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.memberfoOk && memberInfo.info.length>0">
         <div>
           <Spin fix>已加载完!</Spin>
         </div>
@@ -107,12 +107,12 @@
       </div>
       <!-- <Button @click='doneLoadMore(2,consumeInfo.info,"consumeInfoPage")'>点击加载更多</Button> -->
       <Row>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if='doneLoad.consumeInfoOk && consumeInfo.info'>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if='doneLoad.consumeInfoOk && consumeInfo.info.length>0'>
         <div @click='doneLoadMore(addNum,consumeInfo.info,"consumeInfoPage")'>
           <Spin fix>点击加载更多</Spin>
         </div>
         </Col>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.consumeInfoOk && consumeInfo.info">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.consumeInfoOk && consumeInfo.info.length>0">
         <div>
           <Spin fix>已加载完!</Spin>
         </div>
@@ -132,12 +132,12 @@
         <span class="item_date" v-text="x.time"></span>
       </div>
       <Row>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.jifenOk && jifenInfo.info">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.jifenOk && jifenInfo.info.length>0">
         <div @click='doneLoadMore(addNum,jifenInfo.info,"jifenPage")'>
           <Spin fix>点击加载更多</Spin>
         </div>
         </Col>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.jifenOk && jifenInfo.info">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.jifenOk && jifenInfo.info.length>0">
         <div>
           <Spin fix>已加载完!</Spin>
         </div>
@@ -350,10 +350,12 @@ export default {
   .person_infos
     width 100%
     position relative
-    background #d8006b
     padding-bottom rrem(50px)
+    background url('../../../static/images/company/bg1.png') 100% repeat
+    background-size rrem(1080px)
     .main_companyInfo
-      height rrem(70px)
+      height rrem(78px)
+      border-bottom 4px solid #ff017e
       width 96%
       display flex
       margin auto
@@ -374,12 +376,15 @@ export default {
         img
           width 100%
           height 100%
+      .company_info:last-of-type  
+        margin-right 0    
     .info_active
       width 96%
       background #fff
       margin auto
-      margin-top rrem(14px)
+      // margin-top rrem(14px)
       min-height rrem(800px)
+      box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
       .info_isNull
         width rrem(1000px)
         height rrem(340px)

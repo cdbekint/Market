@@ -1,0 +1,34 @@
+  rrem(val){
+    return (val/108px)rem
+  }
+  .main_head
+    height rrem(217px)
+    width 100%
+    text-align center
+    position relative
+    .head_img
+      width rrem(530px)
+    .head_text
+      position absolute
+      top 0px
+      left rrem(465px)
+      height 100%
+      width rrem(600px)
+      text-align left
+      color #fff
+      span
+        display block
+        line-height rrem(45px)
+        height rrem(45px)
+        margin-left rrem(12px)
+        font-style italic
+        font-weight bold
+      .text_en
+        letter-spacing rrem(15px)
+        margin-left rrem(26px)
+        margin-top rrem(65px)
+        font-size rrem(30px)
+      .text_ch
+        font-size rrem(50px)
+    .head_text_golden
+      color #434343    

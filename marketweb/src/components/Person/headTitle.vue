@@ -5,6 +5,9 @@
     </div>
     <div class="head_txt">
       <p>{{info.name}}</p>
+      <span>客户：{{info.customerNum}}</span>
+      <span>浏览：{{info.allViewNum}}</span>
+      <span>分享：{{info.allShareNum}}</span>
     </div>
     <img src="/static/images/person/icon.png" class="head_change" @click="changeCompany">
     <div class="companyList" v-if="listshow">
@@ -18,46 +21,56 @@
 <script type="text/ecmascript-6">
 export default {
   name: 'companyHead',
-  props:["companyId","companyInfo"],
-  created(){
-    var url = this.companyId == void 0 ? '':'?companyId='+this.companyId;
-    this.http.get(this.$store.state.prefix + "/shop"+url).then(res=>{
-      if(res.error == false){
+  props: ["companyId", "companyInfo"],
+  created() {
+    var url = this.companyId == void 0 ? '' : '?companyId=' + this.companyId;
+    this.http.get(this.$store.state.prefix + "/shop" + url).then(res => {
+      if (res.error == false) {
+        console.log(res.result)
         this.info.name = res.result.companyName;
         this.info.logo = res.result.companyLogo;
+        this.info.customerNum = res.result.customerNum
+        this.info.allViewNum = res.result.allViewNum
+        this.info.allShareNum = res.result.allShareNum
       }
     })
   },
-  data () {
+  data() {
     return {
-      info:{
-        name:'',
-        logo:''
+      info: {
+        name: '',
+        logo: '',
+        customerNum: '',
+        allViewNum: '',
+        allShareNum: ''
       },
-      listshow:false
+      listshow: false
     }
   },
-  methods:{
-    changeCompany(){
-      this.listshow =!this.listshow
+  methods: {
+    changeCompany() {
+      this.listshow = !this.listshow
     },
-    setHeadCompany(id){
-      this.listshow=false
-      this.$emit('headCompany',id)
+    setHeadCompany(id) {
+      this.listshow = false
+      this.$emit('headCompany', id)
     }
   },
-  watch:{
-    companyId:{
-      handler(val){
-        var url = this.companyId == void 0 ? '':'?companyId='+this.companyId;
-        this.http.get(this.$store.state.prefix + "/shop"+url).then(res=>{
-        if(res.error == false){
-          this.info.name = res.result.companyName;
-          this.info.logo = res.result.companyLogo;
-        }
+  watch: {
+    companyId: {
+      handler(val) {
+        var url = this.companyId == void 0 ? '' : '?companyId=' + this.companyId;
+        this.http.get(this.$store.state.prefix + "/shop" + url).then(res => {
+          if (res.error == false) {
+            this.info.name = res.result.companyName;
+            this.info.logo = res.result.companyLogo;
+            this.info.customerNum = res.result.customerNum
+            this.info.allViewNum = res.result.allViewNum
+            this.info.allShareNum = res.result.allShareNum
+          }
         })
       },
-      deep:true
+      deep: true
     }
   }
 }
@@ -69,7 +82,7 @@ export default {
   .companyHead
     width 100%
     height rrem(125px)
-    background #434343
+    background #343539
     position relative
     top 0px
     .head_img
@@ -87,12 +100,18 @@ export default {
       position absolute
       top 0px
       width 100%
+      text-align center
       height rrem(125px)
+      span
+        color #aeaeae
+        font-size rrem(24px)
+        display inline-block
+        margin-right rrem(25px)
       p
         text-align center
-        height rrem(125px)
-        line-height rrem(125px)
-        font-size rrem(60px)
+        height rrem(95px)
+        line-height rrem(100px)
+        font-size rrem(50px)
         font-weight bold
         color #fff
         position relative

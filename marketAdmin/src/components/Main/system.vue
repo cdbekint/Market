@@ -71,7 +71,7 @@ export default {
         width :100%
         background-color:#fff
         height:712px
-        padding-top:67px
+        margin-top 210px
         .inner
             width:1240px
             margin:0 auto

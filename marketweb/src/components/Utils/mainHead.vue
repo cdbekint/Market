@@ -1,6 +1,6 @@
 <template>
   <div class = "main_head">
-    <img :src="'/static/images/a'+ val.no +'.png'" class="head_img">
+     <img :src="'/static/images/a'+ val.no +'.png'" class="head_img"> 
     <div class = "head_content">
       <img src="/static/images/max.png" class="content_img">
       <span>{{val.head}}</span>

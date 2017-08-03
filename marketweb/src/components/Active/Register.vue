@@ -9,7 +9,7 @@
       <div class="body_input">
         <div class="inviterinfo">
           <div class="inviteravater">
-            <img :src="Inviter.headImg" alt="">
+            <img :src="Inviter.headImg" alt="" v-if="Inviter.headImg">
           </div>
           <div class="inviternote">
             {{Inviter.realName}}正在邀请你成为会员

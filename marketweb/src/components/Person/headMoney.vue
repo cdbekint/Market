@@ -43,6 +43,17 @@
       </Row>
   
     </Modal>
+    <Modal v-model="paySuccess" :closable="false" width="1000">
+      <p class="modelTitle">
+        <img src='/static/images/company/messages.png'>
+      </p>
+      <p class="modelPic">
+        <img src="/static/images/company/success.png">
+      </p>
+      <p class="modelSuccess">提现成功</p>
+      <p class="modelTishi">钱已到帐，请查看钱包</p>
+      <p slot="footer" class="modelBack" @click="paySuccess=false">返回当前页面</p>
+    </Modal>
   </div>
 </template>
 
@@ -65,7 +76,8 @@ export default {
       cashs: 0,
       isWithdraw: false,
       withdrawPoint: 0,
-      withdrawAmount: 0
+      withdrawAmount: 0,
+      paySuccess:false
     }
   },
   methods: {
@@ -91,10 +103,11 @@ export default {
         if (res.error == false) {
           // this.$Message.success("恭喜你提现成功");
           this.$emit('freshHead', this.Person.companyId)
-          this.$Modal.success({
-            title: "恭喜你提现成功",
-            content: "恭喜你提现成功"
-          });
+          this.paySuccess = true
+          // this.$Modal.success({
+          //   title: "恭喜你提现成功",
+          //   content: "恭喜你提现成功"
+          // });
         }
         else {
           this.$Modal.error({
@@ -126,13 +139,57 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  .ivu-modal-footer
+    border-top none 
   rrem(val){
     return (val/108px)rem
   }
+  .ivu-modal-body
+    padding 0  
+    padding-top rrem(132px)
+  .modelTitle
+     width rrem(436px)
+     height rrem(140px)
+     position absolute
+     left rrem(295px) 
+     top rrem(-70px)
+     img
+      width 100%
+  .modelPic
+    width rrem(110px)
+    height rrem(110px)
+    margin 0 auto
+    // margin-top rrem(132px)
+    img
+      width 100%
+  .modelSuccess
+    height rrem(101px)
+    line-height rrem(101px)
+    font-size rrem(44px)
+    color #ff017e
+    font-weight 600
+    text-align center
+  .modelTishi
+    height rrem(94px)
+    line-height rrem(94px)
+    color #999999
+    font-size rrem(28px)
+    text-align center 
+  .modelBack
+    width rrem(920px)
+    height rrem(125px)
+    line-height rrem(125px)
+    background #ff017e
+    text-align center  
+    color #fff
+    font-size rrem(50px)
+    font-weight 600
+    margin-bottom rrem(29px)
   .headMoney
     width 100%
     height rrem(645px)
-    background #d8006b
+    background url('../../../static/images/company/bg1.png') 100% repeat
+    background-size rrem(1080px)
     position relative
     .main_bg
       position absolute
@@ -142,6 +199,7 @@ export default {
       left rrem(40px)
       width rrem(1000px)
       height rrem(570px)
+      box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
       img
         height 100%
         width 100%

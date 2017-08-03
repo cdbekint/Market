@@ -1,58 +1,61 @@
 <template>
-    <div class="banner">
-        <a href='javascript:;' class='free' @click="handleClick('register',true)">免费体验</a>
-        <div class='tishi'>
-            <img :src='imgurl'>免费体验期限为30天，到期后可续费成为正式商家
-        </div>
-    </div> 
+  <div class="companyAbout">
+    <div class="inner">
+      <div class="about">
+      <img src="/static/images/about.png">
+    </div>
+    <div class="qrc">
+      <div class="pic">
+         <img src="/static/images/1501645490.png"> 
+      </div>
+      <div class="text">微信扫描二维码体验裂变营销系统</div>
+    </div>
+    </div>
+  </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 export default {
-    data () {
-        return {
-            imgurl:require('../../../static/images/icon.png')
-        }  
-    },
-    methods :{
-        handleClick (type,onOff) {
-            this.$emit('register',type,onOff)
-        }
-    }
-    
+
 }
 </script>
 
-<style scoped lang='stylus' rel="stylesheet/stylus">
-    .banner
-        width:100%
-        background :url(../../../static/images/free.png) no-repeat top
-        height:460px
-        padding-top :190px
-        .free
-            width:450px
-            height:86px
-            line-height :86px
-            font-size 30px
-            color :#fff
-            font-family :"微软雅黑"
-            margin :0 auto
-            display:block
-            background-color :#ff017e
-        .tishi
-            width:450px
-            margin :0 auto
-            height:19px
-            line-height :19px
-            font-size :16px
-            opacity :0.8
-            color:#fff
-            text-align:center
-            margin-top:12px
-            img
-                width :19px
-                height:19px
-                vertical-align:bottom
-                margin-right:4px
-  
+<style lang="stylus" rel="stylesheet/stylus">
+  .companyAbout
+    background url('../../../static/images/bg.png') no-repeat top
+    width 100%
+    background-size 100% 100%
+    margin-top 262px
+    .inner
+      width 1240px
+      margin 0 auto
+      height 575px
+      position relative
+      .about
+        width 1200px
+        height 440px
+        position absolute
+        left 19px
+        top -152px
+      .qrc
+        width 220px
+        height 220px
+        position absolute
+        left 509px
+        bottom -110px
+        background #fff
+        .pic  
+          width 200px
+          height 200px
+          margin 10px auto
+          img 
+            width 100%
+        .text
+          width 240px 
+          position absolute
+          left -10px
+          bottom -30px
+          font-size 16px
+          color #adadad    
+
 </style>

@@ -6,42 +6,38 @@
       <Form ref="formInline" class="loginmainpanel" :model="formInline" :rules="ruleInline">
         <Form-item>
           <div class='log'>
-            <img src='/static/images/LOGO2.png'>
+            <img src='/static/images/loginTop.png'>
           </div>
         </Form-item>
-        <Form-item class='close'>
-          <div @click="handleClick(this.onOFF)">
-            <img src='/static/images/×.png'>
-          </div>
+        <Form-item style="position:absolute;right:0;top:0;">
+          <div class='close' @click="handleClick()"></div>
         </Form-item>
-        <Form-item prop="user" style="margin-bottom:34px">
-          <Input type="text" size="large" v-model="formInline.username" placeholder="用户名" class="formitem">
-          <Icon type="ios-person-outline" slot="prepend"></Icon>
-          </Input>
+        <Form-item prop="user" style="margin-bottom:24px">
+          <input type="text" size="large" v-model="formInline.username" placeholder="用户名" class="formitem">
+          </input>
           <!-- <input type="text" v-model="formInline.username" placeholder="用户名" class="formitem"> -->
         </Form-item>
         <Form-item prop="password" style="margin-bottom:0">
-          <Input type="password" size="large" v-model="formInline.password" placeholder="密码" class="formitem">
-          <Icon type="ios-locked-outline" slot="prepend"></Icon>
-          </Input>
+          <input type="password" size="large" v-model="formInline.password" placeholder="密码" class="formitem">
+          </input>
           <!-- <input type="password" v-model="formInline.password" placeholder="密码" class="formitem"> -->
         </Form-item>
-        <Form-item style="margin-bottom:0">
-          <div class="warn"></div>
+        <Form-item style="height:53px;linge-height:53px;margin-bottom:0;">
+          <div class="warn">welcome</div>
         </Form-item>
-        <Form-item style="margin-bottom:30px">
-          <Button type="primary" @click="handleSubmit('formInline')" class="formitem btn">登录</Button>
+        <Form-item style="margin-bottom:24px">
+          <button type="primary" @click="handleSubmit('formInline')" class="formitem btn">登录</button>
         </Form-item>
-        <Form-item style="margin-bottom:0">
+        <Form-item style="margin:0 auto;width:300px">
           <Row class="bottom">
             <!-- <Col span="8">
                 <a href="javascript:;" @click="Register()">注册账户</a>
                 </Col> -->
-            <Col span="12" style='text-align:right;padding-right:10px'>
-            <a href="javascript:;">忘记密码</a>
+            <Col span="12" style='text-align:left;font-size:20px;color:#aeaeae'>
+            忘记密码
             </Col>
-            <Col span="11" style='text-align:left' offset='1'>
-            <a href="javascript:;">联系客服</a>
+            <Col span="12" style='text-align:right;font-size:20px;color:#aeaeae'>
+            联系客服
             </Col>
           </Row>
         </Form-item>
@@ -60,7 +56,6 @@ export default {
   name: 'Login',
   data() {
     return {
-      onOFF: false,
       formInline: {
         username: '',
         password: '',
@@ -84,7 +79,7 @@ export default {
   },
   methods: {
     handleSubmit(name) {
-      this.$emit('close', this.onOFF)
+      // this.$emit('close', this.onOFF)
       this.$refs[name].validate((valid) => {
         if (valid) {
           const param = JSON.parse(JSON.stringify(this.formInline))
@@ -115,8 +110,9 @@ export default {
         }
       })
     },
-    handleClick(type, onOff) {
-      this.$emit('close', false)
+    handleClick() {
+      console.log(1)
+      this.$emit('close',false)
     }
   },
   created() {
@@ -150,29 +146,34 @@ export default {
 .loginmainpanel
   width:100%
   background:#fff
-  padding:10px
   position :relative
   .formitem
-    width:80%
+    width:300px
     margin:0 auto
     border:none
     color:#aeaeae
-    font-size :22px
+    font-size :20px
+    height 60px
+    background #f6f6f6
+    padding-left 34px
+    line-height 60px
   .btn
     color:#fff
-    height:40px
-    line-height:40px
+    height:60px
+    width 300px
+    line-height:60px
     font-family :"微软雅黑"
-    background-color :#7454ff
+    background-color :#3993eb
     font-size :20px
     text-align :center
     margin:0
     padding:0
+    cursor pointer
   .log
-    width:50px
-    height auto
+    width:100%
+    height 158px
     margin:0 auto
-    margin-bottom :10px
+    margin-bottom 16px
     img
       width:100%
   .warn
@@ -196,4 +197,5 @@ export default {
     right:0
     top:0
     cursor :pointer
+    z-index 3000
 </style>
