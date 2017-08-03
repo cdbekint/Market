@@ -43,29 +43,32 @@
     </div>
   
     <div class="main_detail" v-if="currentPage==0 && !notDetail">
-      <img src="/static/images/company/fanhui.png" @click="returnGoodsList" class="detail_return">
-      <div class="detail_bg">
-        <Carousel autoplay>
-          <Carousel-item class="swiperItem" v-for="slide,index in currentGoods.images" :key="index">
-            <div class="carouselitem">
-              <img :src="murl+slide" alt="">
-            </div>
-          </Carousel-item>
-        </Carousel>
-      </div>
-  
-      <div class="detail_text">
-        <div class="text_main">
-          <span class="main_title">{{currentGoods.name}}</span>
-          <div class="main_coll">
-            <span>已售{{currentGoods.saleNum}}件</span>
-            <span>库存{{currentGoods.storageNum}}件</span>
+      <div class="main_detail_buy">
+        <div class="detail_back" @click="returnGoodsList">
+          <img src="/static/images/company/fanhui.png">
+        </div>
+        <div class="detail_bg">
+          <div class="carouselitem">
+            <img :src="murl+currentGoods.images[0]" alt="">
           </div>
         </div>
-        <div class="detail_btn" @click="payGoods">
-          <span v-if="!payState">{{ids.discount?ids.discount+'折':''}}立即购买</span>
-          <span v-else>
-            <Icon type="ios-checkmark-outline" size="23" style="margin-right:10px"></Icon>购买成功</span>
+        <div class="detail_text">
+          <div class="text_main">
+            <span class="main_title">{{currentGoods.name}}</span>
+            <div class="main_coll">
+              <span>已售{{currentGoods.saleNum}}件</span>
+              <span>库存{{currentGoods.storageNum}}件</span>
+            </div>
+            <div class="text_jifen">
+              <img src="/static/images/company/jifenTwo.png">
+              <span>{{currentGoods.price }}</span>
+            </div>
+          </div>
+          <div class="detail_btn" @click="payGoods">
+            <span v-if="!payState">{{ids.discount?ids.discount+'折':''}}立即购买</span>
+            <span v-else>
+              <Icon type="ios-checkmark-outline" size="23" style="margin-right:10px"></Icon>购买成功</span>
+          </div>
         </div>
       </div>
   
@@ -465,6 +468,7 @@ export default {
             desc: this.util.escapeToHtml(row.goodsDesc),
             goodsType: row.goodsType
           }
+          console.log(this.currentGoods)
           if (this.ids.discount) {
             console.log(this.ids.discount)
             console.log(this.currentGoods.price)
@@ -1017,7 +1021,9 @@ export default {
       height rrem(88px)
       display flex
       width 100%
-      border-bottom 4px solid #ff017e
+      font-size rrem(38px)
+      color #434343
+      font-weight 600
       div
         flex 1
         height rrem(80px)
@@ -1356,7 +1362,7 @@ export default {
       // background #fff;
       position relative
       .main_detail_buy
-        padding-bottom rrem(43px)
+        padding-bottom rrem(20px)
         margin-bottom rrem(20px)
         background #fff
         box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
@@ -1371,7 +1377,7 @@ export default {
             img
               width:100%
               height 100%
-        .detail_return
+        .detail_back
           position absolute
           top rrem(35px)
           left rrem(35px)
@@ -1380,13 +1386,13 @@ export default {
           box-shadow 0 2px 20px 0px rgba(0,0,0,.2)  
           z-index:2
           border-radius 50%
+          img
+            width 100%
         .detail_text
           width 93%
-          height rrem(100px)
           margin rrem(40px) auto
-          display flex
           .text_main
-            flex 4
+            position relative
             .main_title_other
               color #000
               font-weight 400
@@ -1406,11 +1412,14 @@ export default {
             border 2px solid #ff007e
             height rrem(80px)
             // margin-top rrem(10px)
-            flex 2
+            width rrem(335px)
             border-radius 20px
             display flex
             justify-content center
             align-items center
+            position absolute
+            right 0
+            top 0
             img
               width rrem(55px)
               height rrem(55px)
@@ -1418,17 +1427,18 @@ export default {
             span
               color #ff007e
               font-weight bold
-              font-size rrem(30px)
-              line-height rrem(55px)
-              height rrem(55px)
+              font-size rrem(36px)
+              line-height rrem(72px)
+              height rrem(72px)
         .detail_btn
-          width 93%
-          height rrem(130px)
-          line-height rrem(130px)
+          width rrem(920px)
+          height rrem(125px)
+          line-height rrem(125px)
           text-align center
           font-weight bold
           color #fff
           margin auto
+          margin-top rrem(20px)
           font-size rrem(54px)
           background #ff007e
       .detail_html

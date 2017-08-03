@@ -1,16 +1,16 @@
 <template>
   <div :class='[changeSkin.activeClass]'>
-    <music :url='music' :skinState='skin'></music>
+    <music :url='music' :skinState='activity.skin'></music>
     <companyHead :companyId="activity.companyId"></companyHead>
     <mainImg :activity="activity" @showRule="showRuleNote"></mainImg>
     <activityrule :activity="activity"></activityrule>
-    <timeAndPro :activity="activity" :skinState='skin'></timeAndPro>
+    <timeAndPro :activity="activity" :skinState='activity.skin'></timeAndPro>
     <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect" :skinState='skin'></goodsList>
-    <joinPeople :activity="activity" :skinState='skin'></joinPeople>
-    <Gift :activity="activity" :skinState='skin'></Gift>
-    <Group :activity="activity" v-if="isGroup" :skinState='skin'></Group>
-    <Discount :activity="activity" :skinState='skin'></Discount>
-    <Money :activity="activity" :skinState='skin'></Money>
+    <joinPeople :activity="activity" :skinState='activity.skin'></joinPeople>
+    <Gift :activity="activity" :skinState='activity.skin'></Gift>
+    <Group :activity="activity" v-if="isGroup" :skinState='activity.skin'></Group>
+    <Discount :activity="activity" :skinState='activity.skin'></Discount>
+    <Money :activity="activity" :skinState='activity.skin'></Money>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
     <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 1000;">
       <img :src="changeSkin.realValue">
@@ -123,7 +123,7 @@ export default {
         activityMain: 'activityMain2',
         activityMainColor: 'activityMain2 activityMaincolor',
       },
-      skin: 5,
+      // skin: 5,
       isLoading: false,
       comState: "com",
       homeState: "home",
@@ -176,7 +176,7 @@ export default {
         returnEndDate: '',
         returnPointsRankInfo: [],
         returnStartDate: '',
-
+        skin:0,
         shareDes: '这是分享描述',
         shareGift: 1,
         shareImg: '',
@@ -256,32 +256,6 @@ export default {
       this.http.get(this.$store.state.prefix + requesturl).then(res => {
         if (res.error == false) {
           this.activity = res.result;
-          this.skin = this.activity.skin
-          if (this.skin == 1) {
-            this.changeSkin.activeClass = this.changeStyle.activityMain
-            this.changeSkin.realValue = this.imgUrl.img
-            this.changeSkin.realBgUrl = this.btnUrl.btn
-          } else if (this.skin == 2) {
-            this.changeSkin.activeClass = this.changeStyle.activityMainColor
-            this.changeSkin.realValue = this.imgUrl.imgColor
-            this.changeSkin.realBgUrl = this.btnUrl.btnColor
-          } else if (this.skin == 3) {
-            this.changeSkin.activeClass = this.changeStyle.activityMainColor
-            this.changeSkin.realValue = this.imgUrl.imgPink
-            this.changeSkin.realBgUrl = this.btnUrl.btnPink
-          } else if (this.skin == 4) {
-            this.changeSkin.activeClass = this.changeStyle.activityMainColor
-            this.changeSkin.realValue = this.imgUrl.imgGolden
-            this.changeSkin.realBgUrl = this.btnUrl.btnGolden
-          } else if (this.skin == 5) {
-            this.changeSkin.activeClass = this.changeStyle.activityMainColor
-            this.changeSkin.realValue = this.imgUrl.imgBlue
-            this.changeSkin.realBgUrl = this.btnUrl.btnBlue
-          } else {
-            this.changeSkin.activeClass = this.changeStyle.activityMain
-            this.changeSkin.realValue = this.imgUrl.img
-            this.changeSkin.realBgUrl = this.btnUrl.btn
-          }
           if (this.activity.activityType == 2)
             this.isGroup = true
           else
@@ -540,6 +514,39 @@ export default {
       var activity = JSON.parse(JSON.stringify(this.activity))
       activity.showrule = true
       this.activity = activity
+    }
+  },
+  mounted() {
+  },
+  watch: {
+    activity(val) {
+      console.log(this.activity.skin)
+      this.changeSkin = JSON.parse(JSON.stringify(this.changeSkin))
+      if (val.skin == 1) {
+        this.changeSkin.activeClass = this.changeStyle.activityMain
+        this.changeSkin.realValue = this.imgUrl.img
+        this.changeSkin.realBgUrl = this.btnUrl.btn
+      } else if (val.skin == 2) {
+        this.changeSkin.activeClass = this.changeStyle.activityMainColor
+        this.changeSkin.realValue = this.imgUrl.imgColor
+        this.changeSkin.realBgUrl = this.btnUrl.btnColor
+      } else if (val.skin == 3) {
+        this.changeSkin.activeClass = this.changeStyle.activityMainColor
+        this.changeSkin.realValue = this.imgUrl.imgPink
+        this.changeSkin.realBgUrl = this.btnUrl.btnPink
+      } else if (val.skin == 4) {
+        this.changeSkin.activeClass = this.changeStyle.activityMainColor
+        this.changeSkin.realValue = this.imgUrl.imgGolden
+        this.changeSkin.realBgUrl = this.btnUrl.btnGolden
+      } else if (val.skin == 5) {
+        this.changeSkin.activeClass = this.changeStyle.activityMainColor
+        this.changeSkin.realValue = this.imgUrl.imgBlue,
+        this.changeSkin.realBgUrl = this.btnUrl.btnBlue
+      } else {
+        this.changeSkin.activeClass = this.changeStyle.activityMain
+        this.changeSkin.realValue = this.imgUrl.img
+        this.changeSkin.realBgUrl = this.btnUrl.btn
+      }
     }
   }
 }
