@@ -332,7 +332,7 @@ export default {
         consumeInfoOk: true,
         jifenOk: true,
       },
-      addNum: 2, //每次加载多少
+      addNum: 12, //每次加载多少
       donePage: { //当前页数
         activityPage: 0,
         memberPage: 0,

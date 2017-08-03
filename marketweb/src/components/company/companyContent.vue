@@ -109,7 +109,7 @@
            <div class="errorInfo text-left" v-text="createAccount.errormsg" v-if="createAccount.errormsg">
            </div>
            <div>
-             <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'分并注册'" @click="createMarketAccount()"></Button>
+             <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'积分并注册'" @click="createMarketAccount()"></Button>
            </div>
            <div class="mention">
              <ul>
@@ -124,6 +124,10 @@
           <img :src="murl+currentRenew.img" alt="">
           <div class="renewMarketcontent">
           <div class="displayflexcolumn ">
+          <div class="displayflex renewMarketitem">
+              <div class="flex1" v-text="currentRenew.title" style="text-align: center;font-size:1.1em;font-weight: bolder;"></div>
+              
+            </div>
             <div class="displayflex renewMarketitem">
               <div class="flex1">公司名称</div>
               <div class="flex2" v-text="currentRenew.company.companyName"></div>
@@ -137,20 +141,8 @@
               <div class="flex2" v-text="currentRenew.month+'月'"></div>
             </div>
           </div>
-           <!--  <div class="renewMarketitem">
-              <span>账&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp户</span>:
-              <span>巴黎春天</span>
-            </div>
-            <div class="renewMarketitem">
-              <span>到期时间</span>:
-              <span style="color:#434343;font-weight:bold">巴黎春天</span>
-            </div>
-            <div class="renewMarketitem">
-              <span>续费时长</span>:
-              <span style="color:#fe017e;font-weight:bold">巴黎春天</span>
-            </div> -->
             <div class="btn">
-              <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'分续费'">支付5分续费</Button>
+              <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'积分续费'" @click="renewMarketAccount()"></Button>
             </div>
           </div>
         </div>
@@ -720,6 +712,17 @@ export default {
        })
 
 
+    },
+    renewMarketAccount(){
+       var param=JSON.parse(JSON.stringify(this.currentRenew))
+       this.http.post(this.$store.state.prefix+"/pay",{businessId:param.id,payType:8,payAmount:param.price,companyId:this.ids.companyId,remarks:'用户'+this.util.getCookie("ownId")+param.title}).then(res=>{
+          if(res.error==false){
+             this.$Message.success("续费成功")
+             this.showSystem=false
+          }else{
+            this.$Message.error(res.msg)
+          }
+       })
     }
   },
   mounted() {
@@ -1297,17 +1300,14 @@ export default {
           img
             width:100%
           .renewMarketcontent
-            position:absolute
             top rrem(100px)
-            width 80%
-            left 10%
-            height rrem(1023px)
-            margin-top rrem(76px)
-            background:rgba(0,0,0,0.4)
+            width 100%
+            margin-top rrem(20px)
+            /*background:rgba(0,0,0,0.2)*/
+            padding rrem(100px)
             .renewMarketitem
               height rrem(88px)
               line-height rrem(88px)
-              color #fff
               font-size rrem(36px)
               text-align left
               padding-left rrem(85px)

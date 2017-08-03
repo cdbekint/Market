@@ -5,7 +5,7 @@
     <mainImg :activity="activity" @showRule="showRuleNote"></mainImg>
     <activityrule :activity="activity"></activityrule>
     <timeAndPro :activity="activity" :skinState='activity.skin'></timeAndPro>
-    <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect" :skinState='skin'></goodsList>
+    <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect" :skinState='activity.skin'></goodsList>
     <joinPeople :activity="activity" :skinState='activity.skin'></joinPeople>
     <Gift :activity="activity" :skinState='activity.skin'></Gift>
     <Group :activity="activity" v-if="isGroup" :skinState='activity.skin'></Group>
@@ -39,26 +39,36 @@
       </p>
       <p class="modelPicone">
         <img src="/static/images/company/jifenTwo.png">
-        <span>昨日收益积分</span>
-        <span class="model_money">(3.1元)</span>
+        <span>昨日收益{{pointMention.allPoints}}积分</span>
+        <span class="model_money">({{pointMention.allMoney}}元)</span>
       </p>
+      <p style="text-align:center">昨日在《{{pointMention.companyInfo.companyName}}》获得的积分</p>
       <div class="modelTableone">
         <ul>
           <li>邀请好友注册会员</li>
-          <li>50分/人</li>
-          <li>400分</li>
+          <li>{{pointMention.companyInfo.invitedPoints}}分/人</li>
+          <li>{{pointMention.invitedMemPoints}}分</li>
           <li>转发有效活动链接</li>
           <li>
-            <span>5分/人</span>
-            <span>3次/日</span>
+            <span>{{pointMention.companyInfo.sharePoints}}分/次</span>
+            <span>({{pointMention.shareTimes}}/{{pointMention.companyInfo.shareMax}}日)</span>
           </li>
-          <li>10分</li>
-          <li>下次消费提成</li>
+          <li>{{pointMention.sharePoints}}分</li>
+          <li>消费返还</li>
           <li>
-            <span>一级/5%</span>
-            <span>二级/3%</span>
+            <span>{{pointMention.companyInfo.selfReturn/100}}%</span>
           </li>
-          <li>200分</li>
+          <li>{{pointMention.oneInvitedPoints}}分</li>
+          <li>一级消费提成</li>
+          <li>
+            <span>{{pointMention.companyInfo.oneReturn/100}}%</span>
+          </li>
+          <li>{{pointMention.oneInvitedPoints}}分</li>
+          <li>二级消费提成</li>
+          <li>
+            <span>{{pointMention.companyInfo.secondReturn/100}}%</span>
+          </li>
+          <li>{{pointMention.secondInvitedPoints}}分</li>
         </ul>
       </div>
       <p slot="footer" class="modelBackone" @click="LoginSuccess=false">我知道了</p>
@@ -191,7 +201,16 @@ export default {
       music: '',
       weixinConfig: {},
       inviter: {},
-      hasGroup: false
+      hasGroup: false,
+      pointMention:{
+        companyInfo:{},
+        invitedMemNum:0,
+        invitedMemPoints:0,
+        oneInvitedPoints:0,
+        secondInvitedPoints:0,
+        sharePoints:0,
+        shareTimes:0
+      }
     }
   },
   components: { mainImg, timeAndPro, Discount, companyHead, Gift, Group, Money, joinPeople, goodsList, register, music, activityrule },
@@ -222,7 +241,6 @@ export default {
       if (res.error === false) {
         this.userInfo = res.result;
         this.$store.state.account=res.result.account
-        this.LoginSuccess = true
         if (this.userInfo.customer.member == 1) {
           this.$store.state.isMember = 1;
           this.currentState = false;
@@ -282,6 +300,7 @@ export default {
             }
             //this.getInviterInfo()
           }
+          this.getPointRecord()//获取积分记录
         }
       }).then(() => {
         if (this.activity.musicId != void 0 && this.activity.musicId != '') {
@@ -514,7 +533,49 @@ export default {
       var activity = JSON.parse(JSON.stringify(this.activity))
       activity.showrule = true
       this.activity = activity
-    }
+    },
+    getPointRecord(){
+    debugger
+      var loadHistory=localStorage.getItem("pointMention")?localStorage.getItem("pointMention").split(","):[]
+      var companyId=this.activity.companyId
+      var thisDay=this.util.getDate()
+      var isExist=false
+      if(loadHistory.length>0){
+        for(var i=0;i<loadHistory.length;i++){
+         debugger
+          if(new Date(loadHistory[i].split("|")[0]).getTime()<new Date(thisDay).getTime()){
+            loadHistory.splice(i,1)
+            i--
+          }
+          if(loadHistory[i]==(thisDay+"|"+companyId)){
+            isExist=true
+            break
+          }
+        }
+        }else{
+          loadHistory.push(thisDay+"|"+companyId)
+        }
+      
+
+      if(isExist==false){
+        this.http.get(this.$store.state.prefix+"/home/getUserObtainPointsInfo?companyId="+companyId).then(res=>{
+          if(res.error==false){
+            if(!(loadHistory[0]==(thisDay+"|"+companyId))){
+               loadHistory.push(thisDay+"|"+companyId)
+            }
+            
+            localStorage.setItem("pointMention",loadHistory.join(","))
+            this.pointMention=res.result
+            this.pointMention.allPoints=res.result.invitedMemPoints+res.result.shareTimes+res.result.oneInvitedPoints+res.result.secondInvitedPoints
+            this.pointMention.allMoney=parseFloat(this.pointMention.allPoints*this.pointMention.companyInfo.toCashRate/100).toFixed(2)
+            this.LoginSuccess = true
+          }
+        })
+      }else{
+        localStorage.setItem("pointMention",loadHistory.join(","))
+      }
+
+    },
   },
   mounted() {
   },
@@ -587,7 +648,7 @@ export default {
 
   .modelTableone
     width rrem(920px)
-    height rrem(300px)
+    height rrem(500px)
     line-height rrem(99px)
     color #999999
     font-size rrem(34px)
