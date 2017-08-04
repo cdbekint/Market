@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     getRenewinfo(){
-      this.http.post(this.$store.state.prefix+'/pubInfo/getSystemRenewInfo').then(res=>{
+      this.http.post(this.$store.state.prefix+'/pubInfo/getSystemRenewInfo',{renewType:1,chargeType:1}).then(res=>{
         if(res.error==false){
           res.result.forEach((item)=>{
             item.active=false

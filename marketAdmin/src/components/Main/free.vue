@@ -6,7 +6,7 @@
     </div>
     <div class="qrc">
       <div class="pic">
-         <img src="/static/images/1501645490.png"> 
+         <img src="http://qr.topscan.com/api.php?text=https://market.cdbeki.com?state=9,0"> 
       </div>
       <div class="text">微信扫描二维码体验裂变营销系统</div>
     </div>
@@ -26,6 +26,7 @@ export default {
     width 100%
     background-size 100% 100%
     margin-top 262px
+    margin-bottom:200px
     .inner
       width 1240px
       margin 0 auto

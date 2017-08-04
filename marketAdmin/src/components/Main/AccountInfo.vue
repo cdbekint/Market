@@ -121,7 +121,6 @@
           </Row>
           <Row style="text-align:center">
             账户余额=提现前余额 - 提现金额 ×（1+提现手续费）
-
           </Row>
           <Row style="text-align:center">
             {{parseFloat(companyinfo.balance-Number(withdrawMoney)*(1+rate/100)).toFixed(2)}}={{companyinfo.balance}} - {{Number(withdrawMoney)}}*(1+{{rate}}%)
@@ -154,7 +153,7 @@ export default {
       weixinpayModal: false,
       binduserModal:false,
       withdrawModal: false,
-      rate:3.6,//提现手续费
+      rate:this.$store.state.rate,//提现手续费
       employeeColumn:[
         {
            type: 'selection',

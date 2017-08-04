@@ -18,7 +18,7 @@
           <router-link :to="{path:'/'}" tag="dd" active-class="active" exact>主页</router-link>
           <router-link :to="{path:'/company'}" tag="dd" active-class="active" exact>公司基本信息</router-link>
           <router-link :to="{path:'/authentic'}" tag="dd" active-class="active" exact>企业认证</router-link>
-          <router-link :to="{path:'/union'}" tag="dd" active-class="active" exact>商家联盟</router-link>
+          <!-- <router-link :to="{path:'/union'}" tag="dd" active-class="active" exact>商家联盟</router-link> -->
   
         </dl>
   
@@ -70,7 +70,7 @@
       <vmedia></vmedia>
        <news :news='lists'></news> 
       <free @register='show'></free>
-      <system></system> 
+      <!-- <system></system>  -->
     </div>
     <vfooter></vfooter>
   </div>
@@ -103,28 +103,28 @@ export default {
       },
       lists: [
         {
-          title: '互联网传播,无需发传单',
-          text: '裂变营销系统基于互联网传播，客源来自网络，直接省去发传单的设计费用，物料费用，人力费用',
+          title: '前雇员联盟',
+          text: '所有的员工与企业形成联盟体，离开的员工更是企业的一笔宝贵的财富',
         },
         {
-          title: '二级分销，增加客户粘性',
-          text: '积分可通过邀请、分享、提成、消费、等赚取，邀请越多，返利越多，诱导客户成为传播者与销售人员',
+          title: '企业客户资源管理',
+          text: '企业的客户资源由企业自由管理，不再受到人为因素的影响',
         },
         {
-          title: '随心所欲制定活动方案',
-          text: '活动相关价格、折扣、赔率、反积分点、持续时间等参数皆可自由设定，你的活动你做主',
+          title: '商家异业联盟',
+          text: '与多行业商家形成会员互惠联盟，给予客户最大的实惠，为异业商家联盟吸纳更多的会员及消费',
         },
         {
-          title: '异业联盟，客户价值最大化',
-          text: '异业商家租成联盟后，客户从任意商家链接进入，都能切换到其他商家店铺',
+          title: '客户员工化',
+          text: '客户成为移动广告牌，运用自身资源为企业进行抓单、营销。客户积极主动去寻找身边资源，比企业销售人员销售效率和成交率高百倍',
         },
         {
-          title: '多种价格模式的在线商城',
-          text: '系统内置在线商城、现金、积分、组合商品随意上架、客户任凭积分可换购或提现',
+          title: '吸纳客户神器',
+          text: '二级分销模式让客户呈现指数级增长，1变2，2变4，4变16，…………；让您的客户迅速暴增',
         },
         {
-          title: '客户体现即时到账',
-          text: '积分体现即时到账，凸显商家的真实性与权威性，让客户更加放心的去推广，宣传',
+          title: '最夯营销工具',
+          text: '团购，秒杀，红包，众筹等一系列的活动工具陆续上线中，你不是没有市场，只是缺少一个营销工具。',
         }
       ]
     }

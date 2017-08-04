@@ -7,10 +7,12 @@
         </div>
         <div class="inforight cyan">
         <div class="flex1">
-        	今日收入:3384元（30笔）
+        	今日收入:{{baseinfo.income}}元
 
         </div>
-        <div class="flex1">累计收入：9999999元</div>
+        <div class="flex1">自主账户收入：{{companyinfo.mcBalance}}元<Tooltip placement="top" content="收入已入帐到您的微信商户平台">
+              <Icon type="ios-help-outline" size="20"></Icon>
+          </Tooltip></div>
           
         </div>
       </div>
@@ -19,13 +21,13 @@
       <div class="infocontanier">
        <div class="inforight cyan">
           <div class="flex1">
-          	代收余额:2308元
-          	<Tooltip placement="top" content="未通过自有微信商户中心的营收款项">
+          	代收余额:{{companyinfo.balance}}元
+          	<Tooltip placement="top" content="收入由服务提供商代收，可提现">
 			       	<Icon type="ios-help-outline" size="20"></Icon>
 			    </Tooltip>
           </div>
-          <div class="flex1">
-          	提现
+          <div class="flex1 operatebtn">
+          	<a href="javascrpit:;" @click="withdrawModal=true">代收提现</a>
           </div>
         </div>
          <div class="infoleft">
@@ -39,16 +41,20 @@
        </div>
        <div class="inforight cyan">
           <div class="flex1">
-          	账户余额：3240元
+          	账户余额：{{companyinfo.mbBalance}}元
+            <Tooltip placement="top" content="用于客户提现">
+              <Icon type="ios-help-outline" size="20"></Icon>
+          </Tooltip>
           </div>
           <div class="flex1">
-          	今日提现:2340元
+          	客户已提现:{{baseinfo.userWithdraw}}元
           </div>
           <div class="flex1">
-          	今日注册:10人
+          	今日注册:{{baseinfo.newCustomerNum}}人
           </div>
           <div class="flex1">
-          	充值  提现
+            <a href="javascrpit:;" @click="weixinpayModal=true">余额充值</a>
+          	  <!-- 提现 -->
           </div>
         </div>
       </div>
@@ -59,16 +65,19 @@
        </div>
        <div class="inforight thinred">
           <div class="flex3">
-          	帐户有效期:2017-07-29 15:37:42(134天)
+          	帐户有效期:{{util.getFormatDate(companyinfo.expireDate)}}({{~~((new Date(companyinfo.expireDate).getTime()-Date.now())/1000/3600/24)}}天)
           </div>
           <div class="flex1">
-          	正式会员
+          	<span v-if="companyinfo.companyFlag==1">正式会员</span>
+            <a href="javascrpit:;" v-else @click="renewModal=true">非正式会员，续费成为正式会员</a>
           </div>
           <div class="flex1">
-          	未企业认证
+            <span v-if="companyinfo.authentic==1">企业认证</span>
+            <router-link :to="{path:'/authentic'}" v-else>未进行企业认证，去认证</router-link>
           </div>
           <div class="flex1">
-          	续费
+            <a href="javascrpit:;" @click="renewModal=true">续费</a>
+          	
           </div>
         </div>
       </div>
@@ -289,16 +298,99 @@
       <div id="echartzone" class="echartwrapper" style="height:400px;width:100%">
       </div>
     </Row>
+     <Modal
+      v-model="weixinpayModal"
+      title="账户充值">
+      <weixinPay :wrapper="'weixinpayModal'" :company="companyinfo"></weixinPay>
+       <div slot="footer" class="text-left">
+        <Icon type="ios-information-outline"></Icon>本平台通过微信充值
+      </div>
+  </Modal>
+  <Modal
+      v-model="renewModal"
+      title="账户续期">
+      <renew :wrapper="'renewModal'" :company="companyinfo"></renew>
+       <div slot="footer" class="text-left">
+        <Icon type="ios-information-outline"></Icon>本平台通过微信支付
+      </div>
+  </Modal>
+    <Modal
+      v-model="withdrawModal"
+      title="账户提现">
+      <div class="modal-content">
+          <Row>
+          <Col span="8" offset="8" style="font-size:1.5em">
+            当前代收余额: <span v-text="companyinfo.balance">元</span>
+          </Col>
+              
+          </Row>
+          <Row>
+           <Col span="8" offset="8" style="font-size:1.5em">
+              <Input-number :max="20000" :min="1" v-model="withdrawMoney" style="width:100%" placeholder="输入提现金额" ></Input-number>
+          </Col>
+          <Col span="4">
+               <Button type="success" @click="withDraw()">立即提现</Button>
+          </Col>
+          </Row>
+          <Row style="text-align:center">
+            <p>账户余额=提现前余额 - 提现金额,单笔最大提现金额为20000</p> 
+            {{parseFloat(companyinfo.balance-Number(withdrawMoney)).toFixed(2)}}={{companyinfo.balance}} - {{Number(withdrawMoney)}}
+            
+
+          </Row>
+          <Row style="text-align:center">
+           <p>到账金额=提现金额（1-手续费）</p>
+           {{parseFloat(Number(withdrawMoney)*(1-rate/100)).toFixed(2)}}={{Number(withdrawMoney)}}*(1-{{rate}}%)
+          </Row>
+      </div>
+       <div slot="footer" class="text-left">
+         <Icon type="ios-information-outline"></Icon>手续费为经过微信商户平台收取的手续费 
+      </div>
+  </Modal>
   </div>
 
 </template>
 
 <script type="text/ecmascript-6">
-
+import weixinPay from '../Util/WeixinPay'
+import renew from '../Util/Renew'
 export default {
   name: 'Dashboard',
+  components:{ weixinPay, renew},
   data () {
     return {
+      weixinpayModal: false,
+      binduserModal:false,
+      withdrawModal: false,
+      renewModal:false,
+      rate:this.$store.state.rate,
+      withdrawMoney:1,
+      companyinfo: {
+        account:{
+          realName:'',
+          nickName:'',
+          headImg:'',
+          phone:''
+        },
+        balance:0,
+        mbBalance:0,
+        mcBalance:0,
+        companyName: '',
+        companyDesc: '',
+        companyTel: '',
+        companyLogo: '',
+        smsTel:'',
+        toCashRate: 0,
+        employeeRate: '',
+        sharePoints:0,
+        shareMax: 1,
+        registerMoney:0,
+        registerPoints:0,
+        selfReturn:0,
+        oneReturn:0,
+        secondReturn:0,
+        overDate: '2017-12-30'
+      },
     	baseinfo:{
 				balance:0,
 				customerNum:0,
@@ -313,6 +405,9 @@ export default {
     }
   },
   created () {
+    if (this.$store.state.companyId) {
+      this.getCompanyinfo()
+    }
   	this.getBaseInfo()
     this.getPayTend()
 
@@ -329,6 +424,45 @@ export default {
   			}
   		})
   	},
+    getCompanyinfo () {
+      this.http.get(this.$store.state.prefix + '/company/' + this.$store.state.companyId).then(res => {
+        if (res.error === false) {
+          if (res.result !== null) {
+
+            //判断是否具有提现账户信息，没有就设置account信息。
+            if(res.result.account==undefined){
+              res.reuslt.account={
+                realName:'',
+                nickName:'',
+                headImg:'',
+                phone:''
+              }
+            }
+            res.result.employeeRate=res.result.employeeRate?JSON.parse(res.result.employeeRate):[]
+            this.companyinfo = res.result
+            this.companyinfo.expireDays=~~((this.companyinfo.expireDate-Date.now())/1000/3600/24)
+            this.companyinfo.expireDate = this.util.getFormatDate(this.companyinfo.expireDate)
+            this.companyinfo.show = this.util.escapeToHtml(this.companyinfo.show)
+            this.Group = this.companyinfo.employeeRate
+          }
+        }
+      })
+    },withDraw() {
+        if(this.companyinfo.balance-Number(this.withdrawMoney) < 0) {
+          this.$Message.error("提现金额过大,请重新修改金额再提现")
+          return
+        }
+        this.http.post(this.$store.state.prefix + '/withdraw', {withdrawType:2,withdrawAmount:this.withdrawMoney,companyId:this.util.getCookie("companyId")}).then(res => {
+          if(res.error === false) {
+            this.$Notice.info({title:"请求已发送",desc:"请求已发送到服务商，正在快速审核中"})
+            this.getCompanyinfo()
+            this.withdrawModal=false
+            this.withdrawMoney = 0
+          } else {
+            this.$Message.error(res.msg)
+          }
+        })
+    },
     getPayTend(){
       var param={
         companyId:this.util.getCookie("companyId"),
@@ -408,7 +542,6 @@ export default {
 .dashboard
   padding:10px
   .infos
-    display:none
   	padding:10px
   	div
 	  	.infocontanier

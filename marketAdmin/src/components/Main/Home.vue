@@ -117,9 +117,9 @@
                 <Form-item label="账户余额" class="text-left">
                   <span v-text="companyinfo.balance+'元'"></span>
                 </Form-item>
-                <Form-item label="账户邀请码" class="text-left">
+                <!-- <Form-item label="账户邀请码" class="text-left">
                    <span v-text="companyinfo.selfInvitationCode" v-if="companyinfo.authentic==1" style="font-size:1.2em;font-weight:bolder;color:red"></span><span v-if="companyinfo.authentic!=1">通过企业认证获得邀请码</span>（邀请企业注册并认证成功即可获得30天账户有效期）
-                </Form-item>
+                </Form-item> -->
                 <Form-item label="账户有效期" class="text-left">
                    <span v-text="companyinfo.expireDate+'('+companyinfo.expireDays+'天)'"></span>
                 </Form-item>
@@ -148,7 +148,7 @@
                       <span v-text="~~companyinfo.balance"></span>元
                     </div>
                     <div class="downcontent">
-                        <Button type="warning" @click="withdrawModal=true">申请提现</Button>
+                        <Button type="warning" @click="withdrawModal=true">代收提现</Button>
                     </div>
                   </div>
                 </div>
@@ -171,12 +171,13 @@
                 <div class="accountcontent renewinfocontent">
                   <div class="flex1">
                       <div style="width:100%;height:60px;line-height:60px;font-size:1.5em;color:#A7CD60;text-align:center;font-weight:bolder">
-                      <span v-text="~~companyinfo.balance"></span>元
+                      <span v-text="~~companyinfo.mbBalance"></span>元
                       </div>
                       <div style="width:100%;height:40px;line-height:40px">账户余额</div>
                     </div>
-                    <div class="flex1" style="line-height:100px">
+                    <div class="flex1" style="line-height:50px">
                       <Button type="info" @click="weixinpayModal=true">账户充值</Button>
+                       <Button type="warning" @click="weixinpayModal=true">账户提现</Button>
                     </div>
                 </div>
               </Col>
@@ -231,7 +232,7 @@
       <div class="modal-content">
           <Row>
           <Col span="8" offset="8" style="font-size:1.5em">
-            当前账户余额: <span v-text="companyinfo.balance"></span>
+            当前代收余额: <span v-text="companyinfo.balance">元</span>
           </Col>
               
           </Row>
@@ -244,11 +245,14 @@
           </Col>
           </Row>
           <Row style="text-align:center">
-            账户余额=提现前余额 - 提现金额 ×（1+提现手续费）,单笔最大提现金额为20000
+            <p>账户余额=提现前余额 - 提现金额,单笔最大提现金额为20000</p> 
+            {{parseFloat(companyinfo.balance-Number(withdrawMoney)).toFixed(2)}}={{companyinfo.balance}} - {{Number(withdrawMoney)}}
+            
 
           </Row>
           <Row style="text-align:center">
-            {{parseFloat(companyinfo.balance-Number(withdrawMoney)*(1+rate/100)).toFixed(2)}}={{companyinfo.balance}} - {{Number(withdrawMoney)}}*(1+{{rate}}%)
+           <p>到账金额=提现金额（1-手续费）</p>
+           {{parseFloat(Number(withdrawMoney)*(1-rate/100)).toFixed(2)}}={{Number(withdrawMoney)}}*(1-{{rate}}%)
           </Row>
       </div>
        <div slot="footer" class="text-left">
@@ -272,7 +276,7 @@ export default {
       binduserModal:false,
       withdrawModal: false,
       renewModal:false,
-      rate:3.6,//提现手续费
+      rate:this.$store.state.rate,//提现手续费
       companyinfo: {
         account:{
           realName:'',

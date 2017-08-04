@@ -1,7 +1,10 @@
 <template>
   <div class="media_content">
     <div class="media">
-      <img src="/static/images/media.png">
+    <video poster="/static/images/media.png" controls="true" preload="auto">
+      <source src="https://m.market.cdbeki.com//system/Marketing.mp4" type="video/mp4">
+      您的浏览器暂时不支持此视频，请换用chrome浏览器
+    </video>
     </div>
     <div class="bg"></div>
   </div>
@@ -27,7 +30,7 @@ export default {
     left 64px
     z-index 100
     box-shadow 0 6px 29px 0px rgba(0,0,0,.1)
-    img
+    video
       width 100%
   .bg
     width 1400px

@@ -58,6 +58,26 @@
 
           </div>
         </li>
+         <li>
+        <div class="addname">
+          活动页面皮肤*
+        </div>
+        <div class="addcontent">
+           <Radio-group v-model="activity.skin" type="button">
+            <Radio label="2" style="padding:0px;margin-right:10px"><img src="/static/images/skin/skin1.png" alt="" style="height:100%;margin:0px"></Radio>
+            <Radio label="3" style="padding:0px;margin-right:10px"><img src="/static/images/skin/skin2.png" alt="" style="height:100%;margin:0px"></Radio>
+
+            <Radio label="4" style="padding:0px;margin-right:10px"><img src="/static/images/skin/skin3.png" alt="" style="height:100%;margin:0px"></Radio>
+
+            <Radio label="5" style="padding:0px;margin-right:10px"><img src="/static/images/skin/skin4.png" alt="" style="height:100%;margin:0px"></Radio>
+
+          </Radio-group>
+          <a :href="'/static/images/skin/show'+activity.skin+'.jpg'" target="_blank">查看案例</a>
+        </div>
+        <div class="addnote">
+        活动页面的颜色系列
+        </div>
+      </li>
         <li>
           <div class="addname">
             顶部大图*

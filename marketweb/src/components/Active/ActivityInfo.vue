@@ -535,7 +535,6 @@ export default {
       this.activity = activity
     },
     getPointRecord(){
-    debugger
       var loadHistory=localStorage.getItem("pointMention")?localStorage.getItem("pointMention").split(","):[]
       var companyId=this.activity.companyId
       var thisDay=this.util.getDate()
