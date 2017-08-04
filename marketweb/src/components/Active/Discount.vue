@@ -15,7 +15,7 @@
 import mainHead from './mainHead.vue'
 export default {
   name: "discount",
-  props: ['activity','skinState'],
+  props: ['activity'],
   components: { mainHead },
   watch: {
     activity: function (val, oldVal) {
@@ -70,7 +70,7 @@ export default {
     }
   },
   created() {
-    this.skin = this.skinState
+    this.skin = localStorage.getItem('skin')
     if (this.skin == 1) {
       this.changeSkin.activeClass = this.changeStyle.discount
       this.changeSkin.realValue = this.value

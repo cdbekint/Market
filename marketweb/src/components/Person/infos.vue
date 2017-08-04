@@ -34,13 +34,14 @@
       </div>
       <Row>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.activityOk && activityInfo.info.length>0">
-        <div @click='doneLoadMore(addNum,activityInfo.info,"activityPage")'>
-          <Spin fix>点击加载更多</Spin>
+        <!-- <div @click='doneLoadMore(addNum,activityInfo.info,"activityPage")'> -->
+        <div @click='doneLoadMore("activityPage")'>
+          <Spin fix class="moreStyle">加载更多</Spin>
         </div>
         </Col>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.activityOk && activityInfo.info.length>0">
         <div>
-          <Spin fix>已加载完!</Spin>
+          <Spin fix class="doneStyle">没有更多啦~</Spin>
         </div>
         </Col>
       </Row>
@@ -71,13 +72,14 @@
       <!-- <Button @click='doneLoadMore(2,memberInfo.info,"memberPage")'>点击加载更多</Button> -->
       <Row>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.memberOk && memberInfo.info.length>0">
-        <div @click='doneLoadMore(addNum,memberInfo.info,"memberPage")'>
-          <Spin fix>点击加载更多</Spin>
+        <!-- <div @click='doneLoadMore(addNum,memberInfo.info,"memberPage")'> -->
+        <div @click='doneLoadMore("memberPage")'>
+          <Spin fix class="moreStyle">加载更多</Spin>
         </div>
         </Col>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.memberfoOk && memberInfo.info.length>0">
         <div>
-          <Spin fix>已加载完!</Spin>
+          <Spin fix class="doneStyle">没有更多啦~</Spin>
         </div>
         </Col>
       </Row>
@@ -108,13 +110,14 @@
       <!-- <Button @click='doneLoadMore(2,consumeInfo.info,"consumeInfoPage")'>点击加载更多</Button> -->
       <Row>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if='doneLoad.consumeInfoOk && consumeInfo.info.length>0'>
-        <div @click='doneLoadMore(addNum,consumeInfo.info,"consumeInfoPage")'>
-          <Spin fix>点击加载更多</Spin>
+        <!-- <div @click='doneLoadMore(addNum,consumeInfo.info,"consumeInfoPage")'> -->
+        <div @click='doneLoadMore("consumeInfoPage")'>
+          <Spin fix class="moreStyle">加载更多</Spin>
         </div>
         </Col>
         <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.consumeInfoOk && consumeInfo.info.length>0">
         <div>
-          <Spin fix>已加载完!</Spin>
+          <Spin fix class="doneStyle">没有更多啦~</Spin>
         </div>
         </Col>
       </Row>
@@ -132,14 +135,15 @@
         <span class="item_date" v-text="x.time"></span>
       </div>
       <Row>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.jifenOk && jifenInfo.info.length>0">
-        <div @click='doneLoadMore(addNum,jifenInfo.info,"jifenPage")'>
-          <Spin fix>点击加载更多</Spin>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.jifenOk && doneLoad.jifen.length>0">
+        <!-- <div @click='doneLoadMore(addNum,jifenInfo.info,"jifenPage")'> -->
+        <div @click='doneLoadMore("jifenPage")'>
+          <Spin fix class="moreStyle">加载更多</Spin>
         </div>
         </Col>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.jifenOk && jifenInfo.info.length>0">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.jifenOk && doneLoad.jifen.length>0">
         <div>
-          <Spin fix>已加载完!</Spin>
+          <Spin fix class="doneStyle">没有更多啦~</Spin>
         </div>
         </Col>
       </Row>
@@ -197,68 +201,54 @@ export default {
         this.$emit("getMoreInfoByScroll", this.index, page);
       }
     },
-    // num 加的个数 data 那组的数据 type 那组的数据名
-    doneLoadMore(num, data, type) {
+    handleClick() {
+      this.donePage.jifenPage++
+      this.$emit('loadMore', this.donePage.jifenPage)
+    },
+    doneLoadMore(type) {
       switch (type) {
         case 'activityPage':
-          this.donePage.activityPage += num
-          if (this.donePage.activityPage >= data.length) {
-            this.donePage.activityPage = data.length
+          if (this.donePage.activityPage >= this.activityInfo.total) {
+            this.donePage.activityPage = this.activityInfo.total
             this.doneLoad.activityOk = false
+            return
           }
-          this.doneLoadData(this.donePage.activityPage, this.donePage.activityPage + num, data, type)
+          this.donePage.activityPage++
+          this.$emit('loadMore', this.donePage.activityPage,'activity')
           break
         case 'memberPage':
-          this.donePage.memberPage += num
-          if (this.donePage.memberPage >= data.length) {
-            this.donePage.memberPage = data.length
+          if (this.donePage.memberPage >= this.memberInfo.total) {
+            this.donePage.memberPage = this.memberInfo.total
             this.doneLoad.memberOk = false
+            return
           }
-          this.doneLoadData(this.donePage.memberPage, this.donePage.memberPage + num, data, type)
-          break
-        case 'jifenPage':
-          this.donePage.jifenPage += num
-          if (this.donePage.jifenPage >= data.length) {
-            this.donePage.jifenPage = data.length
-            this.doneLoad.jifenOk = false
-          }
-          this.doneLoadData(this.donePage.jifenPage, this.donePage.jifenPage + num, data, type)
+          this.donePage.memberPage++
+          this.$emit('loadMore', this.donePage.memberPage,'member')
           break
         case 'consumeInfoPage':
-          this.donePage.consumeInfoPage += num
-          if (this.donePage.consumeInfoPage >= data.length) {
-            this.donePage.consumeInfoPage = data.length
+          if (this.donePage.consumeInfoPage >= this.consumeInfo.total) {
+            this.donePage.consumeInfoPage = this.consumeInfo.total
             this.doneLoad.consumeInfoOk = false
+            return
           }
-          this.doneLoadData(this.donePage.consumeInfoPage, this.donePage.consumeInfoPage + num, data, type)
+          this.donePage.consumeInfoPage++
+          this.$emit('loadMore', this.donePage.consumeInfoPage,'consume')
+          break
+        case 'jifenPage':
+          if (this.donePage.jifenPage >= this.jifenInfo.total) {
+            this.donePage.jifenPage = this.jifenInfo.total
+            this.doneLoad.jifenOk = false
+            return
+          }
+          this.donePage.jifenPage++
+          this.$emit('loadMore', this.donePage.jifenPage,'jifen')
           break
       }
     },
-    //page 当前数  num 加的个数 data 那组的数据 type 那组的数据名
-    doneLoadData(page, num, data, type) {
-      let arr = []
-      switch (type) {
-        case 'activityPage':
-          arr = data.slice(page, num)
-          this.doneLoad.activity = [...new Set([...this.doneLoad.activity, ...arr])]
-          break
-        case 'memberPage':
-          arr = data.slice(page, num)
-          this.doneLoad.member = [...new Set([...this.doneLoad.member, ...arr])]
-          break
-        case 'jifenPage':
-          arr = data.slice(page, num)
-          this.doneLoad.jifen = [...new Set([...this.doneLoad.jifen, ...arr])]
-          break
-        case 'consumeInfoPage':
-          arr = data.slice(page, num)
-          this.doneLoad.consumeInfo = [...new Set([...this.doneLoad.consumeInfo, ...arr])]
-          break
-      }
-    }
   },
   created() {
-
+    this.donePage.jifenPage = 1
+    console.log(this.donePage.jifenPage)
     this.menu.forEach((item, index) => {
       var obj;
       if (index == 0) {
@@ -287,16 +277,15 @@ export default {
   // },
   watch: {
     datas: {
-      handler(val) {
+      handler(val, oldVal) {
         this.activityInfo = val.activityInfo;
         this.memberInfo = val.memberInfo;
         this.jifenInfo = val.jifenInfo;
         this.consumeInfo = val.consumeInfo;
-        // console.log(this.consumeInfo.info)
-        this.doneLoadData(0, this.addNum, this.activityInfo.info, 'activityPage')
-        this.doneLoadData(0, this.addNum, this.memberInfo.info, 'memberPage')
-        this.doneLoadData(0, this.addNum, this.jifenInfo.info, 'jifenPage')
-        this.doneLoadData(0, this.addNum, this.consumeInfo.info, 'consumeInfoPage')
+        this.doneLoad.jifen = [...new Set([...this.doneLoad.jifen, ...this.jifenInfo.info])]
+        this.doneLoad.activity = [...new Set([...this.doneLoad.activity, ...this.activityInfo.info])]
+        this.doneLoad.member = [...new Set([...this.doneLoad.member, ...this.memberInfo.info])]
+        this.doneLoad.consumeInfo = [...new Set([...this.doneLoad.consumeInfo, ...this.consumeInfo.info])]
         if (this.activityInfo.info.length >= 12 && (this.activityInfo.total > this.activityInfo.page)) {
           this.currentPageLimit = false;
         }
@@ -320,7 +309,7 @@ export default {
       infoArr: ["activityInfo", "memberInfo", "consumeInfo", "jifenInfo"],
       activityInfo: [],
       memberInfo: [],
-      jifenInfo: [],
+      jifenInfo: {},
       consumeInfo: [],
       doneLoad: {
         activity: [],
@@ -334,10 +323,10 @@ export default {
       },
       addNum: 12, //每次加载多少
       donePage: { //当前页数
-        activityPage: 0,
-        memberPage: 0,
-        jifenPage: 0,
-        consumeInfoPage: 0
+        activityPage: 1,
+        memberPage: 1,
+        jifenPage: 1,
+        consumeInfoPage: 1
       }
     }
   }
@@ -347,6 +336,12 @@ export default {
   rrem(val){
     return (val/108px)rem
   }
+  .moreStyle
+    color #ff017e
+    font-size rrem(30px)
+  .doneStyle
+    color #aeaeae
+    font-size rrem(30px)
   .person_infos
     width 100%
     position relative

@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  props: ['url','skinState'],
+  props: ['url'],
   data() {
     return {
       state: 1,
@@ -35,7 +35,7 @@ export default {
     }
   },
   created () {
-    this.skin = this.skinState
+    this.skin = localStorage.getItem('skin')
     if (this.skin == 1) {
       this.changeSkin.realBgUrl = this.musicImgUrl.musicImg
     } else if (this.skin == 2) {

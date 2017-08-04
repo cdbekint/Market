@@ -7,15 +7,14 @@
 <script type="text/ecmascript-6">
 export default {
   name: 'ProgressMe',
-  props: ['value', 'skinState'],
+  props: ['value'],
   created() {
     if (this.value <= 30) {
       this.count = 30
     } else {
       this.count = this.value
     }
-    this.skin = this.skinState
-    console.log(this.skin)
+    this.skin = localStorage.getItem('skin')
     if (this.skin == 1) {
       this.changeSkin.activeClass = this.changeStyle.progress
     } else if (this.skin == 2) {

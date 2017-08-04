@@ -2,7 +2,7 @@
   <div class="personPage">
     <headTitle @headCompany="getCompanyId" :companyId="currentCompanyId" :companyInfo="personInfo.company"></headTitle>
     <headMoney :Person="personInfo" @freshHead="getCompanyId"></headMoney>
-    <infos :datas="datas"></infos>
+    <infos :datas="datas" @loadMore="getPageNum"></infos>
   </div>
 </template>
 
@@ -96,12 +96,33 @@ export default {
         }
       });
     },
-
+    getPageNum(num,type){
+      switch (type) {
+        case 'activity':
+          this.datas.activityInfo.page = num
+          this.getActiveInfo(this.datas.activityInfo.page)
+          break
+        case 'member':
+          this.datas.memberInfo.page = num
+          this.getInviterInfo(this.datas.memberInfo.page)
+          break
+        case 'consume':
+          this.datas.consumeInfo.page = num
+          this.getConsumeInfo(this.datas.consumeInfo.page)
+          break
+        case 'jifen':
+          this.datas.jifenInfo.page = num
+          this.getUserPointInfo(this.datas.jifenInfo.page)
+          break
+      }
+    },
     getUserPointInfo(page){
       //获取积分记录
-      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" +  this.currentCompanyId+"/" + page).then(res=> {
+      console.log(this.datas.jifenInfo.page)
+      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" +  this.currentCompanyId+"/" + page || 1).then(res=> {
         if(res.error == false){
           var row = res.result;
+          console.log(res.result)
           var arr = [];
           this.datas.jifenInfo.info=[]
           row.records.forEach(item=>{
@@ -206,16 +227,20 @@ export default {
       },
       datas:{
         activityInfo:{
-          info:[]
+          info:[],
+          page:1
         },
         memberInfo:{
-          info:[]
+          info:[],
+          page:1
         },
         jifenInfo:{
-          info:[]
+          info:[],
+          page:1
         },
         consumeInfo:{
-          info:[]
+          info:[],
+          page:1
         }
       }
     }

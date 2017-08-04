@@ -5,7 +5,7 @@
       <span>团满{{Group.mans}}人，可享受{{Group.discount}}折优惠</span>
     </div>
     <div class="main_progress">
-      <progressMe :value="progress" :skinState="skin"></progressMe>
+      <progressMe :value="progress"></progressMe>
       <span>最低价格参团进度</span>
     </div>
     <div class="main_discount">
@@ -26,7 +26,7 @@ import progressMe from '../Utils/ProgressMe.vue'
 export default {
   name: 'timeAndProgress',
   components: { countdown, progressMe },
-  props: ['activity','skinState'],
+  props: ['activity'],
   watch: {
     activity: function (val) {
       this.progress = val.progress.toFixed(2) * 100
@@ -67,8 +67,8 @@ export default {
       skin: 4
     }
   },
-  created () {
-    this.skin = this.skinState
+  created() {
+    this.skin = localStorage.getItem('skin')
     if (this.skin == 1) {
       this.changeSkin.activeClass = this.changeStyle.groupUsers
       this.changeSkin.realBgUrl = this.imgUrl.url
@@ -84,7 +84,7 @@ export default {
     } else if (this.skin == 5) {
       this.changeSkin.activeClass = this.changeStyle.groupUsersblue
       this.changeSkin.realBgUrl = this.imgUrl.urlBlue
-      this.$refs.timePro.style.backgroundColor = '#fff'
+      // this.$refs.timePro.style.backgroundColor = '#fff'
     } else {
       this.changeSkin.activeClass = this.changeStyle.groupUsers
       this.changeSkin.realBgUrl = this.imgUrl.url

@@ -1,20 +1,22 @@
 <template>
-  <div :class="[changeSkin.activeClass]">
-    <div class="list_parent">
-      <div class="list_item" v-for="x in goodsList">
-        <img :src="murl + x.img" @click="showGoodsDirect(x.id)">
-        <div class="item_txt">
-          <div class="txt_name">
-            <span class="name_title">{{x.name}}</span>
-            <span class="name_old">原价：{{x.price}}</span>
-            <span class="name_new">{{x.newPrice}}</span>
+  <div :class="[changeSkin.color]">
+    <div :class="[changeSkin.activeClass]">
+      <div class="list_parent">
+        <div v-for="x in goodsList" :class="[goodsList.length==1? center.Moneycolor : center.Money]">
+          <img :src="murl + x.img" @click="showGoodsDirect(x.id)">
+          <div class="item_txt">
+            <div class="txt_name">
+              <span class="name_title">{{x.name}}</span>
+              <span class="name_old">原价：{{x.price}}</span>
+              <span class="name_new">{{x.newPrice}}</span>
+            </div>
+            <div class="txt_btn" :style="{background:stateColor[x.state]}" @click="showGoodsDetail(x.id)">{{x.btnTxt}}</div>
           </div>
-          <div class="txt_btn" :style="{background:stateColor[x.state]}" @click="showGoodsDetail(x.id)">{{x.btnTxt}}</div>
         </div>
       </div>
-    </div>
-    <div class="payTimeText">
-      支付时间:{{payInfo.payStartDate}}&nbsp;—&nbsp;{{payInfo.payEndDate}}
+      <div class="payTimeText">
+        支付时间:{{payInfo.payStartDate}}&nbsp;—&nbsp;{{payInfo.payEndDate}}
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +24,7 @@
 <script>
 export default {
   name: 'goodsList',
-  props: ['activity','skinState'],
+  props: ['activity'],
   methods: {
     showGoodsDetail(id) {
       if (this.payTime === 1) {
@@ -123,35 +125,50 @@ export default {
       skin: 4,
       changeSkin: {
         activeClass: '',
+        color:''
       },
       changeStyle: {
         Money: 'goodsList2',
         Moneycolor: 'goodsList2 goodsListcolor',
       },
+      changeColor: {
+        Money: 'goodsLists',
+        Moneycolor: 'goodsLists goodsLists2',
+      },
+      center: {
+        Money: 'list_item',
+        Moneycolor: 'list_item list_item_center',
+      },
     }
   },
   created() {
-    this.skin = this.skinState
+    this.skin = localStorage.getItem('skin')
     if (this.skin == 2 || this.skin == 3 || this.skin == 5) {
       this.changeSkin.activeClass = this.changeStyle.Moneycolor
+      this.changeSkin.color = this.changeColor.Moneycolor
     } else {
       this.changeSkin.activeClass = this.changeStyle.Money
+      this.changeSkin.color = this.changeColor.Money
     }
   }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
- rrem(val){
-    return (val/108px)rem
-  }
+rrem(val){
+  return (val/108px)rem
+}
+.goodsLists  
+  width 100%
+  background #434343
   .goodsList2
     height rrem(555px)
     background #434343
-    width 100%
+    width rrem(1000px)
     padding-top rrem(40px)
     position relative
     overflow scroll
+    margin 0 auto
     .payTimeText
       position absolute
       width 100%
@@ -159,6 +176,7 @@ export default {
       top rrem(520px)
       left:0px
     .list_parent
+      width 100% 
       position absolute
       overflow-x auto
       height rrem(440px)
@@ -204,11 +222,10 @@ export default {
             font-weight bold
             font-size rrem(34px)
             width rrem(282px)
+      .list_item_center
+        margin 0 auto   
   .goodsListcolor
-    height rrem(555px)
     background #fff
-    width 100%
-    padding-top rrem(40px)
-    position relative
-    overflow scroll
+.goodsLists2
+  background #fff    
 </style>
