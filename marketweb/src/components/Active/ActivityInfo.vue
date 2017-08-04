@@ -1,16 +1,16 @@
 <template>
   <div :class='[changeSkin.activeClass]'>
-    <music :url='music' :skinState='activity.skin'></music>
-    <companyHead :companyId="activity.companyId"></companyHead>
+    <music :url='music'></music>
+    <companyHead :companyId="activity.companyId" v-if="skin==1"></companyHead>
     <mainImg :activity="activity" @showRule="showRuleNote"></mainImg>
     <activityrule :activity="activity"></activityrule>
-    <timeAndPro :activity="activity" :skinState='activity.skin'></timeAndPro>
-    <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect" :skinState='skin'></goodsList>
-    <joinPeople :activity="activity" :skinState='activity.skin'></joinPeople>
-    <Gift :activity="activity" :skinState='activity.skin'></Gift>
-    <Group :activity="activity" v-if="isGroup" :skinState='activity.skin'></Group>
-    <Discount :activity="activity" :skinState='activity.skin'></Discount>
-    <Money :activity="activity" :skinState='activity.skin'></Money>
+    <timeAndPro :activity="activity"></timeAndPro>
+    <goodsList :activity="activity" @goodsClick="showGoodsDetail" @goodImgClick="showGoodsDirect"></goodsList>
+    <joinPeople :activity="activity"></joinPeople>
+    <Gift :activity="activity"></Gift>
+    <Group :activity="activity" v-if="isGroup"></Group>
+    <Discount :activity="activity"></Discount>
+    <Money :activity="activity"></Money>
     <register :datas="activity" :state="currentState" @childClick="changeState"></register>
     <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 1000;">
       <img :src="changeSkin.realValue">
@@ -82,118 +82,6 @@ import activityrule from './activityRule.vue'
 
 export default {
   name: 'Active',
-  data() {
-    return {
-      LoginSuccess: false,
-      imgUrl: {
-        img: require('../../../static/images/bg.png'),
-        imgColor: require('../../../static/images/bg01.png'),
-        imgBlue: require('../../../static/images/bg02.png'),
-        imgGolden: require('../../../static/images/bg03.png'),
-        imgPink: require('../../../static/images/bg04.png')
-      },
-      btnUrl: {
-        btn: {
-          topBtn: require('../../../static/images/startTeam.png'),
-          botBtn: require('../../../static/images/joinTeam.png'),
-        },
-        btnColor: {
-          topBtn: require('../../../static/images/startTeam1.png'),
-          botBtn: require('../../../static/images/joinTeam1.png'),
-        },
-        btnPink: {
-          topBtn: require('../../../static/images/startTeam2.png'),
-          botBtn: require('../../../static/images/joinTeam2.png'),
-        },
-        btnGolden: {
-          topBtn: require('../../../static/images/startTeam3.png'),
-          botBtn: require('../../../static/images/joinTeam3.png'),
-        },
-        btnBlue: {
-          topBtn: require('../../../static/images/startTeam4.png'),
-          botBtn: require('../../../static/images/joinTeam4.png'),
-        }
-      },
-      changeSkin: {
-        activeClass: '',
-        realValue: {},
-        realBgUrl: {}
-      },
-      changeStyle: {
-        activityMain: 'activityMain2',
-        activityMainColor: 'activityMain2 activityMaincolor',
-      },
-      // skin: 5,
-      isLoading: false,
-      comState: "com",
-      homeState: "home",
-      isGroup: true,
-      currentState: false,
-      userInfo: {
-        account: {},
-        customer: {}
-      },
-      currentGroup: {
-        activeId: 0,
-        id: '',
-        img: '',
-        name: '',
-        peopleNum: 0
-      },
-      props: {
-        endDate: '2017-04-26T23:08:01.928Z',
-        tableclass: 'withdrawitems'
-      },
-      activity: {
-        activityImg: '',
-        activityName: '活动名称',
-        activityType: 0,
-        auditRemarks: '',
-        auditStatus: 0,
-        companyName: null,
-        content: '',
-        createDate: '',
-
-        discountLevel: '',
-        discount: 0,
-        endDate: '',
-
-        giftIds: 0,
-        goodsIds: '',
-        groupInfo: [],
-        groupRate: 0,
-
-        id: 0,
-        joinNum: 0,
-        musicId: '',
-
-        payEndDate: '',
-        payNum: 0,
-        payStartDate: '',
-        pointsReturnMultiple: [],
-        progress: 0,
-
-        returnEndDate: '',
-        returnPointsRankInfo: [],
-        returnStartDate: '',
-        skin:0,
-        shareDes: '这是分享描述',
-        shareGift: 1,
-        shareImg: '',
-        shareNum: 0,
-        shareTimes: 5,
-        startDate: '',
-        viewNum: 0,
-        infos: [],
-        inviterId: '',
-        showrule: false
-      },
-      music: '',
-      weixinConfig: {},
-      inviter: {},
-      hasGroup: false
-    }
-  },
   components: { mainImg, timeAndPro, Discount, companyHead, Gift, Group, Money, joinPeople, goodsList, register, music, activityrule },
   created() {
     var state = this.util.getURLParam('state').split(",")
@@ -235,7 +123,6 @@ export default {
         this.$Message.error(res.msg)
       }
     })
-
 
     //获取自己在这个活动中的团信息
     this.http.get(this.$store.state.prefix + '/activity/getGroupInfo/' + (this.ownId || window.localStorage["ownId"]) + '/' + this.activityId).then(res => {
@@ -352,6 +239,9 @@ export default {
     })
   },
   methods: {
+    handleClick() {
+      console.log(this.activity.skin)
+    },
     joinTeam() {
       if (this.$store.state.isMember == 0) {
         this.currentState = true;
@@ -516,38 +406,152 @@ export default {
     }
   },
   mounted() {
-  },
-  watch: {
-    activity(val) {
-      console.log(this.activity.skin)
-      this.changeSkin = JSON.parse(JSON.stringify(this.changeSkin))
-      if (val.skin == 1) {
-        this.changeSkin.activeClass = this.changeStyle.activityMain
-        this.changeSkin.realValue = this.imgUrl.img
-        this.changeSkin.realBgUrl = this.btnUrl.btn
-      } else if (val.skin == 2) {
-        this.changeSkin.activeClass = this.changeStyle.activityMainColor
-        this.changeSkin.realValue = this.imgUrl.imgColor
-        this.changeSkin.realBgUrl = this.btnUrl.btnColor
-      } else if (val.skin == 3) {
-        this.changeSkin.activeClass = this.changeStyle.activityMainColor
-        this.changeSkin.realValue = this.imgUrl.imgPink
-        this.changeSkin.realBgUrl = this.btnUrl.btnPink
-      } else if (val.skin == 4) {
-        this.changeSkin.activeClass = this.changeStyle.activityMainColor
-        this.changeSkin.realValue = this.imgUrl.imgGolden
-        this.changeSkin.realBgUrl = this.btnUrl.btnGolden
-      } else if (val.skin == 5) {
-        this.changeSkin.activeClass = this.changeStyle.activityMainColor
-        this.changeSkin.realValue = this.imgUrl.imgBlue,
-        this.changeSkin.realBgUrl = this.btnUrl.btnBlue
-      } else {
-        this.changeSkin.activeClass = this.changeStyle.activityMain
-        this.changeSkin.realValue = this.imgUrl.img
-        this.changeSkin.realBgUrl = this.btnUrl.btn
+    this.http.get(this.$store.state.prefix + '/activity/1').then(res => {
+      if (!res.error) {
+        if (res.result) {
+          this.skin = res.result.skin
+          localStorage.setItem('skin', this.skin)
+          if (this.skin == 1) {
+            this.changeSkin.activeClass = this.changeStyle.activityMain
+            this.changeSkin.realValue = this.imgUrl.img
+            this.changeSkin.realBgUrl = this.btnUrl.btn
+          } else if (this.skin == 2) {
+            this.changeSkin.activeClass = this.changeStyle.activityMainColor
+            this.changeSkin.realValue = this.imgUrl.imgColor
+            this.changeSkin.realBgUrl = this.btnUrl.btnColor
+          } else if (this.skin == 3) {
+            this.changeSkin.activeClass = this.changeStyle.activityMainColor
+            this.changeSkin.realValue = this.imgUrl.imgPink
+            this.changeSkin.realBgUrl = this.btnUrl.btnPink
+          } else if (this.skin == 4) {
+            this.changeSkin.activeClass = this.changeStyle.activityMainColor
+            this.changeSkin.realValue = this.imgUrl.imgGolden
+            this.changeSkin.realBgUrl = this.btnUrl.btnGolden
+          } else if (this.skin == 5) {
+            this.changeSkin.activeClass = this.changeStyle.activityMainColor
+            this.changeSkin.realValue = this.imgUrl.imgBlue,
+              this.changeSkin.realBgUrl = this.btnUrl.btnBlue
+          } else {
+            this.changeSkin.activeClass = this.changeStyle.activityMain
+            this.changeSkin.realValue = this.imgUrl.img
+            this.changeSkin.realBgUrl = this.btnUrl.btn
+          }
+        }
       }
+    })
+  },
+  data() {
+    return {
+      LoginSuccess: false,
+      imgUrl: {
+        img: require('../../../static/images/bg.png'),
+        imgColor: require('../../../static/images/bg01.png'),
+        imgBlue: require('../../../static/images/bg02.png'),
+        imgGolden: require('../../../static/images/bg03.png'),
+        imgPink: require('../../../static/images/bg04.png')
+      },
+      btnUrl: {
+        btn: {
+          topBtn: require('../../../static/images/startTeam.png'),
+          botBtn: require('../../../static/images/joinTeam.png'),
+        },
+        btnColor: {
+          topBtn: require('../../../static/images/startTeam1.png'),
+          botBtn: require('../../../static/images/joinTeam1.png'),
+        },
+        btnPink: {
+          topBtn: require('../../../static/images/startTeam2.png'),
+          botBtn: require('../../../static/images/joinTeam2.png'),
+        },
+        btnGolden: {
+          topBtn: require('../../../static/images/startTeam3.png'),
+          botBtn: require('../../../static/images/joinTeam3.png'),
+        },
+        btnBlue: {
+          topBtn: require('../../../static/images/startTeam4.png'),
+          botBtn: require('../../../static/images/joinTeam4.png'),
+        }
+      },
+      changeSkin: {
+        activeClass: '',
+        realValue: {},
+        realBgUrl: {}
+      },
+      changeStyle: {
+        activityMain: 'activityMain2',
+        activityMainColor: 'activityMain2 activityMaincolor',
+      },
+      skin: 2,
+      isLoading: false,
+      comState: "com",
+      homeState: "home",
+      isGroup: true,
+      currentState: false,
+      userInfo: {
+        account: {},
+        customer: {}
+      },
+      currentGroup: {
+        activeId: 0,
+        id: '',
+        img: '',
+        name: '',
+        peopleNum: 0
+      },
+      props: {
+        endDate: '2017-04-26T23:08:01.928Z',
+        tableclass: 'withdrawitems'
+      },
+      activity: {
+        activityImg: '',
+        activityName: '活动名称',
+        activityType: 0,
+        auditRemarks: '',
+        auditStatus: 0,
+        companyName: null,
+        content: '',
+        createDate: '',
+
+        discountLevel: '',
+        discount: 0,
+        endDate: '',
+
+        giftIds: 0,
+        goodsIds: '',
+        groupInfo: [],
+        groupRate: 0,
+
+        id: 0,
+        joinNum: 0,
+        musicId: '',
+
+        payEndDate: '',
+        payNum: 0,
+        payStartDate: '',
+        pointsReturnMultiple: [],
+        progress: 0,
+
+        returnEndDate: '',
+        returnPointsRankInfo: [],
+        returnStartDate: '',
+        skin: 5,
+        shareDes: '这是分享描述',
+        shareGift: 1,
+        shareImg: '',
+        shareNum: 0,
+        shareTimes: 5,
+        startDate: '',
+        viewNum: 0,
+        infos: [],
+        inviterId: '',
+        showrule: false
+      },
+      music: '',
+      weixinConfig: {},
+      inviter: {},
+      hasGroup: false
     }
-  }
+  },
 }
 </script>
 <style lang='stylus' rel='stylesheet/stylus'>

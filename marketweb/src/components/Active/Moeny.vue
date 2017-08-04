@@ -12,7 +12,7 @@
 import mainHead from './mainHead.vue'
 export default {
   name: 'Money',
-  props: ['activity','skinState'],
+  props: ['activity'],
   components: { mainHead },
   data() {
     return {
@@ -106,7 +106,7 @@ export default {
     },
   },
   created() {
-    this.skin = this.skinState
+    this.skin = localStorage.getItem('skin')
     if (this.skin == 1) {
       this.changeSkin.activeClass = this.changeStyle.Money
       this.changeSkin.realValue = this.value

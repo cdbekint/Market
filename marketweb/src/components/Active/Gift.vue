@@ -19,7 +19,7 @@
 import mainHead from './mainHead.vue'
 export default {
   name: 'joinPeople',
-  props: ['activity','skinState'],
+  props: ['activity'],
   components: { mainHead },
   watch: {
     activity: function (val) {
@@ -81,7 +81,7 @@ export default {
     }
   },
   created() {
-    this.skin = this.skinState
+    this.skin = localStorage.getItem('skin')
     if (this.skin == 1) {
       this.changeSkin.activeClass = this.changeStyle.gift2
       this.changeSkin.realValue = this.value
