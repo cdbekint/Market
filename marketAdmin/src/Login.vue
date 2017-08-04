@@ -147,6 +147,7 @@ export default {
   width:100%
   background:#fff
   position :relative
+  height 540px
   .formitem
     width:300px
     margin:0 auto
