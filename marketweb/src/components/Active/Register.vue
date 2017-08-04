@@ -49,8 +49,8 @@ export default {
   name: 'register',
   props: ["datas", "state"],
   created() {
-    this.name = ''
-    this.phone = ''
+    this.name = this.$store.state.account.realName||''
+    this.phone =this.$store.state.account.phone || ''
     this.email = ''
     var state = this.util.getURLParam('state').split(",")
     this.realInviterId = ~~(state[2] === undefined ? (this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]) : state[2])

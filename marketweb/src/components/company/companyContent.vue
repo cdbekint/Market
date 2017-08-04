@@ -84,9 +84,7 @@
       <img src="/static/images/company/fanhui.png" @click="showSystem=false" class="detail_return">
       <div class="system_content">
         <div class="createMarket" v-if="currentRenew.renewType==2">
-          <div class="marketbanner">
-            <img src="/static/images/company/open.png">
-          </div>
+         
           <div class="markettitle" v-text="currentRenew.title">
   
           </div>
@@ -96,54 +94,55 @@
             </Form-item>
             <Form-item label="登录账户">
               <Input placeholder="请输入登录账户名(字母+数字)" v-model="createAccount.username"></Input>
-              <!-- <span class="help">密码默认为123456，注册成功后请立即修改</span> -->
-            </Form-item>
-            <Form-item label="手机号码">
-              <Input placeholder="" v-model="createAccount.phone"></Input>
-            </Form-item>
-            <Form-item label="邮箱">
+           </Form-item>
+           <Form-item label="手机号码">
+              <Input placeholder="请输入11位手机号码" v-model="createAccount.phone"></Input>
+           </Form-item>
+           <Form-item label="邮箱">
               <Input placeholder="请输入邮箱" v-model="createAccount.email"></Input>
-            </Form-item>
-            <Form-item label="">
-              <Checkbox-group v-model="createAccount.protocol">
-                <Checkbox label="true">已阅读并同意
-                  <a href="javascript:;">《裂变营销系统使用协议》</a>
-                </Checkbox>
+           </Form-item>
+           <Form-item label="">
+               <Checkbox-group v-model="createAccount.protocol">
+                <Checkbox label="true">已阅读并同意<a href="javascript:;" @click="serviceprotocol=true">《裂变营销系统使用协议》</a></Checkbox>
               </Checkbox-group>
-            </Form-item>
-            <div class="errorInfo text-left" v-text="createAccount.errormsg" v-if="createAccount.errormsg">
-            </div>
-            <div>
-              <Button type="primary" v-text="'支付'+(currentRenew.point||0)+'分并注册'" @click="createMarketAccount()"></Button>
-            </div>
-            <div class="mention">
-              <ul>
-                <li>1.默认密码为：123456,注册成功请尽快修改</li>
-                <li>2.请认证阅读使用协议</li>
-                <li>3.后台登录地址：http://yx.cdbeki.com</li>
-              </ul>
-            </div>
-          </Form>
-        </div>
+           </Form-item>
+           <div class="errorInfo text-left" v-text="createAccount.errormsg" v-if="createAccount.errormsg">
+           </div>
+           <div>
+             <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'积分并注册'" @click="createMarketAccount()"></Button>
+           </div>
+           <div class="mention">
+             <ul>
+               <li>1.默认密码为手机号后六位,注册成功请尽快修改</li>
+               <li>2.请认证阅读使用协议</li>
+               <li>3.后台登录地址：http://yx.cdbeki.com</li>
+             </ul>
+           </div>
+         </Form>
+       </div>
         <div class="renewMarket" v-if="currentRenew.renewType==1">
-          <div class="renewMarketbanner">
-            <img src="/static/images/company/renew.png">
-          </div>
+          <img :src="murl+currentRenew.img" alt="">
           <div class="renewMarketcontent">
-            <div class="renewMarketitem">
-              <span>账&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp户</span>:
-              <span>巴黎春天</span>
+          <div class="displayflexcolumn ">
+          <div class="displayflex renewMarketitem">
+              <div class="flex1" v-text="currentRenew.title" style="text-align: center;font-size:1.1em;font-weight: bolder;"></div>
+              
             </div>
-            <div class="renewMarketitem">
-              <span>到期时间</span>:
-              <span style="color:#434343;font-weight:bold">巴黎春天</span>
+            <div class="displayflex renewMarketitem">
+              <div class="flex1">公司名称</div>
+              <div class="flex2" v-text="currentRenew.company.companyName"></div>
             </div>
-            <div class="renewMarketitem">
-              <span>续费时长</span>:
-              <span style="color:#fe017e;font-weight:bold">巴黎春天</span>
+            <div class="displayflex renewMarketitem">
+              <div class="flex1">到期时间</div>
+              <div class="flex2" v-text="currentRenew.company.expireDate"></div>
+            </div> 
+            <div class="displayflex renewMarketitem">
+              <div class="flex1">续费时长</div>
+              <div class="flex2" v-text="currentRenew.month+'月'"></div>
             </div>
+          </div>
             <div class="btn">
-              <Button type="primary">支付5分续费</Button>
+              <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'积分续费'" @click="renewMarketAccount()"></Button>
             </div>
           </div>
         </div>
@@ -248,6 +247,14 @@
       <Row style="text-align:center;padding-left:40px;">
         <Input v-model="payRemarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="商品名称与数量"></Input>
       </Row>
+    </Modal>
+    <Modal
+        v-model="serviceprotocol"
+        title="裂变营销系统使用协议"
+        @on-ok="aggreProtocol"
+        ok-text="我已阅读并同意"
+        cancel-text="取消">
+        解放拉萨飞
     </Modal>
     <Modal v-model="paySuccess" :closable="false" width="1000">
       <p class="modelTitle">
@@ -417,22 +424,27 @@ export default {
       })
     },
     showSystemGood(renew) {
-      if (renew.title == "营销系统续费1月") {
+      if (renew.renewType==1) {
+        this.showSystem = true
+        renew.company={}
+        this.currentRenew = renew
         this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyExpireInfo').then(res => {
           if (!res.error) {
             if (JSON.stringify(res.result) != "{}") {
-              this.showSystem = true
-              this.currentRenew = renew;
+            var currentrenew=JSON.parse(JSON.stringify(this.currentRenew))
+            currentrenew.company=res.result
+            currentrenew.company.expireDate=this.util.getFormatDate(currentrenew.company.expireDate)
+            this.currentRenew=currentrenew
             } else {
-              this.$Message.error("该账户未与微信绑定,请绑定!")
+              this.$Message.error("该账户未与微信绑定,请购买开户产品!")
             }
           }
+
         })
       } else {
         this.showSystem = true
         this.currentRenew = renew;
       }
-      console.log(this.currentRenew)
     },
     showDetail(id, state) {
       this.http.get(this.$store.state.prefix + '/goods/' + id).then((res) => {
@@ -627,68 +639,90 @@ export default {
         }
       })
     },
+    aggreProtocol(){
+      this.createAccount.protocol=["true"]
+    },
     onSlideChangeStart(currentPage) {
       console.log('onSlideChangeStart', currentPage);
     },
     onSlideChangeEnd(currentPage) {
       console.log('onSlideChangeEnd', currentPage);
     },
-    createMarketAccount() {
-      var param = JSON.parse(JSON.stringify(this.createAccount))
-      if (!/(\w*[\u4e00-\u9fa5]+)+/.test(param.companyName)) {
-        this.createAccount.errormsg = "企业名称不能为空,且必须包含中文"
-        return
-      } else {
-        this.createAccount.errormsg = ""
-      }
-      if (!/^[a-zA-z]\w{3,15}$/.test(param.username)) {
-        this.createAccount.errormsg = "登录账户名只能为数字加字母"
-        return
-      } else {
-        this.createAccount.errormsg = ""
-      }
-      if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(param.email)) {
-        this.createAccount.errormsg = "邮箱格式不正确"
-        return
-      } else {
-        this.createAccount.errormsg = ""
-      }
-      if (param.protocol.length == 0) {
-        this.createAccount.errormsg = "请仔细阅读裂变营销系统使用协议"
-        return
-      } else if (param.protocol[0] == "true") {
-        this.createAccount.errormsg = ""
-      }
+    createMarketAccount(){
+       var param=JSON.parse(JSON.stringify(this.createAccount))
+       if(!/(\w*[\u4e00-\u9fa5]+)+/.test(param.companyName)){
+          this.createAccount.errormsg="企业名称不能为空,且必须包含中文"
+          return
+       }else{
+          this.createAccount.errormsg=""
+       }
+       if(!/^[a-zA-z]\w{3,15}$/.test(param.username)){
+          this.createAccount.errormsg="登录账户名只能为数字加字母（4-16位）"
+          return
+       }else{
+          this.createAccount.errormsg=""
+       }
+       if(!/^1[34578]\d{9}$/.test(param.phone)){
+          this.createAccount.errormsg="手机号码不正确"
+          return
+       }else{
+          this.createAccount.errormsg=""
+       }
+       if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(param.email)){
+          this.createAccount.errormsg="邮箱格式不正确"
+          return
+       }else{
+          this.createAccount.errormsg=""
+       }
+       if(param.protocol.length==0){
+          this.createAccount.errormsg="请仔细阅读裂变营销系统使用协议"
+          return
+       }else if(param.protocol[0]=="true"){
+          this.createAccount.errormsg=""
+       }
+       
+       //获取到当前进行的续费或则充值商品信息
+       var renewinfo=JSON.parse(JSON.stringify(this.currentRenew))
 
-      //获取到当前进行的续费或则充值商品信息
-      var renewinfo = JSON.parse(JSON.stringify(this.currentRenew))
+       console.log(this.$store.state.companyId)
+       this.http.post(this.$store.state.prefix+"/pay",{businessId:renewinfo.id,payType:8,payAmount:renewinfo.points,companyId:this.ids.companyId,remarks:'用户'+this.util.getCookie("ownId")+renewinfo.title}).then(res=>{
+          if(res.error==false){
+             this.createAccount.errormsg=""
+             param.renewId=renewinfo.id
+             delete param.protocol
+             delete param.errormsg
+             this.http.post(this.$store.state.prefix+'/pubInfo/createCompany',param).then(res=>{
+                if(res.error==false){
+                  this.createAccount.errormsg=""
+                  this.createAccount.companyName=""
+                  this.createAccount.username=""
+                  this.createAccount.phone=this.$store.state.account.phone||""
+                  this.createAccount.email=this.$store.state.account.email||""
+                  this.createAccount.protocol=[]
+                  this.createAccount.errormsg=""
+                  this.$Message.success("注册成功")
+                  this.showSystem=false
+                }else{
+                  this.createAccount.errormsg=res.msg
+                }
+             })
+           }else{
+            this.createAccount.errormsg=res.msg
+           }
+       })
 
-      console.log(this.$store.state.companyId)
-      this.http.post(this.$store.state.prefix + "/pay", { businessId: renewinfo.id, payType: 8, payAmount: renewinfo.points, companyId: this.ids.companyId, remarks: '用户' + this.util.getCookie("ownId") + renewinfo.title }).then(res => {
-        if (res.error == false) {
-          this.createAccount.errormsg = ""
-          param.renewId = renewinfo.id
-          this.http.post(this.$store.state.prefix + '/pubInfo/createCompany', param).then(res => {
-            if (res.error == false) {
-              this.createAccount.errormsg = ""
-              this.createAccount.companyName = ""
-              this.createAccount.username = ""
-              this.createAccount.email = ""
-              this.createAccount.protocol = []
-              this.createAccount.errormsg = ""
-              this.$Message.success("注册成功")
-              this.showSystem = false
-            } else {
-              this.createAccount.errormsg = res.msg
-            }
-          })
 
-        } else {
-          this.createAccount.errormsg = res.msg
-        }
-      })
-
-
+    },
+    renewMarketAccount(){
+       var param=JSON.parse(JSON.stringify(this.currentRenew))
+       this.http.post(this.$store.state.prefix+"/pay",{businessId:param.id,payType:8,payAmount:param.price,companyId:this.ids.companyId,remarks:'用户'+this.util.getCookie("ownId")+param.title}).then(res=>{
+          if(res.error==false){
+             this.$Message.success("续费成功")
+             this.showSystem=false
+          }else{
+            this.$Message.error(res.msg)
+          }
+       })
     }
   },
   mounted() {
@@ -773,37 +807,36 @@ export default {
   },
   data() {
     return {
-      backToTop: false,
-      url: '',
-      animation: {
-        speed: 7,
-        time: 20,
-        totalNum: 0,
+      currentIndex:1,
+      payMoney:0,
+      payRemarks:"",
+      isWithdraw:false,
+      showGoods:true,
+      showHtml:true,
+      showMember:true,
+      showSystem:false,//显示系统页面
+      serviceprotocol:false,//服务协议modal
+      currentRenew:{
+        company:{
+          companyName:'',
+          expireDate:''
+        },
+        img:"",
+        title:1,
+        price:'0积分',
+        chargeType:1,
+        renewType:2,
+        month:1
       },
-      currentIndex: 1,
-      payMoney: 0,
-      payRemarks: "",
-      isWithdraw: false,
-      showGoods: true,
-      showHtml: true,
-      showMember: true,
-      showSystem: false,//显示系统页面
-      currentRenew: {
-        img: "",
-        title: 1,
-        price: '0积分',
-        chargeType: 1,
-        renewType: 2,
-        month: 1
-      },
-      createAccount: {
-        companyName: '',
-        username: '',
-        password: '123456',
-        accountId: this.util.getCookie("ownId"),
-        companyFlag: 0,
-        protocol: [],
-        errormsg: ''
+      createAccount:{
+        companyName:'',
+        username:'',
+        phone:this.$store.state.account.phone||"",
+        accountId:this.util.getCookie("ownId"),
+        email:this.$store.state.account.email||"",
+        companyFlag:0,
+        protocol:[],
+        errormsg:''
       },
       url: '',
       swiperOption: {
@@ -1237,6 +1270,9 @@ export default {
       background #fff
       text-align center
       display:block
+      p
+        img
+          width:100%
     .main_system
       width:100%
       height rrem(1470px)
@@ -1259,21 +1295,19 @@ export default {
         .renewMarket
           width 100%
           background #fff
-          box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
-          // height rrem(892px)
-          .renewMarketbanner
-            width 100%
-            height rrem(369px)
-            img
-              width 100%
+          height rrem(1400px)
+          position:relative
+          img
+            width:100%
           .renewMarketcontent
+            top rrem(100px)
             width 100%
-            height rrem(523px)
-            margin-top rrem(76px)
+            margin-top rrem(20px)
+            /*background:rgba(0,0,0,0.2)*/
+            padding rrem(100px)
             .renewMarketitem
               height rrem(88px)
               line-height rrem(88px)
-              color #434343
               font-size rrem(36px)
               text-align left
               padding-left rrem(85px)
@@ -1287,6 +1321,7 @@ export default {
               margin 0 auto
               margin-top rrem(82px)
         .createMarket
+          padding-top rrem(100px)
           .marketbanner
             width 100%
             height rrem(369px)

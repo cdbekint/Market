@@ -2,7 +2,7 @@
   <div :class="[changeSkin.color]">
     <div :class="[changeSkin.activeClass]">
       <div class="list_parent">
-        <div v-for="x in goodsList" :class="[goodsList.length==1? center.Moneycolor : Money.Money]">
+        <div v-for="x in goodsList" :class="[goodsList.length==1? center.Moneycolor : center.Money]">
           <img :src="murl + x.img" @click="showGoodsDirect(x.id)">
           <div class="item_txt">
             <div class="txt_name">

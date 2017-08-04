@@ -24,6 +24,7 @@ const store = new Vuex.Store({
     prefix:'/api',
     // prefix: '',
     isMember:0,
+    account:{}
   },
   mutations: {
     updateToken (state) {
