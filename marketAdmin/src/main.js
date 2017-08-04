@@ -25,8 +25,8 @@ const store = new Vuex.Store({
     authentic:util.getCookie('authentic')||'',
     companyFlag:util.getCookie('companyFlag')||'',
     rate:2,//提现手续费用
-    // prefix: '/api',
-    prefix: 'https://market.cdbeki.com'
+    prefix: '/api',
+    // prefix: 'https://market.cdbeki.com'
   },
   mutations: {
     updateToken (state) {

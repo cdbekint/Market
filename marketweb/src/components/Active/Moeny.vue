@@ -137,12 +137,16 @@ export default {
     activity: function (val) {
       this.data = val.returnPointsRankInfo;
       this.data.forEach(item => {
+        if (item.realName.length > 2) {
+              item.realName= item.realName.substring(0, 1) + "*" + item.realName.substr(item.realName.length - 1, 1)
+            } else if (item.realName.length == 2) {
+              item.realName = item.realName.substring(0, 1) + "*"
+            }
         item.createDate = this.changeDateToTime(item.createDate);
       })
       if (val.activityType != 2) {
         this.value.no = "04"
       }
-      console.log(this.data)
     }
   }
 }

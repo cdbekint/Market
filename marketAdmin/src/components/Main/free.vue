@@ -22,7 +22,7 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
   .companyAbout
-    background url('../../../static/images/bg.png') no-repeat top
+    background url('/static/images/bg.png') no-repeat top
     width 100%
     background-size 100% 100%
     margin-top 262px

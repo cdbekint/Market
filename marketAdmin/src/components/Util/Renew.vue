@@ -96,7 +96,8 @@ export default {
             companyId :this.company.id,
             businessId:this.businessId,
             goodsId: 0,
-            remarks:'账户续期'+this.realMonth+'个月'
+            remarks:'账户续期'+this.realMonth+'个月',
+            companyId:this.util.getCookie("companyId")
           }
           this.http.post(this.$store.state.prefix + '/pay' , param).then (res => {
             if (res.error === false) {

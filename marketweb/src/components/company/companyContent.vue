@@ -571,8 +571,16 @@ export default {
         this.getGoodsByType(index);
       } else {
         this.getSystemGoods();
+        this.getjudgeCompany();
       }
 
+    },
+    getjudgeCompany(){
+      this.http.get(this.$store.state.prefix+"/pubInfo/judgeCreateCompany").then(res=>{
+        if(res.error==false){
+            this.judgecompany=res.result
+        }
+      })
     },
     getSystemGoods() {
       this.http.post(this.$store.state.prefix + "/pubInfo/getSystemRenewInfo", { chargeType: 2 }).then(res => {
@@ -596,7 +604,6 @@ export default {
             this.showGoods = false;
           else
             this.showGoods = true;
-
         }
       })
     },
@@ -649,6 +656,13 @@ export default {
       console.log('onSlideChangeEnd', currentPage);
     },
     createMarketAccount(){
+      if(!this.judgecompany){
+        this.$Message.error("您已创建过公司账户")
+        this.createAccount.errormsg="您已成功注册过营销系统账号，无法再注册"
+        return 
+      }else{
+        this.createAccount.errormsg=""
+      }
        var param=JSON.parse(JSON.stringify(this.createAccount))
        if(!/(\w*[\u4e00-\u9fa5]+)+/.test(param.companyName)){
           this.createAccount.errormsg="企业名称不能为空,且必须包含中文"
@@ -815,7 +829,8 @@ export default {
       showHtml:true,
       showMember:true,
       showSystem:false,//显示系统页面
-      serviceprotocol:false,//服务协议modal
+      serviceprotocol:false,//服务协议modal,
+      judgecompany:true,
       currentRenew:{
         company:{
           companyName:'',

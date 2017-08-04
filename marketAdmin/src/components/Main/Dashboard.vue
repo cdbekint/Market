@@ -69,11 +69,11 @@
           </div>
           <div class="flex1">
           	<span v-if="companyinfo.companyFlag==1">正式会员</span>
-            <a href="javascrpit:;" v-else @click="renewModal=true">非正式会员，续费成为正式会员</a>
+            <a href="javascrpit:;" v-else @click="renewModal=true">续费成为正式会员</a>
           </div>
           <div class="flex1">
             <span v-if="companyinfo.authentic==1">企业认证</span>
-            <router-link :to="{path:'/authentic'}" v-else>未进行企业认证，去认证</router-link>
+            <router-link :to="{path:'/authentic'}" v-else>去进行企业认证</router-link>
           </div>
           <div class="flex1">
             <a href="javascrpit:;" @click="renewModal=true">续费</a>
@@ -430,7 +430,7 @@ export default {
           if (res.result !== null) {
 
             //判断是否具有提现账户信息，没有就设置account信息。
-            if(res.result.account==undefined){
+            if(res.result.account==null){
               res.reuslt.account={
                 realName:'',
                 nickName:'',

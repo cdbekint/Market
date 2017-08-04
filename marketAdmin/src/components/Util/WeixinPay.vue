@@ -117,7 +117,8 @@ export default {
             payAmount: Number(this.realMoney),
             companyId :this.company.id,
             businessId: 0,
-            goodsId: 0
+            goodsId: 0,
+            companyId:this.util.getCookie("companyId")
           }
           this.http.post(this.$store.state.prefix + '/pay' , param).then (res => {
             if (res.error === false) {

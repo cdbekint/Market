@@ -137,14 +137,17 @@ export default {
   },
 
   created() {
-    this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
-      console.log(res)
-      if (!res.error) {
-        if (res.result) {
-          this.userInfo = res.result
+    if(this.$store.state.yxtoken){
+      this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
+        console.log(res)
+        if (!res.error) {
+          if (res.result) {
+            this.userInfo = res.result
+          }
         }
-      }
-    })
+      })
+    }
+    
   }
 }
 </script>
