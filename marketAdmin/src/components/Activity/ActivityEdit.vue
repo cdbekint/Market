@@ -376,7 +376,7 @@
           imageCompressEnable: true,
           imageCompressBorder: 1600,
           imageInsertAlign: 'none',
-          imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
+          imageUrlPrefix: 'https://m.market.cdbeki.com/',
           imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
         },
         activity: {

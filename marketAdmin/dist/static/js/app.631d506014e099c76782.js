@@ -1280,6 +1280,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageCompressEnable: true,
         imageCompressBorder: 1600,
         imageInsertAlign: 'none',
+        imageUrlPrefix: 'https://m.market.cdbeki.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
         videoUrl: '//up.qbox.me/',
         videoActionName: 'uploadvideo',
@@ -1288,6 +1289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         videoCompressEnable: true,
         videoCompressBorder: 1600,
         videoInsertAlign: 'none',
+        videoUrlPrefix: 'https://m.market.cdbeki.com/',
         videoPathFormat: 'upload/video/{yyyy}{mm}{dd}/{time}{rand:6}'
       },
       activity: (_activity = {
@@ -1618,7 +1620,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageCompressEnable: true,
         imageCompressBorder: 1600,
         imageInsertAlign: 'none',
-        imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
+        imageUrlPrefix: 'https://m.market.cdbeki.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
       },
       activity: (_activity = {
@@ -3346,7 +3348,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageCompressEnable: true,
         imageCompressBorder: 1600,
         imageInsertAlign: 'none',
-        imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
+        imageUrlPrefix: 'https://m.market.cdbeki.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
       }
     };
@@ -3461,7 +3463,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageCompressEnable: true,
         imageCompressBorder: 1600,
         imageInsertAlign: 'none',
-        imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
+        imageUrlPrefix: 'https://m.market.cdbeki.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
       }
     };
@@ -3753,14 +3755,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         initialFrameWidth: null,
         initialFrameHeight: 320,
         info: {},
-        imageUrl: '//up.qiniu.com/',
+        imageUrl: '//up.qbox.me/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
         imageCompressEnable: true,
         imageCompressBorder: 1600,
         imageInsertAlign: 'none',
-        imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
+        imageUrlPrefix: 'https://m.market.cdbeki.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
       }
     };
@@ -6682,9 +6684,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   watch: {
     value: function value(val, oldVal) {
-      this.config.imageUrl = '//up.qbox.me/';
-      this.imageUrlPrefix = "https://m.market.cdbeki.com/";
-      this.videoUrlprefix = "https://m.market.cdbeki.com/";
       this.editor = UE.getEditor(this.id, this.config);
       if (val !== null) {
         this.editor.setContent(val);
@@ -47924,4 +47923,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[285]);
-//# sourceMappingURL=app.a7162531db85171eec43.js.map
+//# sourceMappingURL=app.631d506014e099c76782.js.map

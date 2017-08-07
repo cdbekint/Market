@@ -373,6 +373,7 @@ export default {
         imageCompressEnable: true,
         imageCompressBorder: 1600,
         imageInsertAlign: 'none',
+        imageUrlPrefix: 'https://m.market.cdbeki.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
         videoUrl: '//up.qbox.me/',
         videoActionName: 'uploadvideo',
@@ -381,6 +382,7 @@ export default {
         videoCompressEnable: true,
         videoCompressBorder: 1600,
         videoInsertAlign: 'none',
+        videoUrlPrefix: 'https://m.market.cdbeki.com/',
         videoPathFormat: 'upload/video/{yyyy}{mm}{dd}/{time}{rand:6}'
       },
       activity: {
