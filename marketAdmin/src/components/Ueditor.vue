@@ -27,8 +27,8 @@ export default {
   watch: {
     value: function value (val, oldVal) {
       this.config.imageUrl='//up.qbox.me/';
-      this.imageUrlPrefix=this.murl
-      this.videoUrlprefix=this.murl
+      this.imageUrlPrefix="https://m.market.cdbeki.com/"
+      this.videoUrlprefix="https://m.market.cdbeki.com/"
       this.editor = UE.getEditor(this.id, this.config)
       if (val !== null) {
         this.editor.setContent(val)

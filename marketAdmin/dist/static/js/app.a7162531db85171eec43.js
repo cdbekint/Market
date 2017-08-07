@@ -6683,8 +6683,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   watch: {
     value: function value(val, oldVal) {
       this.config.imageUrl = '//up.qbox.me/';
-      this.imageUrlPrefix = this.murl;
-      this.videoUrlprefix = this.murl;
+      this.imageUrlPrefix = "https://m.market.cdbeki.com/";
+      this.videoUrlprefix = "https://m.market.cdbeki.com/";
       this.editor = UE.getEditor(this.id, this.config);
       if (val !== null) {
         this.editor.setContent(val);
@@ -47924,4 +47924,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[285]);
-//# sourceMappingURL=app.8ca899e12b379736544e.js.map
+//# sourceMappingURL=app.a7162531db85171eec43.js.map
