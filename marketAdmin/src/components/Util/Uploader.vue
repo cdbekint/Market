@@ -1,7 +1,7 @@
 <template>
 <div class="uploader" ref="uploader" id="qiniu-container">
 
-   <Upload action="//up.qiniu.com/" encyte="multipart/form-data" ref="upload"
+   <Upload action="//up.qbox.me/" encyte="multipart/form-data" ref="upload"
         :show-upload-list="config.showUploadList"
         :format="config.format"
         :max-size="config.maxSize"

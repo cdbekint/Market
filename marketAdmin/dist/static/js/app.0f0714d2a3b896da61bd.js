@@ -14940,7 +14940,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('Upload', {
     ref: "upload",
     attrs: {
-      "action": "//up.qiniu.com/",
+      "action": "//up.qbox.me/",
       "encyte": "multipart/form-data",
       "show-upload-list": _vm.config.showUploadList,
       "format": _vm.config.format,
@@ -47923,4 +47923,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[285]);
-//# sourceMappingURL=app.6f194548c7beed12e800.js.map
+//# sourceMappingURL=app.0f0714d2a3b896da61bd.js.map
