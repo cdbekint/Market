@@ -114,7 +114,7 @@ export default {
         initialFrameWidth: null,
         initialFrameHeight: 320,
         info: {},
-        imageUrl: '//up.qiniu.com/',
+        imageUrl: '//up.qbox.me/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
         imageMaxSize: 2048000,

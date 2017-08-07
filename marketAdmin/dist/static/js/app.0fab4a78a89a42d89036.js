@@ -1273,7 +1273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         initialFrameWidth: null,
         initialFrameHeight: 320,
         info: {},
-        imageUrl: '//up.qiniu.com/',
+        imageUrl: '//up.qbox.me/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
@@ -1282,7 +1282,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageInsertAlign: 'none',
         imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
-        videoUrl: '//up.qiniu.com/',
+        videoUrl: '//up.qbox.me/',
         videoActionName: 'uploadimage',
         videoFieldName: 'file',
         videoAllowFiles: ['.mp4', '.ogv', '.webm'],
@@ -1613,7 +1613,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         initialFrameWidth: null,
         initialFrameHeight: 320,
         info: {},
-        imageUrl: '//up.qiniu.com/',
+        imageUrl: '//up.qbox.me/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
         imageAllowFiles: ['.jpg', '.png', '.jpeg'],
@@ -3340,7 +3340,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         initialFrameWidth: null,
         initialFrameHeight: 320,
         info: {},
-        imageUrl: '//up.qiniu.com/',
+        imageUrl: '//up.qbox.me/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
         imageMaxSize: 2048000,
@@ -3455,7 +3455,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         initialFrameWidth: null,
         initialFrameHeight: 320,
         info: {},
-        imageUrl: '//up.qiniu.com/',
+        imageUrl: '//up.qbox.me/',
         imageActionName: 'uploadimage',
         imageFieldName: 'file',
         imageMaxSize: 2048000,
@@ -47923,4 +47923,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[285]);
-//# sourceMappingURL=app.0f0714d2a3b896da61bd.js.map
+//# sourceMappingURL=app.0fab4a78a89a42d89036.js.map

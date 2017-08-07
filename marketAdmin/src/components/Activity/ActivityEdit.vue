@@ -369,7 +369,7 @@
           initialFrameWidth: null,
           initialFrameHeight: 320,
           info: {},
-          imageUrl: '//up.qiniu.com/',
+          imageUrl: '//up.qbox.me/',
           imageActionName: 'uploadimage',
           imageFieldName: 'file',
           imageAllowFiles: ['.jpg', '.png', '.jpeg'],
