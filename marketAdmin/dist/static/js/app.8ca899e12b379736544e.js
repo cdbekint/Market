@@ -1280,16 +1280,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         imageCompressEnable: true,
         imageCompressBorder: 1600,
         imageInsertAlign: 'none',
-        imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
         videoUrl: '//up.qbox.me/',
-        videoActionName: 'uploadimage',
+        videoActionName: 'uploadvideo',
         videoFieldName: 'file',
         videoAllowFiles: ['.mp4', '.ogv', '.webm'],
         videoCompressEnable: true,
         videoCompressBorder: 1600,
         videoInsertAlign: 'none',
-        videoUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
         videoPathFormat: 'upload/video/{yyyy}{mm}{dd}/{time}{rand:6}'
       },
       activity: (_activity = {
@@ -6684,6 +6682,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   watch: {
     value: function value(val, oldVal) {
+      this.config.imageUrl = '//up.qbox.me/';
+      this.imageUrlPrefix = this.murl;
+      this.videoUrlprefix = this.murl;
       this.editor = UE.getEditor(this.id, this.config);
       if (val !== null) {
         this.editor.setContent(val);
@@ -47923,4 +47924,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[285]);
-//# sourceMappingURL=app.0fab4a78a89a42d89036.js.map
+//# sourceMappingURL=app.8ca899e12b379736544e.js.map

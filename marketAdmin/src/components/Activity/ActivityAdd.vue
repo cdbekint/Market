@@ -373,16 +373,14 @@ export default {
         imageCompressEnable: true,
         imageCompressBorder: 1600,
         imageInsertAlign: 'none',
-        imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
         imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}',
         videoUrl: '//up.qbox.me/',
-        videoActionName: 'uploadimage',
+        videoActionName: 'uploadvideo',
         videoFieldName: 'file',
         videoAllowFiles: ['.mp4', '.ogv', '.webm'],
         videoCompressEnable: true,
         videoCompressBorder: 1600,
         videoInsertAlign: 'none',
-        videoUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
         videoPathFormat: 'upload/video/{yyyy}{mm}{dd}/{time}{rand:6}'
       },
       activity: {
