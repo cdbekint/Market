@@ -207,6 +207,61 @@ export default {
           }
           this.getPointRecord()//获取积分记录
         }
+      }).then(()=>{
+        var url = location.href.split("#")[0];
+        // 获取微信分享配置
+
+        this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' + url).then(res => {
+
+          if (res.error === false) {
+            this.wx.config({
+              debug: false,
+              appId: res.result.appId,
+              timestamp: res.result.timestamp,
+              nonceStr: res.result.noncestr,
+              signature: res.result.signStr,
+              jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'getNetworkType', 'chooseWXPay']
+            });
+
+            this.weixinConfig = res.result
+
+          this.wx.ready(() => {
+            var content = {
+              wxshareTitle: this.activity.activityName,
+              wxdescContent: this.activity.shareDes,
+              wxlineLink: url,
+              wximgUrl: this.murl + this.activity.shareImg
+            };
+            var _this = this
+            this.wx.onMenuShareAppMessage({
+              title: content.wxshareTitle,
+              desc: content.wxdescContent,
+              link: content.wxlineLink,
+              imgUrl: content.wximgUrl,
+              type: 'link',
+              dataUrl: '',
+              success: function () {
+                _this.shareSuccess(2)
+              },
+              cancel: function () {
+                console.log('cancel app')
+              }
+            });
+
+            this.wx.onMenuShareTimeline({
+              title: content.wxdescContent,
+              link: content.wxlineLink,
+              imgUrl: content.wximgUrl,
+              success: function () {
+                _this.shareSuccess(1)
+              },
+              cancel: function () {
+                console.log('cancel time')
+              }
+            })
+          })
+          }
+        });
       }).then(() => {
         if (this.activity.musicId != void 0 && this.activity.musicId != '') {
           this.http.get(this.$store.state.prefix + '/music/' + this.activity.musicId).then(res2 => {
@@ -221,60 +276,8 @@ export default {
       })
     })
 
+    
 
-    var url = location.href.split("#")[0];
-    // 获取微信分享配置
-    this.http.get(this.$store.state.prefix + '/pubInfo/weChatShare/' + activityId + '?url=' + url).then(res => {
-
-      if (res.error === false) {
-        this.wx.config({
-          debug: false,
-          appId: res.result.appId,
-          timestamp: res.result.timestamp,
-          nonceStr: res.result.noncestr,
-          signature: res.result.signStr,
-          jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'getNetworkType', 'chooseWXPay']
-        });
-
-        this.weixinConfig = res.result
-      }
-    });
-
-    this.wx.ready(() => {
-      var content = {
-        wxshareTitle: this.activity.activityName,
-        wxdescContent: this.activity.shareDes,
-        wxlineLink: url,
-        wximgUrl: this.murl + this.activity.shareImg
-      };
-      var _this = this
-      this.wx.onMenuShareAppMessage({
-        title: content.wxshareTitle,
-        desc: content.wxdescContent,
-        link: content.wxlineLink,
-        imgUrl: content.wximgUrl,
-        type: 'link',
-        dataUrl: '',
-        success: function () {
-          _this.shareSuccess(2)
-        },
-        cancel: function () {
-          console.log('cancel app')
-        }
-      });
-
-      this.wx.onMenuShareTimeline({
-        title: content.wxdescContent,
-        link: content.wxlineLink,
-        imgUrl: content.wximgUrl,
-        success: function () {
-          _this.shareSuccess(1)
-        },
-        cancel: function () {
-          console.log('cancel time')
-        }
-      })
-    })
   },
   methods: {
     handleClick() {

@@ -708,7 +708,7 @@
                 $.ajax({
                     dataType:"json",
                     async:false,
-                    url:"http://121.42.30.136:8089/pubInfo/qiniu",
+                    url:"//market.cdbeki.com/pubInfo/qiniu",
                     success:function(res){
                         data['token']=res.result.token;
                     }

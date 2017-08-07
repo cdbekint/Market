@@ -115,7 +115,7 @@
           initialFrameWidth: null,
           initialFrameHeight: 320,
           info: {},
-          imageUrl: 'http://up.qiniu.com/',
+          imageUrl: '//up.qiniu.com/',
           imageActionName: 'uploadimage',
           imageFieldName: 'file',
           imageMaxSize: 2048000,
@@ -123,7 +123,7 @@
           imageCompressEnable: true,
           imageCompressBorder: 1600,
           imageInsertAlign: 'none',
-          imageUrlPrefix: 'http://oolds3geo.bkt.clouddn.com/',
+          imageUrlPrefix: '//oolds3geo.bkt.clouddn.com/',
           imagePathFormat: 'upload/image/{yyyy}{mm}{dd}/{time}{rand:6}'
         }
       }

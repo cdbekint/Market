@@ -717,6 +717,14 @@
             uploader.on('uploadBeforeSend', function (file, data, header) {
                 //这里可以通过data对象添加POST参数
                 header['X_Requested_With'] = 'XMLHttpRequest';
+                $.ajax({
+                    dataType:"json",
+                    async:false,
+                    url:"//market.cdbeki.com/pubInfo/qiniu",
+                    success:function(res){
+                        data['token']=res.result.token;
+                    }
+                })
             });
 
             uploader.on('uploadProgress', function (file, percentage) {
