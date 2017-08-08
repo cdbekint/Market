@@ -2,7 +2,7 @@
   <div class="personPage">
     <headTitle @headCompany="getCompanyId" :companyId="currentCompanyId" :companyInfo="personInfo.company"></headTitle>
     <headMoney :Person="personInfo" @freshHead="getCompanyId"></headMoney>
-    <infos :datas="datas" @loadMore="getPageNum"></infos>
+    <infos :currentCompanysId='currentCompanyId'></infos>
   </div>
 </template>
 
@@ -24,127 +24,7 @@ export default {
     },
     getCompanyId (id) {
       this.currentCompanyId = id;
-      this.getInfosByCompanyId();
       this.setPointByCurrentCompany(id);
-    },
-    getActiveInfo(page){
-      //获取活动列表
-      this.http.get(this.$store.state.prefix + "/home/getActivityInfo/" + this.currentCompanyId +"/"+page).then(res=> {
-        if (res.error == false) {
-          var row = res.result;
-          this.datas.activityInfo.info=[]
-          row.records.forEach(item=> {
-            var obj = {
-              id: item.id,
-              img: item.activityImg,
-              name: this.util.sliceStr(item.activityName, 13),
-              date: item.endDate,
-              jifen: item.gainPoints,
-              peopleNum: item.joinNum,
-              totalPeople: item.viewNum
-            };
-            this.datas.activityInfo.info.push(obj);
-          });
-          this.datas.activityInfo.page = row.current;
-          this.datas.activityInfo.total = row.pages;
-        }
-      });
-    },
-    getInviterInfo(page){
-      //获取已邀请的人
-      this.http.get(this.$store.state.prefix + "/home/getInvitedMems/" +  this.currentCompanyId +"/"+page).then(res=> {
-        if(res.error == false){
-          var row = res.result;
-          this.datas.memberInfo.info=[]
-          row.records.forEach(item=>{
-            var obj = {
-              img: item.headImg,
-              name: this.util.sliceStr(item.realName||item.nickName, 7),
-              jifen: item.allPoints,
-              peopleNum: item.invitedMems,
-              consume: item.selfExpense,
-            };
-            this.datas.memberInfo.info.push(obj);
-          });
-          this.datas.memberInfo.page = row.current;
-          this.datas.memberInfo.total = row.pages;
-        }
-      });
-    },
-
-    getConsumeInfo(page){
-      //获取消费记录
-      this.http.get(this.$store.state.prefix + "/home/getUserExpense/" +  this.currentCompanyId +"/"+page).then(res=> {
-        if(res.error == false){
-          var row = res.result;
-          this.datas.consumeInfo.info=[]
-          row.records.forEach(item=>{
-            var time = this.util.getDate(item.payDate)
-            var obj = {
-              time:time,
-              content:this.util.sliceStr(item.remarks,8),
-              jifen:item.payPoints,
-              money:item.payAmount,
-              page:row.current,
-              payStatus:item.payStatus,
-              total:row.pages
-            };
-            this.datas.consumeInfo.info.push(obj);
-          });
-          this.datas.consumeInfo.page = row.current;
-          this.datas.consumeInfo.total = row.pages;
-        }
-      });
-    },
-    getPageNum(num,type){
-      switch (type) {
-        case 'activity':
-          this.datas.activityInfo.page = num
-          this.getActiveInfo(this.datas.activityInfo.page)
-          break
-        case 'member':
-          this.datas.memberInfo.page = num
-          this.getInviterInfo(this.datas.memberInfo.page)
-          break
-        case 'consume':
-          this.datas.consumeInfo.page = num
-          this.getConsumeInfo(this.datas.consumeInfo.page)
-          break
-        case 'jifen':
-          this.datas.jifenInfo.page = num
-          this.getUserPointInfo(this.datas.jifenInfo.page)
-          break
-      }
-    },
-    getUserPointInfo(page){
-      //获取积分记录
-      console.log(this.datas.jifenInfo.page)
-      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" +  this.currentCompanyId+"/" + page || 1).then(res=> {
-        if(res.error == false){
-          var row = res.result;
-          console.log(res.result)
-          var arr = [];
-          this.datas.jifenInfo.info=[]
-          row.records.forEach(item=>{
-            var time = this.util.getDate(item.createDate)
-            var obj = {
-              time:time,
-              content:this.util.sliceStr(item.remarks,18),
-              jifen:item.points>0?('+'+item.points):item.points,
-              pointType:item.pointType
-            };
-            this.datas.jifenInfo.info.push(obj)
-          });
-          this.datas.jifenInfo.page = row.current;
-          this.datas.jifenInfo.total = row.pages;
-        }
-      });
-    },
-    getInfosByCompanyId(){
-      this.getActiveInfo(1)
-      this.getInviterInfo(1)
-      this.getConsumeInfo(1)
-      this.getUserPointInfo(1)
     },
     getMoreInfo(itemNo,page){
       switch (itemNo){
@@ -211,7 +91,6 @@ export default {
         this.personInfo.company = pointArr;
       }
     }).then(()=>{
-      this.getInfosByCompanyId(this.currentCompanyId);
       this.setPointByCurrentCompany(this.currentCompanyId);
     })
   },
@@ -224,24 +103,6 @@ export default {
         phone:'',
         company:[],
         currentCompany:{}
-      },
-      datas:{
-        activityInfo:{
-          info:[],
-          page:1
-        },
-        memberInfo:{
-          info:[],
-          page:1
-        },
-        jifenInfo:{
-          info:[],
-          page:1
-        },
-        consumeInfo:{
-          info:[],
-          page:1
-        }
       }
     }
   }
