@@ -187,7 +187,7 @@
           </div>
         </div>
 
-        <div class="contentval" v-text="baseinfo.allPoints-baseinfo.allWithdrawPoints">
+        <div class="contentval" v-text="baseinfo.shareTimes">
 
         </div>
       </div>
@@ -204,7 +204,7 @@
           </div>
         </div>
 
-        <div class="contentval" v-text="~~((baseinfo.allPoints-baseinfo.allWithdrawPoints)*baseinfo.toCashRate/100)">
+        <div class="contentval" v-text="baseinfo.sharePeople">
 
         </div>
       </div>
