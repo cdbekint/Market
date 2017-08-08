@@ -48,6 +48,19 @@
             <Col class="text-right"><router-link :to="{path:'/company/edit',query:{type:2,name:'pointrule'}}">修改</router-link></Col>
           </Row>
           <Row>
+          <div class="companyinfo pointrule-wrapper">
+            <div class="pointrule-table">
+              <ul>
+                <li>
+                  <div class="flex1">
+                    名称
+                  </div>
+                  <div class="flex1">值</div>
+                  <div class="flex1">备注</div>
+                </li>
+              </ul>
+            </div>
+          </div>
             <Form :model="companyinfo" :label-width="100" class="companyinfo">
                 <Form-item label="积分折现比" class="text-left">
                   <span v-text="companyinfo.toCashRate+'%（100积分折算人民币为:'+companyinfo.toCashRate+'元）'"></span>
@@ -415,18 +428,18 @@ export default {
       this.http.get(this.$store.state.prefix + '/company/' + this.$store.state.companyId).then(res => {
         if (res.error === false) {
           if (res.result !== null) {
-
+            var tmp=res.result
             //判断是否具有提现账户信息，没有就设置account信息。
-            if(res.result.account==undefined){
-              res.reuslt.account={
+            if(tmp.account==undefined){
+              tmp.account={
                 realName:'',
                 nickName:'',
                 headImg:'',
                 phone:''
               }
             }
-            res.result.employeeRate=res.result.employeeRate?JSON.parse(res.result.employeeRate):[]
-            this.companyinfo = res.result
+            res.result.employeeRate=tmp.employeeRate?JSON.parse(res.result.employeeRate):[]
+            this.companyinfo = tmp
             this.companyinfo.expireDays=~~((this.companyinfo.expireDate-Date.now())/1000/3600/24)
             this.companyinfo.expireDate = this.util.getFormatDate(this.companyinfo.expireDate)
             this.companyinfo.show = this.util.escapeToHtml(this.companyinfo.show)
@@ -532,6 +545,13 @@ export default {
     .companyavater
       width:60px
       height:auto
+  .pointrule-table
+    width:60%
+    ul
+      padding:0px
+      li
+        display:flex
+
 .richtext
   min-height:200px
   border:1px solid #ccc

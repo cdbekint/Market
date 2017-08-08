@@ -11,13 +11,13 @@
           <li v-for="ri in RenewInfo" v-text="ri.month+'月'" :class="{active:ri.active}" @click="selectMoney(ri)"></li>
         </ul>
         <div v-if="RenewInfo.length==0">管理员暂时未配置续费金额，请联系管理员进行设置</div>
-        <div style="width:80%;display:flex;font-size:1.1em;color:red" v-if="RenewInfo.length>0">
+        <div style="width:100%;display:flex;font-size:1.1em;color:red" v-if="RenewInfo.length>0">
           <div style="flex:1;text-align:center">总金额：{{realMoney}}元</div>
-          <div style="flex:1;text-align:center">到期日期：{{util.getFormatDate(new Date(company.expireDate).getTime()+realMonth*30*24*3600*1000)}}</div>
+          <div style="flex:1;text-align:center">充值后到期日期：{{util.getFormatDate(new Date(company.expireDate).getTime()+realMonth*30*24*3600*1000)}}</div>
         </div>
       </div>
       <div class="payQrCode text-center"  v-if="currentStep==1">
-        <img :src="'http://qr.liantu.com/api.php?w=200&m=5&text='+code_url" alt="" v-if="code_url">
+        <img :src="'https://pan.baidu.com/share/qrcode?w=200&h=200&url='+code_url" alt="" v-if="code_url">
         <Row>
         <span v-text="'付费金额:'+realMoney+'元'" style="font-size:1.5em"></span></br>
          <Icon type="ios-information-outline"></Icon>请使用微信扫一扫进行付款</Row>
@@ -99,7 +99,9 @@ export default {
             remarks:'账户续期'+this.realMonth+'个月',
             companyId:this.util.getCookie("companyId")
           }
+          console.log("请求支付")
           this.http.post(this.$store.state.prefix + '/pay' , param).then (res => {
+          console.log("支付请求完成")
             if (res.error === false) {
               this.code_url = res.result.code_url
               this.currentStep ++
@@ -148,7 +150,7 @@ export default {
               if(this.repeateNum<200){
                 setTimeout(function(){
                   _this.checkStatus(out_trade_no)
-                },1000)
+                },2000)
               }
               
             }

@@ -24,9 +24,9 @@ const store = new Vuex.Store({
     qiniutoken: util.getCookie('qiniutoken') || '',
     authentic:util.getCookie('authentic')||'',
     companyFlag:util.getCookie('companyFlag')||'',
-    rate:2,//提现手续费用
-    // prefix: '/api',
-    prefix: '//market.cdbeki.com'
+    rate:1,//提现手续费用
+    prefix: '/api',
+    // prefix: '//market.cdbeki.com'
   },
   mutations: {
     updateToken (state) {
