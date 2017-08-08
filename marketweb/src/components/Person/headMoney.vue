@@ -54,6 +54,17 @@
       <p class="modelTishi">钱已到帐，请查看钱包</p>
       <p slot="footer" class="modelBack" @click="paySuccess=false">返回当前页面</p>
     </Modal>
+    <Modal v-model="payFalse.falseState" :closable="false" width="1000">
+      <p class="modelTitle">
+        <img src='/static/images/company/messages.png'>
+      </p>
+      <!-- <p class="modelPic">
+        <img src="/static/images/company/success.png">
+      </p> -->
+      <p class="modelSuccess">{{payFalse.msg}}</p>
+      <p class="modelTishi">{{payFalse.msg}}</p>
+      <p slot="footer" class="modelBack" @click="payFalse.falseState=false">确定</p>
+    </Modal>
   </div>
 </template>
 
@@ -77,14 +88,19 @@ export default {
       isWithdraw: false,
       withdrawPoint: 0,
       withdrawAmount: 0,
-      paySuccess:false
+      paySuccess:false,
+      payFalse:{
+        falseState:false,
+        msg:''
+      }
     }
   },
   methods: {
     ok() {
+      // this.payFalse.falseState = true
       this.withdrawPoint = Math.ceil(this.withdrawAmount / this.Person.toCashRate * 100)
       if (this.Person.toCashRate == 0) {
-        this.$Message.error('该公司所设置的积分兑换率为0，无法进行对换')
+        this.$Message.error('积分兑换率为0，无法兑换')
         return
       }
       if (this.withdrawPoint === 0) {
@@ -110,10 +126,8 @@ export default {
           // });
         }
         else {
-          this.$Modal.error({
-            title: res.msg,
-            content: res.msg
-          });
+           this.payFalse.falseState = true
+           this.payFalse = res.msg
         }
       })
     },

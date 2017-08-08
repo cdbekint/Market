@@ -84,7 +84,7 @@
       <img src="/static/images/company/fanhui.png" @click="showSystem=false" class="detail_return">
       <div class="system_content">
         <div class="createMarket" v-if="currentRenew.renewType==2">
-         
+  
           <div class="markettitle" v-text="currentRenew.title">
   
           </div>
@@ -94,53 +94,55 @@
             </Form-item>
             <Form-item label="登录账户">
               <Input placeholder="请输入登录账户名(字母+数字)" v-model="createAccount.username"></Input>
-           </Form-item>
-           <Form-item label="手机号码">
+            </Form-item>
+            <Form-item label="手机号码">
               <Input placeholder="请输入11位手机号码" v-model="createAccount.phone"></Input>
-           </Form-item>
-           <Form-item label="邮箱">
+            </Form-item>
+            <Form-item label="邮箱">
               <Input placeholder="请输入邮箱" v-model="createAccount.email"></Input>
-           </Form-item>
-           <Form-item label="">
-               <Checkbox-group v-model="createAccount.protocol">
-                <Checkbox label="true">已阅读并同意<a href="javascript:;" @click="serviceprotocol=true">《裂变营销系统使用协议》</a></Checkbox>
+            </Form-item>
+            <Form-item label="">
+              <Checkbox-group v-model="createAccount.protocol">
+                <Checkbox label="true">已阅读并同意
+                  <a href="javascript:;" @click="serviceprotocol=true">《裂变营销系统使用协议》</a>
+                </Checkbox>
               </Checkbox-group>
-           </Form-item>
-           <div class="errorInfo text-left" v-text="createAccount.errormsg" v-if="createAccount.errormsg">
-           </div>
-           <div>
-             <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'积分并注册'" @click="createMarketAccount()"></Button>
-           </div>
-           <div class="mention">
-             <ul>
-               <li>1.默认密码为手机号后六位,注册成功请尽快修改</li>
-               <li>2.请认证阅读使用协议</li>
-               <li>3.后台登录地址：http://yx.cdbeki.com</li>
-             </ul>
-           </div>
-         </Form>
-       </div>
+            </Form-item>
+            <div class="errorInfo text-left" v-text="createAccount.errormsg" v-if="createAccount.errormsg">
+            </div>
+            <div>
+              <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'积分并注册'" @click="createMarketAccount()"></Button>
+            </div>
+            <div class="mention">
+              <ul>
+                <li>1.默认密码为手机号后六位,注册成功请尽快修改</li>
+                <li>2.请认证阅读使用协议</li>
+                <li>3.后台登录地址：http://yx.cdbeki.com</li>
+              </ul>
+            </div>
+          </Form>
+        </div>
         <div class="renewMarket" v-if="currentRenew.renewType==1">
           <img :src="murl+currentRenew.img" alt="">
           <div class="renewMarketcontent">
-          <div class="displayflexcolumn ">
-          <div class="displayflex renewMarketitem">
-              <div class="flex1" v-text="currentRenew.title" style="text-align: center;font-size:1.1em;font-weight: bolder;"></div>
-              
+            <div class="displayflexcolumn ">
+              <div class="displayflex renewMarketitem">
+                <div class="flex1" v-text="currentRenew.title" style="text-align: center;font-size:1.1em;font-weight: bolder;"></div>
+  
+              </div>
+              <div class="displayflex renewMarketitem">
+                <div class="flex1">公司名称</div>
+                <div class="flex2" v-text="currentRenew.company.companyName"></div>
+              </div>
+              <div class="displayflex renewMarketitem">
+                <div class="flex1">到期时间</div>
+                <div class="flex2" v-text="currentRenew.company.expireDate"></div>
+              </div>
+              <div class="displayflex renewMarketitem">
+                <div class="flex1">续费时长</div>
+                <div class="flex2" v-text="currentRenew.month+'月'"></div>
+              </div>
             </div>
-            <div class="displayflex renewMarketitem">
-              <div class="flex1">公司名称</div>
-              <div class="flex2" v-text="currentRenew.company.companyName"></div>
-            </div>
-            <div class="displayflex renewMarketitem">
-              <div class="flex1">到期时间</div>
-              <div class="flex2" v-text="currentRenew.company.expireDate"></div>
-            </div> 
-            <div class="displayflex renewMarketitem">
-              <div class="flex1">续费时长</div>
-              <div class="flex2" v-text="currentRenew.month+'月'"></div>
-            </div>
-          </div>
             <div class="btn">
               <Button type="primary" v-text="'支付'+(currentRenew.price||0)+'积分续费'" @click="renewMarketAccount()"></Button>
             </div>
@@ -248,13 +250,8 @@
         <Input v-model="payRemarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="商品名称与数量"></Input>
       </Row>
     </Modal>
-    <Modal
-        v-model="serviceprotocol"
-        title="裂变营销系统使用协议"
-        @on-ok="aggreProtocol"
-        ok-text="我已阅读并同意"
-        cancel-text="取消">
-        解放拉萨飞
+    <Modal v-model="serviceprotocol" title="裂变营销系统使用协议" @on-ok="aggreProtocol" ok-text="我已阅读并同意" cancel-text="取消">
+      解放拉萨飞
     </Modal>
     <Modal v-model="paySuccess" :closable="false" width="1000">
       <p class="modelTitle">
@@ -424,17 +421,17 @@ export default {
       })
     },
     showSystemGood(renew) {
-      if (renew.renewType==1) {
+      if (renew.renewType == 1) {
         this.showSystem = true
-        renew.company={}
+        renew.company = {}
         this.currentRenew = renew
         this.http.get(this.$store.state.prefix + '/pubInfo/getCompanyExpireInfo').then(res => {
           if (!res.error) {
             if (JSON.stringify(res.result) != "{}") {
-            var currentrenew=JSON.parse(JSON.stringify(this.currentRenew))
-            currentrenew.company=res.result
-            currentrenew.company.expireDate=this.util.getFormatDate(currentrenew.company.expireDate)
-            this.currentRenew=currentrenew
+              var currentrenew = JSON.parse(JSON.stringify(this.currentRenew))
+              currentrenew.company = res.result
+              currentrenew.company.expireDate = this.util.getFormatDate(currentrenew.company.expireDate)
+              this.currentRenew = currentrenew
             } else {
               this.$Message.error("该账户未与微信绑定,请购买开户产品!")
             }
@@ -646,8 +643,8 @@ export default {
         }
       })
     },
-    aggreProtocol(){
-      this.createAccount.protocol=["true"]
+    aggreProtocol() {
+      this.createAccount.protocol = ["true"]
     },
     onSlideChangeStart(currentPage) {
       console.log('onSlideChangeStart', currentPage);
@@ -655,6 +652,84 @@ export default {
     onSlideChangeEnd(currentPage) {
       console.log('onSlideChangeEnd', currentPage);
     },
+<<<<<<< HEAD
+    createMarketAccount() {
+      var param = JSON.parse(JSON.stringify(this.createAccount))
+      if (!/(\w*[\u4e00-\u9fa5]+)+/.test(param.companyName)) {
+        this.createAccount.errormsg = "企业名称不能为空,且必须包含中文"
+        return
+      } else {
+        this.createAccount.errormsg = ""
+      }
+      if (!/^[a-zA-z]\w{3,15}$/.test(param.username)) {
+        this.createAccount.errormsg = "登录账户名只能为数字加字母（4-16位）"
+        return
+      } else {
+        this.createAccount.errormsg = ""
+      }
+      if (!/^1[34578]\d{9}$/.test(param.phone)) {
+        this.createAccount.errormsg = "手机号码不正确"
+        return
+      } else {
+        this.createAccount.errormsg = ""
+      }
+      if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(param.email)) {
+        this.createAccount.errormsg = "邮箱格式不正确"
+        return
+      } else {
+        this.createAccount.errormsg = ""
+      }
+      if (param.protocol.length == 0) {
+        this.createAccount.errormsg = "请仔细阅读裂变营销系统使用协议"
+        return
+      } else if (param.protocol[0] == "true") {
+        this.createAccount.errormsg = ""
+      }
+      this.http.get(this.$store.state.prefix + '/pubInfo/judgeCreateCompany').then(res => {
+        if (!res.error) {
+          if (!res.result.companyFlag) {
+            var renewinfo = JSON.parse(JSON.stringify(this.currentRenew))
+            if (!res.result.payFlag) {
+              //获取到当前进行的续费或则充值商品信息
+              this.http.post(this.$store.state.prefix + "/pay", { businessId: renewinfo.id, payType: 8, payAmount: renewinfo.points, companyId: this.ids.companyId, remarks: '用户' + this.util.getCookie("ownId") + renewinfo.title }).then(res => {
+                if (res.error == false) {
+                  this.createAccount.errormsg = ""
+                  param.renewId = renewinfo.id
+                  delete param.protocol
+                  delete param.errormsg
+                  this.http.post(this.$store.state.prefix + '/pubInfo/createCompany', param).then(res => {
+                    if (res.error == false) {
+                      this.createAccount.errormsg = ""
+                      this.createAccount.companyName = ""
+                      this.createAccount.username = ""
+                      this.createAccount.phone = this.$store.state.account.phone || ""
+                      this.createAccount.email = this.$store.state.account.email || ""
+                      this.createAccount.protocol = []
+                      this.createAccount.errormsg = ""
+                      this.$Message.success("注册成功")
+                      this.showSystem = false
+                    } else {
+                      this.createAccount.errormsg = res.msg
+                    }
+                  })
+                } else {
+                  this.createAccount.errormsg = res.msg
+                }
+              })
+            } else {
+              param.renewId = renewinfo.id
+              delete param.protocol
+              delete param.errormsg
+              this.http.post(this.$store.state.prefix + '/pubInfo/createCompany', param).then(res => {
+                if (res.error == false) {
+                  this.createAccount.errormsg = ""
+                  this.createAccount.companyName = ""
+                  this.createAccount.username = ""
+                  this.createAccount.phone = this.$store.state.account.phone || ""
+                  this.createAccount.email = this.$store.state.account.email || ""
+                  this.createAccount.protocol = []
+                  this.createAccount.errormsg = ""
+=======
     createMarketAccount(){
       if(!this.judgecompany){
         this.$Message.error("您已创建过公司账户")
@@ -714,29 +789,30 @@ export default {
                   this.createAccount.email=this.$store.state.account.email||""
                   this.createAccount.protocol=[]
                   this.createAccount.errormsg=""
+>>>>>>> 94d751a595c27548cc4f493877b263fd6a487524
                   this.$Message.success("注册成功")
-                  this.showSystem=false
-                }else{
-                  this.createAccount.errormsg=res.msg
+                  this.showSystem = false
+                } else {
+                  this.createAccount.errormsg = res.msg
                 }
-             })
-           }else{
-            this.createAccount.errormsg=res.msg
-           }
-       })
-
-
-    },
-    renewMarketAccount(){
-       var param=JSON.parse(JSON.stringify(this.currentRenew))
-       this.http.post(this.$store.state.prefix+"/pay",{businessId:param.id,payType:8,payAmount:param.price,companyId:this.ids.companyId,remarks:'用户'+this.util.getCookie("ownId")+param.title}).then(res=>{
-          if(res.error==false){
-             this.$Message.success("续费成功")
-             this.showSystem=false
-          }else{
-            this.$Message.error(res.msg)
+              })
+            }
+          } else {
+            this.createAccount.errormsg = "该账户,已开户"
           }
-       })
+        }
+      })
+    },
+    renewMarketAccount() {
+      var param = JSON.parse(JSON.stringify(this.currentRenew))
+      this.http.post(this.$store.state.prefix + "/pay", { businessId: param.id, payType: 8, payAmount: param.price, companyId: this.ids.companyId, remarks: '用户' + this.util.getCookie("ownId") + param.title }).then(res => {
+        if (res.error == false) {
+          this.$Message.success("续费成功")
+          this.showSystem = false
+        } else {
+          this.$Message.error(res.msg)
+        }
+      })
     }
   },
   mounted() {
@@ -821,6 +897,21 @@ export default {
   },
   data() {
     return {
+<<<<<<< HEAD
+      currentIndex: 1,
+      payMoney: 0,
+      payRemarks: "",
+      isWithdraw: false,
+      showGoods: true,
+      showHtml: true,
+      showMember: true,
+      showSystem: false,//显示系统页面
+      serviceprotocol: false,//服务协议modal
+      currentRenew: {
+        company: {
+          companyName: '',
+          expireDate: ''
+=======
       currentIndex:1,
       payMoney:0,
       payRemarks:"",
@@ -835,23 +926,24 @@ export default {
         company:{
           companyName:'',
           expireDate:''
+>>>>>>> 94d751a595c27548cc4f493877b263fd6a487524
         },
-        img:"",
-        title:1,
-        price:'0积分',
-        chargeType:1,
-        renewType:2,
-        month:1
+        img: "",
+        title: 1,
+        price: '0积分',
+        chargeType: 1,
+        renewType: 2,
+        month: 1
       },
-      createAccount:{
-        companyName:'',
-        username:'',
-        phone:this.$store.state.account.phone||"",
-        accountId:this.util.getCookie("ownId"),
-        email:this.$store.state.account.email||"",
-        companyFlag:0,
-        protocol:[],
-        errormsg:''
+      createAccount: {
+        companyName: '',
+        username: '',
+        phone: this.$store.state.account.phone || "",
+        accountId: this.util.getCookie("ownId"),
+        email: this.$store.state.account.email || "",
+        companyFlag: 0,
+        protocol: [],
+        errormsg: ''
       },
       url: '',
       swiperOption: {

@@ -33,20 +33,20 @@
         </div>
       </div>
       <Row>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.activityOk && activityInfo.info.length>0">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.activityOk && doneLoad.activity.length>0">
         <!-- <div @click='doneLoadMore(addNum,activityInfo.info,"activityPage")'> -->
         <div @click='doneLoadMore("activityPage")'>
           <Spin fix class="moreStyle">加载更多</Spin>
         </div>
         </Col>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.activityOk && activityInfo.info.length>0">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.activityOk && doneLoad.activity.length>0">
         <div>
           <Spin fix class="doneStyle">没有更多啦~</Spin>
         </div>
         </Col>
       </Row>
       <!-- <Button @click='doneLoadMore(2,activityInfo.info,"activityPage")'>点击加载更多</Button> -->
-      <div class="info_isNull" v-if="activityInfo.info.length==0">
+      <div class="info_isNull" v-if="doneLoad.activity.length==0">
         <img src="/static/images/shop.png">
         <p>暂未参加此商家任何活动</p>
       </div>
@@ -71,19 +71,19 @@
       </div>
       <!-- <Button @click='doneLoadMore(2,memberInfo.info,"memberPage")'>点击加载更多</Button> -->
       <Row>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.memberOk && memberInfo.info.length>0">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if="doneLoad.memberOk && doneLoad.member.length>0">
         <!-- <div @click='doneLoadMore(addNum,memberInfo.info,"memberPage")'> -->
         <div @click='doneLoadMore("memberPage")'>
           <Spin fix class="moreStyle">加载更多</Spin>
         </div>
         </Col>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.memberfoOk && memberInfo.info.length>0">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.memberOk && doneLoad.member.length>0">
         <div>
           <Spin fix class="doneStyle">没有更多啦~</Spin>
         </div>
         </Col>
       </Row>
-      <div class="info_isNull" v-if="memberInfo.info.length==0">
+      <div class="info_isNull" v-if="doneLoad.member.length==0">
         <img src="/static/images/shop.png">
         <p>暂无邀请任何人员</p>
       </div>
@@ -109,19 +109,19 @@
       </div>
       <!-- <Button @click='doneLoadMore(2,consumeInfo.info,"consumeInfoPage")'>点击加载更多</Button> -->
       <Row>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if='doneLoad.consumeInfoOk && consumeInfo.info.length>0'>
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-if='doneLoad.consumeInfoOk && doneLoad.consumeInfo.length>0'>
         <!-- <div @click='doneLoadMore(addNum,consumeInfo.info,"consumeInfoPage")'> -->
         <div @click='doneLoadMore("consumeInfoPage")'>
           <Spin fix class="moreStyle">加载更多</Spin>
         </div>
         </Col>
-        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.consumeInfoOk && consumeInfo.info.length>0">
+        <Col span='24' style="height:30px;line-height:30px;font-size:15px" v-else-if="!doneLoad.consumeInfoOk && doneLoad.consumeInfo.length>0">
         <div>
           <Spin fix class="doneStyle">没有更多啦~</Spin>
         </div>
         </Col>
       </Row>
-      <div class="info_isNull" v-if="consumeInfo.info.length==0">
+      <div class="info_isNull" v-if="doneLoad.consumeInfo.length==0">
         <img src="/static/images/shop.png">
         <p>暂无任何消费记录</p>
       </div>
@@ -148,7 +148,7 @@
         </Col>
       </Row>
       <!-- <Button @click='doneLoadMore(2,jifenInfo.info,"jifenPage")'>点击加载更多</Button> -->
-      <div class="info_isNull" v-if="consumeInfo.info.length==0">
+      <div class="info_isNull" v-if="doneLoad.jifen.length==0">
         <img src="/static/images/shop.png">
         <p>暂无任何积分记录</p>
       </div>
@@ -160,7 +160,7 @@
 import countdown from '../Utils/activeCount.vue'
 export default {
   name: 'infos',
-  props: ['datas'],
+  props: ['currentCompanysId'],
   components: { countdown },
   methods: {
     goToActive(id) {
@@ -201,9 +201,99 @@ export default {
         this.$emit("getMoreInfoByScroll", this.index, page);
       }
     },
-    handleClick() {
-      this.donePage.jifenPage++
-      this.$emit('loadMore', this.donePage.jifenPage)
+    getActiveInfo(page) {
+      //获取活动列表
+      this.http.get(this.$store.state.prefix + "/home/getActivityInfo/" + this.currentCompanyId + "/" + page).then(res => {
+        if (res.error == false) {
+          var row = res.result;
+          this.activityInfo.info = []
+          row.records.forEach(item => {
+            var obj = {
+              id: item.id,
+              img: item.activityImg,
+              name: this.util.sliceStr(item.activityName, 13),
+              date: item.endDate,
+              jifen: item.gainPoints,
+              peopleNum: item.joinNum,
+              totalPeople: item.viewNum
+            };
+            this.activityInfo.info.push(obj);
+          });
+          this.activityInfo.page = row.current;
+          this.activityInfo.total = row.pages;
+          this.doneLoad.activity = [...new Set([...this.doneLoad.activity, ...this.activityInfo.info])]
+        }
+      });
+    },
+    getUserPointInfo(page) {
+      //获取积分记录
+      this.http.get(this.$store.state.prefix + "/home/getUserPointDetails/" + this.currentCompanyId + "/" + page || 1).then(res => {
+        if (res.error == false) {
+          var row = res.result;
+          var arr = [];
+          this.jifenInfo.info = []
+          row.records.forEach(item => {
+            var time = this.util.getDate(item.createDate)
+            var obj = {
+              time: time,
+              content: this.util.sliceStr(item.remarks, 18),
+              jifen: item.points > 0 ? ('+' + item.points) : item.points,
+              pointType: item.pointType
+            };
+            this.jifenInfo.info.push(obj)
+          });
+          this.jifenInfo.page = row.current;
+          this.jifenInfo.total = row.pages;
+          this.doneLoad.jifen = [...new Set([...this.doneLoad.jifen, ...this.jifenInfo.info])]
+        }
+      });
+    },
+    getInviterInfo(page) {
+      //获取已邀请的人
+      this.http.get(this.$store.state.prefix + "/home/getInvitedMems/" + this.currentCompanyId + "/" + page).then(res => {
+        if (res.error == false) {
+          var row = res.result;
+          this.memberInfo.info = []
+          row.records.forEach(item => {
+            var obj = {
+              img: item.headImg,
+              name: this.util.sliceStr(item.realName || item.nickName, 7),
+              jifen: item.allPoints,
+              peopleNum: item.invitedMems,
+              consume: item.selfExpense,
+            };
+            this.memberInfo.info.push(obj);
+          });
+          this.memberInfo.page = row.current;
+          this.memberInfo.total = row.pages;
+          this.doneLoad.member = [...new Set([...this.doneLoad.member, ...this.memberInfo.info])]
+        }
+      });
+    },
+    getConsumeInfo(page) {
+      //获取消费记录
+      this.http.get(this.$store.state.prefix + "/home/getUserExpense/" + this.currentCompanyId + "/" + page).then(res => {
+        if (res.error == false) {
+          var row = res.result;
+          this.consumeInfo.info = []
+          row.records.forEach(item => {
+            var time = this.util.getDate(item.payDate)
+            var obj = {
+              time: time,
+              content: this.util.sliceStr(item.remarks, 8),
+              jifen: item.payPoints,
+              money: item.payAmount,
+              page: row.current,
+              payStatus: item.payStatus,
+              total: row.pages
+            };
+            this.consumeInfo.info.push(obj);
+          });
+          this.consumeInfo.page = row.current;
+          this.consumeInfo.total = row.pages;
+          this.doneLoad.consumeInfo = [...new Set([...this.doneLoad.consumeInfo, ...this.consumeInfo.info])]
+        }
+      });
     },
     doneLoadMore(type) {
       switch (type) {
@@ -214,7 +304,7 @@ export default {
             return
           }
           this.donePage.activityPage++
-          this.$emit('loadMore', this.donePage.activityPage,'activity')
+          this.getActiveInfo(this.donePage.activityPage)
           break
         case 'memberPage':
           if (this.donePage.memberPage >= this.memberInfo.total) {
@@ -223,7 +313,7 @@ export default {
             return
           }
           this.donePage.memberPage++
-          this.$emit('loadMore', this.donePage.memberPage,'member')
+          this.getInviterInfo(this.donePage.memberPage)
           break
         case 'consumeInfoPage':
           if (this.donePage.consumeInfoPage >= this.consumeInfo.total) {
@@ -232,7 +322,7 @@ export default {
             return
           }
           this.donePage.consumeInfoPage++
-          this.$emit('loadMore', this.donePage.consumeInfoPage,'consume')
+          this.getConsumeInfo(this.donePage.consumeInfoPage)
           break
         case 'jifenPage':
           if (this.donePage.jifenPage >= this.jifenInfo.total) {
@@ -241,14 +331,16 @@ export default {
             return
           }
           this.donePage.jifenPage++
-          this.$emit('loadMore', this.donePage.jifenPage,'jifen')
+          this.getUserPointInfo(this.donePage.jifenPage)
           break
       }
-    },
+    }
   },
   created() {
-    this.donePage.jifenPage = 1
-    console.log(this.donePage.jifenPage)
+    this.getUserPointInfo(1)
+    this.getInviterInfo(1)
+    this.getActiveInfo(1)
+    this.getConsumeInfo(1)
     this.menu.forEach((item, index) => {
       var obj;
       if (index == 0) {
@@ -276,22 +368,29 @@ export default {
   //   })
   // },
   watch: {
-    datas: {
+    currentCompanysId: {
       handler(val, oldVal) {
-        this.activityInfo = val.activityInfo;
-        this.memberInfo = val.memberInfo;
-        this.jifenInfo = val.jifenInfo;
-        this.consumeInfo = val.consumeInfo;
-        this.doneLoad.jifen = [...new Set([...this.doneLoad.jifen, ...this.jifenInfo.info])]
-        this.doneLoad.activity = [...new Set([...this.doneLoad.activity, ...this.activityInfo.info])]
-        this.doneLoad.member = [...new Set([...this.doneLoad.member, ...this.memberInfo.info])]
-        this.doneLoad.consumeInfo = [...new Set([...this.doneLoad.consumeInfo, ...this.consumeInfo.info])]
-        if (this.activityInfo.info.length >= 12 && (this.activityInfo.total > this.activityInfo.page)) {
-          this.currentPageLimit = false;
+        if (val != oldVal) {
+          this.currentCompanyId = val
+          this.doneLoad.jifen = []
+          this.doneLoad.jifenOk = true
+          this.doneLoad.member = []
+          this.doneLoad.memberOk = true
+          this.doneLoad.activity = []
+          this.doneLoad.activityOk = true
+          this.doneLoad.consumeInfo = []
+          this.doneLoad.consumeInfoOk = true
+          this.getUserPointInfo(1)
+          this.getInviterInfo(1)
+          this.getActiveInfo(1)
+          this.getConsumeInfo(1)
         }
-        else {
-          this.currentPageLimit = true;
-        }
+        //  if (this.activityInfo.info.length >= 12 && (this.activityInfo.total > this.activityInfo.page)) {
+        //   this.currentPageLimit = false;
+        // }
+        // else {
+        //   this.currentPageLimit = true;
+        // }
       },
       deep: true
     }
@@ -299,6 +398,7 @@ export default {
   data() {
     return {
       currentPageLimit: true,
+      currentCompanyId: 0,
       index: 0,
       on: "red.png",
       off: "black.png",
@@ -307,10 +407,10 @@ export default {
       menuList: [],
       menu: ['参加活动', '我的邀请', '消费记录', '积分记录'],
       infoArr: ["activityInfo", "memberInfo", "consumeInfo", "jifenInfo"],
-      activityInfo: [],
-      memberInfo: [],
+      activityInfo: {},
+      memberInfo: {},
       jifenInfo: {},
-      consumeInfo: [],
+      consumeInfo: {},
       doneLoad: {
         activity: [],
         member: [],
