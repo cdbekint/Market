@@ -137,8 +137,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='stylus' rel="stylesheet/stylus">
+rrem(val){
+  return (val/108px)rem
+}
 .header-content
-  width: 1240px
+  width: rrem(1240px)
   margin-left: auto
   margin-right: auto
   .syslogo

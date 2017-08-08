@@ -10,7 +10,7 @@
           </div>
         </Form-item>
         <Form-item style="position:absolute;right:0;top:0;">
-          <div class='close' @click="handleClick()"></div>
+          <div class='close' @click="handleClick"></div>
         </Form-item>
         <Form-item prop="user" style="margin-bottom:24px">
           <input type="text" size="large" v-model="formInline.username" placeholder="用户名" class="formitem">
@@ -31,8 +31,8 @@
         <Form-item style="margin:0 auto;width:300px">
           <Row class="bottom">
             <!-- <Col span="8">
-                  <a href="javascript:;" @click="Register()">注册账户</a>
-                  </Col> -->
+                    <a href="javascript:;" @click="Register()">注册账户</a>
+                    </Col> -->
             <Col span="12" style='text-align:left;font-size:20px;color:#aeaeae'> 忘记密码
             </Col>
             <Col span="12" style='text-align:right;font-size:20px;color:#aeaeae'> 联系客服
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     handleSubmit(name) {
-      // this.$emit('close', this.onOFF)
+
       this.$refs[name].validate((valid) => {
         if (valid) {
           const param = JSON.parse(JSON.stringify(this.formInline))
@@ -92,7 +92,6 @@ export default {
               }
               this.util.setCookie('yxtoken', res.result.access_token)
               this.util.setCookie('companyId', res.result.user.company.id)
-              debugger
               this.util.setCookie('companyName', res.result.user.company.companyName)
               this.util.setCookie('authentic', res.result.user.company.authentic)
               this.util.setCookie('companyFlag', res.result.user.company.companyFlag)
@@ -125,6 +124,7 @@ export default {
           _this.handleSubmit('formInline')
 
         }
+
       }
     }
 
@@ -140,9 +140,9 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-
 .loginrow
   height 540px
+  .loginmainpanel
   .loginmainpanel
     width:100%
     background:#fff
@@ -172,60 +172,31 @@ export default {
       cursor pointer
     .log
       width:100%
-      background:#fff
-      position :relative
-      height 540px
-      border-bottom-left-radius 13px
-      border-bottom-right-radius 13px
-      .formitem
-        width:300px
-        margin:0 auto
-        border:none
-        color:#aeaeae
-        font-size :20px
-        height 60px
-        background #f6f6f6
-        padding-left 34px
-        line-height 60px
-      .btn
-        color:#fff
-        height:60px
-        width 300px
-        line-height:60px
-        font-family :"微软雅黑"
-        background-color :#3993eb
-        font-size :20px
-        text-align :center
-        margin:0
-        padding:0
-        cursor pointer
-      .log
+      height 158px
+      margin:0 auto
+      margin-bottom 16px
+      img
         width:100%
-        height 158px
-        margin:0 auto
-        margin-bottom 16px
-        img
-          width:100%
-      .warn
-        width:60%
-        margin:0 auto
-        height:62px
-        line-height :62px
-        color:#aeaeae
-        font-size :20px
-        text-align :center
-      .bottom
-        height:20px
-        line-height 20px
-        a
-          color:#7454ff
-          font-size :15px
-      .close
-        width:49px
-        height:49px
-        position :absolute
-        right:0
-        top:0
-        cursor :pointer
-        z-index 3000
+    .warn
+      width:60%
+      margin:0 auto
+      height:62px
+      line-height :62px
+      color:#aeaeae
+      font-size :20px
+      text-align :center
+    .bottom
+      height:20px
+      line-height 20px
+      a
+        color:#7454ff
+        font-size :15px
+    .close
+      width:49px
+      height:49px
+      position :absolute
+      right:0
+      top:0
+      cursor :pointer
+      z-index 3000
 </style>
