@@ -652,7 +652,6 @@ export default {
     onSlideChangeEnd(currentPage) {
       console.log('onSlideChangeEnd', currentPage);
     },
-<<<<<<< HEAD
     createMarketAccount() {
       var param = JSON.parse(JSON.stringify(this.createAccount))
       if (!/(\w*[\u4e00-\u9fa5]+)+/.test(param.companyName)) {
@@ -729,67 +728,6 @@ export default {
                   this.createAccount.email = this.$store.state.account.email || ""
                   this.createAccount.protocol = []
                   this.createAccount.errormsg = ""
-=======
-    createMarketAccount(){
-      if(!this.judgecompany){
-        this.$Message.error("您已创建过公司账户")
-        this.createAccount.errormsg="您已成功注册过营销系统账号，无法再注册"
-        return 
-      }else{
-        this.createAccount.errormsg=""
-      }
-       var param=JSON.parse(JSON.stringify(this.createAccount))
-       if(!/(\w*[\u4e00-\u9fa5]+)+/.test(param.companyName)){
-          this.createAccount.errormsg="企业名称不能为空,且必须包含中文"
-          return
-       }else{
-          this.createAccount.errormsg=""
-       }
-       if(!/^[a-zA-z]\w{3,15}$/.test(param.username)){
-          this.createAccount.errormsg="登录账户名只能为数字加字母（4-16位）"
-          return
-       }else{
-          this.createAccount.errormsg=""
-       }
-       if(!/^1[34578]\d{9}$/.test(param.phone)){
-          this.createAccount.errormsg="手机号码不正确"
-          return
-       }else{
-          this.createAccount.errormsg=""
-       }
-       if(!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(param.email)){
-          this.createAccount.errormsg="邮箱格式不正确"
-          return
-       }else{
-          this.createAccount.errormsg=""
-       }
-       if(param.protocol.length==0){
-          this.createAccount.errormsg="请仔细阅读裂变营销系统使用协议"
-          return
-       }else if(param.protocol[0]=="true"){
-          this.createAccount.errormsg=""
-       }
-       
-       //获取到当前进行的续费或则充值商品信息
-       var renewinfo=JSON.parse(JSON.stringify(this.currentRenew))
-
-       console.log(this.$store.state.companyId)
-       this.http.post(this.$store.state.prefix+"/pay",{businessId:renewinfo.id,payType:8,payAmount:renewinfo.points,companyId:this.ids.companyId,remarks:'用户'+this.util.getCookie("ownId")+renewinfo.title}).then(res=>{
-          if(res.error==false){
-             this.createAccount.errormsg=""
-             param.renewId=renewinfo.id
-             delete param.protocol
-             delete param.errormsg
-             this.http.post(this.$store.state.prefix+'/pubInfo/createCompany',param).then(res=>{
-                if(res.error==false){
-                  this.createAccount.errormsg=""
-                  this.createAccount.companyName=""
-                  this.createAccount.username=""
-                  this.createAccount.phone=this.$store.state.account.phone||""
-                  this.createAccount.email=this.$store.state.account.email||""
-                  this.createAccount.protocol=[]
-                  this.createAccount.errormsg=""
->>>>>>> 94d751a595c27548cc4f493877b263fd6a487524
                   this.$Message.success("注册成功")
                   this.showSystem = false
                 } else {
@@ -897,21 +835,6 @@ export default {
   },
   data() {
     return {
-<<<<<<< HEAD
-      currentIndex: 1,
-      payMoney: 0,
-      payRemarks: "",
-      isWithdraw: false,
-      showGoods: true,
-      showHtml: true,
-      showMember: true,
-      showSystem: false,//显示系统页面
-      serviceprotocol: false,//服务协议modal
-      currentRenew: {
-        company: {
-          companyName: '',
-          expireDate: ''
-=======
       currentIndex:1,
       payMoney:0,
       payRemarks:"",
@@ -926,7 +849,6 @@ export default {
         company:{
           companyName:'',
           expireDate:''
->>>>>>> 94d751a595c27548cc4f493877b263fd6a487524
         },
         img: "",
         title: 1,
