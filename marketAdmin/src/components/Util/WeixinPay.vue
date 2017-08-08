@@ -15,7 +15,7 @@
         </ul>
       </div>
       <div class="payQrCode text-center"  v-if="currentStep==1">
-        <img :src="'http://qr.liantu.com/api.php?w=200&m=5&text='+code_url" alt="" v-if="code_url">
+        <img :src="'https://pan.baidu.com/share/qrcode?w=200&h=200&url='+code_url" alt="" v-if="code_url">
         <Row>
         <span v-text="'充值金额:'+realMoney+'元'" style="font-size:1.5em"></span></br>
          <Icon type="ios-information-outline"></Icon>请使用微信扫一扫进行充值付款</Row>
@@ -46,13 +46,8 @@ export default {
     return {
       payMoney: [
         {
-          money: 100,
-          active: true,
-          coustom: false
-        },
-        {
           money: 500,
-          active: false,
+          active: true,
           coustom: false
         },
         {
@@ -61,12 +56,17 @@ export default {
           coustom: false
         },
         {
-          money: 2000,
+          money: 3000,
           active: false,
           coustom: false
         },
         {
           money: 5000,
+          active: false,
+          coustom: false
+        },
+        {
+          money: 10000,
           active: false,
           coustom: false
         },
@@ -78,7 +78,7 @@ export default {
       ],
       currentStep: 0,
       stepdone: false,
-      realMoney: 100,
+      realMoney: 500,
       code_url:'',
       repeateNum:0
     }
@@ -104,10 +104,10 @@ export default {
               break
             }
           }
-          if (realMoney < 10 || isNaN(realMoney)) {
+          if (realMoney < 500 || isNaN(realMoney)) {
             this.$Notice.error({
               title: '错误',
-              desc: '充值金额必须大于10'
+              desc: '充值金额必须大于500'
             })
             return
           }

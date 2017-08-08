@@ -58,7 +58,7 @@
             key: 'companyLogo',
             render (row) {
               console.log(row)
-              return '<img :src="murl + row.companyLogo" style="width:40px;height:40px;"/>'
+              return '<img :src="murl + row.companyLogo" style="width:40px;height:40px;" v-if="row.companyLogo"/>'
             }
           },
           {

@@ -1,89 +1,6 @@
 <template>
   <div class="dashboard">
-  <Row class="infos">
-    <Col span="12">
-      <div class="infocontanier">
-        <div class="infoleft">
-        </div>
-        <div class="inforight cyan">
-        <div class="flex1">
-        	今日收入:{{baseinfo.income}}元
-
-        </div>
-        <div class="flex1">自主账户收入：{{companyinfo.mcBalance}}元<Tooltip placement="top" content="收入已入帐到您的微信商户平台">
-              <Icon type="ios-help-outline" size="20"></Icon>
-          </Tooltip></div>
-          
-        </div>
-      </div>
-    </Col>
-    <Col span="12">
-      <div class="infocontanier">
-       <div class="inforight cyan">
-          <div class="flex1">
-          	代收余额:{{companyinfo.balance}}元
-          	<Tooltip placement="top" content="收入由服务提供商代收，可提现">
-			       	<Icon type="ios-help-outline" size="20"></Icon>
-			    </Tooltip>
-          </div>
-          <div class="flex1 operatebtn">
-          	<a href="javascrpit:;" @click="withdrawModal=true">代收提现</a>
-          </div>
-        </div>
-         <div class="infoleft">
-        </div>
-        
-      </div>
-    </Col>
-    <Col span="24">
-      <div class="infocontanier">
-      <div class="infoleft">
-       </div>
-       <div class="inforight cyan">
-          <div class="flex1">
-          	账户余额：{{companyinfo.mbBalance}}元
-            <Tooltip placement="top" content="用于客户提现">
-              <Icon type="ios-help-outline" size="20"></Icon>
-          </Tooltip>
-          </div>
-          <div class="flex1">
-          	客户已提现:{{baseinfo.userWithdraw}}元
-          </div>
-          <div class="flex1">
-          	今日注册:{{baseinfo.newCustomerNum}}人
-          </div>
-          <div class="flex1">
-            <a href="javascrpit:;" @click="weixinpayModal=true">余额充值</a>
-          	  <!-- 提现 -->
-          </div>
-        </div>
-      </div>
-    </Col>
-     <Col span="24">
-      <div class="infocontanier">
-      <div class="infoleft">
-       </div>
-       <div class="inforight thinred">
-          <div class="flex3">
-          	帐户有效期:{{util.getFormatDate(companyinfo.expireDate)}}({{~~((new Date(companyinfo.expireDate).getTime()-Date.now())/1000/3600/24)}}天)
-          </div>
-          <div class="flex1">
-          	<span v-if="companyinfo.companyFlag==1">正式会员</span>
-            <a href="javascrpit:;" v-else @click="renewModal=true">续费成为正式会员</a>
-          </div>
-          <div class="flex1">
-            <span v-if="companyinfo.authentic==1">企业认证</span>
-            <router-link :to="{path:'/authentic'}" v-else>去进行企业认证</router-link>
-          </div>
-          <div class="flex1">
-            <a href="javascrpit:;" @click="renewModal=true">续费</a>
-          	
-          </div>
-        </div>
-      </div>
-    </Col>
-
-  </Row>
+  
   <Row class="datas">
   		<Col span="6" class="infoitem">
 	  		<div class="realinfo yellow">
@@ -108,7 +25,7 @@
             <Icon type="social-yen"></Icon>
           </div>
           <div class="title">
-            <span>账户余额</span>
+            <span>代收余额</span>
           </div>
         </div>
 
@@ -263,10 +180,10 @@
       <div class="realinfo cyan">
         <div class="contenttitle">
           <div class="symbol">
-            <Icon type="ios-personadd-outline"></Icon>
+          <Icon type="android-share"></Icon>
           </div>
           <div class="title">
-            <span>客户积分</span>
+            <span>今日分享次数</span>
           </div>
         </div>
 
@@ -283,7 +200,7 @@
             <Icon type="ios-personadd-outline"></Icon>
           </div>
           <div class="title">
-            <span>客户准备金</span>
+            <span>今日分享客户数</span>
           </div>
         </div>
 
@@ -294,6 +211,90 @@
 
       </Col>
     </Row>
+
+    <Row class="infos">
+    <Col span="12">
+      <div class="infocontanier">
+        <div class="infoleft">
+        </div>
+        <div class="inforight cyan">
+        <div class="flex1">
+          今日收入:{{baseinfo.income}}元
+
+        </div>
+        <div class="flex1">自主账户收入：{{companyinfo.mcBalance||0}}元<Tooltip placement="top" content="收入已入帐到您的微信商户平台">
+              <Icon type="ios-help-outline" size="20"></Icon>
+          </Tooltip></div>
+          
+        </div>
+      </div>
+    </Col>
+    <Col span="12">
+      <div class="infocontanier">
+       <div class="inforight cyan">
+          <div class="flex1">
+            代收余额:{{companyinfo.balance||0}}元
+            <Tooltip placement="top" content="收入由服务提供商代收，可提现">
+              <Icon type="ios-help-outline" size="20"></Icon>
+          </Tooltip>
+          </div>
+          <div class="flex1 operatebtn">
+            <a href="javascrpit:;" @click="withdrawModal=true">代收提现</a>
+          </div>
+        </div>
+         <div class="infoleft">
+        </div>
+        
+      </div>
+    </Col>
+    <Col span="24">
+      <div class="infocontanier">
+      <div class="infoleft">
+       </div>
+       <div class="inforight cyan">
+          <div class="flex1">
+            账户余额：{{companyinfo.mbBalance||0}}元
+            <Tooltip placement="top" content="用于客户提现">
+              <Icon type="ios-help-outline" size="20"></Icon>
+          </Tooltip>
+          </div>
+          <div class="flex1">
+            客户已提现:{{baseinfo.userWithdraw}}元
+          </div>
+          <div class="flex1">
+            今日注册:{{baseinfo.newMemNum}}人
+          </div>
+          <div class="flex1">
+            <a href="javascrpit:;" @click="weixinpayModal=true">余额充值</a>
+              <!-- 提现 -->
+          </div>
+        </div>
+      </div>
+    </Col>
+     <Col span="24">
+      <div class="infocontanier">
+      <div class="infoleft">
+       </div>
+       <div class="inforight thinred">
+          <div class="flex3">
+            帐户有效期:{{util.getFormatDate(companyinfo.expireDate)}}({{~~((new Date(companyinfo.expireDate).getTime()-Date.now())/1000/3600/24)}}天)
+          </div>
+          <div class="flex1">
+            <span v-if="companyinfo.companyFlag==1">正式会员</span>
+            <a href="javascrpit:;" v-else @click="renewModal=true">续费成为正式会员</a>
+          </div>
+          <div class="flex1">
+            <span v-if="companyinfo.authentic==1">企业认证</span>
+            <router-link :to="{path:'/authentic'}" v-else>去进行企业认证</router-link>
+          </div>
+          <div class="flex1">
+            <a href="javascrpit:;" @click="renewModal=true">续费</a>
+            
+          </div>
+        </div>
+      </div>
+    </Col>
+  </Row>
     <Row>
       <div id="echartzone" class="echartwrapper" style="height:400px;width:100%">
       </div>
