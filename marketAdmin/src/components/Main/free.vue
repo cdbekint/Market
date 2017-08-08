@@ -21,42 +21,47 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+rrem(val){
+  return (val/108px)rem
+}
   .companyAbout
     background url('/static/images/bg.png') no-repeat top
     width 100%
     background-size 100% 100%
-    margin-top 262px
-    margin-bottom:200px
+    margin-top rrem(262px)
+    margin-bottom:rrem(200px)
     .inner
-      width 1240px
+      width rrem(1240px)
       margin 0 auto
-      height 575px
+      height rrem(575px)
       position relative
       .about
-        width 1200px
-        height 440px
+        width rrem(1200px)
+        height rrem(440px)
         position absolute
-        left 19px
-        top -152px
+        left rrem(19px)
+        top rrem(-152px)
+        img
+          width 100%
       .qrc
-        width 220px
-        height 220px
+        width rrem(220px)
+        height rrem(220px)
         position absolute
-        left 509px
-        bottom -110px
+        left rrem(509px)
+        bottom rrem(-110px)
         background #fff
         .pic  
-          width 200px
-          height 200px
-          margin 10px auto
+          width rrem(200px)
+          height rrem(200px)
+          margin rrem(10px) auto
           img 
             width 100%
         .text
-          width 240px 
+          width rrem(240px) 
           position absolute
-          left -10px
-          bottom -30px
-          font-size 16px
+          left rrem(-10px)
+          bottom rrem(-30px)
+          font-size rrem(16px)
           color #adadad    
 
 </style>

@@ -8,9 +8,9 @@
       <div class="menu-wrapper">
         <!-- 菜单区域 -->
         <!-- <dl class="menulist" v-for="(m,index) in menu">
-                <dt><i :class="m.icon"></i><span v-text="m.category"></span></dt>
-                <router-link v-for="(ms,indexs) in m.subMenu" v-if="m.subMenu" :to="ms" :tag='ms.tag' v-text="ms.title" :active-class="ms.active" @click="selectThis(ms)"></router-link>
-              </dl> -->
+                    <dt><i :class="m.icon"></i><span v-text="m.category"></span></dt>
+                    <router-link v-for="(ms,indexs) in m.subMenu" v-if="m.subMenu" :to="ms" :tag='ms.tag' v-text="ms.title" :active-class="ms.active" @click="selectThis(ms)"></router-link>
+                  </dl> -->
         <dl class="menulist">
           <dt>
             <i class="fa fa-th"></i>基本信息
@@ -68,7 +68,7 @@
     </div>
     <div v-else>
       <vmedia></vmedia>
-       <news :news='lists'></news> 
+      <news :news='lists'></news>
       <free @register='show'></free>
       <!-- <system></system>  -->
     </div>
@@ -137,7 +137,7 @@ export default {
   },
 
   created() {
-    if(this.$store.state.yxtoken){
+    if (this.$store.state.yxtoken) {
       this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
         console.log(res)
         if (!res.error) {
@@ -147,7 +147,7 @@ export default {
         }
       })
     }
-    
+
   }
 }
 </script>
@@ -156,7 +156,6 @@ export default {
 html,
 body
   background:#E7E8EB !important
-
 #app
   font-family: 'Avenir', Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
@@ -248,6 +247,5 @@ body
   color:#6BBEF2
   text-decoration:none
   margin:0px 3px
-
 
 </style>

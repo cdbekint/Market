@@ -1088,7 +1088,7 @@ export default {
         justify-content space-between
         .goods_info
           width rrem(480px)
-          height rrem(652px)
+          height rrem(640px)
           margin-top rrem(40px)
           box-shadow 0 2px 20px 0px rgba(0,0,0,.2)
           position relative
@@ -1400,7 +1400,7 @@ export default {
           width 100%
           .carouselitem
             width:100%
-            height rrem(1357px)
+            height rrem(1333px)
             overflow-y:hidden
             border 1px solid #ccc
             img
