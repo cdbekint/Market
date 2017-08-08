@@ -821,6 +821,7 @@ export default {
     })
 
     this.http.get(this.$store.state.prefix + "/shop/getCompanyShow" + this.url).then(res => {
+      console.log(res.result)
       if (res.error == false) {
         this.showInfo = this.util.escapeToHtml(res.result.show);
         if (this.showInfo == void 0 || this.showInfo == '')
@@ -1300,6 +1301,7 @@ export default {
       text-align center
       display:block
       p
+        width 100%
         img
           width:100%
     .main_system

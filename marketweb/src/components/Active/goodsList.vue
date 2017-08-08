@@ -64,7 +64,7 @@ export default {
               };
               if (item.goodsType == 1) {
                 obj.price = item.goodsPrice + "元"
-                obj.newPrice = (item.goodsPrice * discount) + "元"
+                obj.newPrice = (item.goodsPrice * discount).toFixed(2) + "元"
               }
               else if (item.goodsType == 2) {
                 obj.price = item.maxPoints + "积分"
