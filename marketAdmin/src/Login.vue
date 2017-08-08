@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <Row class="loginrow" id="loginpanel">
-
+  
       <Col span="24">
       <Form ref="formInline" class="loginmainpanel" :model="formInline" :rules="ruleInline">
         <Form-item>
@@ -31,23 +31,21 @@
         <Form-item style="margin:0 auto;width:300px">
           <Row class="bottom">
             <!-- <Col span="8">
-                <a href="javascript:;" @click="Register()">注册账户</a>
-                </Col> -->
-            <Col span="12" style='text-align:left;font-size:20px;color:#aeaeae'>
-            忘记密码
+                  <a href="javascript:;" @click="Register()">注册账户</a>
+                  </Col> -->
+            <Col span="12" style='text-align:left;font-size:20px;color:#aeaeae'> 忘记密码
             </Col>
-            <Col span="12" style='text-align:right;font-size:20px;color:#aeaeae'>
-            联系客服
+            <Col span="12" style='text-align:right;font-size:20px;color:#aeaeae'> 联系客服
             </Col>
           </Row>
         </Form-item>
-
+  
       </Form>
-
+  
       </Col>
-
+  
     </Row>
-
+  
   </div>
 </template>
 
@@ -112,7 +110,7 @@ export default {
     },
     handleClick() {
       console.log(1)
-      this.$emit('close',false)
+      this.$emit('close', false)
     }
   },
   created() {
@@ -143,6 +141,11 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+<<<<<<< HEAD
+.loginrow
+  height 540px
+  .loginmainpanel
+=======
 .loginmainpanel
   width:100%
   background:#fff
@@ -171,32 +174,62 @@ export default {
     padding:0
     cursor pointer
   .log
+>>>>>>> 94d751a595c27548cc4f493877b263fd6a487524
     width:100%
-    height 158px
-    margin:0 auto
-    margin-bottom 16px
-    img
+    background:#fff
+    position :relative
+    height 540px
+    border-bottom-left-radius 13px
+    border-bottom-right-radius 13px
+    .formitem
+      width:300px
+      margin:0 auto
+      border:none
+      color:#aeaeae
+      font-size :20px
+      height 60px
+      background #f6f6f6
+      padding-left 34px
+      line-height 60px
+    .btn
+      color:#fff
+      height:60px
+      width 300px
+      line-height:60px
+      font-family :"微软雅黑"
+      background-color :#3993eb
+      font-size :20px
+      text-align :center
+      margin:0
+      padding:0
+      cursor pointer
+    .log
       width:100%
-  .warn
-    width:60%
-    margin:0 auto
-    height:62px
-    line-height :62px
-    color:#aeaeae
-    font-size :20px
-    text-align :center
-  .bottom
-    height:20px
-    line-height 20px
-    a
-      color:#7454ff
-      font-size :15px
-  .close
-    width:49px
-    height:49px
-    position :absolute
-    right:0
-    top:0
-    cursor :pointer
-    z-index 3000
+      height 158px
+      margin:0 auto
+      margin-bottom 16px
+      img
+        width:100%
+    .warn
+      width:60%
+      margin:0 auto
+      height:62px
+      line-height :62px
+      color:#aeaeae
+      font-size :20px
+      text-align :center
+    .bottom
+      height:20px
+      line-height 20px
+      a
+        color:#7454ff
+        font-size :15px
+    .close
+      width:49px
+      height:49px
+      position :absolute
+      right:0
+      top:0
+      cursor :pointer
+      z-index 3000
 </style>
