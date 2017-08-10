@@ -6,6 +6,7 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import qs from 'qs'
+import md5 from 'md5'
 import util from '../static/js/utils.js'
 
 Vue.config.productionTip = false
@@ -15,6 +16,7 @@ Vue.prototype.router = router
 Vue.prototype.util = util
 Vue.prototype.murl = 'https://m.market.cdbeki.com/'
 Vue.prototype.apiurl = 'http://market.cdbeki.com/'
+Vue.prototype.md5 = md5
 /* eslint-disable no-new */
 const store = new Vuex.Store({
   state: {
@@ -24,6 +26,8 @@ const store = new Vuex.Store({
     qiniutoken: util.getCookie('qiniutoken') || '',
     authentic:util.getCookie('authentic')||'',
     companyFlag:util.getCookie('companyFlag')||'',
+    needAuthen:false,
+    showauth:util.getCookie('authtime')?((Date.now()-util.getCookie('authtime'))>0?false:true):false,
     rate:1,//提现手续费用
     prefix: '/api',
     // prefix: '//market.cdbeki.com'
@@ -129,7 +133,20 @@ router.beforeEach((to, from, next) => {
   // }
   if (to.meta.requireAuth === true) {
     if (store.state.yxtoken) {
-      next()
+      if(to.path.indexOf("/company")>-1){
+          var authtime=util.getCookie('authtime')
+          if(authtime==undefined||(Date.now()-authtime)>0){
+              store.state.needAuthen=true
+              store.state.showauth=false
+          }else{
+
+            store.state.showauth=true
+            next()
+          }
+      }else{
+        next()
+      }
+      
     } else {
       next({
         path: '/login',

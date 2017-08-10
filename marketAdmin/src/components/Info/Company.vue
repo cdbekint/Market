@@ -393,7 +393,6 @@ export default {
       this.Group.splice(index, 1)
     },
     addGroup (index) {
-      debugger
       if (this.Group[index].mans!=undefined && this.Group[index].mans!=="" && this.Group[index].discount!=="" && this.Group[index].discount!=undefined) {
         this.Group.push({mans: '', discount: ''})
       } else {
@@ -401,6 +400,11 @@ export default {
       }
     },
     editCompany () {
+      var authtime=util.getCookie('authtime')
+      if(authtime==undefined||(Date.now()-authtime)>0){
+          store.state.needAuthen=true
+          return
+      }
       var addr = '';
       if(this.areaThree.name != '' && this.areaThree.name != void 0){
         addr = this.areaThree.name;

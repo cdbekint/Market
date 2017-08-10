@@ -6,10 +6,10 @@
          <div class='close' @click="handleClick"></div>
         <div class="logformcontent">
           <div class="username logincommon">
-              <Input v-model="formInline.username" placeholder="登录账户名" autocomplete="off" autofocus="autofocus"></Input>
+              <Input class="logininput" v-model="formInline.username" placeholder="登录账户名" autocomplete="off" autofocus="autofocus"></Input>
           </div>
           <div class="password logincommon">
-            <Input v-model="formInline.password" type="password" placeholder="账户密码"></Input>
+            <Input class="logininput" v-model="formInline.password" type="password" placeholder="账户密码"></Input>
           </div>
           <div class="erroinfo logincommon" v-text='formInline.errorInfo' v-if="formInline.errorInfo">
             
@@ -23,49 +23,13 @@
             <a href="javascript:;">忘记密码</a>
           </div>
             <div class="flex1">
-              <a href="javascript:;">联系客服</a>
+              <a href="https://wpa.qq.com/msgrd?v=3&uin=1002293285&site=qq&menu=yes" target="_blank">联系客服</a>
+              <!-- <p style="color:#000;height:20px;line-height:20px">09:00-20:00</p> -->
             </div>
             
           </div>
         </div>
       </div>
-      <Col span="24">
- <!--      <Form ref="formInline" class="loginmainpanel" :model="formInline" :rules="ruleInline">
-        <Form-item>
-          <div class='log'>
-            <img src='/static/images/loginTop.png'>
-          </div>
-        </Form-item>
-        <Form-item style="position:absolute;right:0;top:0;">
-          <div class='close' @click="handleClick"></div>
-        </Form-item>
-        <Form-item prop="user" style="margin-bottom:24px">
-          <input type="text" size="large" v-model="formInline.username" placeholder="用户名" class="formitem">
-          </input>
-        </Form-item>
-        <Form-item prop="password" style="margin-bottom:0">
-          <input type="password" size="large" v-model="formInline.password" placeholder="密码" class="formitem">
-          </input>
-          <input type="password" v-model="formInline.password" placeholder="密码" class="formitem">
-        </Form-item>
-        <Form-item style="height:53px;linge-height:53px;margin-bottom:0;">
-          <div class="warn">welcome</div>
-        </Form-item>
-        <Form-item style="margin-bottom:24px">
-          <button type="primary" @click="handleSubmit('formInline')" class="formitem btn">登录</button>
-        </Form-item>
-        <Form-item style="margin:0 auto;width:300px">
-          <Row class="bottom">
-            <Col span="12" style='text-align:left;font-size:20px;color:#aeaeae'> 忘记密码
-            </Col>
-            <Col span="12" style='text-align:right;font-size:20px;color:#aeaeae'> 联系客服
-            </Col>
-          </Row>
-        </Form-item>
-  
-      </Form> -->
-  
-      </Col>
   
     </Row>
   
@@ -123,6 +87,7 @@ export default {
           this.http.get(this.$store.state.prefix + '/account/login' + this.util.parseParam(param).replace('&', '?')).then(res => {
             this.formInline.loading=false
             if (res.error === false) {
+              this.util.setCookie('pwd',this.md5(param.password+res.result.access_token))
               if (res.result.access_token) {
                 this.$store.state.yxtoken = res.result.access_token
                 this.$store.state.companyId = res.result.user.company.id
@@ -192,6 +157,8 @@ export default {
           min-width:100px
           font-size:1em
           letter-spacing:3px
+        .logininput
+          color:#434343
       .erroinfo
         color:red
         height:30px

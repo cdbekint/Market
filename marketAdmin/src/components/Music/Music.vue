@@ -87,12 +87,22 @@ export default {
       this.router.push({path: '/music/edit', query: {id: id}});
     },
     del (id) {
-      this.http.post(this.$store.state.prefix + '/music/delete', {id: id}).then(res => {
-        if (res.error === false) {
-          this.$Message.success('删除成功')
-          this.getMusicList(1);
+      var _this=this
+      this.$Modal.confirm({
+        title: '删除音乐',
+        content: '<p>确定将此音乐进行删除，将不可恢复</p>',
+        onOk: () => {
+          _this.http.post(_this.$store.state.prefix + '/music/delete', {id: id}).then(res => {
+            if (res.error === false) {
+              _this.$Message.success('删除成功')
+              _this.getMusicList(1);
+            }
+          })
+        },
+        onCancel: () => {
         }
       })
+      
     }
   }
 }

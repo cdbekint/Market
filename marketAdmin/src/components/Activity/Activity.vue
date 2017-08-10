@@ -61,7 +61,7 @@ export default {
           title: '活动大图',
           key: 'activityImg',
           render (row) {
-            return '<img class="activitylistavater" :src="murl + row.activityImg"/>'
+            return '<img class="activitylistavater" :src="murl + row.activityImg" v-if="row.activityImg"/>'
           }
         },
         {
@@ -162,17 +162,27 @@ export default {
         return
       }
       this.modal_loading = true
-      this.http.post(this.$store.state.prefix + '/activity/delete', {
-        id: this.willdelid,
-      }).then(res => {
-        if (res.error === false) {
-          this.$Message.success('删除成功')
-          this.getActivityList(1);
-          this.modal_loading = false
-          this.delactivitymodal = false
-          this.willdelid = ""
+       var _this=this
+      this.$Modal.confirm({
+        title: '删除活动',
+        content: '<p>确定将此活动进行删除，将不可恢复</p>',
+        onOk: () => {
+          _this.http.post(_this.$store.state.prefix + '/activity/delete', {
+            id: _this.willdelid,
+          }).then(res => {
+            if (res.error === false) {
+              _this.$Message.success('删除成功')
+              _this.getActivityList(1);
+              _this.modal_loading = false
+              _this.delactivitymodal = false
+              _this.willdelid = ""
+            }
+          })
+        },
+        onCancel: () => {
         }
       })
+      
     },
     generaUrl (row) {
       return 'http://pan.baidu.com/share/qrcode?w=250&h=250&url=' + this.apiurl + '?state=' + row.id + ',0'
