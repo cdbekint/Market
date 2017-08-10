@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class='modal' v-if='modal || registermodal' @click="modal= registermodal=false"></div>
-    <newheader class="header-wrapper" :userInfo="userInfo" @loginShow='show'>
+    <newheader class="header-wrapper" :userInfo="userInfo">
       <!-- 头部内容 -->
     </newheader>
     <div class="content-wrapper" v-if="$store.state.yxtoken">
@@ -69,7 +69,7 @@
     <div v-else>
       <vmedia></vmedia>
       <news :news='lists'></news>
-      <free @register='show'></free>
+      <free></free>
       <!-- <system></system>  -->
     </div>
     <vfooter></vfooter>

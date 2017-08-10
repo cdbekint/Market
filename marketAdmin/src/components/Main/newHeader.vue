@@ -130,7 +130,6 @@ export default {
     this.LoginHeight = document.getElementsByClassName('loginmodal')[0].clientHeight
   },
   created() {
-    console.log(this.$store.state.companyName)
   }
 }
 </script>
@@ -169,10 +168,8 @@ rrem(val){
         cursor :pointer
         font-size:1.4em
         color #fff
-        &:hover
-          background:linear-gradient(to bottom, rgba(85,186,147,.8) 70%, rgba(255,255,255,.01))
       .loginmodal
-        height 540px
+        height 440px
         z-index:2000
         position :absolute
         width 400px

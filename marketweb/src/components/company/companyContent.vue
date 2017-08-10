@@ -313,9 +313,7 @@ export default {
         companyId: this.ids.companyId,
         payType: 6
       }
-      debugger
       //自助付款
-      console.log("自助支付开始了")
       if (this.customerpaying) return;
       this.customerpaying = true
       this.http.post(this.$store.state.prefix + '/pay', param).then((res) => {
@@ -727,7 +725,8 @@ export default {
                 }
               })
             }
-        
+        }
+        }
       })
     },
     renewMarketAccount() {

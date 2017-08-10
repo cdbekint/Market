@@ -424,6 +424,9 @@ export default {
           if (!ai.companyTel) {
             this.$Notice.info({title: '请完善信息', desc: '请填写联系方式'})
             return false
+          }else if(!/^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/.test(ai.companyTel)){
+            this.$Notice.info({title: '电话号码格式不对', desc: '电话为座机号码：区号+号码'})
+            return false
           }
           if (!ai.companyLogo) {
             this.$Notice.info({title: '请完善信息', desc: '请上传公司logo'})
