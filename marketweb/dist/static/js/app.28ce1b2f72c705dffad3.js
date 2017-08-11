@@ -1186,28 +1186,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       value: {
-        head: '优惠方案',
-        name: "DISCOUNT",
+        head: '活动详情',
+        name: "DETAIL",
         no: "04"
       },
       valueColor: {
-        head: '优惠方案',
-        name: "DISCOUNT",
+        head: '活动详情',
+        name: "DETAIL",
         no: "b04"
       },
       valueBlue: {
-        head: '优惠方案',
-        name: "DISCOUNT",
+        head: '活动详情',
+        name: "DETAIL",
         no: "c04"
       },
       valueGolden: {
-        head: '优惠方案',
-        name: "DISCOUNT",
+        head: '活动详情',
+        name: "DETAIL",
         no: "d04"
       },
       valuePink: {
         head: '优惠方案',
-        name: "DISCOUNT",
+        name: "DETAIL",
         no: "e04"
       },
       bgUrl: {
@@ -1278,6 +1278,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     activity: function activity(val) {
       var _this = this;
 
+      console.log(val);
       this.http.get(this.$store.state.prefix + '/gift/getByIds/' + val.giftIds).then(function (res) {
         if (res.error === false) {
           _this.giftlist = res.result;
@@ -2065,27 +2066,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       value: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: '01'
       },
       valueColor: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: 'b01'
       },
       valueBlue: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: 'c01'
       },
       valueGolden: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: 'd01'
       },
       valuePink: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: 'e01'
       },
@@ -4519,7 +4520,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_4_vuex__["a" /* default */].Store({
     token: __WEBPACK_IMPORTED_MODULE_5__static_js_utils_js__["a" /* default */].getCookie('token') || '',
     companyId: __WEBPACK_IMPORTED_MODULE_5__static_js_utils_js__["a" /* default */].getCookie('companyId') || '',
     openid: __WEBPACK_IMPORTED_MODULE_5__static_js_utils_js__["a" /* default */].getCookie('openid') || '',
-    currentActive: '',
 
     prefix: '',
     isMember: 0,
@@ -7212,7 +7212,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": '/static/images/active/' + _vm.val.no + '.png'
     }
   }), _vm._v(" "), _c('div', {
-    class: [_vm.changeStyle.color ? 'head_text head_text_golden' : 'head_text']
+    class: [_vm.changeStyle.color ? 'head_text' : 'head_text head_text_golden']
   }, [_c('span', {
     staticClass: "text_en"
   }, [_vm._v(_vm._s(_vm.val.name))]), _vm._v(" "), _c('span', {
@@ -8455,4 +8455,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[238]);
-//# sourceMappingURL=app.d2dd75b3927338ea5a21.js.map
+//# sourceMappingURL=app.28ce1b2f72c705dffad3.js.map

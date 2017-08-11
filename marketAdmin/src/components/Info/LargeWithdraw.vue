@@ -93,7 +93,7 @@ export default {
           key: 'withdrawStatus',
           render (row){
             return '<i-button type="text" size="small" @click="getCaptcha(row)">确定放款</i-button>' +
-                    '<i-button type="text" size="small" @click="refuseWithdraw()">拒绝</i-button>'
+                    '<i-button type="text" size="small" @click="refuseWithdraw(row)">拒绝</i-button>'
           }
         }
       ],
