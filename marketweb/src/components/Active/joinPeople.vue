@@ -39,27 +39,27 @@ export default {
   data() {
     return {
       value: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: '01'
       },
       valueColor: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: 'b01'
       },
       valueBlue: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: 'c01'
       },
       valueGolden: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: 'd01'
       },
       valuePink: {
-        head: '以参与伙伴',
+        head: '已参与伙伴',
         name: "PARTNER",
         no: 'e01'
       },

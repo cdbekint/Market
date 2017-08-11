@@ -23,6 +23,7 @@ export default {
   components: { mainHead },
   watch: {
     activity: function (val) {
+      console.log(val)
       this.http.get(this.$store.state.prefix + '/gift/getByIds/' + val.giftIds).then(res => {
         if (res.error === false) {
           this.giftlist = res.result

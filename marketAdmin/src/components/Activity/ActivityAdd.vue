@@ -16,16 +16,18 @@
           <div class="addname">
             活动名称*
           </div>
-          <div class="addcontent">
+          <div class="addcontent" style='flex:3'>
             <input type="text" v-model="activity.activityName" @click='getScroll("name")' ref="active">
+            <a :href="'/static/images/skin/show'+activity.skin+'.jpg'" target="_blank" style='flex:1;line-height:70px;text-align:left'>查看案例</a>
           </div>
-          <div class="addnote">
+    
+          <!-- <div class="addnote">
             这是备注信息
-          </div>
+          </div> -->
         </li>
         <li>
           <div class="addname">
-            分享描述*
+            微信分享描述*
           </div>
           <div class="addcontent">
             <textarea cols="50" rows="3" v-model="activity.shareDes"></textarea>
@@ -36,7 +38,7 @@
         </li>
         <li>
           <div class="addname">
-            分享缩略图
+            微信分享缩略图
           </div>
           <div class="addcontent">
             <uploader :config="uploaderconfig"></uploader>
@@ -48,7 +50,7 @@
         </li>
         <li v-if="activity.shareImg">
           <div class="addname">
-            预览缩略图
+            缩略图预览
           </div>
           <div class="addcontent">
             <img :src="murl+activity.shareImg" class="thumbpreview" alt="">
@@ -81,7 +83,7 @@
             <a :href="'/static/images/skin/show'+activity.skin+'.jpg'" target="_blank">查看案例</a>
           </div>
           <div class="addnote">
-            活动页面的颜色系列
+            活动界面提供4款皮肤可按需选择
           </div>
         </li>
         <li>
@@ -93,12 +95,12 @@
             <input type="hidden" v-model="activity.activityImg">
           </div>
           <div class="addnote">
-            (建议尺寸：600像素*800像素)
+            建议尺寸：宽720px以上，高不限
           </div>
         </li>
         <li v-if="activity.activityImg">
           <div class="addname">
-            大图预览图
+            顶部大图预览
           </div>
           <div class="addcontent">
             <img :src="murl+activity.activityImg" class="thumbpreview" alt="">
@@ -114,9 +116,10 @@
           <div class="addcontent">
             <uploader :config="Phoneuploaderconfig"></uploader>
             <input type="hidden" v-model="activity.phoneImg">
+            <a :href="'/static/images/skin/show'+activity.skin+'.jpg'" target="_blank">查看案例</a>
           </div>
           <div class="addnote">
-            (建议尺寸：1000*333px,手机商家页面展示活动列表图片)
+            建议尺寸：宽1000px，高330px
           </div>
         </li>
         <li v-if="activity.phoneImg">
@@ -179,12 +182,12 @@
                     </Select>  -->
           </div>
           <div class="addnote">
-            音乐库选取，不选则无背景音乐
+            背景音乐需要在音乐库添加后选取，如未添加可暂时不选
           </div>
         </li>
         <li>
           <div class="addname">
-            分享有礼
+            赠送礼品
           </div>
           <div class="addcontent">
             <Radio-group v-model="activity.shareGift">
@@ -292,7 +295,7 @@
             <input type="number" min="0" v-model="activity.pointsReturnMultiple">
           </div>
           <div class="addnote">
-  
+              在活动界面购买商品后返还积分的倍数，若不翻倍可填1
           </div>
         </li>
         <li>

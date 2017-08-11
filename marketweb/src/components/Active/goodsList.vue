@@ -174,7 +174,7 @@ rrem(val){
       position absolute
       width 100%
       text-align center
-      top rrem(520px)
+      top rrem(720px)
       left:0px
     .list_parent
       position absolute
@@ -182,12 +182,13 @@ rrem(val){
       // height rrem(440px)
       height rrem(640px)
       display flex
-      padding-left rrem(40px)
+      // padding-left rrem(40px)
       .list_item
         margin-right rrem(40px)
         position relative
         height 100%
         width rrem(480px)
+        border 1px solid #ccc
         img
           height 100%
           width 100%
@@ -208,10 +209,10 @@ rrem(val){
             .name_title
               margin-top rrem(10px)
               display block
-              color #434343
+              color #fff
             .name_old
               display inline-block
-              color #aeaeae
+              color #fff
               margin-right rrem(15px)
               text-decoration line-through
             .name_new

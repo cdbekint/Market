@@ -1,7 +1,7 @@
 <template>
   <div class="main_head">
     <img :src="'/static/images/active/'+ val.no +'.png'" class="head_img">
-    <div :class="[changeStyle.color ? 'head_text head_text_golden' : 'head_text']">
+    <div :class="[changeStyle.color ? 'head_text' : 'head_text head_text_golden']">
       <span class="text_en">{{val.name}}</span>
       <span class="text_ch">{{val.head}}</span>
     </div>

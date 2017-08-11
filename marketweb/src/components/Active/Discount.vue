@@ -26,28 +26,28 @@ export default {
   data() {
     return {
       value: {
-        head: '优惠方案',
-        name: "DISCOUNT",
+        head: '活动详情',
+        name: "DETAIL",
         no: "04"
       },
       valueColor: {
-        head: '优惠方案',
-        name: "DISCOUNT",
+        head: '活动详情',
+        name: "DETAIL",
         no: "b04"
       },
       valueBlue: {
-        head: '优惠方案',
-        name: "DISCOUNT",
+        head: '活动详情',
+        name: "DETAIL",
         no: "c04"
       },
       valueGolden: {
-        head: '优惠方案',
-        name: "DISCOUNT",
+        head: '活动详情',
+        name: "DETAIL",
         no: "d04"
       },
       valuePink: {
         head: '优惠方案',
-        name: "DISCOUNT",
+        name: "DETAIL",
         no: "e04"
       },
       bgUrl: {

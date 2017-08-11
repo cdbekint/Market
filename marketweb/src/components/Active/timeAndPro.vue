@@ -158,7 +158,7 @@ export default {
           width 100%
           height rrem(120px)
           span
-            color #ff014f
+            color #fff
       .discount_txt
         border-right 0px
         height 100%
@@ -238,7 +238,7 @@ export default {
           width 100%
           height rrem(120px)
           span
-            color #ff014f
+            color #fff
       .discount_txt
         border-right 0px
         height 100%
@@ -318,7 +318,7 @@ export default {
           width 100%
           height rrem(120px)
           span
-            color #ff014f
+            color #fff
       .discount_txt
         border-right 0px
         height 100%
@@ -398,7 +398,7 @@ export default {
           width 100%
           height rrem(120px)
           span
-            color #ff014f
+            color #fff
       .discount_txt
         border-right 0px
         height 100%
