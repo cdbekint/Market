@@ -18,7 +18,7 @@
           </div>
           <div class="addcontent" style='flex:3'>
             <input type="text" v-model="activity.activityName" @click='getScroll("name")' ref="active">
-            <a :href="'/static/images/skin/show'+activity.skin+'.jpg'" target="_blank" style='flex:1;line-height:70px;text-align:left'>查看案例</a>
+            <a :href="'/static/images/skin/show11.jpg'" target="_blank" style='flex:1;line-height:70px;text-align:left'>查看案例</a>
           </div>
     
           <!-- <div class="addnote">
@@ -116,7 +116,7 @@
           <div class="addcontent">
             <uploader :config="Phoneuploaderconfig"></uploader>
             <input type="hidden" v-model="activity.phoneImg">
-            <a :href="'/static/images/skin/show'+activity.skin+'.jpg'" target="_blank">查看案例</a>
+            <a :href="'/static/images/skin/show10.jpg'" target="_blank">查看案例</a>
           </div>
           <div class="addnote">
             建议尺寸：宽1000px，高330px
@@ -175,7 +175,7 @@
           <div class="addcontent">
             <input type="number" min="0" v-model="activity.pointsReturnMultiple">
           </div>
-          <div class="addnote">
+          <div class="addnote" style="flex:3">
             在翻倍时间内购买商品，可所获得的积分将会按照此倍数增加。如无需翻倍，请设置为1
           </div>
         </li>
