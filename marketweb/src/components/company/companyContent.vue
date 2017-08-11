@@ -727,7 +727,8 @@ export default {
                 }
               })
             }
-        
+          }
+        }
       })
     },
     renewMarketAccount() {
@@ -825,20 +826,20 @@ export default {
   },
   data() {
     return {
-      currentIndex:1,
-      payMoney:0,
-      payRemarks:"",
-      isWithdraw:false,
-      showGoods:true,
-      showHtml:true,
-      showMember:true,
-      showSystem:false,//显示系统页面
-      serviceprotocol:false,//服务协议modal,
-      judgecompany:true,
-      currentRenew:{
-        company:{
-          companyName:'',
-          expireDate:''
+      currentIndex: 1,
+      payMoney: 0,
+      payRemarks: "",
+      isWithdraw: false,
+      showGoods: true,
+      showHtml: true,
+      showMember: true,
+      showSystem: false,//显示系统页面
+      serviceprotocol: false,//服务协议modal,
+      judgecompany: true,
+      currentRenew: {
+        company: {
+          companyName: '',
+          expireDate: ''
         },
         img: "",
         title: 1,
@@ -1432,7 +1433,7 @@ export default {
             border 2px solid #ff007e
             height rrem(80px)
             // margin-top rrem(10px)
-            width rrem(335px)
+            // width rrem(335px)
             border-radius 20px
             display flex
             justify-content center

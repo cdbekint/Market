@@ -1,5 +1,5 @@
 <template>
-  <div ref="editor"></div>
+  <div ref="editor" @click="handler"></div>
 </template>
 
 <script  type="text/ecmascript-6">
@@ -31,6 +31,11 @@ export default {
         this.editor.setContent(val)
       }
     }
+  },
+  methods:{
+    // handler () {
+    //   alert(1)
+    // }
   },
   mounted () {
 	  this.$nextTick(function f1() {
