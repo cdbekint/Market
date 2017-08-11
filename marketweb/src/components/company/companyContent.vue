@@ -101,10 +101,10 @@
             <Form-item label="邮箱">
               <Input placeholder="请输入邮箱" v-model="createAccount.email"></Input>
             </Form-item>
-            <Form-item label="">
-              <Checkbox-group v-model="createAccount.protocol">
+            <Form-item>
+              <Checkbox-group v-model="createAccount.protocol" style="margin-left:-40px">
                 <Checkbox label="true">已阅读并同意
-                  <a href="javascript:;" @click="serviceprotocol=true">《裂变营销系统使用协议》</a>
+                  <a href="javascript:;" @click="showProtocol()">《裂变营销系统服务协议》</a>
                 </Checkbox>
               </Checkbox-group>
             </Form-item>
@@ -250,8 +250,8 @@
         <Input v-model="payRemarks" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="商品名称与数量"></Input>
       </Row>
     </Modal>
-    <Modal v-model="serviceprotocol" title="裂变营销系统使用协议" @on-ok="aggreProtocol" ok-text="我已阅读并同意" cancel-text="取消">
-      解放拉萨飞
+    <Modal v-model="serviceprotocol" class="serviceprotocolmodal" title="裂变营销系统服务协议" @on-ok="aggreProtocol" ok-text="我已阅读并同意" cancel-text="取消">
+      <div class="serviceprotocolcontent" v-html="protocolcontent"></div>
     </Modal>
     <Modal v-model="paySuccess" :closable="false" width="1000">
       <p class="modelTitle">
@@ -274,6 +274,15 @@ export default {
   props: ["ids"],
   components: { swiper },
   methods: {
+    showProtocol(){
+      this.serviceprotocol=true
+      if(!this.protocolcontent){
+        this.http.get('/static/js/registerprotocol.js').then(res=>{
+          console.log(res)
+          this.protocolcontent=res.result
+        })
+      }
+    },
     handleScroll() {
       if (window.scrollY > 0) {
         this.backToTop = true
@@ -669,7 +678,7 @@ export default {
         this.createAccount.errormsg = ""
       }
       if (param.protocol.length == 0) {
-        this.createAccount.errormsg = "请仔细阅读裂变营销系统使用协议"
+        this.createAccount.errormsg = "请仔细阅读裂变营销系统服务协议"
         return
       } else if (param.protocol[0] == "true") {
         this.createAccount.errormsg = ""
@@ -833,6 +842,7 @@ export default {
       showMember:true,
       showSystem:false,//显示系统页面
       serviceprotocol:false,//服务协议modal,
+      protocolcontent:'',
       judgecompany:true,
       currentRenew:{
         company:{
@@ -1504,4 +1514,10 @@ export default {
         box-shadow 0 2px 20px 0px rgba(0,0,0,.2)   
         img 
           width 100%
+
+.serviceprotocolmodal
+  .ivu-modal-body
+    padding-top:1em
+.serviceprotocolcontent
+  padding:0px 5px
 </style>
