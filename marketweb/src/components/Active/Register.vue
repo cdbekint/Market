@@ -228,7 +228,7 @@ export default {
       opacity 0.5
     .main_body
       width rrem(1000px)
-      height rrem(700px)
+      height rrem(950px)
       z-index 1510
       position fixed
       top rrem(380px)
@@ -272,7 +272,7 @@ export default {
       .body_pay
         background #ff007e
         position absolute
-        top rrem(850px)
+        top rrem(800px)
         left rrem(40px)
         line-height rrem(125px)
         text-align center

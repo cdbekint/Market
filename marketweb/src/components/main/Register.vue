@@ -210,7 +210,7 @@
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" scoped rel="stylesheet/stylus">
   rrem(val){
     return (val/108px)rem
   }
@@ -282,7 +282,6 @@
         width rrem(920px)
         &:hover
           background red
-
     .payed_body
       height rrem(530px)
       .body_info
