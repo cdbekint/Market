@@ -71,7 +71,7 @@
           <li>{{pointMention.secondInvitedPoints}}分</li>
         </ul>
       </div>
-      <p slot="footer" class="modelBackone" @click="LoginSuccess=false">我知道了</p>
+      <p slot="footer" class="modelBackone" @click="hideMention()">我知道了</p>
     </Modal>
   </div>
 </template>
@@ -478,6 +478,7 @@ export default {
             this.pointMention.allPoints=res.result.invitedMemPoints+res.result.shareTimes+res.result.oneInvitedPoints+res.result.secondInvitedPoints
             this.pointMention.allMoney=parseFloat(this.pointMention.allPoints*this.pointMention.companyInfo.toCashRate/100).toFixed(2)
             this.LoginSuccess = true
+            this.mentionmusic=new Audio('https://m.market.cdbeki.com/systemopenstore.mp3')
           }
         })
       }else{
@@ -485,6 +486,11 @@ export default {
       }
 
     },
+    hideMention(){
+      this.mentionmusic.play()
+      this.LoginSuccess=false
+
+    }
   },
   data() {
     return {

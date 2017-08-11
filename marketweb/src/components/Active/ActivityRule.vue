@@ -71,7 +71,6 @@ export default {
       this.http.get(this.$store.state.prefix + "/shop/?companyId=" + val).then(res => {
         if (res.error == false) {
           this.company = res.result
-          console.log(JSON.parse(JSON.stringify(this.company)))
         }
       })
     }

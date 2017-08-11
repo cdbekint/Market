@@ -3,6 +3,12 @@
     <headTitle @headCompany="getCompanyId" :companyId="currentCompanyId" :companyInfo="personInfo.company"></headTitle>
     <headMoney :Person="personInfo" @freshHead="getCompanyId"></headMoney>
     <infos :currentCompanysId='currentCompanyId'></infos>
+    <div class="homeCompany_body" style="z-index:2000">
+      <div class="body_company" style="border:0px"></div>
+      <div class="body_company" @click="goCompany">
+        <img :src="'/static/images/active/com.png'">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -47,6 +53,9 @@ export default {
           this.personInfo=psesoninfo
         }
       })
+    },
+    goCompany(){
+      this.$router.push({path:"/company",query:{companyId:this.currentCompanyId}});
     }
   },
   created(){
@@ -116,4 +125,20 @@ export default {
   .homePage
     width 100%
     margin-bottom rrem(20px)
+    .homeCompany_body
+      position fixed
+      bottom rrem(50px)
+      right rrem(40px)
+      width rrem(330px)
+      height rrem(150px)
+      display flex
+      justify-content space-between
+      div
+        width rrem(150px)
+        height rrem(150px)
+        border-radius 100%
+        border 1px solid #ff017e
+        img
+          width 100%
+          height 100%
 </style>
