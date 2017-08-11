@@ -169,7 +169,16 @@
             用户支付获取积分翻倍时间，该时间必须在支付时间内
           </div>
         </li>
-  
+
+        <li>
+          <div class="addname">积分翻倍倍数*</div>
+          <div class="addcontent">
+            <input type="number" min="0" v-model="activity.pointsReturnMultiple">
+          </div>
+          <div class="addnote">
+            在翻倍时间内购买商品，可所获得的积分将会按照此倍数增加。如无需翻倍，请设置为1
+          </div>
+        </li>
         <li>
           <div class="addname">
             背景音乐
@@ -201,6 +210,15 @@
           </div>
           <div class="addnote"></div>
         </li>
+        <li>
+          <div class="addname">分享天数*</div>
+          <div class="addcontent">
+            <input type="number" min="0" v-model="activity.shareTimes">
+          </div>
+          <div class="addnote">
+              连续分享到朋友圈天数，即可获得对应礼品
+          </div>
+        </li>
         <li v-if="activity.shareGift == 1">
           <div class="addname">
             指定礼品
@@ -219,7 +237,7 @@
         </li>
         <li>
           <div class="addname">
-            选择商品
+            参团商品
           </div>
           <div class="addcontent" style="margin-top:15px;">
             <ul class="giftlist">
@@ -230,7 +248,8 @@
             </ul>
           </div>
           <div class="addnote">
-  
+
+            通过活动链接获取的团购折扣可以直接用于购买此等商品
           </div>
         </li>
         <li>
@@ -259,7 +278,7 @@
           </div>
           <div class="addnote">
             <div class="thin">
-  
+                  组团模式下，团内每成交一个人团长获得对应的积分奖励
             </div>
           </div>
         </li>
@@ -287,26 +306,6 @@
               人数从低到高设置,折扣根据具体情况设置;如（人数：100，折扣：7 代表人数达到100后按7折优惠）
             </div>
   
-          </div>
-        </li>
-        <li>
-          <div class="addname">积分返回倍数*</div>
-          <div class="addcontent">
-            <input type="number" min="0" v-model="activity.pointsReturnMultiple">
-          </div>
-          <div class="addnote">
-              在活动界面购买商品后返还积分的倍数，若不翻倍可填1
-          </div>
-        </li>
-        <li>
-          <div class="addname">分享次数*</div>
-          <div class="addcontent">
-            <input type="number" min="0" v-model="activity.shareTimes">
-          </div>
-          <div class="addnote">
-            <div class="thin">
-              如不返现请设置为0,每邀请一位人参与活动，邀请人获得对应返现
-            </div>
           </div>
         </li>
         <!--<li>-->

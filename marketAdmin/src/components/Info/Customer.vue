@@ -22,6 +22,13 @@
           <Page :total="pager.total" :page-size="pager.size" :current="pager.current" @on-change="changePage"></Page>
         </div>
       </div>
+      <div style="margin-top:10px;width:100%;text-align:left">
+        <p>剩余积分：客户的当前可兑换积分</p>
+        <p>额外积分：员工或者代理所享受的员工提成积分和一二级消费返还积分的总和。（员工只有员工提成积分）</p>
+        <p>会员：过链接缴纳注册金额后的顾客成为会员，会员可以参加所有的优惠活动进行团购及即时提现等功能</p>
+        <p>员工：成为会员后管理员可设置其为员工。员工享有公司设定的员工提成，员工不享有一二级返还积分</p>
+        <p>代理：享受所有员工的待遇，并且享受一二级人员消费所返还的积分。</p>
+      </div>
     </div>
     <Modal v-model="employeemodal" title="选取新员工">
       <Table highlight-row border :columns="employeeColumns" :data="employee" @on-row-click="changeEmployee"></Table>
@@ -30,6 +37,7 @@
           <Page :total="employeepager.total" :page-size="employeepager.size" :current="employeepager.current" @on-change="getEmployeeList"></Page>
         </div>
       </div>
+      
     </Modal>
     <Modal v-model="addPointmodal" title="自定义加分">
       <Row>
@@ -116,19 +124,19 @@ export default {
           key: 'withdrawAmount'
         },
         {
-          title: '总积分',
+          title: '累计积分',
           key: 'allPoints'
         },
         {
-          title: '员工额外积分',
+          title: '额外积分',
           key: 'employeePoints'
         },
         {
-          title: '积分',
+          title: '剩余积分',
           key: 'points'
         },
         {
-          title: '会员标示',
+          title: '会员',
           key: 'member',
           render(row) {
             if (row.member == 1)
@@ -138,7 +146,7 @@ export default {
           }
         },
         {
-          title: '员工标识',
+          title: '员工',
           key: 'employee',
           render(row) {
             if (row.employee == 1)

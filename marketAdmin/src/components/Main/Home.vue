@@ -124,7 +124,7 @@
                 </li>
                 <li>
                   <div class="flex1">
-                    消费核算总成本约为：<span style="font-size:1.5em;color:red">{{companyinfo.toCashRate?((companyinfo.selfReturn+companyinfo.oneReturn+companyinfo.secondReturn)*companyinfo.toCashRate/100):0}}%</span>
+                    消费核算总成本约为：<span style="font-size:1.5em;color:red">{{companyinfo.toCashRate?((companyinfo.selfReturn+companyinfo.oneReturn+companyinfo.secondReturn)*companyinfo.toCashRate/100):0}}%</span>(不包含员工提成设定)
                   </div>
                 </li>
               </ul>

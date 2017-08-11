@@ -93,7 +93,7 @@ export default {
           key: 'withdrawStatus',
           render (row){
             return '<i-button type="text" size="small" @click="getCaptcha(row)">确定放款</i-button>' +
-                    '<i-button type="text" size="small" >拒绝</i-button>'
+                    '<i-button type="text" size="small" @click="refuseWithdraw()">拒绝</i-button>'
           }
         }
       ],
@@ -191,6 +191,17 @@ export default {
         this.$Message.info("请查看手机输入验证码")
       }
       
+    },
+    refuseWithdraw(row){
+      console.log(row)
+      this.http.post(this.$store.state.prefix+'/withdraw/deleteWithdraw',{withdrawId:row.id,companyId:this.util.getCookie("companyId")}).then(res=>{
+        if(res.error==false){
+          this.$Message.success("提现请求已拒绝")
+          this.getwithdrawList(this.pager.current)
+        }else{
+        this.$Message.error(res.msg)
+        }
+      })
     },
     doLoan(){
       var param={
