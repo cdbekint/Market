@@ -113,6 +113,9 @@ export default {
   created() {
     this.util.delCookie('yxtoken')
     this.util.delCookie('companyId')
+    this.util.delCookie("authtime")
+    this.$store.state.showauth=false
+    this.$store.state.authentic=Date.now()
     var _this = this
 
     document.onkeydown = function (event) {

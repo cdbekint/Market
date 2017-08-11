@@ -29,8 +29,8 @@ const store = new Vuex.Store({
     needAuthen:false,
     showauth:util.getCookie('authtime')?((Date.now()-util.getCookie('authtime'))>0?false:true):false,
     rate:1,//提现手续费用
-    prefix: '/api',
-    // prefix: '//market.cdbeki.com'
+    // prefix: '/api',
+    prefix: '//market.cdbeki.com'
   },
   mutations: {
     updateToken (state) {

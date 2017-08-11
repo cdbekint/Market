@@ -85,12 +85,23 @@ export default {
       this.router.push({path: '/gift/edit', query: {id: id}});
     },
     del (id) {
-      this.http.post(this.$store.state.prefix + '/gift/delete', {id: id}).then(res => {
-        if (res.error === false) {
-          this.$Message.success('删除成功');
-          this.getGiftList(1);
+      var _this=this
+      this.$Modal.confirm({
+        title: '删除礼品',
+        content: '<p>确定将此礼品进行删除，将不可恢复</p>',
+        onOk: () => {
+          _this.http.post(_this.$store.state.prefix + '/gift/delete', {id: id}).then(res => {
+            if (res.error === false) {
+              _this.$Message.success('删除成功');
+              _this.getGiftList(1);
+            }
+          })
+        },
+        onCancel: () => {
         }
       })
+
+      
     }
   }
 }

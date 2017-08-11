@@ -79,10 +79,13 @@ export default {
     loginOut() {
       this.$Notice.info({ title: '提醒', desc: '退出登录成功' })
       this.$store.state.yxtoken = ""
+      this.$store.state.showauth=false
+      this.$store.state.authentic=Date.now()
       this.$store.state.companyName = ""
       this.util.delCookie("companyName")
       this.util.delCookie("companyId")
       this.util.delCookie("yxtoken")
+      this.util.delCookie("authtime")
       this.topheight = (window.screen.width * 780 / 1920)
       document.getElementById("mainheader").style.height = this.topheight + "px"
     },

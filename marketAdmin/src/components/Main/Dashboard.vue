@@ -240,6 +240,9 @@
           </div>
           <div class="flex1 operatebtn">
             <a href="javascrpit:;" @click="withdrawModal=true">代收提现</a>
+             <Tooltip placement="top" content="一个微信账户一天最多只能提20000">
+              <Icon type="ios-help-outline" size="20"></Icon>
+          </Tooltip>
           </div>
         </div>
          <div class="infoleft">
@@ -280,7 +283,7 @@
             帐户有效期:{{util.getFormatDate(companyinfo.expireDate)}}({{~~((new Date(companyinfo.expireDate).getTime()-Date.now())/1000/3600/24)}}天)
           </div>
           <div class="flex1">
-            <span v-if="companyinfo.companyFlag==1">正式会员</span>
+            <span v-if="companyinfo.companyFlag==1"><Icon type="checkmark-circled"></Icon>正式会员</span>
             <a href="javascrpit:;" v-else @click="renewModal=true">续费成为正式会员</a>
           </div>
           <div class="flex1">
@@ -288,7 +291,7 @@
             <router-link :to="{path:'/authentic'}" v-else>去进行企业认证</router-link>
           </div>
           <div class="flex1">
-            <a href="javascrpit:;" @click="renewModal=true">续费</a>
+            <a href="javascrpit:;" @click="renewModal=true">账户续期</a>
             
           </div>
         </div>

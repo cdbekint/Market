@@ -162,26 +162,17 @@ export default {
         return
       }
       this.modal_loading = true
-       var _this=this
-      this.$Modal.confirm({
-        title: '删除活动',
-        content: '<p>确定将此活动进行删除，将不可恢复</p>',
-        onOk: () => {
-          _this.http.post(_this.$store.state.prefix + '/activity/delete', {
-            id: _this.willdelid,
-          }).then(res => {
-            if (res.error === false) {
-              _this.$Message.success('删除成功')
-              _this.getActivityList(1);
-              _this.modal_loading = false
-              _this.delactivitymodal = false
-              _this.willdelid = ""
-            }
-          })
-        },
-        onCancel: () => {
-        }
-      })
+       this.http.post(this.$store.state.prefix + '/activity/delete', {
+          id: this.willdelid,
+        }).then(res => {
+            this.modal_loading = false
+          if (res.error === false) {
+            this.$Message.success('删除成功')
+            this.getActivityList(1);
+            this.delactivitymodal = false
+            this.willdelid = ""
+          }
+        })
       
     },
     generaUrl (row) {
