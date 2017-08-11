@@ -10,7 +10,7 @@
               <span class="name_old">原价：{{x.price}}</span>
               <span class="name_new">{{x.newPrice}}</span>
             </div>
-            <div class="txt_btn" :style="{background:stateColor[x.state]}" @click="showGoodsDetail(x.id)">{{x.btnTxt}}</div>
+            <!-- <div class="txt_btn" :style="{background:stateColor[x.state]}" @click="showGoodsDetail(x.id)">{{x.btnTxt}}</div> -->
           </div>
         </div>
       </div>
@@ -162,7 +162,8 @@ rrem(val){
   width 100%
   background #434343
   .goodsList2
-    height rrem(555px)
+    // height rrem(555px)
+    height rrem(760px)
     background #434343
     width rrem(1000px)
     padding-top rrem(40px)
@@ -176,29 +177,32 @@ rrem(val){
       top rrem(520px)
       left:0px
     .list_parent
-      width 100% 
       position absolute
       overflow-x auto
-      height rrem(440px)
+      // height rrem(440px)
+      height rrem(640px)
       display flex
       padding-left rrem(40px)
       .list_item
         margin-right rrem(40px)
         position relative
         height 100%
-        width rrem(720px)
+        width rrem(480px)
         img
-          height rrem(326px)
+          height 100%
           width 100%
         .item_txt
-          height rrem(114px)
-          background #fff
+          position absolute
+          left 0
+          bottom 0
+          height rrem(120px)
+          background rgba(0,0,0,.5)
           display flex
           width 100%
           .txt_name
             height rrem(50px)
             line-height rrem(50px)
-            width rrem(438px)
+            width 100%
             font-size rrem(30px)
             padding-left rrem(20px)
             .name_title

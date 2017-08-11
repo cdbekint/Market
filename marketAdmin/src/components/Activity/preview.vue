@@ -70,51 +70,13 @@ export default {
 					activtyInfo: require('../../../static/images/preview/5.png')
 				}
 			],
-			activityInfo: {},
-			speed: 70,
-			time: 20,
-			height: 0
-		}
-	},
-	methods: {
-		animation(y, speed) {
-			console.log(speed)
-			this.height = this.$refs.preview.scrollTop
-			console.log()
-			this.timer = setInterval(() => {
-				this.height += speed
-				console.log(this.height)
-				this.$refs.preview.scrollTop = this.height
-				if (speed >= 0) {
-					if (this.height >= y) {
-						this.height = y
-						this.$refs.preview.scrollTop = this.height
-						clearInterval(this.timer)
-					}
-				}else{
-					console.log(1)
-					if (this.height <= y) {
-						// console.log(this.height)
-						this.height = y
-						this.$refs.preview.scrollTop = this.height
-						clearInterval(this.timer)
-					}
-				}		
-			}, this.time)
+			activityInfo: {}
 		}
 	},
 	watch: {
 		activity: {
 			handler(val, oldVal) {
 				this.activityInfo = val
-				if (this.activityInfo.content) {
-					// this.$refs.preview.scrollTop = 1700
-					this.animation(1700,this.speed)
-				}
-				if (this.activityInfo.activityName) {
-					// this.$refs.preview.scrollTop = 1700
-					this.animation(0,-this.speed)
-				}
 				this.activty[3].content = this.activityInfo.content
 				if (this.activityInfo.shareGift == 0) {
 					this.activty.splice(1, 1)
@@ -130,21 +92,17 @@ export default {
 				}
 			},
 			deep: true
+		},
+		anchor: {
+			handler(val) {
+				if (val == 'name') {
+					this.$refs.preview.scrollTop = 0
+				} else if (val == 'uploader') {	
+					this.$refs.preview.scrollTop = 70
+				}
+			},
+			deep: true
 		}
-		// anchor: {
-		// 	handler(val) {
-		// 		if (val == 'name') {
-		// 			console.log(val)
-		// 			// this.$refs.preview.scrollTop = 0
-		// 			this.animation(0,-this.speed)
-		// 			// this.animation(0)
-		// 		} else if (val == 'uploader') {
-		// 			this.$refs.preview.scrollTop = 70
-		// 			// this.animation(70,-this.speed)
-		// 		}
-		// 	},
-		// 	deep: true
-		// }
 	}
 }
 </script>
