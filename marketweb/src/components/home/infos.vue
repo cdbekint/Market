@@ -100,7 +100,6 @@
         <p>暂无任何积分记录</p>
       </div>
     </div>
-
     <div class="discount_pull" v-if="!currentPageLimit">
       <img src="/static/images/company/pull.png"  @click="requestInfoByScroll">
     </div>

@@ -51,17 +51,86 @@
           <div class="companyinfo pointrule-wrapper">
             <div class="pointrule-table">
               <ul>
+                <li class="listheader">
+                  <div class="flex1">设置项目</div>
+                  <div class="flex1">设定值</div>
+                  <div class="flex1">兑换现金</div>
+                  <div class="flex2">说明</div>
+                </li>
+                <li>
+                  <div class="flex1">积分折现比例</div>
+                  <div class="flex1"> <span v-text="companyinfo.toCashRate+'%'"></span></div>
+                  <div class="flex1"><span style="font-size:1.1em;color:red" v-text="companyinfo.toCashRate+'元'"></span></div>
+                  <div class="flex2">以100积分为例</div>
+                </li>
+                <li>
+                  <div class="flex1">分享赠送积分</div>
+                  <div class="flex1"> <span v-text="companyinfo.sharePoints+'分'"></span></div>
+                  <div class="flex1"><span style="font-size:1.1em;color:red" v-text="companyinfo.toCashRate+'分'"></span></div>
+                  <div class="flex2">客户每天分享有效活动链接到朋友圈每次可获得积分</div>
+                </li>
+                 <li>
+                  <div class="flex1">分享朋友圈次数</div>
+                  <div class="flex1"> <span v-text="companyinfo.shareMax+'次'"></span></div>
+                  <div class="flex1">/</div>
+                  <div class="flex2">客户每天分享朋友圈最大计分次数</div>
+                </li>
+                <li>
+                  <div class="flex1">会员注册金额</div>
+                  <div class="flex1"> <span v-text="companyinfo.registerMoney+'元'"></span></div>
+                  <div class="flex1">/</div>
+                  <div class="flex2">注册成为本公司会员所需缴纳费用</div>
+                </li>
+                <li>
+                  <div class="flex1">注册返还积分</div>
+                  <div class="flex1"> <span v-text="companyinfo.registerPoints+'分'"></span></div>
+                  <div class="flex1">
+                    <span style="font-size:1.1em;color:red"  v-text="(companyinfo.toCashRate?(companyinfo.registerPoints*companyinfo.toCashRate/100):'0')+'元'"></span>
+                  </div>
+                  <div class="flex2">注册会员后即可获得积分数，建议兑现为1元以上</div>
+                </li>
+
+                 <li>
+                  <div class="flex1">邀请注册返积分</div>
+                  <div class="flex1"> <span v-text="companyinfo.invitedPoints||0+'分'"></span></div>
+                  <div class="flex1">
+                    <span style="font-size:1.1em;color:red"  v-text="(companyinfo.toCashRate?(companyinfo.invitedPoints*companyinfo.toCashRate/100):'0')+'元'"></span>
+                  </div>
+                  <div class="flex2">客户每邀请一个会员注册返还的积分</div>
+                </li>
+                 <li>
+                  <div class="flex1">自己消费积分返还比率</div>
+                  <div class="flex1"> <span v-text="companyinfo.selfReturn+'%'"></span></div>
+                  <div class="flex1">
+                    <span style="font-size:1.1em;color:red"  v-text="companyinfo.selfReturn+'分='+(companyinfo.toCashRate?(companyinfo.toCashRate*companyinfo.selfReturn/100):'0')+'元'"></span>
+                  </div>
+                  <div class="flex2">以客户自己消费100元为例</div>
+                </li>
+                <li>
+                  <div class="flex1">一级邀请人返还积分比率</div>
+                  <div class="flex1"> <span v-text="companyinfo.oneReturn+'%'"></span></div>
+                  <div class="flex1">
+                    <span style="font-size:1.1em;color:red"  v-text="companyinfo.oneReturn+'分='+(companyinfo.toCashRate?(companyinfo.toCashRate*companyinfo.oneReturn/100):'0')+'元'"></span>
+                  </div>
+                  <div class="flex2">以客户一级邀请人消费100元为例</div>
+                </li>
+                <li>
+                  <div class="flex1">二级邀请人返还积分比率</div>
+                  <div class="flex1"> <span v-text="companyinfo.secondReturn+'%'"></span></div>
+                  <div class="flex1">
+                    <span style="font-size:1.1em;color:red"  v-text="companyinfo.secondReturn+'分='+(companyinfo.toCashRate?(companyinfo.toCashRate*companyinfo.secondReturn/100):'0')+'元'"></span>
+                  </div>
+                  <div class="flex2">以客户二级邀请人消费100元为例</div>
+                </li>
                 <li>
                   <div class="flex1">
-                    名称
+                    消费核算总成本约为：<span style="font-size:1.5em;color:red">{{companyinfo.toCashRate?((companyinfo.selfReturn+companyinfo.oneReturn+companyinfo.secondReturn)*companyinfo.toCashRate/100):0}}%</span>
                   </div>
-                  <div class="flex1">值</div>
-                  <div class="flex1">备注</div>
                 </li>
               </ul>
             </div>
           </div>
-            <Form :model="companyinfo" :label-width="100" class="companyinfo">
+           <!--  <Form :model="companyinfo" :label-width="100" class="companyinfo hide">
                 <Form-item label="积分折现比" class="text-left">
                   <span v-text="companyinfo.toCashRate+'%（100积分折算人民币为:'+companyinfo.toCashRate+'元）'"></span>
                 </Form-item>
@@ -89,7 +158,7 @@
                <Form-item label="二级邀请人返还积分比率" class="text-left">
                 <span v-text="companyinfo.secondReturn +'%（客户消费100元，二级邀请人返还'+companyinfo.secondReturn+'分）'"></span>
                 </Form-item>
-            </Form>
+            </Form> -->
           </Row>
 
         </Tab-pane>
@@ -533,7 +602,6 @@ export default {
 
 <style scoped lang='stylus' rel="stylesheet/stylus">
 .companyinfo
-  font-size 40px
   padding-top:20px
   .ivu-form-item-label
     color red
@@ -551,6 +619,17 @@ export default {
       padding:0px
       li
         display:flex
+        font-size:1em
+        &first-child
+          font-size:1.2em
+        min-height:40px
+        vertical-align:middle
+        div
+          border:1px solid #ccc
+          padding:10px 0px
+      .listheader
+        font-size:1.2em
+        font-weight:bolder
 
 .richtext
   min-height:200px

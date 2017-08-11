@@ -15,7 +15,7 @@
     <div class="activeInfo_team" v-if="!hasGroup" style="z-index: 1000;">
       <img :src="changeSkin.realValue">
       <div class="team_peopleInfo">
-        <img :src="currentGroup.img">
+        <img :src="currentGroup.img" v-if="currentGroup.img">
       </div>
       <div class="team_peopleName">
         <p class="peopleName">{{currentGroup.name}}</p>
@@ -71,7 +71,7 @@
           <li>{{pointMention.secondInvitedPoints}}分</li>
         </ul>
       </div>
-      <p slot="footer" class="modelBackone" @click="LoginSuccess=false">我知道了</p>
+      <p slot="footer" class="modelBackone" @click="hideMention()">我知道了</p>
     </Modal>
   </div>
 </template>
@@ -199,7 +199,7 @@ export default {
           else {
             //如果邀请人也没有团
             this.currentGroup = {
-              img: this.murl + this.activity.companyLogoImg,
+              img:this.activity.companyLogoImg?(this.murl + this.activity.companyLogoImg):'',
               name: this.util.sliceStr(this.activity.companyName),
               peopleNum: 0
             }
@@ -478,6 +478,7 @@ export default {
             this.pointMention.allPoints=res.result.invitedMemPoints+res.result.shareTimes+res.result.oneInvitedPoints+res.result.secondInvitedPoints
             this.pointMention.allMoney=parseFloat(this.pointMention.allPoints*this.pointMention.companyInfo.toCashRate/100).toFixed(2)
             this.LoginSuccess = true
+            this.mentionmusic=new Audio('https://m.market.cdbeki.com/systemopenstore.mp3')
           }
         })
       }else{
@@ -485,6 +486,11 @@ export default {
       }
 
     },
+    hideMention(){
+      this.mentionmusic.play()
+      this.LoginSuccess=false
+
+    }
   },
   data() {
     return {

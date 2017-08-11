@@ -393,7 +393,6 @@ export default {
       this.Group.splice(index, 1)
     },
     addGroup (index) {
-      debugger
       if (this.Group[index].mans!=undefined && this.Group[index].mans!=="" && this.Group[index].discount!=="" && this.Group[index].discount!=undefined) {
         this.Group.push({mans: '', discount: ''})
       } else {
@@ -401,6 +400,11 @@ export default {
       }
     },
     editCompany () {
+      var authtime=util.getCookie('authtime')
+      if(authtime==undefined||(Date.now()-authtime)>0){
+          store.state.needAuthen=true
+          return
+      }
       var addr = '';
       if(this.areaThree.name != '' && this.areaThree.name != void 0){
         addr = this.areaThree.name;
@@ -423,6 +427,9 @@ export default {
           }
           if (!ai.companyTel) {
             this.$Notice.info({title: '请完善信息', desc: '请填写联系方式'})
+            return false
+          }else if(!/^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/.test(ai.companyTel)){
+            this.$Notice.info({title: '电话号码格式不对', desc: '电话为座机号码：区号+号码'})
             return false
           }
           if (!ai.companyLogo) {

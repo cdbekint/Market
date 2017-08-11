@@ -1,6 +1,15 @@
 <template>
   <div id="app">
-    <div class='modal' v-if='modal || registermodal' @click="modal= registermodal=false"></div>
+    <!-- <div class='modal' v-if='modal || registermodal' @click="modal= registermodal=false"></div> -->
+    <div class="authmention" v-if="$store.state.showauth">
+      <div class="leftmention">
+        <Icon type="alert-circled" size="20"></Icon>
+      </div>
+      <div class="flex1">
+        你可以临时访问（至{{this.util.getFormatDate(Number(authtime))}}）管理功能。如果不再需要，请 <a href="javascript:;" @click="delAuthen()">取消访问</a> 。
+        或者<a href="javascript:;" @click="moreDate()">延长30分钟</a>
+      </div>
+    </div>
     <newheader class="header-wrapper" :userInfo="userInfo">
       <!-- 头部内容 -->
     </newheader>
@@ -73,6 +82,29 @@
       <!-- <system></system>  -->
     </div>
     <vfooter></vfooter>
+    <div class="adminauthentic" v-if="$store.state.needAuthen">
+      <div class="AuthInfo">
+        <div class="authtitle">
+          密码授权
+        </div>
+        <div class="authcontent">
+          <div class="authcontentinput">
+            <Input type="password" v-model="inputpwd"></Input>
+            <span>使用登录密码进行授权访问</span>
+            <p v-text="inputinfo" style="color:red" v-if="inputinfo"></p>
+          </div>
+          <div class="authcontentaction">
+            <Button type="primary" @click="doAuthen">授权访问</Button>
+            <Button @click="$store.state.needAuthen=false">取消</Button>
+
+          </div>
+        </div>
+        <div class="authnote">
+          <Icon type="information-circled"></Icon>部分风险操作需要进行密码授权，每次授权后15分钟有效
+        </div>
+      </div>
+    </div>
+   
   </div>
 </template>
 
@@ -92,6 +124,9 @@ export default {
       title: '营销系统',
       modal: false,
       registermodal: false,
+      inputpwd:'',
+      inputinfo:'',
+      authtime:this.util.getCookie("authtime")||Date.now(),
       userInfo: {
         account: {},
         company: {
@@ -133,8 +168,36 @@ export default {
   methods: {
     selectThis(ms) {
       this.title = ms
+    },
+    doAuthen(){
+      var pwd=this.util.getCookie("pwd")
+      this.inputinfo=""
+      if(this.md5(this.inputpwd+this.$store.state.yxtoken)===pwd){
+        this.inputpwd=""
+        this.$store.state.needAuthen=false
+        this.$store.state.showauth=true
+        this.util.setCookie("authtime",Date.now()+900000)
+        this.authtime=Date.now()+900000
+        this.$router.push({path:'/company'})
+        
+      }else{
+        this.inputinfo="密码不匹配，请重新输入"
+      }
+    },
+    delAuthen(){
+      this.util.delCookie("authtime")
+      this.$store.state.showauth=false
+      if(this.$router.history.current.path.indexOf("/company")>-1){
+        this.$router.push({path:"/"})
+      }
+    },
+    moreDate(){
+      var now=Number(this.util.getCookie("authtime"))
+      this.util.setCookie("authtime",now+1800000)
+      this.authtime=now+1800000
     }
   },
+
   created() {
     if (this.$store.state.yxtoken) {
       this.http.get(this.$store.state.prefix + '/pubInfo/user').then(res => {
@@ -246,5 +309,62 @@ body
   color:#6BBEF2
   text-decoration:none
   margin:0px 3px
-
+.adminauthentic
+  width:100%
+  height:100%
+  min-height:768px
+  position:fixed
+  top:0px
+  left:0px
+  background:rgba(0,0,0,0.3)
+  z-index:100
+  .AuthInfo
+    width:500px
+    height:300px
+    background:#fff
+    position:absolute
+    left:calc(50% - 250px)
+    top:calc(50% - 200px)
+    border-radius:5px
+    .authtitle
+      height:40px
+      line-height:40px
+      font-size:1.2em
+      font-weight:bolder
+      border-bottom:1px solid #ccc
+    .authnote
+      position:absolute
+      bottom:0px
+      width:100%
+      height:40px
+      line-height:40px
+      font-size:1.2em
+      font-weight:bolder
+      border-top:1px solid #ccc
+    .authcontent
+      padding:10px 20%
+      .authcontentinput
+        margin-top:30px
+        .ivu-input
+          height:45px
+          line-height:45px
+          font-size:1.5em
+          color:#434343
+      .authcontentaction
+        margin-top:30px
+.authmention
+  height:60px
+  line-height:60px
+  border-bottom:2px solid #A68112
+  display:flex
+  .leftmention
+    width:40px
+    height:58px
+    background:#F6C342
+  .flex1
+    background:#fff
+    height:58px
+    color:#434343
+    text-align:left
+    padding:0px 10px
 </style>
