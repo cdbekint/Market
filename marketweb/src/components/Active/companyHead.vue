@@ -6,7 +6,7 @@
     <div class="head_txt">
       <p>{{info.name}}</p>
       <span>客服电话：<a :href="'tel://'+info.tel" style="color:#fff">{{info.tel}}</a></span>
-      <span>会员数：{{info.member}}</span>
+      <span>客户数{{info.customer}}</span>
     </div>
   </div>
 </template>
@@ -29,6 +29,7 @@ export default {
           this.info.logo = res.result.companyLogo;
           this.info.tel = res.result.companyTel;
           this.info.member = res.result.memberNum;
+          this.info.customer=res.result.customerNum
         }
       })
     }

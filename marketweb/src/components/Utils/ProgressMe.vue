@@ -50,7 +50,9 @@ export default {
     value(val) {
       if (val > 100) {
         this.count = 100
-      } else {
+      } else if(val<30){
+        this.count = 30
+      }else{
         this.count = val
       }
 

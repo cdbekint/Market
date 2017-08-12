@@ -81,7 +81,7 @@ export default {
               this.$Message.error(res.msg)
             }
           })
-        }, 200)
+        }, 300)
       }
     },
     deep: true
@@ -112,6 +112,10 @@ export default {
               this.$Message.error(res.msg)
             }
           })
+        if(this.params.companyId==0||this.params.activityId==0){
+          this.$Message.info("注册信息加载中，请稍后")
+          return
+        }
         if (this.isPaying === true)
           return;
         this.isPaying = true;

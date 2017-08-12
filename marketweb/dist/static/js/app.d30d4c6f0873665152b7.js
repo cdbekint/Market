@@ -1677,7 +1677,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this.$Message.error(res.msg);
             }
           });
-        }, 200);
+        }, 300);
       }
     },
     deep: true
@@ -1710,6 +1710,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this3.$Message.error(res.msg);
         }
       });
+      if (this.params.companyId == 0 || this.params.activityId == 0) {
+        this.$Message.info("注册信息加载中，请稍后");
+        return;
+      }
       if (this.isPaying === true) return;
       this.isPaying = true;
       this.http.post(this.$store.state.prefix + '/pay/payMember/' + this.params.companyId + '/' + this.params.activityId + '/' + this.realInviterId, this.params).then(function (res) {
@@ -1882,6 +1886,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.info.logo = res.result.companyLogo;
           _this.info.tel = res.result.companyTel;
           _this.info.member = res.result.memberNum;
+          _this.info.customer = res.result.customerNum;
         }
       });
     }
@@ -3059,6 +3064,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     value: function value(val) {
       if (val > 100) {
         this.count = 100;
+      } else if (val < 30) {
+        this.count = 30;
       } else {
         this.count = val;
       }
@@ -7247,7 +7254,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": 'tel://' + _vm.info.tel
     }
-  }, [_vm._v(_vm._s(_vm.info.tel))])]), _vm._v(" "), _c('span', [_vm._v("会员数：" + _vm._s(_vm.info.member))])])])
+  }, [_vm._v(_vm._s(_vm.info.tel))])]), _vm._v(" "), _c('span', [_vm._v("客户数" + _vm._s(_vm.info.customer))])])])
 },staticRenderFns: []}
 
 /***/ }),
@@ -8459,4 +8466,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[238]);
-//# sourceMappingURL=app.eb9c78428216ba54ac39.js.map
+//# sourceMappingURL=app.d30d4c6f0873665152b7.js.map
