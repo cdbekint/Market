@@ -176,7 +176,7 @@ export default {
       
     },
     generaUrl (row) {
-      return 'http://pan.baidu.com/share/qrcode?w=250&h=250&url=' + this.apiurl + '?state=' + row.id + ',0'
+      return 'https://pan.baidu.com/share/qrcode?w=250&h=250&url=' + this.apiurl + '?state=' + row.id + ',0'
     }
   }
 }

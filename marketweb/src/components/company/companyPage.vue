@@ -22,7 +22,8 @@ export default {
   components:{companyHead,companyContent},
   methods:{
     goHome(){
-      this.$router.push("/home")
+      var query = this.util.getQuery();
+      this.$router.push({path:"/home",query:{companyId:query.companyId}})
     }
   },
   created(){

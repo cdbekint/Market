@@ -380,7 +380,7 @@ export default {
         this.currentState = true;
         return;
       }
-      this.$router.push("/home")
+      this.$router.push({path:"/home",query:{companyId:this.activity.companyId}})
     },
     shareSuccess(type) {
       this.http.get(this.$store.state.prefix + '/pubInfo/shareSuccess/' + this.activityId + "?shareType=" + type).then(res => {

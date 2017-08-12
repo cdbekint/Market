@@ -23,7 +23,9 @@ export default {
   name: 'companyHead',
   props: ["companyId", "companyInfo"],
   created() {
-    var url = this.companyId == void 0 ? '' : '?companyId=' + this.companyId;
+    var query = this.util.getQuery(location.hash)||{};
+    var url = this.companyId == void 0 ? '' : '?companyId=' + query.companyId;
+    console.log("url:"+url)
     this.http.get(this.$store.state.prefix + "/shop" + url).then(res => {
       if (res.error == false) {
         console.log(res.result)

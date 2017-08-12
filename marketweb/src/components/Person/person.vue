@@ -42,7 +42,7 @@ export default {
     },
     setPointByCurrentCompany(companyId){
       this.personInfo.company.forEach((item)=>{
-        if(item.id === companyId){
+        if(item.id == companyId){
           this.personInfo.totalPoint=item.totalPoint
           this.personInfo.points=item.points
           this.personInfo.usedCash=item.usedCash
@@ -63,8 +63,8 @@ export default {
       if(res.error == false){
         var row = res.result.account;
         var companys = res.result.customers;
-
-        this.currentCompanyId = companys[0].companyId;
+        var query = this.util.getQuery(location.hash)||{};
+        this.currentCompanyId = query.companyId||companys[0].companyId;
         //当前用户的信息
         this.personInfo = {
           nickName:row.realName?row.realName:row.nickName,
@@ -86,7 +86,7 @@ export default {
             toCashRate: item.toCashRate,
           };
           pointArr.push(obj)
-          if(item.companyId===this.currentCompanyId){
+          if(item.companyId==this.currentCompanyId){
             this.personInfo.totalPoint=item.allPoints
             this.personInfo.points=item.points
             this.personInfo.usedCash=item.withDrawAmount
@@ -105,7 +105,7 @@ export default {
   },
   data () {
     return {
-      currentCompanyId:0,
+      currentCompanyId:this.util.getQuery(location.hash).companyId||0,
       personInfo:{
         nickName: '',
         headImg:'',

@@ -479,10 +479,19 @@ export default {
         if(res.error==false){
           if(res.result.length==0){return}
           var xData=[],yData=[]
-          for(var i in res.result){
-            xData.push(res.result[i].hour+'点')
-            yData.push(res.result[i].allAmount)
+          for(var i=0;i<24;i++){
+            xData[i]=i
+            yData[i]=0
           }
+          for(var i in res.result){
+            for(var j in xData){
+                if(res.result[i].hour==xData[j]){
+                yData[j]=res.result[i].allAmount
+                break;
+                }
+            }
+          }
+
           var option = {
               title: {
                   text: '今日收益走势图',
@@ -504,7 +513,7 @@ export default {
                   boundaryGap: false,
                   data: xData,
                   axisLabel: {
-                      formatter: '{value}'
+                      formatter: '{value}点'
                   }
               },
               yAxis: {
@@ -536,7 +545,6 @@ export default {
 
         }
       })
-      console.log(param)
     }
   }
 }

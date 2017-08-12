@@ -1286,7 +1286,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     generaUrl: function generaUrl(row) {
-      return 'http://pan.baidu.com/share/qrcode?w=250&h=250&url=' + this.apiurl + '?state=' + row.id + ',0';
+      return 'https://pan.baidu.com/share/qrcode?w=250&h=250&url=' + this.apiurl + '?state=' + row.id + ',0';
     }
   }
 });
@@ -4704,7 +4704,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: '操作',
         key: 'withdrawStatus',
         render: function render(row) {
-          return '<i-button type="text" size="small" @click="getCaptcha(row)">确定放款</i-button>' + '<i-button type="text" size="small" @click="refuseWithdraw()">拒绝</i-button>';
+          return '<i-button type="text" size="small" @click="getCaptcha(row)">确定放款</i-button>' + '<i-button type="text" size="small" @click="refuseWithdraw(row)">拒绝</i-button>';
         }
       }],
       listData: [],
@@ -5786,10 +5786,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           }
           var xData = [],
               yData = [];
-          for (var i in res.result) {
-            xData.push(res.result[i].hour + '点');
-            yData.push(res.result[i].allAmount);
+          for (var i = 0; i < 24; i++) {
+            xData[i] = i;
+            yData[i] = 0;
           }
+          for (var i in res.result) {
+            for (var j in xData) {
+              if (res.result[i].hour == xData[j]) {
+                yData[j] = res.result[i].allAmount;
+                break;
+              }
+            }
+          }
+
           var option = {
             title: {
               text: '今日收益走势图',
@@ -5811,7 +5820,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               boundaryGap: false,
               data: xData,
               axisLabel: {
-                formatter: '{value}'
+                formatter: '{value}点'
               }
             },
             yAxis: {
@@ -5835,7 +5844,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this4.myChart.setOption(option);
         }
       });
-      console.log(param);
     }
   }
 });
@@ -15747,7 +15755,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          活动名称*\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "addcontent"
+    staticClass: "addcontent",
+    staticStyle: {
+      "flex": "3"
+    }
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -15771,11 +15782,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.activity.activityName = $event.target.value
       }
     }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "addnote"
-  }, [_vm._v("\n          这是备注信息\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
+  }), _vm._v(" "), _c('a', {
+    staticStyle: {
+      "flex": "1",
+      "line-height": "70px",
+      "text-align": "left"
+    },
+    attrs: {
+      "href": '/static/images/skin/show11.jpg',
+      "target": "_blank"
+    }
+  }, [_vm._v("查看案例")])])]), _vm._v(" "), _c('li', [_c('div', {
     staticClass: "addname"
-  }, [_vm._v("\n          分享描述*\n        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          微信分享描述*\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
   }, [_c('textarea', {
     directives: [{
@@ -15801,7 +15820,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "addnote"
   }, [_vm._v("\n          50字以内\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
     staticClass: "addname"
-  }, [_vm._v("\n          分享缩略图\n        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          微信分享缩略图\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
   }, [_c('uploader', {
     attrs: {
@@ -15830,7 +15849,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "addnote"
   }, [_vm._v("\n          (建议尺寸：300像素 * 300像素)\n        ")])]), _vm._v(" "), (_vm.activity.shareImg) ? _c('li', [_c('div', {
     staticClass: "addname"
-  }, [_vm._v("\n          预览缩略图\n        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          缩略图预览\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
   }, [_c('img', {
     staticClass: "thumbpreview",
@@ -15931,7 +15950,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("查看案例")])], 1), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  }, [_vm._v("\n          活动页面的颜色系列\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
+  }, [_vm._v("\n          活动界面提供4款皮肤可按需选择\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          顶部大图*\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent",
@@ -15965,9 +15984,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  }, [_vm._v("\n          (建议尺寸：600像素*800像素)\n        ")])]), _vm._v(" "), (_vm.activity.activityImg) ? _c('li', [_c('div', {
+  }, [_vm._v("\n          建议尺寸：宽720px以上，高不限\n        ")])]), _vm._v(" "), (_vm.activity.activityImg) ? _c('li', [_c('div', {
     staticClass: "addname"
-  }, [_vm._v("\n          大图预览图\n        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          顶部大图预览\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
   }, [_c('img', {
     staticClass: "thumbpreview",
@@ -16004,9 +16023,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.activity.phoneImg = $event.target.value
       }
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": '/static/images/skin/show10.jpg',
+      "target": "_blank"
+    }
+  }, [_vm._v("查看案例")])], 1), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  }, [_vm._v("\n          (建议尺寸：1000*333px,手机商家页面展示活动列表图片)\n        ")])]), _vm._v(" "), (_vm.activity.phoneImg) ? _c('li', [_c('div', {
+  }, [_vm._v("\n          建议尺寸：宽1000px，高330px\n        ")])]), _vm._v(" "), (_vm.activity.phoneImg) ? _c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          展示图预览\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
@@ -16167,7 +16191,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "addnote"
+    staticClass: "addnote",
+    staticStyle: {
+      "flex": "3"
+    }
   }, [_vm._v("\n          在翻倍时间内购买商品，可所获得的积分将会按照此倍数增加。如无需翻倍，请设置为1\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
     staticClass: "addname"
   }, [_vm._v("\n          背景音乐\n        ")]), _vm._v(" "), _c('div', {
@@ -16185,9 +16212,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "addnote"
-  }, [_vm._v("\n          音乐库选取，不选则无背景音乐\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
+  }, [_vm._v("\n          背景音乐需要在音乐库添加后选取，如未添加可暂时不选\n        ")])]), _vm._v(" "), _c('li', [_c('div', {
     staticClass: "addname"
-  }, [_vm._v("\n          分享有礼\n        ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          赠送礼品\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "addcontent"
   }, [_c('Radio-group', {
     model: {
@@ -48503,4 +48530,4 @@ UE.registerUI('autosave', function(editor) {
 
 /***/ })
 ]),[291]);
-//# sourceMappingURL=app.1d398294557e7f19e559.js.map
+//# sourceMappingURL=app.45ff73a8d97e9ef91fb6.js.map

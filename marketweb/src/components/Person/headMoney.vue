@@ -14,10 +14,10 @@
       <div class="main_money">
         <div class="money_info">
           <div class="info_jifen">
-            <span v-text="'累计积分：'+Person.totalPoint"></span>
-            <span v-text="'可用积分：'+Person.points"></span>
-            <span v-text="'已换现金：'+Person.usedCash"></span>
-            <span v-text="'可换现金：'+~~Person.cashs"></span>
+            <span v-text="'累计积分：'+(Person.totalPoint?Person.totalPoint:0)"></span>
+            <span v-text="'可用积分：'+(Person.points?Person.points:0)"></span>
+            <span v-text="'已换现金：'+(Person.usedCash?Person.usedCash:0)"></span>
+            <span v-text="'可换现金：'+~~(Person.cashs?Person.cashs:0)"></span>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
       </Row>
       <Row style="text-align:center;padding-left:40px;">
         <Input v-model="withdrawAmount" style="border-radius:0px;padding:3px;font-size:1.2em;color:#B5B5B5" placeholder="直接输入提现金额">
-          <span slot="append">={{Person.toCashRate==0?0:Math.ceil(~~withdrawAmount/(Person.toCashRate/100))}}分</span>
+          <span slot="append">={{Person.toCashRate== void 0?0:Math.ceil(~~withdrawAmount/(Person.toCashRate/100))}}分</span>
         </Input>
       </Row>
       <Row style="text-align:center;font-size:0.8em;padding:10px">
@@ -144,7 +144,6 @@ export default {
   }, watch: {
     Person: {
       handler(val) {
-        console.log(val)
       }, deep: true
     },
     withdrawAmount(nval, oval) {
