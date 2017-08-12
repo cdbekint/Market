@@ -98,9 +98,13 @@ export default {
   methods: {
     ok() {
       // this.payFalse.falseState = true
-      this.withdrawPoint = Math.ceil(this.withdrawAmount / this.Person.toCashRate * 100)
-      if (this.Person.toCashRate == 0) {
+      this.withdrawPoint = Math.ceil(parseInt(this.withdrawAmount) / this.Person.toCashRate * 100)
+      if (this.Person.toCashRate <= 0) {
         this.$Message.error('积分兑换率为0，无法兑换')
+        return
+      }
+      if(this.withdrawPoint){
+        this.$Message.error('输入的兑换金额不对')
         return
       }
       if (this.withdrawPoint === 0) {

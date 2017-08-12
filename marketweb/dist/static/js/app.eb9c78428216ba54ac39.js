@@ -654,7 +654,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var state = this.util.getURLParam('state').split(",");
     var activityId = state[0];
     var inviterId = ~~(state[1] == void 0 ? 0 : state[1]);
-    this.activityId = activityId;
+    this.activityId = activityId || 1;
     this.realInviterId = ~~(state[2] || this.util.getCookie("realInviterId") || window.localStorage["realInviterId"]);
     this.ownId = state[1];
     if (window.localStorage["ownId"] != inviterId || location.href.indexOf("from") > 0 || this.realInviterId == undefined) {
@@ -670,7 +670,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       location.href = url;
     }
 
-    this.http.get(this.$store.state.prefix + '/pubInfo/user?activityId=' + this.activityId).then(function (res) {
+    this.http.get(this.$store.state.prefix + '/pubInfo/user?activityId=' + activityId).then(function (res) {
       if (res.error === false) {
         _this2.userInfo = res.result;
         _this2.$store.state.account = res.result.account;
@@ -2406,9 +2406,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ok: function ok() {
       var _this = this;
 
-      this.withdrawPoint = Math.ceil(this.withdrawAmount / this.Person.toCashRate * 100);
-      if (this.Person.toCashRate == 0) {
+      this.withdrawPoint = Math.ceil(parseInt(this.withdrawAmount) / this.Person.toCashRate * 100);
+      if (this.Person.toCashRate <= 0) {
         this.$Message.error('积分兑换率为0，无法兑换');
+        return;
+      }
+      if (this.withdrawPoint) {
+        this.$Message.error('输入的兑换金额不对');
         return;
       }
       if (this.withdrawPoint === 0) {
@@ -8455,4 +8459,4 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 /***/ })
 ],[238]);
-//# sourceMappingURL=app.28ce1b2f72c705dffad3.js.map
+//# sourceMappingURL=app.eb9c78428216ba54ac39.js.map
